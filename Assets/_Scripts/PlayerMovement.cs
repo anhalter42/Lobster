@@ -9,12 +9,14 @@ public class PlayerMovement : MonoBehaviour
 
 	protected Rigidbody fRig;
 	protected Camera fCam;
+	protected CharacterController fCC;
 
 	// Use this for initialization
 	void Start ()
 	{
 		fRig = GetComponent<Rigidbody> ();
 		fCam = GetComponentInChildren<Camera>();
+		fCC = GetComponent<CharacterController>();
 	}
 	
 	// Update is called once per frame
@@ -28,8 +30,16 @@ public class PlayerMovement : MonoBehaviour
 
 	void FixedUpdate ()
 	{
+		/*
+		Vector3 lMoveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+		lMoveDirection = transform.TransformDirection(lMoveDirection);
+		lMoveDirection *= speed;
+		fCC.Move(lMoveDirection * Time.deltaTime);
+		*/
+
 		float lV = Input.GetAxis ("Vertical");
 		float lH = Input.GetAxis ("Horizontal");
+
 		float lAngle = transform.rotation.eulerAngles.y;
 		Vector3 lF = new Vector3 (Mathf.Sin (Mathf.Deg2Rad * lAngle), 0, Mathf.Cos (Mathf.Deg2Rad * lAngle));
 		fRig.AddForce (lF * lV * Time.fixedDeltaTime * speed);
@@ -49,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
 				fLastMouseY = lMY;
 			}
 		}
+
 	}
 
 	void OnTriggerEnter(Collider aCollider) {
