@@ -5,10 +5,13 @@ using System.Collections;
 public class UI : MonoBehaviour
 {
 	public GameObject mazeWallPrefab;
+	public GameObject mazeWallTopPrefab;
+	public GameObject mazeWallBottomPrefab;
 	public GameObject mazeMarkerPrefab;
 	public InputField mazeUIWidth;
 	public InputField mazeUIDepth;
 	public InputField mazeUIHeight;
+	public float mazeWallScale = 0.125f;
 
 	// Use this for initialization
 	void Start ()
@@ -35,7 +38,7 @@ public class UI : MonoBehaviour
 		CreateLabyrinth (aTransform, new Vector3 ());
 	}
 
-	protected GameObject DropWall (Transform aParent, Vector3 aPos, Vector3 aScale)
+	protected GameObject DropWall (GameObject aWallPrefab, Transform aParent, Vector3 aPos, Vector3 aScale)
 	{
 		//RaycastHit lHit;
 		Vector3 lPos = aPos;
@@ -45,7 +48,7 @@ public class UI : MonoBehaviour
 		Quaternion lQ = new Quaternion ();
 		//lQ.eulerAngles = new Vector3(Random.Range(-10.0f,10.0f),Random.Range(-10.0f,10.0f),Random.Range(-10.0f,10.0f));
 		//Network.Instantiate(mazeWallPrefab, lPos, lQ, NetworkManager.GROUP_WORLD);
-		GameObject lObj = Instantiate (mazeWallPrefab, lPos, lQ) as GameObject;
+		GameObject lObj = Instantiate (aWallPrefab ? aWallPrefab : mazeWallPrefab, lPos, lQ) as GameObject;
 		lObj.transform.localScale = aScale;
 		if (aParent) {
 			lObj.transform.SetParent (aParent, false);
@@ -54,16 +57,23 @@ public class UI : MonoBehaviour
 	}
 
 	protected Vector3[] fDirectionScales = new Vector3[6];
+	protected GameObject[] fDirectionPrefabs = new GameObject[6];
 
 	protected void CreateLabyrinth (Transform aParent, Vector3 aPos)
 	{
 		Debug.Log ("Creating Labyrinth...");
-		fDirectionScales [Maze.DirectionTop] = new Vector3 (1, 0.25f, 1);
-		fDirectionScales [Maze.DirectionBottom] = new Vector3 (1, 0.25f, 1);
-		fDirectionScales [Maze.DirectionRight] = new Vector3 (0.25f, 1, 1);
-		fDirectionScales [Maze.DirectionLeft] = new Vector3 (0.25f, 1, 1);
-		fDirectionScales [Maze.DirectionForward] = new Vector3 (1, 1, 0.25f);
-		fDirectionScales [Maze.DirectionBackward] = new Vector3 (1, 1, 0.25f);
+		fDirectionScales [Maze.DirectionTop] = new Vector3 (1, mazeWallScale, 1);
+		fDirectionScales [Maze.DirectionBottom] = new Vector3 (1, mazeWallScale, 1);
+		fDirectionScales [Maze.DirectionRight] = new Vector3 (mazeWallScale, 1, 1);
+		fDirectionScales [Maze.DirectionLeft] = new Vector3 (mazeWallScale, 1, 1);
+		fDirectionScales [Maze.DirectionForward] = new Vector3 (1, 1, mazeWallScale);
+		fDirectionScales [Maze.DirectionBackward] = new Vector3 (1, 1, mazeWallScale);
+		fDirectionPrefabs [Maze.DirectionTop] = mazeWallTopPrefab ? mazeWallTopPrefab : mazeWallPrefab;
+		fDirectionPrefabs [Maze.DirectionBottom] = mazeWallBottomPrefab ? mazeWallBottomPrefab : mazeWallPrefab;
+		fDirectionPrefabs [Maze.DirectionRight] = mazeWallPrefab;
+		fDirectionPrefabs [Maze.DirectionLeft] = mazeWallPrefab;
+		fDirectionPrefabs [Maze.DirectionForward] = mazeWallPrefab;
+		fDirectionPrefabs [Maze.DirectionBackward] = mazeWallPrefab;
 		if (aParent) {
 			for (int i = aParent.transform.childCount - 1; i >= 0; i--) {
 				DestroyObject (aParent.transform.GetChild (i).gameObject);
@@ -81,7 +91,11 @@ public class UI : MonoBehaviour
 					for (int lDir = 0; lDir<6; lDir++) {
 						if (lDir > 0 || y != (lMaze.height - 1)) {
 							if (!lMaze.get (x, y, z).links [lDir].broken) {
-								GameObject lWall = DropWall (aParent, lPos + lMaze.getDirectionVector (lDir) * 0.5f, fDirectionScales [lDir]);
+								GameObject lWall = DropWall (
+									fDirectionPrefabs [lDir],
+									aParent,
+									lPos + lMaze.getDirectionVector (lDir) * ( 0.5f - mazeWallScale / 2 ),
+									fDirectionScales [lDir]);
 								lWall.name = "Wall_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString () + "_" + lDir.ToString ();
 							}
 						}
