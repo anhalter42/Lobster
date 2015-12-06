@@ -10,6 +10,7 @@ public class UI : MonoBehaviour
 	public GameObject mazeWallBottomPrefab;
 	public GameObject mazeMarkerPrefab;
 	public GameObject score1Prefab;
+	public AudioClip scoreReachedAudio;
 	public Camera mainCamera;
 	public InputField mazeUIWidth;
 	public InputField mazeUIDepth;
@@ -47,6 +48,12 @@ public class UI : MonoBehaviour
 		if (fRunning) {
 			timeUIText.text = "Time: " + Mathf.RoundToInt ((Time.realtimeSinceStartup - fStartTime)).ToString ();
 			scoreUIText.text = "Score: " + fScore.ToString () + "/" + fGoodScore.ToString ();
+			if (fScore >= fGoodScore) {
+				fRunning = false;
+				if (scoreReachedAudio) {
+					AudioSource.PlayClipAtPoint (scoreReachedAudio, fPlayer.transform.position);
+				}
+			}
 		}
 	}
 
