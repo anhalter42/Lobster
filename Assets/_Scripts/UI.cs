@@ -4,13 +4,18 @@ using System.Collections;
 
 public class UI : MonoBehaviour
 {
+	public GameObject playerPrefab;
 	public GameObject mazeWallPrefab;
 	public GameObject mazeWallTopPrefab;
 	public GameObject mazeWallBottomPrefab;
 	public GameObject mazeMarkerPrefab;
+	public GameObject score1Prefab;
+	public Camera mainCamera;
 	public InputField mazeUIWidth;
 	public InputField mazeUIDepth;
 	public InputField mazeUIHeight;
+	public Text scoreUIText;
+	public Text timeUIText;
 	public float mazeWallScale = 0.125f;
 
 	// Use this for initialization
@@ -25,12 +30,24 @@ public class UI : MonoBehaviour
 		if (!mazeUIHeight) {
 			mazeUIHeight = GameObject.Find ("InputFieldHeight").GetComponent<InputField> ();
 		}
+		if (!scoreUIText) {
+			scoreUIText = GameObject.Find ("TextScore").GetComponent<Text> ();
+		}
+		if (!timeUIText) {
+			timeUIText = GameObject.Find ("TextTime").GetComponent<Text> ();
+		}
+		if (!mainCamera) {
+			mainCamera = GameObject.Find ("Main Camera").GetComponent<Camera> ();
+		}
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	
+		if (fRunning) {
+			timeUIText.text = "Time: " + Mathf.RoundToInt ((Time.realtimeSinceStartup - fStartTime)).ToString ();
+			scoreUIText.text = "Score: " + fScore.ToString () + "/" + fGoodScore.ToString ();
+		}
 	}
 
 	public void CreateLabyrinth (Transform aTransform = null)
@@ -62,6 +79,7 @@ public class UI : MonoBehaviour
 	protected void CreateLabyrinth (Transform aParent, Vector3 aPos)
 	{
 		Debug.Log ("Creating Labyrinth...");
+		fRunning = false;
 		fDirectionScales [Maze.DirectionTop] = new Vector3 (1, mazeWallScale, 1);
 		fDirectionScales [Maze.DirectionBottom] = new Vector3 (1, mazeWallScale, 1);
 		fDirectionScales [Maze.DirectionRight] = new Vector3 (mazeWallScale, 1, 1);
@@ -79,6 +97,14 @@ public class UI : MonoBehaviour
 				DestroyObject (aParent.transform.GetChild (i).gameObject);
 			}
 		}
+		GameObject lWallParent = new GameObject ("Walls");
+		GameObject lMarkerParent = new GameObject ("Markers");
+		GameObject lScoreParent = new GameObject ("Scores");
+		if (aParent) {
+			lWallParent.transform.SetParent (aParent, false);
+			lMarkerParent.transform.SetParent (aParent, false);
+			lScoreParent.transform.SetParent (aParent, false);
+		}
 		Maze lMaze = new Maze (int.Parse (mazeUIWidth.text), int.Parse (mazeUIHeight.text), int.Parse (mazeUIDepth.text));
 		lMaze.build ();
 		Vector3 lPos = new Vector3 ();
@@ -93,8 +119,8 @@ public class UI : MonoBehaviour
 							if (!lMaze.get (x, y, z).links [lDir].broken) {
 								GameObject lWall = DropWall (
 									fDirectionPrefabs [lDir],
-									aParent,
-									lPos + lMaze.getDirectionVector (lDir) * ( 0.5f - mazeWallScale / 2 ),
+									lWallParent.transform,
+									lPos + lMaze.getDirectionVector (lDir) * (0.5f - mazeWallScale / 2),
 									fDirectionScales [lDir]);
 								lWall.name = "Wall_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString () + "_" + lDir.ToString ();
 							}
@@ -102,14 +128,44 @@ public class UI : MonoBehaviour
 					}
 					if (mazeMarkerPrefab) {
 						GameObject lMarker = Instantiate (mazeMarkerPrefab, lPos, Quaternion.identity) as GameObject;
-						if (aParent) {
-							lMarker.transform.SetParent (aParent, false);
-						}
+						lMarker.transform.SetParent (lMarkerParent.transform, false);
 						lMarker.name = "M_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString ();
+					}
+					if (score1Prefab) {
+						GameObject lScore = Instantiate (score1Prefab, lPos + Vector3.down * 0.25f, Quaternion.identity) as GameObject;
+						lScore.transform.SetParent (lScoreParent.transform, false);
+						lScore.name = "S_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString ();
 					}
 				}
 			}
 		}
+		fGoodScore = Mathf.RoundToInt (0.75f * lMaze.depth * lMaze.height * lMaze.width);
 		Debug.Log ("Labyrinth created.");
+	}
+
+	protected float fStartTime;
+	protected bool fRunning = false;
+	protected int fScore = 0;
+	protected int fGoodScore = 0;
+	protected GameObject fPlayer;
+
+	public void RunGame ()
+	{
+		if (fPlayer) {
+			Destroy (fPlayer);
+		}
+		fPlayer = Instantiate (playerPrefab, new Vector3 (int.Parse (mazeUIWidth.text) / 2f, 0.5f, int.Parse (mazeUIDepth.text) / 2f), Quaternion.identity) as GameObject;
+		mainCamera.gameObject.SetActive (false);
+		GameObject.Find ("Markers").SetActive (false);
+		fStartTime = Time.realtimeSinceStartup;
+		fScore = 0;
+		fRunning = true;
+		//timeUIText.text = "0";
+		//scoreUIText.text = "0";
+	}
+
+	public void AddScore (int aScore)
+	{
+		fScore += aScore;
 	}
 }
