@@ -6,6 +6,10 @@ public class UI : MonoBehaviour
 {
 	public GameObject playerPrefab;
 	public GameObject mazeWallPrefab;
+	public GameObject mazeWallLeftPrefab;
+	public GameObject mazeWallRightPrefab;
+	public GameObject mazeWallForwardPrefab;
+	public GameObject mazeWallBackwardPrefab;
 	public GameObject mazeWallTopPrefab;
 	public GameObject mazeWallBottomPrefab;
 	public GameObject mazeMarkerPrefab;
@@ -95,10 +99,10 @@ public class UI : MonoBehaviour
 		fDirectionScales [Maze.DirectionBackward] = new Vector3 (1, 1, mazeWallScale);
 		fDirectionPrefabs [Maze.DirectionTop] = mazeWallTopPrefab ? mazeWallTopPrefab : mazeWallPrefab;
 		fDirectionPrefabs [Maze.DirectionBottom] = mazeWallBottomPrefab ? mazeWallBottomPrefab : mazeWallPrefab;
-		fDirectionPrefabs [Maze.DirectionRight] = mazeWallPrefab;
-		fDirectionPrefabs [Maze.DirectionLeft] = mazeWallPrefab;
-		fDirectionPrefabs [Maze.DirectionForward] = mazeWallPrefab;
-		fDirectionPrefabs [Maze.DirectionBackward] = mazeWallPrefab;
+		fDirectionPrefabs [Maze.DirectionRight] = mazeWallRightPrefab ? mazeWallRightPrefab : mazeWallPrefab;
+		fDirectionPrefabs [Maze.DirectionLeft] = mazeWallLeftPrefab ? mazeWallLeftPrefab : mazeWallPrefab;
+		fDirectionPrefabs [Maze.DirectionForward] = mazeWallForwardPrefab ? mazeWallForwardPrefab : mazeWallPrefab;
+		fDirectionPrefabs [Maze.DirectionBackward] = mazeWallBackwardPrefab ? mazeWallBackwardPrefab : mazeWallPrefab;
 		if (aParent) {
 			for (int i = aParent.transform.childCount - 1; i >= 0; i--) {
 				DestroyObject (aParent.transform.GetChild (i).gameObject);
