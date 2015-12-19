@@ -45,11 +45,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\_Scripts\AllLevels.cs" />
+     <Compile Include="Assets\_Scripts\ChooseLevel\UIController.cs" />
+     <Compile Include="Assets\_Scripts\LevelSettings.cs" />
      <Compile Include="Assets\_Scripts\Maze.cs" />
+     <Compile Include="Assets\_Scripts\MazeBuilder.cs" />
      <Compile Include="Assets\_Scripts\PickupData.cs" />
      <Compile Include="Assets\_Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\_Scripts\RotationY.cs" />
+     <Compile Include="Assets\_Scripts\Start\UIStartController.cs" />
      <Compile Include="Assets\_Scripts\UI.cs" />
+     <None Include="Assets\Levels.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Volumes/Daten/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -1,0 +1,21 @@
+#Tutorial 1
+//Ganz einfach geht es los
+mazeWidth	5
+mazeHeight	1
+mazeDepth	5
+breakWalls	0
+
+#Tutorial 2
+//Ein wenig größer :-)
+mazeWidth	10
+mazeHeight	1
+mazeDepth	10
+breakWalls	1
+
+#Level 1
+//Das erste Level
+mazeWidth	20
+mazeHeight	1
+mazeDepth	20
+breakWalls	3
+
