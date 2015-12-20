@@ -1,7 +1,11 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
+Project("{5FD20774-A61B-9B12-EEBD-A262207233E0}") = "Lobster", "Assembly-CSharp-firstpass.csproj", "{047F2FF2-6E9A-D82D-3E5F-A6022C31DD72}"
+EndProject
 Project("{5FD20774-A61B-9B12-EEBD-A262207233E0}") = "Lobster", "Assembly-CSharp.csproj", "{CC1487AE-DDCA-1BE7-127F-6504AF36A286}"
+EndProject
+Project("{5FD20774-A61B-9B12-EEBD-A262207233E0}") = "Lobster", "Assembly-CSharp-Editor.csproj", "{1C3A4C00-3F63-D595-E9BA-603FFFF44D8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{047F2FF2-6E9A-D82D-3E5F-A6022C31DD72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{047F2FF2-6E9A-D82D-3E5F-A6022C31DD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{047F2FF2-6E9A-D82D-3E5F-A6022C31DD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{047F2FF2-6E9A-D82D-3E5F-A6022C31DD72}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CC1487AE-DDCA-1BE7-127F-6504AF36A286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CC1487AE-DDCA-1BE7-127F-6504AF36A286}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC1487AE-DDCA-1BE7-127F-6504AF36A286}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC1487AE-DDCA-1BE7-127F-6504AF36A286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C3A4C00-3F63-D595-E9BA-603FFFF44D8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C3A4C00-3F63-D595-E9BA-603FFFF44D8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C3A4C00-3F63-D595-E9BA-603FFFF44D8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C3A4C00-3F63-D595-E9BA-603FFFF44D8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
