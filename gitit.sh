@@ -2,5 +2,5 @@ rsync -r ../../Unity/Lobster/ .
 rm -rf obj
 rm -rf Library
 git add *
-git commit -m next
+git commit -m "next `date`"
 git push

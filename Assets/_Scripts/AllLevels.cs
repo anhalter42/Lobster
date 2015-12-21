@@ -17,7 +17,7 @@ public class AllLevels : MonoBehaviour
 			fMaster = GameObject.Find ("Master");
 			if (!fMaster) {
 				fMaster = new GameObject ("Master");
-				fMaster.AddComponent<AllLevels> ();
+				fMaster.AddComponent<AllLevels> ().Start ();
 			}
 		}
 		return fMaster;
@@ -33,6 +33,11 @@ public class AllLevels : MonoBehaviour
 		return fAllLevels;
 	}
 
+	public bool hasLevels ()
+	{
+		return levelSettings != null && levelSettings.Length > 0;
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -41,6 +46,11 @@ public class AllLevels : MonoBehaviour
 		}
 		if (levels) {
 			ReadLevels (levels.text);
+		}
+		if (hasLevels ()) {
+			currentLevelSettings = levelSettings [0];
+		} else {
+			currentLevelSettings = new LevelSettings ();
 		}
 	}
 	
@@ -68,6 +78,12 @@ public class AllLevels : MonoBehaviour
 					lSetting.mazeHeight = int.Parse (lLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1]);
 				} else if (lLine.StartsWith ("mazeDepth")) {
 					lSetting.mazeDepth = int.Parse (lLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1]);
+				} else if (lLine.StartsWith ("breakWalls")) {
+					lSetting.breakWalls = int.Parse (lLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1]);
+				} else if (lLine.StartsWith ("maxTime")) {
+					lSetting.maxTime = int.Parse (lLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1]);
+				} else if (lLine.StartsWith ("scoreForExit")) {
+					lSetting.scoreForExit = int.Parse (lLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1]);
 				} else if (lLine.StartsWith ("//")) {
 					if (string.IsNullOrEmpty (lSetting.levelDescription)) {
 						lSetting.levelDescription = lLine.Substring (2);

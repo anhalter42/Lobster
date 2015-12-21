@@ -14,7 +14,7 @@ public class UIStartController : MonoBehaviour
 	void Start ()
 	{
 		DontDestroyOnLoad (GameObject.Find ("Master"));
-		texture = new Texture2D (300, 300);
+		texture = new Texture2D (500, 500);
 		if (material) {
 			material.mainTexture = texture;
 		}

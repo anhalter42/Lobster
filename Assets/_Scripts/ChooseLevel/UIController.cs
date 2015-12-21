@@ -15,29 +15,33 @@ public class UIController : MonoBehaviour
 		if (!textLevel) {
 			textLevel = GameObject.Find ("TextLevel").GetComponent<Text> ();
 		}
-		if (AllLevels.Get().currentLevelSettings != null) {
-			level = AllLevels.Get().currentLevelSettings.level;
+		if (AllLevels.Get ().currentLevelSettings != null) {
+			level = AllLevels.Get ().currentLevelSettings.level;
 		}
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		LevelSettings lSet = AllLevels.Get().levelSettings[level-1];
-		AllLevels.Get().currentLevelSettings = lSet;
-		textLevel.text = lSet.level.ToString() + " " + lSet.levelName + "\n" + lSet.levelDescription;
+		if (AllLevels.Get ().levelSettings != null && level < AllLevels.Get ().levelSettings.Length) {
+			LevelSettings lSet = AllLevels.Get ().levelSettings [level - 1];
+			AllLevels.Get ().currentLevelSettings = lSet;
+			textLevel.text = lSet.level.ToString () + " " + lSet.levelName + "\n" + lSet.levelDescription;
+		} else {
+			textLevel.text = "NO LEVELS";
+		}
 	}
 
 	public void ButtonNext ()
 	{
-		if (level < AllLevels.Get ().levelSettings.Length) {
+		if (AllLevels.Get ().hasLevels() && level < AllLevels.Get ().levelSettings.Length) {
 			level++;
 		}
 	}
 
 	public void ButtonPrevious ()
 	{
-		if (level > 1) {
+		if (AllLevels.Get ().hasLevels() && level > 1) {
 			level--;
 		}
 	}

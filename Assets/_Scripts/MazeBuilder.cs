@@ -13,10 +13,8 @@ public class MazeBuilder {
 	public GameObject mazeMarkerPrefab;
 	public GameObject score1Prefab;
 	public float mazeWallScale = 0.125f;
-	public int chanceForBreakWalls = 0; 
-	public int mazeWidth = 5;
-	public int mazeHeight = 1;
-	public int mazeDepth = 5;
+
+	public LevelSettings settings;
 
 	public Maze Maze;
 
@@ -34,8 +32,8 @@ public class MazeBuilder {
 		fDirectionPrefabs [Maze.DirectionLeft] = mazeWallLeftPrefab ? mazeWallLeftPrefab : mazeWallPrefab;
 		fDirectionPrefabs [Maze.DirectionForward] = mazeWallForwardPrefab ? mazeWallForwardPrefab : mazeWallPrefab;
 		fDirectionPrefabs [Maze.DirectionBackward] = mazeWallBackwardPrefab ? mazeWallBackwardPrefab : mazeWallPrefab;
-		Maze = new Maze (mazeWidth, mazeHeight, mazeDepth);
-		Maze.chanceForBreakWalls = chanceForBreakWalls;
+		Maze = new Maze (settings.mazeWidth, settings.mazeHeight, settings.mazeDepth);
+		Maze.chanceForBreakWalls = settings.breakWalls;
 		Maze.build ();
 	}
 
@@ -85,7 +83,7 @@ public class MazeBuilder {
 					lPos.y = aPos.y + 1.0f * y; // 0;
 					lPos.z = aPos.z + 1.0f * z; //2.5f
 					for (int lDir = 0; lDir<6; lDir++) {
-						if (lDir > 0 || y != (Maze.height - 1)) {
+						if (lDir > 0 || y != (Maze.height - 1)) { // oberstes Dach weglassen
 							if (!Maze.get (x, y, z).links [lDir].broken) {
 								GameObject lWall = DropWall (
 									fDirectionPrefabs [lDir],

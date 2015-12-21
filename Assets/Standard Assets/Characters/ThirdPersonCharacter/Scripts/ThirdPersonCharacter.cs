@@ -30,11 +30,16 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		bool m_Crouching;
 
 
+		void CheckComponents()
+		{
+			if (!m_Animator) m_Animator = GetComponent<Animator>();
+			if (!m_Rigidbody) m_Rigidbody = GetComponent<Rigidbody>();
+			if (!m_Capsule) m_Capsule = GetComponent<CapsuleCollider>();
+		}
+
 		void Start()
 		{
-			m_Animator = GetComponent<Animator>();
-			m_Rigidbody = GetComponent<Rigidbody>();
-			m_Capsule = GetComponent<CapsuleCollider>();
+			CheckComponents();
 			m_CapsuleHeight = m_Capsule.height;
 			m_CapsuleCenter = m_Capsule.center;
 
@@ -45,7 +50,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		public void Move(Vector3 move, bool crouch, bool jump)
 		{
-
+			if (!m_Animator) return;
 			// convert the world relative moveInput vector into a local-relative
 			// turn amount and forward amount required to head in the desired
 			// direction.
@@ -180,7 +185,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		{
 			// help the character turn faster (this is in addition to root rotation in the animation)
 			float turnSpeed = Mathf.Lerp(m_StationaryTurnSpeed, m_MovingTurnSpeed, m_ForwardAmount);
-			transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
+			transform.Rotate(-transform.rotation.x, m_TurnAmount * turnSpeed * Time.deltaTime, -transform.rotation.z);
 		}
 
 

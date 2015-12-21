@@ -46,6 +46,10 @@ Material:
     m_Floats:
       data:
         first:
+          name: _Emission
+        second: 0.3
+      data:
+        first:
           name: _ReflectionStrength
         second: 1
       data:
@@ -54,12 +58,8 @@ Material:
         second: 1.5
       data:
         first:
-          name: _Emission
-        second: 0
-      data:
-        first:
           name: _IndexOfRefraction
-        second: 2.1400001
+        second: 2.14
       data:
         first:
           name: _Emissive
