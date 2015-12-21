@@ -23,7 +23,7 @@ public class UIController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (AllLevels.Get ().levelSettings != null && level < AllLevels.Get ().levelSettings.Length) {
+		if (AllLevels.Get ().levelSettings != null && level <= AllLevels.Get ().levelSettings.Length) {
 			LevelSettings lSet = AllLevels.Get ().levelSettings [level - 1];
 			AllLevels.Get ().currentLevelSettings = lSet;
 			textLevel.text = lSet.level.ToString () + " " + lSet.levelName + "\n" + lSet.levelDescription;
