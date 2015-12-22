@@ -24,7 +24,7 @@ public class UI : MonoBehaviour
 	public RectTransform controlPanel;
 	public Text scoreUIText;
 	public Text timeUIText;
-	public float mazeWallScale = 0.125f;
+	public float mazeWallScale = 1f;
 	public int chanceForBreakWalls = 0;
 
 	// Use this for initialization

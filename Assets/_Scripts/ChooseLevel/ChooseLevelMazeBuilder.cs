@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MazeBuilder {
+public class ChooseLevelMazeBuilder {
 
 	public GameObject mazeWallPrefab;
 	public GameObject mazeWallLeftPrefab;
@@ -12,6 +12,8 @@ public class MazeBuilder {
 	public GameObject mazeWallBottomPrefab;
 	public GameObject mazeMarkerPrefab;
 	public GameObject score1Prefab;
+	public GameObject mazeParent;
+
 	public float mazeWallScale = 1f;
 
 	public LevelSettings settings;
@@ -58,30 +60,30 @@ public class MazeBuilder {
 	protected Vector3[] fDirectionScales = new Vector3[6];
 	protected GameObject[] fDirectionPrefabs = new GameObject[6];
 
-	public void CreateLabyrinth (Transform aParent, Vector3 aPos)
+	public void CreateLabyrinth ()
 	{
 		Debug.Log ("Creating Labyrinth...");
 		Init();
-		if (aParent) {
-			for (int i = aParent.transform.childCount - 1; i >= 0; i--) {
-				GameObject.DestroyObject (aParent.transform.GetChild (i).gameObject);
+		if (mazeParent) {
+			for (int i = mazeParent.transform.childCount - 1; i >= 0; i--) {
+				GameObject.DestroyObject (mazeParent.transform.GetChild (i).gameObject);
 			}
 		}
 		GameObject lWallParent = new GameObject ("Walls");
 		GameObject lMarkerParent = new GameObject ("Markers");
 		GameObject lScoreParent = new GameObject ("Scores");
-		if (aParent) {
-			lWallParent.transform.SetParent (aParent, false);
-			lMarkerParent.transform.SetParent (aParent, false);
-			lScoreParent.transform.SetParent (aParent, false);
+		if (mazeParent) {
+			lWallParent.transform.SetParent (mazeParent.transform, false);
+			lMarkerParent.transform.SetParent (mazeParent.transform, false);
+			lScoreParent.transform.SetParent (mazeParent.transform, false);
 		}
 		Vector3 lPos = new Vector3 ();
 		for (int z = 0; z< Maze.depth; z++) {
 			for (int y = 0; y < Maze.height; y++) {
 				for (int x = 0; x < Maze.width; x++) {
-					lPos.x = aPos.x + 1.0f * x; //2.5f
-					lPos.y = aPos.y + 1.0f * y; // 0;
-					lPos.z = aPos.z + 1.0f * z; //2.5f
+					lPos.x = 1.0f * x;
+					lPos.y = 1.0f * y;
+					lPos.z = 1.0f * z;
 					for (int lDir = 0; lDir<6; lDir++) {
 						if (lDir > 0 || y != (Maze.height - 1)) { // oberstes Dach weglassen
 							if (!Maze.get (x, y, z).links [lDir].broken) {

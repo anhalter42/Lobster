@@ -49,6 +49,7 @@
      <Compile Include="Assets\GemExample\Scripts\Orbit.cs" />
      <Compile Include="Assets\_Scripts\AllLevels.cs" />
      <Compile Include="Assets\_Scripts\Camera\DungeonCamera.cs" />
+     <Compile Include="Assets\_Scripts\ChooseLevel\ChooseLevelMazeBuilder.cs" />
      <Compile Include="Assets\_Scripts\ChooseLevel\UIController.cs" />
      <Compile Include="Assets\_Scripts\DestroyAfter.cs" />
      <Compile Include="Assets\_Scripts\LevelSettings.cs" />

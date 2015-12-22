@@ -297,10 +297,12 @@ public class Maze
                                 lBrokenCount++;
                             }
                         }
-                        if (lBrokenCount < 3 && nextRandomInt (100) <= chanceForBreakWalls) {
+                        if (lBrokenCount < 3) {
                             for (int d=0; d<6; d++) {
                                 if (!lCell.links [d].broken && lCell.links [d].breakable) {
-                                    lCell.links [d].broken = true;
+									if (nextRandomInt (100) <= chanceForBreakWalls) {
+                                    	lCell.links [d].broken = true;
+									}
                                 }
                             }
                         }
