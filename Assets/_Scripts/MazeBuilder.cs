@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MazeBuilder {
-
+public class MazeBuilder
+{
+	public CellDirectionObjects prefabs;
 	public GameObject mazeWallPrefab;
 	public GameObject mazeWallLeftPrefab;
 	public GameObject mazeWallRightPrefab;
@@ -11,6 +12,8 @@ public class MazeBuilder {
 	public GameObject mazeWallTopPrefab;
 	public GameObject mazeWallBottomPrefab;
 	public GameObject mazeMarkerPrefab;
+	public GameObject mazeBarrelPrefab;
+	public GameObject mazeArchPrefab;
 	public GameObject score1Prefab;
 	public float mazeWallScale = 1f;
 
@@ -18,7 +21,7 @@ public class MazeBuilder {
 
 	public Maze Maze;
 
-	protected void Init()
+	protected void Init ()
 	{
 		fDirectionScales [Maze.DirectionTop] = new Vector3 (1, mazeWallScale, 1);
 		fDirectionScales [Maze.DirectionBottom] = new Vector3 (1, mazeWallScale, 1);
@@ -61,7 +64,7 @@ public class MazeBuilder {
 	public void CreateLabyrinth (Transform aParent, Vector3 aPos)
 	{
 		Debug.Log ("Creating Labyrinth...");
-		Init();
+		Init ();
 		if (aParent) {
 			for (int i = aParent.transform.childCount - 1; i >= 0; i--) {
 				GameObject.DestroyObject (aParent.transform.GetChild (i).gameObject);
@@ -76,21 +79,32 @@ public class MazeBuilder {
 			lScoreParent.transform.SetParent (aParent, false);
 		}
 		Vector3 lPos = new Vector3 ();
-		for (int z = 0; z< Maze.depth; z++) {
-			for (int y = 0; y < Maze.height; y++) {
+		for (int y = 0; y < Maze.height; y++) {
+			for (int z = 0; z < Maze.depth; z++) {
 				for (int x = 0; x < Maze.width; x++) {
 					lPos.x = aPos.x + 1.0f * x; //2.5f
 					lPos.y = aPos.y + 1.0f * y; // 0;
 					lPos.z = aPos.z + 1.0f * z; //2.5f
-					for (int lDir = 0; lDir<6; lDir++) {
+					GameObject lCellObj = new GameObject ("Cell_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString ());
+					Maze.Cell lCell = Maze.get (x, y, z);
+					lCellObj.AddComponent<MazeCellComponent> ().cell = lCell;
+					lCellObj.transform.SetParent (lWallParent.transform, false);
+					lCellObj.transform.localPosition = lPos;
+					for (int lDir = 0; lDir < 6; lDir++) {
 						if (lDir > 0 || y != (Maze.height - 1)) { // oberstes Dach weglassen
 							if (!Maze.get (x, y, z).links [lDir].broken) {
 								GameObject lWall = DropWall (
-									fDirectionPrefabs [lDir],
-									lWallParent.transform,
-									lPos + Maze.getDirectionVector (lDir) * (0.5f - mazeWallScale / 2),
-									fDirectionScales [lDir]);
-								lWall.name = "Wall_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString () + "_" + lDir.ToString ();
+									                   fDirectionPrefabs [lDir],
+									                   lCellObj.transform, // lWallParent.transform,
+									//lPos + Maze.getDirectionVector (lDir) * (0.5f - mazeWallScale / 2),
+									                   Maze.getDirectionVector (lDir) * (0.5f - mazeWallScale / 2),
+									                   fDirectionScales [lDir]);
+								//lWall.name = "Wall_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString () + "_" + lDir.ToString ();
+								lWall.name = "Wall_" + lDir.ToString ();
+							} else if (mazeArchPrefab && Random.Range(0,100) > 75) {
+								GameObject lArch = GameObject.Instantiate (mazeArchPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+								lArch.transform.SetParent (lCellObj.transform, false);
+								lArch.name = "Arch";
 							}
 						}
 					}
@@ -103,6 +117,11 @@ public class MazeBuilder {
 						GameObject lScore = GameObject.Instantiate (score1Prefab, lPos + Vector3.down * 0.25f, Quaternion.identity) as GameObject;
 						lScore.transform.SetParent (lScoreParent.transform, false);
 						lScore.name = "S_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString ();
+					}
+					if (mazeBarrelPrefab && Random.Range(0,100) > 75) {
+						GameObject lBarrel = GameObject.Instantiate (mazeBarrelPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+						lBarrel.transform.SetParent (lCellObj.transform, false);
+						lBarrel.name = "Barrel";
 					}
 				}
 			}

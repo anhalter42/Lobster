@@ -1,0 +1,31 @@
+#Tutorial 1
+//Ganz einfach geht es los
+mazeWidth	5
+mazeHeight	1
+mazeDepth	5
+breakWalls	0
+scoreForExit	20
+
+#Tutorial 2
+//Ein wenig größer :-)
+mazeWidth	10
+mazeHeight	1
+mazeDepth	10
+breakWalls	1
+scoreForExit	75
+
+#Level 1
+//Das erste Level
+mazeWidth	20
+mazeHeight	1
+mazeDepth	20
+breakWalls	3
+scoreForExit	300
+
+#Level 2
+//Das große Level
+mazeWidth	100
+mazeHeight	1
+mazeDepth	100
+breakWalls	3
+scoreForExit	900

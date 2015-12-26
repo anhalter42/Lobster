@@ -1996,6 +1996,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75ab5b304a6c46199055e46ed0bfdfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabs:
+    top: []
+    bottom: []
+    left: []
+    right: []
+    forward: []
+    backward: []
+    props: []
+    topProps: []
+    bottomProps: []
+    leftProps: []
+    rightProps: []
+    forwardProps: []
+    backwardProps: []
   playerPrefab: {fileID: 192064, guid: 705db0d89c757421d9b8dd5486d044e4, type: 2}
   mazeWallPrefab: {fileID: 175488, guid: e323546ffa6ba4c6ca346a9702bbe737, type: 2}
   mazeWallLeftPrefab: {fileID: 150336, guid: 953f0aeab2b82410081a05b3bb13c21b, type: 2}
@@ -2007,6 +2021,8 @@ MonoBehaviour:
   mazeWallTopPrefab: {fileID: 156202, guid: 926477a8a748e48c2b03bc1f4d95c86c, type: 2}
   mazeWallBottomPrefab: {fileID: 104464, guid: 3f77d8233ca1e4e058f75a0aceb2b50f, type: 2}
   mazeMarkerPrefab: {fileID: 113796, guid: 68e3c7fa80f7d4be7bdc4a0706121f78, type: 2}
+  mazeBarrelPrefab: {fileID: 195858, guid: 3379db8db2b5e47d991551663eb97909, type: 2}
+  mazeArchPrefab: {fileID: 191190, guid: a8a89f952b79442169562bf0d59ca7e8, type: 2}
   score1Prefab: {fileID: 100000, guid: 9395d826ba0d14f1e93c4f4b961b8654, type: 2}
   scoreReachedAudio: {fileID: 8300000, guid: b8fc114e832d043a5b9d6c700ec5bf8c, type: 3}
   mainCamera: {fileID: 303614307}

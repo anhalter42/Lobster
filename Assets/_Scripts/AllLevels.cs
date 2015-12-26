@@ -5,6 +5,7 @@ public class AllLevels : MonoBehaviour
 {
 
 	public TextAsset levels;
+	public CellDescription[] cellDescriptions;
 
 	public LevelSettings currentLevelSettings;
 	public LevelSettings[] levelSettings;
@@ -42,7 +43,7 @@ public class AllLevels : MonoBehaviour
 	void Start ()
 	{
 		if (!levels) {
-			levels = Resources.Load<TextAsset> ("Levels.txt");
+			levels = Resources.Load<TextAsset> ("Levels");
 		}
 		if (levels) {
 			ReadLevels (levels.text);

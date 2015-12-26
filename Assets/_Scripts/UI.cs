@@ -5,6 +5,8 @@ using System.Collections;
 
 public class UI : MonoBehaviour
 {
+	[SerializeField]
+	public CellDirectionObjects prefabs;
 	public GameObject playerPrefab;
 	public GameObject mazeWallPrefab;
 	public GameObject mazeWallLeftPrefab;
@@ -14,6 +16,8 @@ public class UI : MonoBehaviour
 	public GameObject mazeWallTopPrefab;
 	public GameObject mazeWallBottomPrefab;
 	public GameObject mazeMarkerPrefab;
+	public GameObject mazeBarrelPrefab;
+	public GameObject mazeArchPrefab;
 	public GameObject score1Prefab;
 	public AudioClip scoreReachedAudio;
 	public GameObject mainCamera;
@@ -59,10 +63,9 @@ public class UI : MonoBehaviour
 			chanceForBreakWalls = lSet.breakWalls;
 			fGoodScore = lSet.scoreForExit;
 			if (maze) {
+				controlPanel.gameObject.SetActive (false);
 				CreateLabyrinth (maze.transform);
 				RunGame ();
-			} else {
-				controlPanel.gameObject.SetActive (false);
 			}
 		}
 	}
@@ -100,6 +103,8 @@ public class UI : MonoBehaviour
 		lBuilder.mazeWallRightPrefab = mazeWallRightPrefab;
 		lBuilder.mazeWallScale = mazeWallScale;
 		lBuilder.mazeWallTopPrefab = mazeWallTopPrefab;
+		lBuilder.mazeBarrelPrefab = mazeBarrelPrefab;
+		lBuilder.mazeArchPrefab = mazeArchPrefab;
 		lBuilder.score1Prefab = score1Prefab;
 		lBuilder.CreateLabyrinth (aParent, aPos);
 		fRunning = false;
