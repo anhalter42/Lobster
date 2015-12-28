@@ -1,0 +1,17 @@
+#Dungeon1
+top				Ceiling
+bottom			Floor
+left			Wall_R-
+right			Wall_R+
+forward			Wall_B+
+backward		Wall_B-
+props			
+score			GemScore1;0;false;1;0
+topProps
+bottomProps		Prop_Wax_Ceiling;2
+bottomProps		Barrel;5
+leftProps		Arch_R-;10;false
+rightProps		Arch_R+;10;false
+forwardProps	Arch_B+;10;false
+forwardProps	Ladder_B+;1
+backwardProps	Arch_B-;10;false

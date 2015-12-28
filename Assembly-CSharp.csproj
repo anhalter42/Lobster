@@ -71,6 +71,7 @@
      <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
      <None Include="Assets\Gem\Shaders\Gem.shader" />
+     <None Include="Assets\Resources\CellDescs.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Volumes/Daten/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

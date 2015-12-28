@@ -63,6 +63,7 @@ public class UI : MonoBehaviour
 			chanceForBreakWalls = lSet.breakWalls;
 			fGoodScore = lSet.scoreForExit;
 			if (maze) {
+				prefabs = AllLevels.Get ().GetCellDescription(lSet.prefabs);
 				controlPanel.gameObject.SetActive (false);
 				CreateLabyrinth (maze.transform);
 				RunGame ();
@@ -95,6 +96,7 @@ public class UI : MonoBehaviour
 		MazeBuilder lBuilder = new MazeBuilder ();
 		lBuilder.settings = AllLevels.Get ().currentLevelSettings;
 		//lBuilder.mazeMarkerPrefab = mazeMarkerPrefab;
+		/*
 		lBuilder.mazeWallBackwardPrefab = mazeWallBackwardPrefab;
 		lBuilder.mazeWallBottomPrefab = mazeWallBottomPrefab;
 		lBuilder.mazeWallForwardPrefab = mazeWallForwardPrefab;
@@ -106,6 +108,8 @@ public class UI : MonoBehaviour
 		lBuilder.mazeBarrelPrefab = mazeBarrelPrefab;
 		lBuilder.mazeArchPrefab = mazeArchPrefab;
 		lBuilder.score1Prefab = score1Prefab;
+		*/
+		lBuilder.prefabs = prefabs;
 		lBuilder.CreateLabyrinth (aParent, aPos);
 		fRunning = false;
 	}
