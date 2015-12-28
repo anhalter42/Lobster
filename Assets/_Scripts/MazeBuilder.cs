@@ -180,7 +180,8 @@ public class MazeBuilder
 							GameObject lScore = GameObject.Instantiate (lscore1Prefab, Vector3.down * 0.25f, Quaternion.identity) as GameObject;
 							//lScore.transform.SetParent (lScoreParent.transform, false);
 							lScore.transform.SetParent (lCellObj.transform, false);
-							lScore.name = "Score_" + lScore.GetComponent<PickupData> ().score.ToString ();
+							lScore.GetComponent<PickupData>().score = 1;
+							lScore.name = "Score_1";
 						}
 						DropSome ("Prop_", lCellObj.transform, prefabs.props, false);
 					} else {

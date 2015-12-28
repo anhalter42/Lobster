@@ -1,10 +1,32 @@
-#Dungeon1
+#Simple
 top				Ceiling
 bottom			Floor
 left			Wall_R-
 right			Wall_R+
 forward			Wall_B+
 backward		Wall_B-
+score			GemScore1;0;false;1;0
+
+#Grille
+top				Ceiling
+bottom			Floor
+left			WallGrille_R-
+right			WallGrille_R+
+forward			WallGrille_B+
+backward		WallGrille_B-
+score			GemScore1;0;false;1;0
+
+#Dungeon1
+top				Ceiling
+bottom			Floor
+left			Wall_R-;90
+left			WallGrille_R-;5
+right			Wall_R+;90
+right			WallGrille_R+;5
+forward			Wall_B+;90
+forward			WallGrille_B+;5
+backward		Wall_B-;90
+backward		WallGrille_B-;5
 props			
 score			GemScore1;0;false;1;0
 topProps
@@ -15,3 +37,4 @@ rightProps		Arch_R+;10;false
 forwardProps	Arch_B+;10;false
 forwardProps	Ladder_B+;1
 backwardProps	Arch_B-;10;false
+backwardProps	Ladder_B-;1

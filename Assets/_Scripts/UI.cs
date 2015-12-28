@@ -125,7 +125,7 @@ public class UI : MonoBehaviour
 		if (fPlayer) {
 			Destroy (fPlayer);
 		}
-		fPlayer = Instantiate (playerPrefab, new Vector3 (int.Parse (mazeUIWidth.text) / 2f, 0.5f, int.Parse (mazeUIDepth.text) / 2f), Quaternion.identity) as GameObject;
+		fPlayer = Instantiate (playerPrefab, new Vector3 (int.Parse (mazeUIWidth.text) / 2, 0.5f, int.Parse (mazeUIDepth.text) / 2), Quaternion.identity) as GameObject;
 		//mainCamera.gameObject.SetActive (false);
 		//mainCamera.GetComponent<UnityStandardAssets.Cameras.AutoCam> ().SetTarget (fPlayer.transform);
 		//mainCamera.GetComponent<DungeonCamera> ().target = fPlayer;

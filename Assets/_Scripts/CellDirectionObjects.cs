@@ -141,7 +141,7 @@ public class CellDirectionObjects
 					return aObjects [i].prefab;
 				}
 			}
-			return aDefault;
+			return aDefault == null ? aObjects [0].prefab : aDefault;
 		}
 		return aDefault;
 	}

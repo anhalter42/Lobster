@@ -28,8 +28,19 @@ public class LevelSettings
 		}
 	}
 
+	public static bool ReadString (ref string aValue, string aLine, string aName)
+	{
+		if (aLine.StartsWith (aName)) {
+			aValue = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1];
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public void ReadLine (string aLine)
 	{
+		if (!ReadString (ref prefabs, aLine, "prefabs"))
 		if (!ReadInt (ref mazeWidth, aLine, "mazeWidth"))
 		if (!ReadInt (ref mazeHeight, aLine, "mazeHeight"))
 		if (!ReadInt (ref mazeDepth, aLine, "mazeDepth"))
