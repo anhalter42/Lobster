@@ -65,7 +65,7 @@ public class UI : MonoBehaviour
 			chanceForBreakWalls = lSet.breakWalls;
 			fGoodScore = lSet.scoreForExit;
 			if (maze) {
-				prefabs = AllLevels.Get ().GetCellDescription(lSet.prefabs);
+				prefabs = AllLevels.Get ().GetCellDescription (lSet.prefabs);
 				controlPanel.gameObject.SetActive (false);
 				CreateLabyrinth (maze.transform);
 				RunGame ();
@@ -84,7 +84,7 @@ public class UI : MonoBehaviour
 				if (scoreReachedAudio) {
 					AudioSource.PlayClipAtPoint (scoreReachedAudio, fPlayer.transform.position);
 				}
-				mazeBuilder.ActivateExits();
+				mazeBuilder.ActivateExits ();
 			}
 		}
 	}
@@ -129,6 +129,7 @@ public class UI : MonoBehaviour
 			Destroy (fPlayer);
 		}
 		fPlayer = Instantiate (playerPrefab, new Vector3 (int.Parse (mazeUIWidth.text) / 2, 0.5f, int.Parse (mazeUIDepth.text) / 2), Quaternion.identity) as GameObject;
+		AllLevels.Get ().player = fPlayer;
 		//mainCamera.gameObject.SetActive (false);
 		//mainCamera.GetComponent<UnityStandardAssets.Cameras.AutoCam> ().SetTarget (fPlayer.transform);
 		//mainCamera.GetComponent<DungeonCamera> ().target = fPlayer;

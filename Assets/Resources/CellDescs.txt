@@ -7,6 +7,10 @@ forward			Wall_B+
 backward		Wall_B-
 score			GemScore1;0;false;1;0
 exit			ExitCylinder
+wayPoints		WayPoint_R-;100;true;3
+wayPoints		WayPoint_R+;100;true;2
+wayPoints		WayPoint_B+;100;true;4
+wayPoints		WayPoint_B-;100;true;5
 
 #Grille
 top				Ceiling
@@ -17,6 +21,10 @@ forward			WallGrille_B+
 backward		WallGrille_B-
 score			GemScore1;0;false;1;0
 exit			ExitCylinder
+wayPoints		WayPoint_R-;100;true;3
+wayPoints		WayPoint_R+;100;true;2
+wayPoints		WayPoint_B+;100;true;4
+wayPoints		WayPoint_B-;100;true;5
 
 #Dungeon1
 top				Ceiling
@@ -38,6 +46,11 @@ leftProps		Arch_R-;10;false
 rightProps		Arch_R+;10;false
 forwardProps	Arch_B+;10;false
 forwardProps	Ladder_B+;1
+forwardProps	Prop_Torch_B+;5
 backwardProps	Arch_B-;10;false
 backwardProps	Ladder_B-;1
 exit			ExitCylinder
+wayPoints		WayPoint_R-;100;true;3
+wayPoints		WayPoint_R+;100;true;2
+wayPoints		WayPoint_B+;100;true;4
+wayPoints		WayPoint_B-;100;true;5

@@ -8,6 +8,22 @@ using System.Collections;
 
 public class Maze
 {
+	public class Point
+	{
+		public int x, y, z;
+
+		public Point ()
+		{
+		}
+
+		public Point (int aX, int aY, int aZ)
+		{
+			x = aX;
+			y = aY;
+			z = aZ;
+		}
+	}
+
 	public class Link
 	{
 		public Cell a;
@@ -31,15 +47,22 @@ public class Maze
 	public class Cell
 	{
 		public Link[] links = new Link[6];
-		public int x, y, z;
+		public Point pos = new Point ();
+
+		public int x { get { return pos.x; } }
+
+		public int y { get { return pos.y; } }
+
+		public int z { get { return pos.z; } }
+
 		public bool visited = false;
 		public GameObject gameObject;
 
 		public Cell (int aX, int aY, int aZ)
 		{
-			x = aX;
-			y = aY;
-			z = aZ;
+			pos.x = aX;
+			pos.y = aY;
+			pos.z = aZ;
 		}
 	}
 
@@ -206,6 +229,11 @@ public class Maze
 		}
 	}
 
+	public Cell get (Point aP)
+	{
+		return get (aP.x, aP.y, aP.z);
+	}
+
 	public Cell get (int aX, int aY, int aZ)
 	{
 		return cells [aX + width * aY + (width * height) * aZ];
@@ -312,5 +340,69 @@ public class Maze
 				}
 			}
 		}
+		ClearVisited ();
+	}
+
+	public void ClearVisited ()
+	{
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				for (int z = 0; z < depth; z++) {
+					get (x, y, z).visited = false;
+				}
+			}
+		}
+	}
+
+	public class WayPoint
+	{
+		public Cell cell;
+		public int direction;
+
+		public WayPoint (Cell aCell, int aDir)
+		{
+			cell = aCell;
+			direction = aDir;
+		}
+	}
+
+	protected bool CheckWay (Cell aCurrent, Cell aTarget, Stack aStack)
+	{
+		bool lFound = false;
+		aCurrent.visited = true;
+		if (aCurrent != aTarget) {
+			for (int lDir = 0; lDir < 6; lDir++) {
+				if (aCurrent.links [lDir].broken) {
+					Cell lNext = aCurrent.links [lDir].to (aCurrent);
+					if (!lNext.visited) {
+						aStack.Push (new WayPoint (aCurrent, lDir));
+						lFound = CheckWay (lNext, aTarget, aStack);
+						if (!lFound) {
+							aStack.Pop ();
+						} else {
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public WayPoint[] FindWay (Point aFrom, Point aTo)
+	{
+		Stack lStack = new Stack ();
+		ClearVisited ();
+		Cell lCurrent = get (aFrom);
+		Cell lTarget = get (aTo);
+		CheckWay (lCurrent, lTarget, lStack);
+		ClearVisited ();
+		WayPoint[] lResult = new WayPoint[lStack.Count];
+		for (int i = 0; i < lResult.Length; i++) {
+			lResult [lResult.Length - i - 1] = lStack.Pop () as WayPoint;
+		}
+		return lResult;
 	}
 }

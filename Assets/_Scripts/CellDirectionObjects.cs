@@ -92,6 +92,7 @@ public class CellDirectionObjects
 	public GameObjectChance[] rightProps = { };
 	public GameObjectChance[] forwardProps = { };
 	public GameObjectChance[] backwardProps = { };
+	public GameObjectChance[] wayPoints = { };
 
 	public CellDirectionObjects Clone (CellDirectionObjects aNew)
 	{
@@ -111,6 +112,7 @@ public class CellDirectionObjects
 		lNew.rightProps = GameObjectChance.CloneArray (aNew.rightProps);
 		lNew.forwardProps = GameObjectChance.CloneArray (aNew.forwardProps);
 		lNew.backwardProps = GameObjectChance.CloneArray (aNew.backwardProps);
+		lNew.wayPoints = GameObjectChance.CloneArray (aNew.wayPoints);
 		return lNew;
 	}
 
@@ -214,6 +216,7 @@ public class CellDirectionObjects
 		rightProps = ReadGameObjectChance (aLine, rightProps, "rightProps");
 		forwardProps = ReadGameObjectChance (aLine, forwardProps, "forwardProps");
 		backwardProps = ReadGameObjectChance (aLine, backwardProps, "backwardProps");
+		wayPoints = ReadGameObjectChance (aLine, wayPoints, "wayPoints");
 	}
 }
 

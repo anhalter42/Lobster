@@ -183,7 +183,7 @@ public class MazeBuilder
 							GameObject lScore = GameObject.Instantiate (lscore1Prefab, Vector3.down * 0.25f, Quaternion.identity) as GameObject;
 							//lScore.transform.SetParent (lScoreParent.transform, false);
 							lScore.transform.SetParent (lCellObj.transform, false);
-							lScore.GetComponent<PickupData>().score = 1;
+							lScore.GetComponent<PickupData> ().score = 1;
 							lScore.name = "Score_1";
 						}
 						DropSome ("Prop_", lCellObj.transform, prefabs.props, false);
@@ -206,14 +206,30 @@ public class MazeBuilder
 		Debug.Log ("Labyrinth created.");
 	}
 
-	public void ActivateExits()
+	public void ActivateWayPoints (Maze.Point aFrom, Maze.Point aTo)
 	{
-		int x = Random.Range(0, Maze.width - 1);
-		int y = Random.Range(0, Maze.height - 1);
-		int z = Random.Range(0, Maze.depth - 1);
-		GameObject lPrefab = prefabs.GetOne(prefabs.exit);
+		Maze.WayPoint[] lWay = Maze.FindWay (aFrom, aTo);
+		for (int i = 0; i < lWay.Length; i++) {
+			Maze.WayPoint lP = lWay [i];
+			GameObject lWayPoint = GameObject.Instantiate (prefabs.GetOneForScore (prefabs.wayPoints, lP.direction)) as GameObject;
+			lWayPoint.transform.SetParent (lWay [i].cell.gameObject.transform, false);
+		}
+	}
+
+	public void ActivateExits ()
+	{
+		Maze.Point lP = new Maze.Point (Random.Range (0, Maze.width - 1),
+			                Random.Range (0, Maze.height - 1),
+			                Random.Range (0, Maze.depth - 1));
+		GameObject lPrefab = prefabs.GetOne (prefabs.exit);
 		GameObject lExit = GameObject.Instantiate (lPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-		lExit.transform.SetParent (Maze.get(x,y,z).gameObject.transform, false);
+		lExit.transform.SetParent (Maze.get (lP).gameObject.transform, false);
 		lExit.name = "Exit";
+		Vector3 lLocalPos = AllLevels.Get ().player.transform.position - parent.position;
+		Maze.Point lFrom = new Maze.Point (
+			                   Mathf.CeilToInt (lLocalPos.x),
+			                   Mathf.CeilToInt (lLocalPos.y),
+			                   Mathf.CeilToInt (lLocalPos.z));
+		ActivateWayPoints (lFrom, lP);
 	}
 }

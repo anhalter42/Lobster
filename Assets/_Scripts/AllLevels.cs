@@ -12,6 +12,8 @@ public class AllLevels : MonoBehaviour
 	public LevelSettings currentLevelSettings;
 	public LevelSettings[] levelSettings;
 
+	public GameObject player;
+
 	protected static GameObject fMaster;
 
 	public static GameObject GetMaster ()
