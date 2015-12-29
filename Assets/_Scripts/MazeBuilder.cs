@@ -4,6 +4,7 @@ using System.Collections;
 public class MazeBuilder
 {
 	public CellDirectionObjects prefabs;
+	public Transform parent;
 	public GameObject mazeWallPrefab;
 	public GameObject mazeWallLeftPrefab;
 	public GameObject mazeWallRightPrefab;
@@ -123,6 +124,7 @@ public class MazeBuilder
 	{
 		Debug.Log ("Creating Labyrinth...");
 		Init ();
+		parent = aParent;
 		if (aParent) {
 			for (int i = aParent.transform.childCount - 1; i >= 0; i--) {
 				GameObject.DestroyObject (aParent.transform.GetChild (i).gameObject);
@@ -149,6 +151,7 @@ public class MazeBuilder
 					lPos.z = aPos.z + 1.0f * z; //2.5f
 					GameObject lCellObj = new GameObject ("Cell_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString ());
 					Maze.Cell lCell = Maze.get (x, y, z);
+					lCell.gameObject = lCellObj;
 					lCellObj.AddComponent<MazeCellComponent> ().cell = lCell;
 					lCellObj.transform.SetParent (lLevelParent.transform, false);
 					lCellObj.transform.localPosition = lPos;
@@ -201,5 +204,16 @@ public class MazeBuilder
 			}
 		}
 		Debug.Log ("Labyrinth created.");
+	}
+
+	public void ActivateExits()
+	{
+		int x = Random.Range(0, Maze.width - 1);
+		int y = Random.Range(0, Maze.height - 1);
+		int z = Random.Range(0, Maze.depth - 1);
+		GameObject lPrefab = prefabs.GetOne(prefabs.exit);
+		GameObject lExit = GameObject.Instantiate (lPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+		lExit.transform.SetParent (Maze.get(x,y,z).gameObject.transform, false);
+		lExit.name = "Exit";
 	}
 }

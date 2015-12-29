@@ -53,6 +53,7 @@
      <Compile Include="Assets\_Scripts\ChooseLevel\ChooseLevelMazeBuilder.cs" />
      <Compile Include="Assets\_Scripts\ChooseLevel\UIController.cs" />
      <Compile Include="Assets\_Scripts\DestroyAfter.cs" />
+     <Compile Include="Assets\_Scripts\ExitNextLevel.cs" />
      <Compile Include="Assets\_Scripts\LevelSettings.cs" />
      <Compile Include="Assets\_Scripts\Maze.cs" />
      <Compile Include="Assets\_Scripts\MazeBuilder.cs" />

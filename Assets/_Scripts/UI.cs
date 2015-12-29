@@ -31,6 +31,8 @@ public class UI : MonoBehaviour
 	public float mazeWallScale = 1f;
 	public int chanceForBreakWalls = 0;
 
+	public MazeBuilder mazeBuilder;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -82,19 +84,20 @@ public class UI : MonoBehaviour
 				if (scoreReachedAudio) {
 					AudioSource.PlayClipAtPoint (scoreReachedAudio, fPlayer.transform.position);
 				}
+				mazeBuilder.ActivateExits();
 			}
 		}
 	}
 
 	public void CreateLabyrinth (Transform aTransform = null)
 	{
-		CreateLabyrinth (aTransform, new Vector3 ());
+		CreateLabyrinth (aTransform, Vector3.zero);
 	}
 
 	protected void CreateLabyrinth (Transform aParent, Vector3 aPos)
 	{
-		MazeBuilder lBuilder = new MazeBuilder ();
-		lBuilder.settings = AllLevels.Get ().currentLevelSettings;
+		mazeBuilder = new MazeBuilder ();
+		mazeBuilder.settings = AllLevels.Get ().currentLevelSettings;
 		//lBuilder.mazeMarkerPrefab = mazeMarkerPrefab;
 		/*
 		lBuilder.mazeWallBackwardPrefab = mazeWallBackwardPrefab;
@@ -109,8 +112,8 @@ public class UI : MonoBehaviour
 		lBuilder.mazeArchPrefab = mazeArchPrefab;
 		lBuilder.score1Prefab = score1Prefab;
 		*/
-		lBuilder.prefabs = prefabs;
-		lBuilder.CreateLabyrinth (aParent, aPos);
+		mazeBuilder.prefabs = prefabs;
+		mazeBuilder.CreateLabyrinth (aParent, aPos);
 		fRunning = false;
 	}
 

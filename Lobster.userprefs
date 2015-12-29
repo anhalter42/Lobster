@@ -1,22 +1,25 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Resources/Levels.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/_Scripts/AllLevels.cs">
     <Files>
-      <File FileName="Assets/_Scripts/UI.cs" Line="61" Column="30" />
-      <File FileName="Assets/_Scripts/CellDirectionObjects.cs" Line="144" Column="49" />
-      <File FileName="Assets/_Scripts/MazeBuilder.cs" Line="152" Column="40" />
-      <File FileName="Assets/_Scripts/AllLevels.cs" Line="77" Column="1" />
-      <File FileName="Assets/_Scripts/Maze.cs" Line="30" Column="2" />
-      <File FileName="Assets/_Scripts/LevelSettings.cs" Line="49" Column="32" />
-      <File FileName="Assets/Resources/CellDescs.txt" Line="18" Column="1" />
-      <File FileName="Assets/Resources/Levels.txt" Line="18" Column="1" />
+      <File FileName="Assets/_Scripts/CellDirectionObjects.cs" Line="210" Column="53" />
+      <File FileName="Assets/_Scripts/UI.cs" Line="60" Column="13" />
+      <File FileName="Assets/_Scripts/MazeBuilder.cs" Line="216" Column="24" />
+      <File FileName="Assets/_Scripts/AllLevels.cs" Line="133" Column="75" />
+      <File FileName="Assets/_Scripts/Maze.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/LevelSettings.cs" Line="1" Column="1" />
+      <File FileName="Assets/Resources/CellDescs.txt" Line="44" Column="1" />
+      <File FileName="Assets/Resources/Levels.txt" Line="1" Column="1" />
       <File FileName="Assets/_Scripts/MazeCellComponent.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/ExitNextLevel.cs" Line="22" Column="34" />
+      <File FileName="Assets/_Scripts/Pickup.cs" Line="39" Column="1" />
+      <File FileName="Assets/_Scripts/Start/UIStartController.cs" Line="16" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Volumes/Daten/Unity/Lobster/Assets/_Scripts/AllLevels.cs" line="77" column="1" />
-      <Breakpoint file="/Volumes/Daten/Unity/Lobster/Assets/_Scripts/UI.cs" line="65" column="1" />
+      <Breakpoint file="/Volumes/Daten/Unity/Lobster/Assets/_Scripts/MazeBuilder.cs" line="216" column="1" />
+      <Breakpoint file="/Volumes/Daten/Unity/Lobster/Assets/_Scripts/UI.cs" line="61" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

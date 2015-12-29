@@ -85,6 +85,7 @@ public class CellDirectionObjects
 	public GameObjectChance[] backward = { };
 	public GameObjectChance[] props = { };
 	public GameObjectChance[] score = { };
+	public GameObjectChance[] exit = { };
 	public GameObjectChance[] topProps = { };
 	public GameObjectChance[] bottomProps = { };
 	public GameObjectChance[] leftProps = { };
@@ -103,6 +104,7 @@ public class CellDirectionObjects
 		lNew.backward = GameObjectChance.CloneArray (aNew.backward);
 		lNew.props = GameObjectChance.CloneArray (aNew.props);
 		lNew.score = GameObjectChance.CloneArray (aNew.score);
+		lNew.exit = GameObjectChance.CloneArray (aNew.exit);
 		lNew.topProps = GameObjectChance.CloneArray (aNew.topProps);
 		lNew.bottomProps = GameObjectChance.CloneArray (aNew.bottomProps);
 		lNew.leftProps = GameObjectChance.CloneArray (aNew.leftProps);
@@ -205,6 +207,7 @@ public class CellDirectionObjects
 		backward = ReadGameObjectChance (aLine, backward, "backward");
 		props = ReadGameObjectChance (aLine, props, "props");
 		score = ReadGameObjectChance (aLine, score, "score");
+		exit = ReadGameObjectChance (aLine, exit, "exit");
 		topProps = ReadGameObjectChance (aLine, topProps, "topProps");
 		bottomProps = ReadGameObjectChance (aLine, bottomProps, "bottomProps");
 		leftProps = ReadGameObjectChance (aLine, leftProps, "leftProps");

@@ -6,6 +6,7 @@ right			Wall_R+
 forward			Wall_B+
 backward		Wall_B-
 score			GemScore1;0;false;1;0
+exit			ExitCylinder
 
 #Grille
 top				Ceiling
@@ -15,6 +16,7 @@ right			WallGrille_R+
 forward			WallGrille_B+
 backward		WallGrille_B-
 score			GemScore1;0;false;1;0
+exit			ExitCylinder
 
 #Dungeon1
 top				Ceiling
@@ -38,3 +40,4 @@ forwardProps	Arch_B+;10;false
 forwardProps	Ladder_B+;1
 backwardProps	Arch_B-;10;false
 backwardProps	Ladder_B-;1
+exit			ExitCylinder

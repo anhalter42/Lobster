@@ -573,8 +573,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Version: 0.3
   levels: {fileID: 4900000, guid: 761cfa12d330546a5bc457c1a39aea20, type: 3}
-  cellDescs: {fileID: 0}
+  cellDescs: {fileID: 4900000, guid: 8af93f9fc91514bd3ab0408cbe0a257b, type: 3}
   cellDescriptions: []
+  currentLevelSettings:
+    prefabs: Simple
+    level: 1
+    levelName: NO LEVELS
+    levelDescription: 
+    mazeWidth: 5
+    mazeHeight: 1
+    mazeDepth: 5
+    breakWalls: 0
+    maxTime: 0
+    scoreForExit: 20
+  levelSettings: []
 --- !u!1 &1774937046
 GameObject:
   m_ObjectHideFlags: 0

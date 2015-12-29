@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class AllLevels : MonoBehaviour
@@ -19,6 +20,7 @@ public class AllLevels : MonoBehaviour
 			fMaster = GameObject.Find ("Master");
 			if (!fMaster) {
 				fMaster = new GameObject ("Master");
+				DontDestroyOnLoad(fMaster);
 				fMaster.AddComponent<AllLevels> ().Start ();
 			}
 		}
@@ -123,5 +125,13 @@ public class AllLevels : MonoBehaviour
 			}
 		}
 		levelSettings = lSettings.ToArray (typeof(LevelSettings)) as LevelSettings[];
+	}
+
+	public void NextLevel ()
+	{
+		if (currentLevelSettings.level < levelSettings.Length - 1) {
+			currentLevelSettings = levelSettings[currentLevelSettings.level/* + 1*/];
+			SceneManager.LoadScene ("Main", LoadSceneMode.Single);
+		}
 	}
 }
