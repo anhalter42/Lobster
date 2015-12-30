@@ -100,12 +100,13 @@ public class AllLevels : MonoBehaviour
 		CellDescription lDesc = null;
 		string[] lLines = aText.Split (new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
 		foreach (string lLine in lLines) {
-			if (lLine.StartsWith ("#")) {
+			string lNewLine = lLine.Replace("\r","");
+			if (lNewLine.StartsWith ("#")) {
 				lDesc = new CellDescription ();
-				lDesc.name = lLine.Substring (1);
+				lDesc.name = lNewLine.Substring (1);
 				lDescs.Add (lDesc);
 			} else if (lDesc != null) {
-				lDesc.ReadLine (lLine);
+				lDesc.ReadLine (lNewLine);
 			}
 		}
 		cellDescriptions = lDescs.ToArray (typeof(CellDescription)) as CellDescription[];
@@ -117,13 +118,14 @@ public class AllLevels : MonoBehaviour
 		LevelSettings lSetting = null;
 		string[] lLines = aText.Split (new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
 		foreach (string lLine in lLines) {
-			if (lLine.StartsWith ("#")) {
+			string lNewLine = lLine.Replace("\r","");
+			if (lNewLine.StartsWith ("#")) {
 				lSetting = new LevelSettings ();
-				lSetting.levelName = lLine.Substring (1);
+				lSetting.levelName = lNewLine.Substring (1);
 				lSettings.Add (lSetting);
 				lSetting.level = lSettings.Count;
 			} else if (lSetting != null) {
-				lSetting.ReadLine (lLine);
+				lSetting.ReadLine (lNewLine);
 			}
 		}
 		levelSettings = lSettings.ToArray (typeof(LevelSettings)) as LevelSettings[];

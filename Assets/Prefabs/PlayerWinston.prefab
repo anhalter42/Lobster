@@ -2874,6 +2874,7 @@ GameObject:
   - 136: {fileID: 13681482}
   - 114: {fileID: 11484482}
   - 114: {fileID: 11421506}
+  - 114: {fileID: 11430362}
   m_Layer: 0
   m_Name: PlayerWinston
   m_TagString: Player
@@ -5921,6 +5922,19 @@ MonoBehaviour:
   m_MoveSpeedMultiplier: 0.6
   m_AnimSpeedMultiplier: 0.6
   m_GroundCheckDistance: 0.2
+--- !u!114 &11430362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 192064}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7faace1c9074ece9a6614726c895d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 0}
+  marker: {fileID: 113796, guid: 68e3c7fa80f7d4be7bdc4a0706121f78, type: 2}
 --- !u!114 &11484482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6531,6 +6545,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_StationaryTurnSpeed
       value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: marker
+      value: 
+      objectReference: {fileID: 113796, guid: 68e3c7fa80f7d4be7bdc4a0706121f78, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

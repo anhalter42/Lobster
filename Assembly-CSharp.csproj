@@ -58,6 +58,7 @@
      <Compile Include="Assets\_Scripts\Maze.cs" />
      <Compile Include="Assets\_Scripts\MazeBuilder.cs" />
      <Compile Include="Assets\_Scripts\MazeCellComponent.cs" />
+     <Compile Include="Assets\_Scripts\MazeMarker.cs" />
      <Compile Include="Assets\_Scripts\Pickup.cs" />
      <Compile Include="Assets\_Scripts\PickupData.cs" />
      <Compile Include="Assets\_Scripts\RotationY.cs" />

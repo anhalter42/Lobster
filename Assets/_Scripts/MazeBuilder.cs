@@ -226,10 +226,13 @@ public class MazeBuilder
 		lExit.transform.SetParent (Maze.get (lP).gameObject.transform, false);
 		lExit.name = "Exit";
 		Vector3 lLocalPos = AllLevels.Get ().player.transform.position - parent.position;
+		lLocalPos.x += 0.5f;
+		lLocalPos.y += 0.5f;
+		lLocalPos.z += 0.5f;
 		Maze.Point lFrom = new Maze.Point (
-			                   Mathf.CeilToInt (lLocalPos.x),
-			                   Mathf.CeilToInt (lLocalPos.y),
-			                   Mathf.CeilToInt (lLocalPos.z));
+			                   (int)lLocalPos.x,
+			                   (int)lLocalPos.y,
+			                   (int)lLocalPos.z);
 		ActivateWayPoints (lFrom, lP);
 	}
 }

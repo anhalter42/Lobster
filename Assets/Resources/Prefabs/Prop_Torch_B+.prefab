@@ -178,7 +178,7 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
-    m_Resolution: -1
+    m_Resolution: 0
     m_Strength: 0.75
     m_Bias: 0.05
     m_NormalBias: 0.4
@@ -190,7 +190,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_BounceIntensity: 2
   m_ShadowRadius: 0
   m_ShadowAngle: 0
