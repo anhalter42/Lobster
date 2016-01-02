@@ -23,9 +23,9 @@ public class DungeonCamera : MonoBehaviour
 			Vector3 desiredPosition = target.transform.position + offset;
 			Vector3 position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * damping);
 			transform.position = position;
-			Quaternion lRotation =  Quaternion.LookRotation(target.transform.position - position, Vector3.up);
-			Quaternion.Lerp(transform.rotation, lRotation, Time.deltaTime * rollDamping);
-			//transform.LookAt(target.transform.position);
+			//Quaternion lRotation =  Quaternion.LookRotation(target.transform.position - position, Vector3.up);
+			//Quaternion.Lerp(transform.rotation, lRotation, Time.deltaTime * rollDamping);
+			transform.LookAt(target.transform.position);
 		}
 	}
 

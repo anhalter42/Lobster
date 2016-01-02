@@ -41,23 +41,26 @@ public class MazeBuilder
 		Maze.build ();
 	}
 
-	protected GameObject DropWall (GameObject aWallPrefab, Transform aParent, Vector3 aPos, Vector3 aScale)
+	/*
+	protected GameObject DropWall (GameObject aWallPrefab, Transform aParent, Vector3 aPos, Vector3 aScale, string aName)
 	{
-		//RaycastHit lHit;
-		Vector3 lPos = aPos;
-		//if (Physics.Raycast (aPos, Vector3.down, out lHit, 120.0f)) {
-		//	lPos = new Vector3 (lHit.point.x, lHit.point.y + 0.4f, lHit.point.z);
+		return CreateGameObject (aWallPrefab, aParent, aName, aPos);
+		////RaycastHit lHit;
+		//Vector3 lPos = aPos;
+		////if (Physics.Raycast (aPos, Vector3.down, out lHit, 120.0f)) {
+		////	lPos = new Vector3 (lHit.point.x, lHit.point.y + 0.4f, lHit.point.z);
+		////}
+		//Quaternion lQ = new Quaternion ();
+		////lQ.eulerAngles = new Vector3(Random.Range(-10.0f,10.0f),Random.Range(-10.0f,10.0f),Random.Range(-10.0f,10.0f));
+		////Network.Instantiate(mazeWallPrefab, lPos, lQ, NetworkManager.GROUP_WORLD);
+		//GameObject lObj = GameObject.Instantiate (aWallPrefab ? aWallPrefab : mazeWallPrefab, lPos, lQ) as GameObject;
+		//lObj.transform.localScale = aScale;
+		//if (aParent) {
+		//	lObj.transform.SetParent (aParent, false);
 		//}
-		Quaternion lQ = new Quaternion ();
-		//lQ.eulerAngles = new Vector3(Random.Range(-10.0f,10.0f),Random.Range(-10.0f,10.0f),Random.Range(-10.0f,10.0f));
-		//Network.Instantiate(mazeWallPrefab, lPos, lQ, NetworkManager.GROUP_WORLD);
-		GameObject lObj = GameObject.Instantiate (aWallPrefab ? aWallPrefab : mazeWallPrefab, lPos, lQ) as GameObject;
-		lObj.transform.localScale = aScale;
-		if (aParent) {
-			lObj.transform.SetParent (aParent, false);
-		}
-		return lObj;
+		//return lObj;
 	}
+	*/
 
 	protected Vector3[] fDirectionScales = new Vector3[6];
 	protected GameObject[] fDirectionPrefabs = new GameObject[6];
@@ -114,9 +117,10 @@ public class MazeBuilder
 	{
 		GameObject[] lObjs = prefabs.GetSome (aObjs, aWithWall);
 		for (int i = 0; i < lObjs.Length; i++) {
-			GameObject lObj = GameObject.Instantiate (lObjs [i], Vector3.zero, Quaternion.identity) as GameObject;
-			lObj.transform.SetParent (aParent, false);
-			lObj.name = aNamePrefix + i.ToString ();
+			CreateGameObject (lObjs [i], aParent, aNamePrefix + i.ToString ());
+			//GameObject lObj = GameObject.Instantiate (lObjs [i], Vector3.zero, Quaternion.identity) as GameObject;
+			//lObj.transform.SetParent (aParent, false);
+			//lObj.name = aNamePrefix + i.ToString ();
 		}
 	}
 
@@ -158,36 +162,40 @@ public class MazeBuilder
 					for (int lDir = 0; lDir < 6; lDir++) {
 						if (lDir > 0 || y != (Maze.height - 1)) { // oberstes Dach weglassen
 							if (!Maze.get (x, y, z).links [lDir].broken) {
+								CreateGameObject(GetOneWall (lDir), lCellObj.transform, "Wall_" + lDir.ToString ());
+								/*
 								GameObject lWall = DropWall (
 									                   GetOneWall (lDir), // fDirectionPrefabs [lDir],
 									                   lCellObj.transform, // lWallParent.transform,
 									//lPos + Maze.getDirectionVector (lDir) * (0.5f - mazeWallScale / 2),
 									                   Maze.getDirectionVector (lDir) * (0.5f - mazeWallScale / 2),
-									                   fDirectionScales [lDir]);
+									                   fDirectionScales [lDir],
+									                   "Wall_" + lDir.ToString ()
+								                   );
 								//lWall.name = "Wall_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString () + "_" + lDir.ToString ();
-								lWall.name = "Wall_" + lDir.ToString ();
+								//lWall.name = "Wall_" + lDir.ToString ();
+								*/
 								DropSome (lDir, lCellObj.transform, true);
 							} else {
 								DropSome (lDir, lCellObj.transform, false);
 							}
 						}
 					}
-					if (mazeMarkerPrefab) {
-						GameObject lMarker = GameObject.Instantiate (mazeMarkerPrefab, lPos, Quaternion.identity) as GameObject;
-						lMarker.transform.SetParent (lMarkerParent.transform, false);
-						lMarker.name = "M_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString ();
-					}
+					//if (mazeMarkerPrefab) {
+					//	GameObject lMarker = GameObject.Instantiate (mazeMarkerPrefab, lPos, Quaternion.identity) as GameObject;
+					//	lMarker.transform.SetParent (lMarkerParent.transform, false);
+					//	lMarker.name = "M_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString ();
+					//}
 					if (prefabs != null) {
 						GameObject lscore1Prefab = prefabs.GetOneForScore (prefabs.score, 1);
 						if (lscore1Prefab) {
-							GameObject lScore = GameObject.Instantiate (lscore1Prefab, Vector3.down * 0.25f, Quaternion.identity) as GameObject;
-							//lScore.transform.SetParent (lScoreParent.transform, false);
-							lScore.transform.SetParent (lCellObj.transform, false);
+							GameObject lScore = CreateGameObject (lscore1Prefab, lCellObj.transform, "Score_1", Vector3.down * 0.25f) as GameObject;
+							//lScore.transform.SetParent (lCellObj.transform, false);
 							lScore.GetComponent<PickupData> ().score = 1;
-							lScore.name = "Score_1";
+							//lScore.name = "Score_1";
 						}
 						DropSome ("Prop_", lCellObj.transform, prefabs.props, false);
-					} else {
+					}/* else {
 						if (score1Prefab) {
 							GameObject lScore = GameObject.Instantiate (score1Prefab, Vector3.down * 0.25f, Quaternion.identity) as GameObject;
 							//lScore.transform.SetParent (lScoreParent.transform, false);
@@ -199,7 +207,7 @@ public class MazeBuilder
 							lBarrel.transform.SetParent (lCellObj.transform, false);
 							lBarrel.name = "Barrel";
 						}
-					}
+					}*/
 				}
 			}
 		}
@@ -211,8 +219,9 @@ public class MazeBuilder
 		Maze.WayPoint[] lWay = Maze.FindWay (aFrom, aTo);
 		for (int i = 0; i < lWay.Length; i++) {
 			Maze.WayPoint lP = lWay [i];
-			GameObject lWayPoint = GameObject.Instantiate (prefabs.GetOneForScore (prefabs.wayPoints, lP.direction)) as GameObject;
-			lWayPoint.transform.SetParent (lWay [i].cell.gameObject.transform, false);
+			CreateGameObject (prefabs.GetOneForScore (prefabs.wayPoints, lP.direction), lWay [i].cell.gameObject.transform, "Way_" + i.ToString ());
+			//GameObject.Instantiate (prefabs.GetOneForScore (prefabs.wayPoints, lP.direction)) as GameObject;
+			//lWayPoint.transform.SetParent (lWay [i].cell.gameObject.transform, false);
 		}
 	}
 
@@ -221,10 +230,11 @@ public class MazeBuilder
 		Maze.Point lP = new Maze.Point (Random.Range (0, Maze.width - 1),
 			                Random.Range (0, Maze.height - 1),
 			                Random.Range (0, Maze.depth - 1));
-		GameObject lPrefab = prefabs.GetOne (prefabs.exit);
-		GameObject lExit = GameObject.Instantiate (lPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-		lExit.transform.SetParent (Maze.get (lP).gameObject.transform, false);
-		lExit.name = "Exit";
+		//GameObject lPrefab = prefabs.GetOne (prefabs.exit);
+		CreateGameObject (prefabs.GetOne (prefabs.exit), Maze.get (lP).gameObject.transform, "Exit");
+		//GameObject.Instantiate (lPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+		//lExit.transform.SetParent (Maze.get (lP).gameObject.transform, false);
+		//lExit.name = "Exit";
 		Vector3 lLocalPos = AllLevels.Get ().player.transform.position - parent.position;
 		lLocalPos.x += 0.5f;
 		lLocalPos.y += 0.5f;
@@ -234,5 +244,23 @@ public class MazeBuilder
 			                   (int)lLocalPos.y,
 			                   (int)lLocalPos.z);
 		ActivateWayPoints (lFrom, lP);
+	}
+
+	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName)
+	{
+		return CreateGameObject (aPrefab, aParent, aName, Vector3.zero, Quaternion.identity);
+	}
+
+	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName, Vector3 aPos)
+	{
+		return CreateGameObject (aPrefab, aParent, aName, aPos, Quaternion.identity);
+	}
+
+	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName, Vector3 aPos, Quaternion aRotation)
+	{
+		GameObject aObj = GameObject.Instantiate (aPrefab, aPos, aRotation) as GameObject;
+		aObj.transform.SetParent (aParent, false);
+		aObj.name = aName;
+		return aObj;
 	}
 }
