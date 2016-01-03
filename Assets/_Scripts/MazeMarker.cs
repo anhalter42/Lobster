@@ -23,12 +23,12 @@ public class MazeMarker : MonoBehaviour
 	void FixedUpdate ()
 	{
 		if (ui != null && fMarker != null && ui.mazeBuilder != null && ui.mazeBuilder.parent != null) {
-			Vector3 lRelPos = transform.position - ui.mazeBuilder.parent.transform.position;
-			lRelPos.x += 0.5f;
-			lRelPos.y += 0.5f;
-			lRelPos.z += 0.5f;
-			Maze.Point lMazePos = new Maze.Point ((int)lRelPos.x, (int)lRelPos.y, (int)lRelPos.z);
-
+			//Vector3 lRelPos = transform.position - ui.mazeBuilder.parent.transform.position;
+			//lRelPos.x += 0.5f;
+			//lRelPos.y += 0.5f;
+			//lRelPos.z += 0.5f;
+			//Maze.Point lMazePos = new Maze.Point ((int)lRelPos.x, (int)lRelPos.y, (int)lRelPos.z);
+			Maze.Point lMazePos = ui.mazeBuilder.GetMazePoint(transform.position);
 			fMarker.transform.SetParent (ui.mazeBuilder.Maze.get (lMazePos).gameObject.transform, false);
 		}
 	}

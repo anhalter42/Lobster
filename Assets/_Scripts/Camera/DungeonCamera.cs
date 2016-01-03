@@ -7,6 +7,7 @@ public class DungeonCamera : MonoBehaviour
 
 	//[FormerlySerializedAs ("target")]
 	public GameObject m_Target;
+
 	public GameObject target { get { return GetTarget (); } set { SetTarget (value); } }
 
 	public float damping = 5;
@@ -14,6 +15,7 @@ public class DungeonCamera : MonoBehaviour
 
 	//[FormerlySerializedAs ("offset")]
 	public Vector3 m_Offset;
+
 	public Vector3 offset { get { return GetOffset (); } set { SetOffset (value); } }
 
 	// Use this for initialization
@@ -25,7 +27,7 @@ public class DungeonCamera : MonoBehaviour
 	void LateUpdate ()
 	{
 		if (target != null) {
-			UpdatePositionAndRotation(true);
+			UpdatePositionAndRotation (true);
 			//Vector3 desiredPosition = target.transform.position + offset;
 			//Vector3 position = Vector3.Lerp (transform.position, desiredPosition, Time.deltaTime * damping);
 			//transform.position = position;
@@ -50,7 +52,7 @@ public class DungeonCamera : MonoBehaviour
 			if (offset == Vector3.zero) {
 				offset = transform.position - target.transform.position;
 			}
-			UpdatePositionAndRotation();
+			UpdatePositionAndRotation ();
 		}
 	}
 
@@ -65,16 +67,16 @@ public class DungeonCamera : MonoBehaviour
 	void SetOffset (Vector3 aOffset)
 	{
 		m_Offset = aOffset;
-		UpdatePositionAndRotation();
+		UpdatePositionAndRotation ();
 	}
 
-	void UpdatePositionAndRotation(bool aSmooth = false)
+	void UpdatePositionAndRotation (bool aSmooth = true)
 	{
 		Vector3 lDesiredPosition = m_Target.transform.position + m_Offset;
 		if (aSmooth) {
 			transform.position = Vector3.Lerp (transform.position, lDesiredPosition, Time.deltaTime * damping);
-			Quaternion lRotation =  Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
-			transform.rotation = Quaternion.Lerp(transform.rotation, lRotation, Time.deltaTime * rollDamping);
+			Quaternion lRotation = Quaternion.LookRotation (target.transform.position - transform.position, Vector3.up);
+			transform.rotation = Quaternion.Lerp (transform.rotation, lRotation, Time.deltaTime * rollDamping);
 		} else {
 			transform.position = lDesiredPosition;
 			transform.LookAt (m_Target.transform.position);

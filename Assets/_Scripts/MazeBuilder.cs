@@ -5,6 +5,7 @@ public class MazeBuilder
 {
 	public CellDirectionObjects prefabs;
 	public Transform parent;
+	/*
 	public GameObject mazeWallPrefab;
 	public GameObject mazeWallLeftPrefab;
 	public GameObject mazeWallRightPrefab;
@@ -17,6 +18,7 @@ public class MazeBuilder
 	public GameObject mazeArchPrefab;
 	public GameObject score1Prefab;
 	public float mazeWallScale = 1f;
+	*/
 
 	public LevelSettings settings;
 
@@ -24,18 +26,22 @@ public class MazeBuilder
 
 	protected void Init ()
 	{
+		/*
 		fDirectionScales [Maze.DirectionTop] = new Vector3 (1, mazeWallScale, 1);
 		fDirectionScales [Maze.DirectionBottom] = new Vector3 (1, mazeWallScale, 1);
 		fDirectionScales [Maze.DirectionRight] = new Vector3 (mazeWallScale, 1, 1);
 		fDirectionScales [Maze.DirectionLeft] = new Vector3 (mazeWallScale, 1, 1);
 		fDirectionScales [Maze.DirectionForward] = new Vector3 (1, 1, mazeWallScale);
 		fDirectionScales [Maze.DirectionBackward] = new Vector3 (1, 1, mazeWallScale);
+		*/
+		/*
 		fDirectionPrefabs [Maze.DirectionTop] = mazeWallTopPrefab ? mazeWallTopPrefab : mazeWallPrefab;
 		fDirectionPrefabs [Maze.DirectionBottom] = mazeWallBottomPrefab ? mazeWallBottomPrefab : mazeWallPrefab;
 		fDirectionPrefabs [Maze.DirectionRight] = mazeWallRightPrefab ? mazeWallRightPrefab : mazeWallPrefab;
 		fDirectionPrefabs [Maze.DirectionLeft] = mazeWallLeftPrefab ? mazeWallLeftPrefab : mazeWallPrefab;
 		fDirectionPrefabs [Maze.DirectionForward] = mazeWallForwardPrefab ? mazeWallForwardPrefab : mazeWallPrefab;
 		fDirectionPrefabs [Maze.DirectionBackward] = mazeWallBackwardPrefab ? mazeWallBackwardPrefab : mazeWallPrefab;
+		*/
 		Maze = new Maze (settings.mazeWidth, settings.mazeHeight, settings.mazeDepth);
 		Maze.chanceForBreakWalls = settings.breakWalls;
 		Maze.build ();
@@ -62,31 +68,31 @@ public class MazeBuilder
 	}
 	*/
 
-	protected Vector3[] fDirectionScales = new Vector3[6];
-	protected GameObject[] fDirectionPrefabs = new GameObject[6];
+	//protected Vector3[] fDirectionScales = new Vector3[6];
+	//protected GameObject[] fDirectionPrefabs = new GameObject[6];
 
 	protected GameObject GetOneWall (int aDir)
 	{
-		if (prefabs != null) {
-			switch (aDir) {
-			case Maze.DirectionTop:
-				return prefabs.GetOne (prefabs.top);
-			case Maze.DirectionBottom:
-				return prefabs.GetOne (prefabs.bottom);
-			case Maze.DirectionLeft:
-				return prefabs.GetOne (prefabs.left);
-			case Maze.DirectionRight:
-				return prefabs.GetOne (prefabs.right);
-			case Maze.DirectionForward:
-				return prefabs.GetOne (prefabs.forward);
-			case Maze.DirectionBackward:
-				return prefabs.GetOne (prefabs.backward);
-			default:
-				return null;
-			}
-		} else {
-			return fDirectionPrefabs [aDir];
+//		if (prefabs != null) {
+		switch (aDir) {
+		case Maze.DirectionTop:
+			return prefabs.GetOne (prefabs.top);
+		case Maze.DirectionBottom:
+			return prefabs.GetOne (prefabs.bottom);
+		case Maze.DirectionLeft:
+			return prefabs.GetOne (prefabs.left);
+		case Maze.DirectionRight:
+			return prefabs.GetOne (prefabs.right);
+		case Maze.DirectionForward:
+			return prefabs.GetOne (prefabs.forward);
+		case Maze.DirectionBackward:
+			return prefabs.GetOne (prefabs.backward);
+		default:
+			return null;
 		}
+//		} else {
+//			return fDirectionPrefabs [aDir];
+//		}
 	}
 
 	protected void DropSome (int aDir, Transform aParent, bool aWithWall)
@@ -162,7 +168,7 @@ public class MazeBuilder
 					for (int lDir = 0; lDir < 6; lDir++) {
 						if (lDir > 0 || y != (Maze.height - 1)) { // oberstes Dach weglassen
 							if (!Maze.get (x, y, z).links [lDir].broken) {
-								CreateGameObject(GetOneWall (lDir), lCellObj.transform, "Wall_" + lDir.ToString ());
+								CreateGameObject (GetOneWall (lDir), lCellObj.transform, "Wall_" + lDir.ToString ());
 								/*
 								GameObject lWall = DropWall (
 									                   GetOneWall (lDir), // fDirectionPrefabs [lDir],
@@ -186,16 +192,16 @@ public class MazeBuilder
 					//	lMarker.transform.SetParent (lMarkerParent.transform, false);
 					//	lMarker.name = "M_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString ();
 					//}
-					if (prefabs != null) {
-						GameObject lscore1Prefab = prefabs.GetOneForScore (prefabs.score, 1);
-						if (lscore1Prefab) {
-							GameObject lScore = CreateGameObject (lscore1Prefab, lCellObj.transform, "Score_1"); //, Vector3.down * 0.25f) as GameObject;
-							//lScore.transform.SetParent (lCellObj.transform, false);
-							lScore.GetComponent<PickupData> ().score = 1;
-							//lScore.name = "Score_1";
-						}
-						DropSome ("Prop_", lCellObj.transform, prefabs.props, false);
-					}/* else {
+					//if (prefabs != null) {
+					GameObject lscore1Prefab = prefabs.GetOneForScore (prefabs.score, 1);
+					if (lscore1Prefab) {
+						GameObject lScore = CreateGameObject (lscore1Prefab, lCellObj.transform, "Score_1"); //, Vector3.down * 0.25f) as GameObject;
+						//lScore.transform.SetParent (lCellObj.transform, false);
+						lScore.GetComponent<PickupData> ().score = 1;
+						//lScore.name = "Score_1";
+					}
+					DropSome ("Prop_", lCellObj.transform, prefabs.props, false);
+					/*} else {
 						if (score1Prefab) {
 							GameObject lScore = GameObject.Instantiate (score1Prefab, Vector3.down * 0.25f, Quaternion.identity) as GameObject;
 							//lScore.transform.SetParent (lScoreParent.transform, false);
@@ -235,6 +241,7 @@ public class MazeBuilder
 		//GameObject.Instantiate (lPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 		//lExit.transform.SetParent (Maze.get (lP).gameObject.transform, false);
 		//lExit.name = "Exit";
+		/*
 		Vector3 lLocalPos = AllLevels.Get ().player.transform.position - parent.position;
 		lLocalPos.x += 0.5f;
 		lLocalPos.y += 0.5f;
@@ -243,7 +250,26 @@ public class MazeBuilder
 			                   (int)lLocalPos.x,
 			                   (int)lLocalPos.y,
 			                   (int)lLocalPos.z);
-		ActivateWayPoints (lFrom, lP);
+			                   */
+		ActivateWayPoints (GetPlayerMazePoint (), lP);
+	}
+
+	public Maze.Point GetMazePointFromLocal (Vector3 aPos)
+	{
+		return new Maze.Point (
+			(int)(aPos.x + 0.5f),
+			(int)(aPos.y + 0.5f),
+			(int)(aPos.z + 0.5f));
+	}
+
+	public Maze.Point GetMazePoint (Vector3 aPos)
+	{
+		return GetMazePointFromLocal(aPos - parent.position);
+	}
+
+	public Maze.Point GetPlayerMazePoint ()
+	{
+		return GetMazePoint (AllLevels.Get ().player.transform.position);
 	}
 
 	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName)
@@ -261,9 +287,9 @@ public class MazeBuilder
 		GameObject lObj = GameObject.Instantiate (aPrefab, aPos, aRotation) as GameObject;
 		lObj.transform.SetParent (aParent, false);
 		lObj.name = aName;
-		PrefabModifier lMod = lObj.GetComponent<PrefabModifier>();
+		PrefabModifier lMod = lObj.GetComponent<PrefabModifier> ();
 		if (lMod) {
-			lMod.ModifyPrefab(lObj);
+			lMod.ModifyPrefab (lObj);
 		}
 		return lObj;
 	}

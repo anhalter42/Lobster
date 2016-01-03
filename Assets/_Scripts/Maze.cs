@@ -22,6 +22,54 @@ public class Maze
 			y = aY;
 			z = aZ;
 		}
+
+		public override bool Equals(System.Object aObj)
+		{
+			if (aObj is Point) {
+				return Equals((Point)aObj);
+			} else {
+				return false;
+			}
+		}
+
+		public bool Equals(Point aP)
+		{
+			return aP.x == x && aP.y == y && aP.z == z;
+		}
+
+		public override int GetHashCode ()
+		{
+			return x ^ y ^ z;
+		}
+
+		public override string ToString() 
+		{
+			return System.String.Format("({0},{1},{2})",x,y,z);
+		}
+
+		public static bool operator ==(Point a, Point b)
+		{
+			// If both are null, or both are same instance, return true.
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+
+			// If one is null, but not both, return false.
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+
+			// Return true if the fields match:
+			return a.x == b.x && a.y == b.y && a.z == b.z;
+		}
+
+		public static bool operator !=(Point a, Point b)
+		{
+			return !(a == b);
+		}
+
 	}
 
 	public class Link

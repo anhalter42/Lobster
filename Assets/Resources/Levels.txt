@@ -1,6 +1,6 @@
 #Tutorial 1
 //Ganz einfach geht es los
-prefabs	Simple
+prefabs	SimpleCactusRocks
 mazeWidth	5
 mazeHeight	1
 mazeDepth	5

@@ -12,6 +12,52 @@ wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
 
+#SimpleRocks
+top				CCeiling_Wood
+bottom			CFloor_Sand
+left			CWallRock_R-
+right			CWallRock_R+
+forward			CWallRock_B+
+backward		CWallRock_B-
+score			GemScore1;0;false;1;0
+exit			ExitCylinder
+wayPoints		WayPoint_R-;100;true;3
+wayPoints		WayPoint_R+;100;true;2
+wayPoints		WayPoint_B+;100;true;4
+wayPoints		WayPoint_B-;100;true;5
+
+#SimpleCactus
+top				CCeiling_Wood
+bottom			CFloor_Sand
+left			CWallCactus_R-
+right			CWallCactus_R+
+forward			CWallCactus_B+
+backward		CWallCactus_B-
+score			GemScore1;0;false;1;0
+exit			ExitCylinder
+wayPoints		WayPoint_R-;100;true;3
+wayPoints		WayPoint_R+;100;true;2
+wayPoints		WayPoint_B+;100;true;4
+wayPoints		WayPoint_B-;100;true;5
+
+#SimpleCactusRocks
+top				CCeiling_Wood
+bottom			CFloor_Sand
+left			CWallCactus_R-
+right			CWallCactus_R+
+forward			CWallCactus_B+
+backward		CWallCactus_B-
+left			CWallRock_R-
+right			CWallRock_R+
+forward			CWallRock_B+
+backward		CWallRock_B-
+score			GemScore1;0;false;1;0
+exit			ExitCylinder
+wayPoints		WayPoint_R-;100;true;3
+wayPoints		WayPoint_R+;100;true;2
+wayPoints		WayPoint_B+;100;true;4
+wayPoints		WayPoint_B-;100;true;5
+
 #Grille
 top				Ceiling
 bottom			Floor

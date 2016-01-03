@@ -12,6 +12,7 @@ namespace MAHN42
         private Transform m_Cam;                  // A reference to the main camera in the scenes transform
         private Vector3 m_CamForward;             // The current forward direction of the camera
         private Vector3 m_Move;
+		private DungeonCamera m_dungeonCam;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
 		public bool useAbsoluteMovement = false;
         
@@ -21,6 +22,7 @@ namespace MAHN42
             if (Camera.main != null)
             {
                 m_Cam = Camera.main.transform;
+				m_dungeonCam = Camera.main.GetComponent<DungeonCamera>();
             }
             else
             {
@@ -40,15 +42,28 @@ namespace MAHN42
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
+			if (Input.GetKeyUp (KeyCode.N)) {
+				if (m_dungeonCam) {
+					m_dungeonCam.offset = new Vector3 (m_dungeonCam.offset.x, m_dungeonCam.offset.y, -m_dungeonCam.offset.z);
+				}
+			}
         }
 
 
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
+			float lScaleH = 1.0f;
+			float lScaleV = 1.0f;
+			if (m_dungeonCam) {
+				if (m_dungeonCam.offset.z > 0) {
+					lScaleH = -lScaleH;
+					lScaleV = -lScaleV;
+				}
+			}
             // read inputs
-            float h = CrossPlatformInputManager.GetAxis("Horizontal");
-            float v = CrossPlatformInputManager.GetAxis("Vertical");
+			float h = CrossPlatformInputManager.GetAxis("Horizontal") * lScaleH;
+			float v = CrossPlatformInputManager.GetAxis("Vertical") * lScaleV;
             bool crouch = Input.GetKey(KeyCode.C);
 
             // calculate move direction to pass to character
