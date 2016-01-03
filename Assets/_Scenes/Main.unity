@@ -689,9 +689,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b9bb61c6e6d40e886e6c67c1155cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Target: {fileID: 0}
   damping: 5
   rollDamping: 5
-  offset: {x: 0, y: 2.5, z: -1.5}
+  m_Offset: {x: 0, y: 2.5, z: -1.5}
 --- !u!1 &520689857
 GameObject:
   m_ObjectHideFlags: 0
@@ -2004,12 +2005,15 @@ MonoBehaviour:
     forward: []
     backward: []
     props: []
+    score: []
+    exit: []
     topProps: []
     bottomProps: []
     leftProps: []
     rightProps: []
     forwardProps: []
     backwardProps: []
+    wayPoints: []
   playerPrefab: {fileID: 192064, guid: 705db0d89c757421d9b8dd5486d044e4, type: 2}
   mazeWallPrefab: {fileID: 175488, guid: e323546ffa6ba4c6ca346a9702bbe737, type: 2}
   mazeWallLeftPrefab: {fileID: 150336, guid: 953f0aeab2b82410081a05b3bb13c21b, type: 2}

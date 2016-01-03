@@ -189,7 +189,7 @@ public class MazeBuilder
 					if (prefabs != null) {
 						GameObject lscore1Prefab = prefabs.GetOneForScore (prefabs.score, 1);
 						if (lscore1Prefab) {
-							GameObject lScore = CreateGameObject (lscore1Prefab, lCellObj.transform, "Score_1", Vector3.down * 0.25f) as GameObject;
+							GameObject lScore = CreateGameObject (lscore1Prefab, lCellObj.transform, "Score_1"); //, Vector3.down * 0.25f) as GameObject;
 							//lScore.transform.SetParent (lCellObj.transform, false);
 							lScore.GetComponent<PickupData> ().score = 1;
 							//lScore.name = "Score_1";
@@ -258,9 +258,13 @@ public class MazeBuilder
 
 	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName, Vector3 aPos, Quaternion aRotation)
 	{
-		GameObject aObj = GameObject.Instantiate (aPrefab, aPos, aRotation) as GameObject;
-		aObj.transform.SetParent (aParent, false);
-		aObj.name = aName;
-		return aObj;
+		GameObject lObj = GameObject.Instantiate (aPrefab, aPos, aRotation) as GameObject;
+		lObj.transform.SetParent (aParent, false);
+		lObj.name = aName;
+		PrefabModifier lMod = lObj.GetComponent<PrefabModifier>();
+		if (lMod) {
+			lMod.ModifyPrefab(lObj);
+		}
+		return lObj;
 	}
 }
