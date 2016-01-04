@@ -1,17 +1,18 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/_Scripts/CellDirectionObjects.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/_Scripts/LevelSettings.cs">
     <Files>
       <File FileName="Assets/_Scripts/Camera/DungeonCamera.cs" Line="1" Column="1" />
       <File FileName="Assets/_Scripts/MazeBuilder.cs" Line="292" Column="1" />
-      <File FileName="Assets/_Scripts/ThirdPersonUserControl.cs" Line="56" Column="23" />
-      <File FileName="Assets/Standard Assets/Characters/ThirdPersonCharacter/Scripts/ThirdPersonCharacter.cs" Line="198" Column="5" />
-      <File FileName="Assets/_Scripts/PrefabModifier.cs" Line="33" Column="33" />
-      <File FileName="Assets/_Scripts/UI.cs" Line="25" Column="31" />
-      <File FileName="Assets/_Scripts/LevelSettings.cs" Line="8" Column="1" />
-      <File FileName="Assets/_Scripts/CellDirectionObjects.cs" Line="207" Column="19" />
-      <File FileName="Assets/_Scripts/AllLevels.cs" Line="111" Column="1" />
-      <File FileName="Assets/Resources/CellDescs.txt" Line="107" Column="1" />
+      <File FileName="Assets/_Scripts/ThirdPersonUserControl.cs" Line="1" Column="1" />
+      <File FileName="Assets/Standard Assets/Characters/ThirdPersonCharacter/Scripts/ThirdPersonCharacter.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/PrefabModifier.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/UI.cs" Line="67" Column="13" />
+      <File FileName="Assets/_Scripts/LevelSettings.cs" Line="80" Column="47" />
+      <File FileName="Assets/_Scripts/CellDirectionObjects.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Scripts/AllLevels.cs" Line="1" Column="1" />
+      <File FileName="Assets/Resources/CellDescs.txt" Line="94" Column="9" />
+      <File FileName="Assets/Resources/Levels.txt" Line="9" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
