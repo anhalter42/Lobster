@@ -8,6 +8,7 @@ public class UI : MonoBehaviour
 	[SerializeField]
 	public CellDirectionObjects prefabs;
 	public GameObject playerPrefab;
+	/*
 	public GameObject mazeWallPrefab;
 	public GameObject mazeWallLeftPrefab;
 	public GameObject mazeWallRightPrefab;
@@ -19,6 +20,7 @@ public class UI : MonoBehaviour
 	public GameObject mazeBarrelPrefab;
 	public GameObject mazeArchPrefab;
 	public GameObject score1Prefab;
+	*/
 	public AudioClip scoreReachedAudio;
 	public GameObject mainCamera;
 	public GameObject maze;

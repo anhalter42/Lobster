@@ -98,6 +98,7 @@ public class AllLevels : MonoBehaviour
 	{
 		ArrayList lDescs = new ArrayList ();
 		CellDescription lDesc = null;
+		string lFolder = null;
 		string[] lLines = aText.Split (new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
 		foreach (string lLine in lLines) {
 			string lNewLine = lLine.Replace("\r","");
@@ -105,8 +106,11 @@ public class AllLevels : MonoBehaviour
 				lDesc = new CellDescription ();
 				lDesc.name = lNewLine.Substring (1);
 				lDescs.Add (lDesc);
+				lFolder = null;
+			} else if (lNewLine.StartsWith ("Package=")) {
+				lFolder = lNewLine.Split(new string[] { "=" }, System.StringSplitOptions.RemoveEmptyEntries)[1];
 			} else if (lDesc != null) {
-				lDesc.ReadLine (lNewLine);
+				lDesc.ReadLine (lNewLine, lFolder);
 			}
 		}
 		cellDescriptions = lDescs.ToArray (typeof(CellDescription)) as CellDescription[];

@@ -13,11 +13,16 @@ public class GameObjectChance
 	public GameObject prefab;
 
 	//prefabname;chance;wallNeeded;score;live;
-	public void ReadLine (string aLine)
+	public void ReadLine (string aLine, string aFolder = null)
 	{
 		string[] aProps = aLine.Split (new string[] { ";" }, System.StringSplitOptions.None);
 		if (aProps.Length > 0) {
-			prefab = Resources.Load (aProps [0]) as GameObject;
+			if (!string.IsNullOrEmpty(aFolder)) {
+				prefab = Resources.Load ("Prefabs/" + aFolder + "/" + aProps [0]) as GameObject;
+			}
+			if (!prefab) {
+				prefab = Resources.Load (aProps [0]) as GameObject;
+			}
 			if (!prefab) {
 				prefab = Resources.Load ("Prefabs/" + aProps [0]) as GameObject;
 			}
@@ -177,13 +182,13 @@ public class CellDirectionObjects
 		return null;
 	}
 
-	public GameObjectChance[] ReadGameObjectChance (string aLine, GameObjectChance[] aGOC, string aName)
+	public GameObjectChance[] ReadGameObjectChance (string aLine, GameObjectChance[] aGOC, string aName, string aFolder = null)
 	{
 		if (aLine.StartsWith (aName + "\t")) {
 			string[] lArgs = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries);
 			if (lArgs.Length > 1) {
 				GameObjectChance lGOC = new GameObjectChance ();
-				lGOC.ReadLine (lArgs [1]);
+				lGOC.ReadLine (lArgs [1], aFolder);
 				if (lGOC.prefab != null) {
 					ArrayList lList = new ArrayList (aGOC);
 					lList.Add (lGOC);
@@ -199,24 +204,24 @@ public class CellDirectionObjects
 		}
 	}
 
-	public void ReadLine (string aLine)
+	public void ReadLine (string aLine, string aFolder = null)
 	{
-		top = ReadGameObjectChance (aLine, top, "top");
-		bottom = ReadGameObjectChance (aLine, bottom, "bottom");
-		left = ReadGameObjectChance (aLine, left, "left");
-		right = ReadGameObjectChance (aLine, right, "right");
-		forward = ReadGameObjectChance (aLine, forward, "forward");
-		backward = ReadGameObjectChance (aLine, backward, "backward");
-		props = ReadGameObjectChance (aLine, props, "props");
-		score = ReadGameObjectChance (aLine, score, "score");
-		exit = ReadGameObjectChance (aLine, exit, "exit");
-		topProps = ReadGameObjectChance (aLine, topProps, "topProps");
-		bottomProps = ReadGameObjectChance (aLine, bottomProps, "bottomProps");
-		leftProps = ReadGameObjectChance (aLine, leftProps, "leftProps");
-		rightProps = ReadGameObjectChance (aLine, rightProps, "rightProps");
-		forwardProps = ReadGameObjectChance (aLine, forwardProps, "forwardProps");
-		backwardProps = ReadGameObjectChance (aLine, backwardProps, "backwardProps");
-		wayPoints = ReadGameObjectChance (aLine, wayPoints, "wayPoints");
+		top = ReadGameObjectChance (aLine, top, "top", aFolder);
+		bottom = ReadGameObjectChance (aLine, bottom, "bottom", aFolder);
+		left = ReadGameObjectChance (aLine, left, "left", aFolder);
+		right = ReadGameObjectChance (aLine, right, "right", aFolder);
+		forward = ReadGameObjectChance (aLine, forward, "forward", aFolder);
+		backward = ReadGameObjectChance (aLine, backward, "backward", aFolder);
+		props = ReadGameObjectChance (aLine, props, "props", aFolder);
+		score = ReadGameObjectChance (aLine, score, "score", aFolder);
+		exit = ReadGameObjectChance (aLine, exit, "exit", aFolder);
+		topProps = ReadGameObjectChance (aLine, topProps, "topProps", aFolder);
+		bottomProps = ReadGameObjectChance (aLine, bottomProps, "bottomProps", aFolder);
+		leftProps = ReadGameObjectChance (aLine, leftProps, "leftProps", aFolder);
+		rightProps = ReadGameObjectChance (aLine, rightProps, "rightProps", aFolder);
+		forwardProps = ReadGameObjectChance (aLine, forwardProps, "forwardProps", aFolder);
+		backwardProps = ReadGameObjectChance (aLine, backwardProps, "backwardProps", aFolder);
+		wayPoints = ReadGameObjectChance (aLine, wayPoints, "wayPoints", aFolder);
 	}
 }
 

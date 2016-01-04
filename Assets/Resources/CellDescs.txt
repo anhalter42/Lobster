@@ -1,4 +1,5 @@
 #Simple
+Package=Dungeon
 top				Ceiling
 bottom			Floor
 left			Wall_R-
@@ -13,6 +14,7 @@ wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
 
 #SimpleRocks
+Package=Cactus
 top				CCeiling_Wood
 bottom			CFloor_Sand
 left			CWallRock_R-
@@ -27,6 +29,7 @@ wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
 
 #SimpleCactus
+Package=Cactus
 top				CCeiling_Wood
 bottom			CFloor_Sand
 left			CWallCactus_R-
@@ -41,6 +44,7 @@ wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
 
 #SimpleCactusRocks
+Package=Cactus
 top				CCeiling_Wood
 bottom			CFloor_Sand
 left			CWallCactus_R-
@@ -59,6 +63,7 @@ wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
 
 #Grille
+Package=Dungeon
 top				Ceiling
 bottom			Floor
 left			WallGrille_R-
@@ -73,6 +78,7 @@ wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
 
 #Dungeon1
+Package=Dungeon
 top				Ceiling
 bottom			Floor
 left			Wall_R-;90

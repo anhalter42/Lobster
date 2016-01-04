@@ -53,8 +53,8 @@ namespace MAHN42
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
-			float lScaleH = 1.0f;
-			float lScaleV = 1.0f;
+			float lScaleH = 0.5f;
+			float lScaleV = 0.5f;
 			if (m_dungeonCam) {
 				if (m_dungeonCam.offset.z > 0) {
 					lScaleH = -lScaleH;

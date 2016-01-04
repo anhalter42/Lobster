@@ -103,7 +103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &52504998
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -160,7 +160,7 @@ Transform:
   m_LocalScale: {x: 40, y: 1, z: 40}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!1 &98951943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,7 +1428,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 9
 --- !u!1001 &1310196044
 Prefab:
   m_ObjectHideFlags: 0
@@ -1616,6 +1616,68 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1401472430}
+--- !u!1001 &1511024238
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 408730, guid: 60ea000902c8948a585094b8b3690d1e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 408730, guid: 60ea000902c8948a585094b8b3690d1e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 408730, guid: 60ea000902c8948a585094b8b3690d1e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 408730, guid: 60ea000902c8948a585094b8b3690d1e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 408730, guid: 60ea000902c8948a585094b8b3690d1e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 408730, guid: 60ea000902c8948a585094b8b3690d1e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 408730, guid: 60ea000902c8948a585094b8b3690d1e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 408730, guid: 60ea000902c8948a585094b8b3690d1e, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 496262, guid: 60ea000902c8948a585094b8b3690d1e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.5326752
+      objectReference: {fileID: 0}
+    - target: {fileID: 496262, guid: 60ea000902c8948a585094b8b3690d1e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.070340455
+      objectReference: {fileID: 0}
+    - target: {fileID: 496262, guid: 60ea000902c8948a585094b8b3690d1e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.83613276
+      objectReference: {fileID: 0}
+    - target: {fileID: 496262, guid: 60ea000902c8948a585094b8b3690d1e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.110415146
+      objectReference: {fileID: 0}
+    - target: {fileID: 149790, guid: 60ea000902c8948a585094b8b3690d1e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 60ea000902c8948a585094b8b3690d1e, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1625750571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1894,7 +1956,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 416498, guid: 705db0d89c757421d9b8dd5486d044e4, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 192064, guid: 705db0d89c757421d9b8dd5486d044e4, type: 2}
       propertyPath: m_IsActive
@@ -2096,19 +2158,6 @@ MonoBehaviour:
     backwardProps: []
     wayPoints: []
   playerPrefab: {fileID: 192064, guid: 705db0d89c757421d9b8dd5486d044e4, type: 2}
-  mazeWallPrefab: {fileID: 175488, guid: e323546ffa6ba4c6ca346a9702bbe737, type: 2}
-  mazeWallLeftPrefab: {fileID: 150336, guid: 953f0aeab2b82410081a05b3bb13c21b, type: 2}
-  mazeWallRightPrefab: {fileID: 169914, guid: 2bf43292c303245bca365dca485851e8, type: 2}
-  mazeWallForwardPrefab: {fileID: 153794, guid: 4de9a708743324ef6b754507be83944c,
-    type: 2}
-  mazeWallBackwardPrefab: {fileID: 177172, guid: bdbdb3ac6877c4ba6937598493a907c6,
-    type: 2}
-  mazeWallTopPrefab: {fileID: 156202, guid: 926477a8a748e48c2b03bc1f4d95c86c, type: 2}
-  mazeWallBottomPrefab: {fileID: 104464, guid: 3f77d8233ca1e4e058f75a0aceb2b50f, type: 2}
-  mazeMarkerPrefab: {fileID: 113796, guid: 68e3c7fa80f7d4be7bdc4a0706121f78, type: 2}
-  mazeBarrelPrefab: {fileID: 195858, guid: 3379db8db2b5e47d991551663eb97909, type: 2}
-  mazeArchPrefab: {fileID: 191190, guid: a8a89f952b79442169562bf0d59ca7e8, type: 2}
-  score1Prefab: {fileID: 100000, guid: 9395d826ba0d14f1e93c4f4b961b8654, type: 2}
   scoreReachedAudio: {fileID: 8300000, guid: b8fc114e832d043a5b9d6c700ec5bf8c, type: 3}
   mainCamera: {fileID: 303614307}
   maze: {fileID: 1179121595}
@@ -2131,7 +2180,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!1 &1847113126
 GameObject:
   m_ObjectHideFlags: 0

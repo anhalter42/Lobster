@@ -18,9 +18,9 @@ public class PrefabModifier : MonoBehaviour
 			                 Random.Range (minScale.y, maxScale.y),
 			                 Random.Range (minScale.z, maxScale.z));
 		Vector3 lMove = new Vector3 (
-			                Random.Range (minMove.x, minMove.x),
-			                Random.Range (minMove.y, minMove.y),
-			                Random.Range (minMove.z, minMove.z));
+			                Random.Range (minMove.x, maxMove.x),
+			                Random.Range (minMove.y, maxMove.y),
+			                Random.Range (minMove.z, maxMove.z));
 		Vector3 lRotation = new Vector3 (
 			                       Random.Range (minRotation.x, maxRotation.x),
 			                       Random.Range (minRotation.y, maxRotation.y),
