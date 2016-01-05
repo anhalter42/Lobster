@@ -22,7 +22,7 @@ public class AllLevels : MonoBehaviour
 			fMaster = GameObject.Find ("Master");
 			if (!fMaster) {
 				fMaster = new GameObject ("Master");
-				DontDestroyOnLoad(fMaster);
+				DontDestroyOnLoad (fMaster);
 				fMaster.AddComponent<AllLevels> ().Start ();
 			}
 		}
@@ -101,14 +101,14 @@ public class AllLevels : MonoBehaviour
 		string lFolder = null;
 		string[] lLines = aText.Split (new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
 		foreach (string lLine in lLines) {
-			string lNewLine = lLine.Replace("\r","");
+			string lNewLine = lLine.Replace ("\r", "");
 			if (lNewLine.StartsWith ("#")) {
 				lDesc = new CellDescription ();
 				lDesc.name = lNewLine.Substring (1);
 				lDescs.Add (lDesc);
 				lFolder = null;
 			} else if (lNewLine.StartsWith ("Package=")) {
-				lFolder = lNewLine.Split(new string[] { "=" }, System.StringSplitOptions.RemoveEmptyEntries)[1];
+				lFolder = lNewLine.Split (new string[] { "=" }, System.StringSplitOptions.RemoveEmptyEntries) [1];
 			} else if (lDesc != null) {
 				lDesc.ReadLine (lNewLine, lFolder);
 			}
@@ -122,7 +122,7 @@ public class AllLevels : MonoBehaviour
 		LevelSettings lSetting = null;
 		string[] lLines = aText.Split (new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
 		foreach (string lLine in lLines) {
-			string lNewLine = lLine.Replace("\r","");
+			string lNewLine = lLine.Replace ("\r", "");
 			if (lNewLine.StartsWith ("#")) {
 				lSetting = new LevelSettings ();
 				lSetting.levelName = lNewLine.Substring (1);
@@ -138,7 +138,15 @@ public class AllLevels : MonoBehaviour
 	public void NextLevel ()
 	{
 		if (currentLevelSettings.level < levelSettings.Length - 1) {
-			currentLevelSettings = levelSettings[currentLevelSettings.level/* + 1*/];
+			currentLevelSettings = levelSettings [currentLevelSettings.level/* + 1*/];
+			SceneManager.LoadScene ("Main", LoadSceneMode.Single);
+		}
+	}
+
+	public void SetLevel (int aLevel, bool aLoad = true)
+	{
+		currentLevelSettings = levelSettings [aLevel];
+		if (aLoad) {
 			SceneManager.LoadScene ("Main", LoadSceneMode.Single);
 		}
 	}

@@ -99,6 +99,7 @@ bottomProps		Barrel;5
 leftProps		Arch_R-;10;false
 leftProps		Barrel2_R-;5
 leftProps		Prop_Torch_R-;5
+leftProps		Pitfall_Axe_R-;100
 rightProps		Arch_R+;10;false
 rightProps		Prop_Torch_R+;5
 forwardProps	Arch_B+;10;false

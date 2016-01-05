@@ -32,6 +32,7 @@ public class UI : MonoBehaviour
 	public Text timeUIText;
 	public float mazeWallScale = 1f;
 	public int chanceForBreakWalls = 0;
+	public int defaultLevel = 0;
 
 	public MazeBuilder mazeBuilder;
 
@@ -58,6 +59,9 @@ public class UI : MonoBehaviour
 		}
 		if (!mainCamera) {
 			mainCamera = GameObject.FindWithTag ("MainCamera");
+		}
+		if (defaultLevel > 0) {
+			AllLevels.Get ().SetLevel(defaultLevel, false);
 		}
 		if (AllLevels.Get ().currentLevelSettings != null) {
 			LevelSettings lSet = AllLevels.Get ().currentLevelSettings;
