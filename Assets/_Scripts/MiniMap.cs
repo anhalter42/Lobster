@@ -4,7 +4,7 @@ using System.Collections;
 
 public class MiniMap : MonoBehaviour {
 
-	public UI ui;
+	LevelController controller;
 	Texture2D m_texture;
 	Image m_Image;
 
@@ -13,9 +13,7 @@ public class MiniMap : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (!ui) {
-			ui = GameObject.Find ("UIScript").GetComponent<UI> ();
-		}
+		controller = AllLevels.Get().levelController;
 		m_Image = GetComponent<Image>();
 		m_texture = new Texture2D(100,100);
 		m_Image.material.mainTexture = m_texture;
@@ -23,8 +21,8 @@ public class MiniMap : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		if (ui) {
-			m_CurrentPoint = ui.mazeBuilder.GetPlayerMazePoint();
+		if (controller) {
+			m_CurrentPoint = controller.builder.GetPlayerMazePoint();
 			if (m_CurrentPoint != m_lastPoint) {
 				m_texture.SetPixel(m_CurrentPoint.x * 2, m_CurrentPoint.y * 2, Color.black);
 				m_texture.Apply(false);

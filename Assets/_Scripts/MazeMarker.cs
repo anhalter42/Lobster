@@ -4,7 +4,7 @@ using System.Collections;
 public class MazeMarker : MonoBehaviour
 {
 
-	public UI ui;
+	LevelController controller;
 	public GameObject marker;
 
 	protected GameObject fMarker;
@@ -12,9 +12,7 @@ public class MazeMarker : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		if (!ui) {
-			ui = GameObject.Find ("UIScript").GetComponent<UI> ();
-		}
+		controller = AllLevels.Get().levelController;
 		if (marker) {
 			fMarker = Instantiate (marker, Vector3.zero, Quaternion.identity) as GameObject;
 		}
@@ -22,14 +20,9 @@ public class MazeMarker : MonoBehaviour
 
 	void FixedUpdate ()
 	{
-		if (ui != null && fMarker != null && ui.mazeBuilder != null && ui.mazeBuilder.parent != null) {
-			//Vector3 lRelPos = transform.position - ui.mazeBuilder.parent.transform.position;
-			//lRelPos.x += 0.5f;
-			//lRelPos.y += 0.5f;
-			//lRelPos.z += 0.5f;
-			//Maze.Point lMazePos = new Maze.Point ((int)lRelPos.x, (int)lRelPos.y, (int)lRelPos.z);
-			Maze.Point lMazePos = ui.mazeBuilder.GetMazePoint(transform.position);
-			fMarker.transform.SetParent (ui.mazeBuilder.Maze.get (lMazePos).gameObject.transform, false);
+		if (controller.mazeParent != null) {
+			Maze.Point lMazePos = controller.builder.GetMazePoint(transform.position);
+			fMarker.transform.SetParent (controller.builder.Maze.get (lMazePos).gameObject.transform, false);
 		}
 	}
 
