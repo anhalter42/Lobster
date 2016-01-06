@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupParticle: {fileID: 19805110, guid: a2a51d541d1544bde8e5065bf92a2a6c, type: 2}
-  pickupAudio: {fileID: 8300000, guid: 1abedd4956320485db1ac6b41d168c75, type: 3}
+  pickupAudio: {fileID: 0}
 --- !u!114 &11477892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -272,7 +272,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: pickupAudio
       value: 
-      objectReference: {fileID: 8300000, guid: 1abedd4956320485db1ac6b41d168c75, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: pickupParticle
       value: 

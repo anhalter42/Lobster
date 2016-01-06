@@ -14,11 +14,12 @@ public class LevelController : MonoBehaviour
 		public float resumeTime = 0f;
 		public float startTime = 0f;
 		public float time = 0f;
+		public bool scoreReached = false;
 	}
 
 	public LevelSettings settings;
 	[SerializeField]
-	public CellDirectionObjects prefabs;
+	public CellDescription prefabs;
 	public MazeBuilder builder;
 
 	public PlayerLevelSettings playerLevelSettings = new PlayerLevelSettings ();
@@ -59,8 +60,8 @@ public class LevelController : MonoBehaviour
 	void LateUpdate ()
 	{
 		m_textScore.text = string.Format ("Score: {0}/{1}", playerLevelSettings.score, settings.scoreForExit);
-		if (isRunning) {
-			if (playerLevelSettings.score < settings.scoreForExit && !isPause) {
+		if (!playerLevelSettings.scoreReached) {
+			if (!isPause) {
 				if (settings.maxTime > 0) {
 					playerLevelSettings.time = Mathf.Max (settings.maxTime - (playerLevelSettings.resumeTime + (Time.realtimeSinceStartup - playerLevelSettings.startTime)), 0f);
 				} else {
@@ -76,7 +77,8 @@ public class LevelController : MonoBehaviour
 
 	public void CheckLOD ()
 	{
-		if (builder == null) return;
+		if (builder == null)
+			return;
 		//deactivate far cells and activate near by cells
 		Maze.Point lPoint = builder.GetPlayerMazePoint ();
 		Maze.Point lMin = new Maze.Point (lPoint.x - 6, lPoint.y - 6, lPoint.z - 6);
@@ -144,15 +146,63 @@ public class LevelController : MonoBehaviour
 	public void AddScore (int aScore)
 	{
 		playerLevelSettings.score += aScore;
+		if (!playerLevelSettings.scoreReached && playerLevelSettings.score >= settings.scoreForExit) {
+			playerLevelSettings.scoreReached = true;
+			if (prefabs.audioScoreReached) {
+				AudioSource.PlayClipAtPoint (prefabs.audioScoreReached, player.transform.position);
+			} else {
+				Debug.Log ("No audio for score reached!");
+			}
+			builder.ActivateExits ();
+			builder.ActivateWayPoints (builder.GetPlayerMazePoint (), builder.exitPoint);
+		}
 	}
 
 	public void TakeDamage (DamageData aDamage)
 	{
 		playerLevelSettings.health -= aDamage.Damage;
-		// play audio on player position
+		PlayDamageAudio (aDamage, player.transform.position);
 		if (playerLevelSettings.health < 0) {
 			playerLevelSettings.lives--;
+			if (prefabs.audioLiveLost) {
+				AudioSource.PlayClipAtPoint (prefabs.audioLiveLost, player.transform.position);
+			} else {
+				Debug.Log ("No audio for live lost!");
+			}
 			playerLevelSettings.health = 100;
+		}
+	}
+
+	public void PlayDamageAudio (DamageData aDamage, Vector3 aPos)
+	{
+		AudioClip lAudio = null;
+		if (aDamage.Damage < 5) {
+			lAudio = prefabs.audioDamageSmall;
+		} else if (aDamage.Damage < 20) {
+			lAudio = prefabs.audioDamageMedium;
+		} else {
+			lAudio = prefabs.audioDamageBig;
+		}
+		if (lAudio) {
+			AudioSource.PlayClipAtPoint (lAudio, aPos);
+		} else {
+			Debug.Log (string.Format ("No audio for damage {0}!", aDamage.Damage));
+		}
+	}
+
+	public void PlayScoreAudio (int aScore, Vector3 aPos)
+	{
+		AudioClip lAudio = null;
+		for (int i = 0; i < prefabs.audioScore.Length; i++) {
+			if (aScore >= prefabs.audioScore [i].score) {
+				lAudio = prefabs.audioScore [i].audio;
+				break;
+			}
+		}
+		if (lAudio) {
+			AudioSource.PlayClipAtPoint (lAudio, aPos);
+		} else {
+			Debug.Log (string.Format ("No audio for score {0}!", aScore));
 		}
 	}
 

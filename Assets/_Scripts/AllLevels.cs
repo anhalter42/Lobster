@@ -122,6 +122,9 @@ public class AllLevels : MonoBehaviour
 		foreach (string lLine in lLines) {
 			string lNewLine = lLine.Replace ("\r", "");
 			if (lNewLine.StartsWith ("#")) {
+				if (lDesc != null) {
+					lDesc.FinishedReading();
+				}
 				lDesc = new CellDescription ();
 				lDesc.name = lNewLine.Substring (1);
 				lDescs.Add (lDesc);
@@ -168,5 +171,23 @@ public class AllLevels : MonoBehaviour
 		if (aLoad) {
 			SceneManager.LoadScene ("Main", LoadSceneMode.Single);
 		}
+	}
+
+	public static T LoadResource<T>(string aName, string aMainFolder, string aSubFolder) where T : UnityEngine.Object
+	{
+		T lObj = null;
+		if (!string.IsNullOrEmpty(aSubFolder)) {
+			lObj = Resources.Load<T>(aMainFolder + "/" + aSubFolder + "/" + aName);
+		}
+		if (lObj == null) {
+			lObj = Resources.Load<T>(aMainFolder + "/" + aName);
+		}
+		if (lObj == null) {
+			lObj = Resources.Load<T>(aName);
+		}
+		if (lObj == null) {
+			Debug.Log (string.Format("Could not find {0} '{1}' (Folder '{2}')!",aMainFolder,aName, aSubFolder));
+		}
+		return lObj;
 	}
 }

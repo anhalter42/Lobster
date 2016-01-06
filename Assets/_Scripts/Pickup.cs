@@ -22,8 +22,9 @@ public class Pickup : MonoBehaviour
 	{
 		if (aCollider.gameObject.tag == "Player") {
 			PickupData lPickup = GetComponent<PickupData> ();
+			int lScore = 0;
 			if (lPickup) {
-				int lScore = lPickup.score;
+				lScore = lPickup.score;
 				//GameObject.Find ("UIScript").GetComponent<UI> ().AddScore (lScore);
 				AllLevels.Get ().levelController.AddScore (lScore);
 			}
@@ -34,6 +35,8 @@ public class Pickup : MonoBehaviour
 			}
 			if (pickupAudio != null) {
 				AudioSource.PlayClipAtPoint (pickupAudio, aCollider.gameObject.transform.position);
+			} else {
+				AllLevels.Get().levelController.PlayScoreAudio(lScore, transform.position);
 			}
 		}
 	}

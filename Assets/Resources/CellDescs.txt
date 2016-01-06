@@ -12,6 +12,8 @@ wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
+audioScore		GlassHitScroll6;1
+audioScoreReached	Ta Da
 
 #SimpleRocks
 Package=Cactus
@@ -27,6 +29,8 @@ wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
+audioScore		GlassHitScroll6;1
+audioScoreReached	Ta Da
 
 #SimpleCactus
 Package=Cactus
@@ -42,6 +46,8 @@ wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
+audioScore		GlassHitScroll6;1
+audioScoreReached	Ta Da
 
 #SimpleCactusRocks
 Package=Cactus
@@ -61,6 +67,8 @@ wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
+audioScore		GlassHitScroll6;1
+audioScoreReached	Ta Da
 
 #Grille
 Package=Dungeon
@@ -76,6 +84,8 @@ wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
+audioScore		GlassHitScroll6;1
+audioScoreReached	Ta Da
 
 #Dungeon1
 Package=Dungeon
@@ -116,3 +126,5 @@ wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
+audioScore		GlassHitScroll6;1
+audioScoreReached	Ta Da

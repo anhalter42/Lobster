@@ -17,18 +17,7 @@ public class GameObjectChance
 	{
 		string[] aProps = aLine.Split (new string[] { ";" }, System.StringSplitOptions.None);
 		if (aProps.Length > 0) {
-			if (!string.IsNullOrEmpty(aFolder)) {
-				prefab = Resources.Load ("Prefabs/" + aFolder + "/" + aProps [0]) as GameObject;
-			}
-			if (!prefab) {
-				prefab = Resources.Load (aProps [0]) as GameObject;
-			}
-			if (!prefab) {
-				prefab = Resources.Load ("Prefabs/" + aProps [0]) as GameObject;
-			}
-			if (prefab == null) {
-				Debug.Log ("Could not find prefab '" + aProps [0] + "'!");
-			}
+			prefab = AllLevels.LoadResource<GameObject> (aProps [0], "Prefabs", aFolder);
 		}
 		if (aProps.Length > 1) {
 			chance = int.Parse (aProps [1]);
@@ -99,7 +88,7 @@ public class CellDirectionObjects
 	public GameObjectChance[] backwardProps = { };
 	public GameObjectChance[] wayPoints = { };
 
-	public CellDirectionObjects Clone (CellDirectionObjects aNew)
+	public virtual CellDirectionObjects Clone (CellDirectionObjects aNew)
 	{
 		CellDirectionObjects lNew = new CellDirectionObjects ();
 		lNew.top = GameObjectChance.CloneArray (aNew.top);
@@ -204,7 +193,7 @@ public class CellDirectionObjects
 		}
 	}
 
-	public void ReadLine (string aLine, string aFolder = null)
+	public virtual void ReadLine (string aLine, string aFolder = null)
 	{
 		top = ReadGameObjectChance (aLine, top, "top", aFolder);
 		bottom = ReadGameObjectChance (aLine, bottom, "bottom", aFolder);
@@ -228,5 +217,95 @@ public class CellDirectionObjects
 [Serializable]
 public class CellDescription : CellDirectionObjects
 {
+	public class AudioScore
+	{
+		public AudioClip audio;
+		public int score = 1;
+
+		public void ReadLine (string aLine, string aFolder)
+		{
+			string[] aProps = aLine.Split (new string[] { ";" }, System.StringSplitOptions.None);
+			if (aProps.Length > 0) {
+				audio = AllLevels.LoadResource<AudioClip> (aProps [0], "Audio", aFolder);
+			}
+			if (aProps.Length > 1) {
+				score = int.Parse (aProps [1]);
+			}
+		}
+	}
+
+	public class AudioScoreComparer : IComparer
+	{
+		public int Compare (System.Object x, System.Object y)
+		{
+			int a = 0, b = 0;
+			if (x is AudioScore)
+				a = ((AudioScore)x).score;
+			if (y is AudioScore)
+				b = ((AudioScore)y).score;
+			return b.CompareTo (a); // higher values at first
+		}
+	}
+
 	public string name;
+	public AudioScore[] audioScore = {};
+	public AudioClip audioScoreReached;
+	public AudioClip audioLiveLost;
+	public AudioClip audioLiveAdded;
+	public AudioClip audioDamageSmall;
+	public AudioClip audioDamageMedium;
+	public AudioClip audioDamageBig;
+
+	public AudioScore[] ReadAudioScore (string aLine, AudioScore[] aSrc, string aName, string aFolder)
+	{
+		if (aLine.StartsWith (aName + "\t")) {
+			string[] lArgs = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries);
+			if (lArgs.Length > 1) {
+				AudioScore lAS = new AudioScore ();
+				lAS.ReadLine (lArgs [1], aFolder);
+				if (lAS.audio != null) {
+					ArrayList lList = new ArrayList (aSrc);
+					lList.Add (lAS);
+					return lList.ToArray (typeof(AudioScore)) as AudioScore[];
+				} else {
+					return aSrc;
+				}
+			} else {
+				return aSrc;
+			}
+		} else {
+			return aSrc;
+		}
+	}
+
+	public AudioClip ReadAudioClip (string aLine, AudioClip aSrc, string aName, string aFolder)
+	{
+		if (aLine.StartsWith (aName + "\t")) {
+			string[] lArgs = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries);
+			if (lArgs.Length > 1) {
+				return AllLevels.LoadResource<AudioClip> (lArgs [1], "Audio", aFolder);
+			} else {
+				return aSrc;
+			}
+		} else {
+			return aSrc;
+		}
+	}
+
+	public override void ReadLine (string aLine, string aFolder)
+	{
+		base.ReadLine (aLine, aFolder);
+		audioScore = ReadAudioScore (aLine, audioScore, "audioScore", aFolder);
+		audioLiveLost = ReadAudioClip(aLine, audioLiveLost, "audioLiveLost", aFolder);
+		audioLiveAdded = ReadAudioClip(aLine, audioLiveAdded, "audioLiveAdded", aFolder);
+		audioDamageSmall = ReadAudioClip(aLine, audioDamageSmall, "audioDamageSmall", aFolder);
+		audioDamageMedium = ReadAudioClip(aLine, audioDamageMedium, "audioDamageMedium", aFolder);
+		audioDamageBig = ReadAudioClip(aLine, audioDamageBig, "audioDamageBig", aFolder);
+		audioScoreReached = ReadAudioClip(aLine, audioScoreReached, "audioScoreReached", aFolder);
+	}
+
+	public void FinishedReading()
+	{
+		Array.Sort(audioScore, new AudioScoreComparer());
+	}
 }
