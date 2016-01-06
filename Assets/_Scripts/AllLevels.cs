@@ -12,7 +12,19 @@ public class AllLevels : MonoBehaviour
 	public LevelSettings currentLevelSettings;
 	public LevelSettings[] levelSettings;
 
-	public LevelController levelController;
+	private LevelController m_levelController;
+
+	public LevelController levelController {
+		get {
+			if (m_levelController == null) {
+				GameObject lObj = GameObject.Find ("LevelController") as GameObject;
+				if (lObj) {
+					m_levelController = lObj.GetComponent<LevelController> ();
+				}
+			}
+			return m_levelController;
+		}
+	}
 
 	public GameObject playerPrefab;
 
@@ -28,8 +40,6 @@ public class AllLevels : MonoBehaviour
 				fMaster = new GameObject ("Master");
 				DontDestroyOnLoad (fMaster);
 				AllLevels lAll = fMaster.AddComponent<AllLevels> ();
-				lAll.levelController = fMaster.AddComponent<LevelController> ();
-				//lAll.Awake ();
 			}
 		}
 		return fMaster;
@@ -75,7 +85,7 @@ public class AllLevels : MonoBehaviour
 			currentLevelSettings = new LevelSettings ();
 		}
 		if (!playerPrefab) {
-			playerPrefab = Resources.Load("Prefabs/Player") as GameObject;
+			playerPrefab = Resources.Load ("Prefabs/Player") as GameObject;
 		}
 	}
 	

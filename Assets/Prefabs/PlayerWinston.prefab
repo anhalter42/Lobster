@@ -2892,6 +2892,8 @@ GameObject:
   - 114: {fileID: 11421506}
   - 114: {fileID: 11430362}
   - 114: {fileID: 11468590}
+  - 65: {fileID: 6565844}
+  - 114: {fileID: 11461414}
   m_Layer: 0
   m_Name: PlayerWinston
   m_TagString: Player
@@ -5965,6 +5967,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &6565844
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 192064}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.10281837, y: 0.58851457, z: 0.0855212}
+  m_Center: {x: 0.00059103966, y: 0.30029285, z: -0.0054219477}
 --- !u!81 &8188622
 AudioListener:
   m_ObjectHideFlags: 1
@@ -6078,6 +6092,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ui: {fileID: 0}
   marker: {fileID: 113796, guid: 68e3c7fa80f7d4be7bdc4a0706121f78, type: 2}
+--- !u!114 &11461414
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 192064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 773687879d4ce4006ae5bf153dab8e96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11468590
 MonoBehaviour:
   m_ObjectHideFlags: 1

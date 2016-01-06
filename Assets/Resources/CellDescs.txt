@@ -102,6 +102,7 @@ leftProps		Prop_Torch_R-;5
 leftProps		Pitfall_Axe_R-;100
 rightProps		Arch_R+;10;false
 rightProps		Prop_Torch_R+;5
+rightProps		Pitfall_Axe_R+;100
 forwardProps	Arch_B+;10;false
 forwardProps	Ladder_B+;1
 forwardProps	Bucket_B+;1

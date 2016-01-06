@@ -18,50 +18,50 @@ AnimationClip:
       m_Curve:
       - time: 0
         value: {x: 0, y: 0, z: 0}
-        inSlope: {x: 0, y: 0, z: -320}
-        outSlope: {x: 0, y: 0, z: -320}
+        inSlope: {x: 0, y: 0, z: -333.33334}
+        outSlope: {x: 0, y: 0, z: -333.33334}
         tangentMode: 0
-      - time: 0.25
+      - time: 0.24
         value: {x: 0, y: 0, z: -80}
-        inSlope: {x: 0, y: 0, z: -100.00001}
-        outSlope: {x: 0, y: 0, z: -100.00001}
+        inSlope: {x: 0, y: 0, z: -104.16667}
+        outSlope: {x: 0, y: 0, z: -104.16667}
         tangentMode: 0
-      - time: 0.33333334
+      - time: 0.32
         value: {x: 0, y: 0, z: -70}
-        inSlope: {x: 0, y: 0, z: -0.000022888184}
-        outSlope: {x: 0, y: 0, z: -0.000022888184}
+        inSlope: {x: 0, y: 0, z: -20.833328}
+        outSlope: {x: 0, y: 0, z: -20.833328}
         tangentMode: 0
-      - time: 0.41666666
+      - time: 0.38
         value: {x: 0, y: 0, z: -80}
-        inSlope: {x: 0, y: 0, z: -30.00002}
-        outSlope: {x: 0, y: 0, z: -30.00002}
+        inSlope: {x: 0, y: 0, z: -20.833317}
+        outSlope: {x: 0, y: 0, z: -20.833317}
         tangentMode: 0
-      - time: 0.5
+      - time: 0.42
         value: {x: 0, y: 0, z: -75}
-        inSlope: {x: 0, y: 0, z: -0.000011444092}
-        outSlope: {x: 0, y: 0, z: -0.000011444092}
+        inSlope: {x: 0, y: 0, z: 0.000045776367}
+        outSlope: {x: 0, y: 0, z: 0.000045776367}
         tangentMode: 0
-      - time: 0.5833333
+      - time: 0.46
         value: {x: 0, y: 0, z: -80}
-        inSlope: {x: 0, y: 0, z: -60.000015}
-        outSlope: {x: 0, y: 0, z: -60.000015}
+        inSlope: {x: 0, y: 0, z: -124.99993}
+        outSlope: {x: 0, y: 0, z: -124.99993}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Pivot
+    path: Pos/Pivot
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
-  m_SampleRate: 12
+  m_SampleRate: 50
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
     genericBindings:
-    - path: 1567512304
+    - path: 765868919
       attribute: 4
       script: {fileID: 0}
       classID: 4
@@ -73,7 +73,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5833333
+    m_StopTime: 0.46
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -97,27 +97,27 @@ AnimationClip:
         inSlope: 0
         outSlope: 0
         tangentMode: 10
-      - time: 0.25
+      - time: 0.24
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 10
-      - time: 0.33333334
+      - time: 0.32
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 10
-      - time: 0.41666666
+      - time: 0.38
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 10
-      - time: 0.5
+      - time: 0.42
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 10
-      - time: 0.5833333
+      - time: 0.46
         value: 0
         inSlope: 0
         outSlope: 0
@@ -126,7 +126,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Pivot
+    path: Pos/Pivot
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -137,27 +137,27 @@ AnimationClip:
         inSlope: 0
         outSlope: 0
         tangentMode: 10
-      - time: 0.25
+      - time: 0.24
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 10
-      - time: 0.33333334
+      - time: 0.32
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 10
-      - time: 0.41666666
+      - time: 0.38
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 10
-      - time: 0.5
+      - time: 0.42
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 10
-      - time: 0.5833333
+      - time: 0.46
         value: 0
         inSlope: 0
         outSlope: 0
@@ -166,7 +166,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Pivot
+    path: Pos/Pivot
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -174,39 +174,39 @@ AnimationClip:
       m_Curve:
       - time: 0
         value: 0
-        inSlope: -320
-        outSlope: -320
+        inSlope: -333.33334
+        outSlope: -333.33334
         tangentMode: 10
-      - time: 0.25
+      - time: 0.24
         value: -80
-        inSlope: -100.00001
-        outSlope: -100.00001
+        inSlope: -104.16667
+        outSlope: -104.16667
         tangentMode: 10
-      - time: 0.33333334
+      - time: 0.32
         value: -70
-        inSlope: -0.000022888184
-        outSlope: -0.000022888184
+        inSlope: -20.833328
+        outSlope: -20.833328
         tangentMode: 10
-      - time: 0.41666666
+      - time: 0.38
         value: -80
-        inSlope: -30.00002
-        outSlope: -30.00002
+        inSlope: -20.833317
+        outSlope: -20.833317
         tangentMode: 10
-      - time: 0.5
+      - time: 0.42
         value: -75
-        inSlope: -0.000011444092
-        outSlope: -0.000011444092
+        inSlope: 0.000045776367
+        outSlope: 0.000045776367
         tangentMode: 10
-      - time: 0.5833333
+      - time: 0.46
         value: -80
-        inSlope: -60.000015
-        outSlope: -60.000015
+        inSlope: -124.99993
+        outSlope: -124.99993
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Pivot
+    path: Pos/Pivot
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -217,7 +217,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Pivot
+    path: Pos/Pivot
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -227,7 +227,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Pivot
+    path: Pos/Pivot
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -237,7 +237,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Pivot
+    path: Pos/Pivot
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

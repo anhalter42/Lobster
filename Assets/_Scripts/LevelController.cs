@@ -33,6 +33,7 @@ public class LevelController : MonoBehaviour
 	public Text m_textTime;
 	public Text m_textLives;
 	public Text m_textHealth;
+	public Light m_mainLight;
 
 	public bool isRunning = false;
 	public bool isPause = false;
@@ -50,6 +51,8 @@ public class LevelController : MonoBehaviour
 			m_textLives = GameObject.Find ("TextLives").GetComponent<Text> ();
 		if (!m_textHealth)
 			m_textHealth = GameObject.Find ("TextHealth").GetComponent<Text> ();
+		if (!m_mainLight)
+			m_mainLight = GameObject.Find ("MainDirectionalLight").GetComponent<Light> ();
 	}
 	
 	// Update is called once per frame
@@ -68,6 +71,32 @@ public class LevelController : MonoBehaviour
 		}
 		m_textLives.text = string.Format ("Lives: {0}", playerLevelSettings.lives);
 		m_textHealth.text = string.Format ("Health: {0}", playerLevelSettings.health);
+		CheckLOD ();
+	}
+
+	public void CheckLOD ()
+	{
+		if (builder == null) return;
+		//deactivate far cells and activate near by cells
+		Maze.Point lPoint = builder.GetPlayerMazePoint ();
+		Maze.Point lMin = new Maze.Point (lPoint.x - 6, lPoint.y - 6, lPoint.z - 6);
+		Maze.Point lMax = new Maze.Point (lPoint.x + 6, lPoint.y + 6, lPoint.z + 6);
+		for (int y = 0; y < builder.Maze.height; y++) {
+			for (int z = 0; z < builder.Maze.depth; z++) {
+				for (int x = 0; x < builder.Maze.width; x++) {
+					Maze.Cell lCell = builder.Maze.get (x, y, z);
+					if (x >= lMin.x && x <= lMax.x && y >= lMin.y && y <= lMax.y && z >= lMin.z && z <= lMax.z) {
+						if (!lCell.gameObject.activeSelf) {
+							lCell.gameObject.SetActive (true);
+						}
+					} else {
+						if (lCell.gameObject.activeSelf) {
+							lCell.gameObject.SetActive (false);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	public void Generate (LevelSettings aSettings)
@@ -75,6 +104,8 @@ public class LevelController : MonoBehaviour
 		settings = aSettings;
 		prefabs = AllLevels.Get ().GetCellDescription (settings.prefabs);
 		CreateLabyrinth ();
+		m_mainLight.color = settings.dayLightColor;
+		m_mainLight.intensity = settings.dayLight;
 	}
 
 	protected void CreateLabyrinth ()
@@ -113,6 +144,16 @@ public class LevelController : MonoBehaviour
 	public void AddScore (int aScore)
 	{
 		playerLevelSettings.score += aScore;
+	}
+
+	public void TakeDamage (DamageData aDamage)
+	{
+		playerLevelSettings.health -= aDamage.Damage;
+		// play audio on player position
+		if (playerLevelSettings.health < 0) {
+			playerLevelSettings.lives--;
+			playerLevelSettings.health = 100;
+		}
 	}
 
 }

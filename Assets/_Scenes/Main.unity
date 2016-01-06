@@ -1114,6 +1114,91 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 662042893}
+--- !u!1 &899858151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 899858153}
+  - 114: {fileID: 899858152}
+  m_Layer: 0
+  m_Name: LevelController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &899858152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 899858151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96607bd0be1454898b1543148e79d795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    prefabs: Simple
+    level: 1
+    levelName: NO LEVELS
+    levelDescription: 
+    mazeWidth: 5
+    mazeHeight: 1
+    mazeDepth: 5
+    breakWalls: 0
+    maxTime: 0
+    scoreForExit: 20
+    dayLight: 0.75
+    dayLightColor: {r: 1, g: 1, b: 1, a: 1}
+  prefabs:
+    top: []
+    bottom: []
+    left: []
+    right: []
+    forward: []
+    backward: []
+    props: []
+    score: []
+    exit: []
+    topProps: []
+    bottomProps: []
+    leftProps: []
+    rightProps: []
+    forwardProps: []
+    backwardProps: []
+    wayPoints: []
+  playerLevelSettings:
+    lives: 1
+    score: 0
+    health: 100
+    resumeTime: 0
+    startTime: 0
+    time: 0
+  mazeParent: {fileID: 0}
+  player: {fileID: 0}
+  m_textScore: {fileID: 0}
+  m_textTime: {fileID: 0}
+  m_textLives: {fileID: 0}
+  m_textHealth: {fileID: 0}
+  m_mainLight: {fileID: 0}
+  isRunning: 0
+  isPause: 0
+--- !u!4 &899858153
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 899858151}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &972838643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,7 +1572,7 @@ GameObject:
   - 4: {fileID: 1394951036}
   - 108: {fileID: 1394951035}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: MainDirectionalLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -52,6 +52,7 @@
      <Compile Include="Assets\_Scripts\CellDirectionObjects.cs" />
      <Compile Include="Assets\_Scripts\ChooseLevel\ChooseLevelMazeBuilder.cs" />
      <Compile Include="Assets\_Scripts\ChooseLevel\UIController.cs" />
+     <Compile Include="Assets\_Scripts\DamageData.cs" />
      <Compile Include="Assets\_Scripts\DestroyAfter.cs" />
      <Compile Include="Assets\_Scripts\ExitNextLevel.cs" />
      <Compile Include="Assets\_Scripts\LevelController.cs" />
@@ -64,6 +65,7 @@
      <Compile Include="Assets\_Scripts\Pickup.cs" />
      <Compile Include="Assets\_Scripts\PickupData.cs" />
      <Compile Include="Assets\_Scripts\PitFall_Axe.cs" />
+     <Compile Include="Assets\_Scripts\PlayerDamage.cs" />
      <Compile Include="Assets\_Scripts\PrefabModifier.cs" />
      <Compile Include="Assets\_Scripts\RotationY.cs" />
      <Compile Include="Assets\_Scripts\Start\UIStartController.cs" />

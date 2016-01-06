@@ -23,16 +23,16 @@ public class Maze
 			z = aZ;
 		}
 
-		public override bool Equals(System.Object aObj)
+		public override bool Equals (System.Object aObj)
 		{
 			if (aObj is Point) {
-				return Equals((Point)aObj);
+				return Equals ((Point)aObj);
 			} else {
 				return false;
 			}
 		}
 
-		public bool Equals(Point aP)
+		public bool Equals (Point aP)
 		{
 			return aP.x == x && aP.y == y && aP.z == z;
 		}
@@ -42,22 +42,20 @@ public class Maze
 			return x ^ y ^ z;
 		}
 
-		public override string ToString() 
+		public override string ToString ()
 		{
-			return System.String.Format("({0},{1},{2})",x,y,z);
+			return System.String.Format ("({0},{1},{2})", x, y, z);
 		}
 
-		public static bool operator ==(Point a, Point b)
+		public static bool operator == (Point a, Point b)
 		{
 			// If both are null, or both are same instance, return true.
-			if (System.Object.ReferenceEquals(a, b))
-			{
+			if (System.Object.ReferenceEquals (a, b)) {
 				return true;
 			}
 
 			// If one is null, but not both, return false.
-			if (((object)a == null) || ((object)b == null))
-			{
+			if (((object)a == null) || ((object)b == null)) {
 				return false;
 			}
 
@@ -65,7 +63,7 @@ public class Maze
 			return a.x == b.x && a.y == b.y && a.z == b.z;
 		}
 
-		public static bool operator !=(Point a, Point b)
+		public static bool operator != (Point a, Point b)
 		{
 			return !(a == b);
 		}
@@ -282,9 +280,18 @@ public class Maze
 		return get (aP.x, aP.y, aP.z);
 	}
 
+	public bool PosInMaze (int aX, int aY, int aZ)
+	{
+		return aX >= 0 && aX < width && aY >= 0 && aY < height && aZ >= 0 && aZ < depth;
+	}
+
 	public Cell get (int aX, int aY, int aZ)
 	{
-		return cells [aX + width * aY + (width * height) * aZ];
+		if (PosInMaze (aX, aY, aZ)) {
+			return cells [aX + width * aY + (width * height) * aZ];
+		} else {
+			return null;
+		}
 	}
 
 	protected int nextRandomInt (int aMax)
