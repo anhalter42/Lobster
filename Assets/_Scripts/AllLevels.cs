@@ -39,7 +39,7 @@ public class AllLevels : MonoBehaviour
 			if (!fMaster) {
 				fMaster = new GameObject ("Master");
 				DontDestroyOnLoad (fMaster);
-				AllLevels lAll = fMaster.AddComponent<AllLevels> ();
+				fMaster.AddComponent<AllLevels> ();
 			}
 		}
 		return fMaster;

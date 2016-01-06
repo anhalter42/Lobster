@@ -1,7 +1,7 @@
-rsync -v -r --delete ../../Unity/Lobster/Assets ./Assets
+rsync -v -r --delete ../../Unity/Lobster/Assets .
 cp ../../Unity/Lobster/*.csproj .
 cp ../../Unity/Lobster/*.sln .
-cp -rf ../../Unity/Lobster/ProjectSettings ./ProjectSettings
+cp -rf ../../Unity/Lobster/ProjectSettings .
 rm -rf obj
 rm -rf Library
 rm -rf Temp
