@@ -38,6 +38,7 @@ namespace MAHN42
 
         private void Update()
         {
+			if (AllLevels.Get().levelController.isPause) return;
             if (!m_Jump)
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
@@ -53,6 +54,7 @@ namespace MAHN42
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
+			if (AllLevels.Get().levelController.isPause) return;
 			float lScaleH = 0.5f;
 			float lScaleV = 0.5f;
 			if (m_dungeonCam) {

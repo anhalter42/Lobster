@@ -12,7 +12,11 @@ public class AllLevels : MonoBehaviour
 	public LevelSettings currentLevelSettings;
 	public LevelSettings[] levelSettings;
 
-	public GameObject player;
+	public LevelController levelController;
+
+	public GameObject playerPrefab;
+
+	public GameObject player { get { return levelController.player; } }
 
 	protected static GameObject fMaster;
 
@@ -23,7 +27,9 @@ public class AllLevels : MonoBehaviour
 			if (!fMaster) {
 				fMaster = new GameObject ("Master");
 				DontDestroyOnLoad (fMaster);
-				fMaster.AddComponent<AllLevels> ().Start ();
+				AllLevels lAll = fMaster.AddComponent<AllLevels> ();
+				lAll.levelController = fMaster.AddComponent<LevelController> ();
+				//lAll.Awake ();
 			}
 		}
 		return fMaster;
@@ -45,7 +51,7 @@ public class AllLevels : MonoBehaviour
 	}
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
 	{
 		UnityEngine.UI.Text lText = GameObject.Find ("Version").GetComponent<UnityEngine.UI.Text> ();
 		if (lText) {
@@ -67,6 +73,9 @@ public class AllLevels : MonoBehaviour
 			currentLevelSettings = levelSettings [0];
 		} else {
 			currentLevelSettings = new LevelSettings ();
+		}
+		if (!playerPrefab) {
+			playerPrefab = Resources.Load("Prefabs/Player") as GameObject;
 		}
 	}
 	

@@ -9,12 +9,16 @@ public class PitFall_Axe : MonoBehaviour
 	private Animator animator;
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
+	{
+		animator = GetComponent<Animator>();
+	}
+
+	void Start()
 	{
 		if (!pivot) {
 			pivot = transform.parent.FindChild ("Pivot");
 		}
-		animator = GetComponent<Animator>();
 		if (isTriggered) {
 			TriggerIt ();
 		}

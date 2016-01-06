@@ -130,6 +130,11 @@ public class MazeBuilder
 		}
 	}
 
+	public void CreateLabyrinth (Transform aParent)
+	{
+		CreateLabyrinth (aParent, Vector3.zero);
+	}
+
 	public void CreateLabyrinth (Transform aParent, Vector3 aPos)
 	{
 		Debug.Log ("Creating Labyrinth...");

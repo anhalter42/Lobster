@@ -64,7 +64,6 @@ GameObject:
   - 114: {fileID: 11416128}
   - 95: {fileID: 9500488}
   - 65: {fileID: 6554742}
-  - 65: {fileID: 6571348}
   m_Layer: 0
   m_Name: Pitfall_Axe_R-
   m_TagString: Untagged
@@ -93,7 +92,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 184526}
-  m_LocalRotation: {x: 0, y: 0, z: -0.6427876, w: 0.7660445}
+  m_LocalRotation: {x: 0, y: 0, z: -0.26505744, w: 0.9642326}
   m_LocalPosition: {x: -0.42599997, y: 0.398, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -257,7 +256,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 124050}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.36316806, y: 0.01897204, z: 0.38906813}
@@ -274,18 +273,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &6571348
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 124050}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.36316806, y: 0.01897204, z: 0.38906813}
-  m_Center: {x: 0.004884541, y: -0.38881153, z: 0.0004261732}
 --- !u!65 &6598826
 BoxCollider:
   m_ObjectHideFlags: 1

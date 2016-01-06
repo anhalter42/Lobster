@@ -24,15 +24,16 @@ public class Pickup : MonoBehaviour
 			PickupData lPickup = GetComponent<PickupData> ();
 			if (lPickup) {
 				int lScore = lPickup.score;
-				GameObject.Find ("UIScript").GetComponent<UI> ().AddScore (lScore);
+				//GameObject.Find ("UIScript").GetComponent<UI> ().AddScore (lScore);
+				AllLevels.Get ().levelController.AddScore (lScore);
 			}
 			lPickup.gameObject.SetActive (false);
 			Destroy (lPickup.gameObject);
 			if (pickupParticle) {
-				Instantiate(pickupParticle, transform.position, Quaternion.identity);
+				Instantiate (pickupParticle, transform.position, Quaternion.identity);
 			}
 			if (pickupAudio != null) {
-				AudioSource.PlayClipAtPoint(pickupAudio, aCollider.gameObject.transform.position);
+				AudioSource.PlayClipAtPoint (pickupAudio, aCollider.gameObject.transform.position);
 			}
 		}
 	}

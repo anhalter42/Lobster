@@ -56,14 +56,21 @@ public class UI : MonoBehaviour
 		}
 		if (!controlPanel) {
 			controlPanel = GameObject.Find ("ControlPanel").GetComponent<RectTransform> ();
+			controlPanel.gameObject.SetActive (false);
 		}
 		if (!mainCamera) {
 			mainCamera = GameObject.FindWithTag ("MainCamera");
+		}
+		if (playerPrefab) {
+			AllLevels.Get ().playerPrefab = playerPrefab;
 		}
 		if (defaultLevel > 0) {
 			AllLevels.Get ().SetLevel(defaultLevel, false);
 		}
 		if (AllLevels.Get ().currentLevelSettings != null) {
+			AllLevels.Get ().levelController.Generate(AllLevels.Get ().currentLevelSettings);
+			AllLevels.Get ().levelController.StartLevel();
+			/*
 			LevelSettings lSet = AllLevels.Get ().currentLevelSettings;
 			mazeUIWidth.text = lSet.mazeWidth.ToString ();
 			mazeUIHeight.text = lSet.mazeHeight.ToString ();
@@ -76,12 +83,13 @@ public class UI : MonoBehaviour
 				CreateLabyrinth (maze.transform);
 				RunGame ();
 			}
+			*/
 		}
 	}
 	
 	// Update is called once per frame
 	void Update ()
-	{
+	{/*
 		scoreUIText.text = "Score: " + fScore.ToString () + "/" + fGoodScore.ToString ();
 		if (fRunning) {
 			timeUIText.text = "Time: " + Mathf.RoundToInt ((Time.realtimeSinceStartup - fStartTime)).ToString ();
@@ -92,9 +100,10 @@ public class UI : MonoBehaviour
 				}
 				mazeBuilder.ActivateExits ();
 			}
-		}
+		}*/
 	}
 
+	/*
 	public void CreateLabyrinth (Transform aTransform = null)
 	{
 		CreateLabyrinth (aTransform, Vector3.zero);
@@ -105,37 +114,28 @@ public class UI : MonoBehaviour
 		mazeBuilder = new MazeBuilder ();
 		mazeBuilder.settings = AllLevels.Get ().currentLevelSettings;
 		//lBuilder.mazeMarkerPrefab = mazeMarkerPrefab;
-		/*
-		lBuilder.mazeWallBackwardPrefab = mazeWallBackwardPrefab;
-		lBuilder.mazeWallBottomPrefab = mazeWallBottomPrefab;
-		lBuilder.mazeWallForwardPrefab = mazeWallForwardPrefab;
-		lBuilder.mazeWallLeftPrefab = mazeWallLeftPrefab;
-		lBuilder.mazeWallPrefab = mazeWallPrefab;
-		lBuilder.mazeWallRightPrefab = mazeWallRightPrefab;
-		lBuilder.mazeWallScale = mazeWallScale;
-		lBuilder.mazeWallTopPrefab = mazeWallTopPrefab;
-		lBuilder.mazeBarrelPrefab = mazeBarrelPrefab;
-		lBuilder.mazeArchPrefab = mazeArchPrefab;
-		lBuilder.score1Prefab = score1Prefab;
-		*/
 		mazeBuilder.prefabs = prefabs;
 		mazeBuilder.CreateLabyrinth (aParent, aPos);
 		fRunning = false;
 	}
-
+*/
+	/*
 	protected float fStartTime;
 	protected bool fRunning = false;
 	protected int fScore = 0;
 	protected int fGoodScore = 0;
 	protected GameObject fPlayer;
+*/
 
 	public void RunGame ()
 	{
+		AllLevels.Get().levelController.StartLevel();
+		/*
 		if (fPlayer) {
 			Destroy (fPlayer);
 		}
 		fPlayer = Instantiate (playerPrefab, new Vector3 (int.Parse (mazeUIWidth.text) / 2, 0.5f, int.Parse (mazeUIDepth.text) / 2), Quaternion.identity) as GameObject;
-		AllLevels.Get ().player = fPlayer;
+		//AllLevels.Get ().player = fPlayer;
 		//mainCamera.gameObject.SetActive (false);
 		//mainCamera.GetComponent<UnityStandardAssets.Cameras.AutoCam> ().SetTarget (fPlayer.transform);
 		//mainCamera.GetComponent<DungeonCamera> ().target = fPlayer;
@@ -145,12 +145,15 @@ public class UI : MonoBehaviour
 		fRunning = true;
 		//timeUIText.text = "0";
 		//scoreUIText.text = "0";
+		*/
 	}
 
+	/*
 	public void AddScore (int aScore)
 	{
 		fScore += aScore;
 	}
+	*/
 
 	public void ButtonExit ()
 	{
