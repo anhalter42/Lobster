@@ -2953,7 +2953,7 @@ MonoBehaviour:
   mazeUIDepth: {fileID: 0}
   mazeUIHeight: {fileID: 0}
   controlPanel: {fileID: 0}
-  defaultLevel: 0
+  defaultLevel: 3
 --- !u!4 &1839330017
 Transform:
   m_ObjectHideFlags: 0

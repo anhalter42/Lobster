@@ -24,6 +24,8 @@ mazeHeight	1
 mazeDepth	10
 breakWalls	1
 scoreForExit	75
+dayLight	0.75
+dayLightColor	255,255,255
 
 #Level 1
 //Das erste Level
@@ -33,6 +35,8 @@ mazeHeight	1
 mazeDepth	20
 breakWalls	3
 scoreForExit	300
+dayLight	0.75
+dayLightColor	255,255,255
 
 #Level 2
 //Jetzt mal bitte Alles einsammeln
@@ -42,6 +46,8 @@ mazeHeight	1
 mazeDepth	20
 breakWalls	5
 scoreForExit	400
+dayLight	0.75
+dayLightColor	255,255,255
 
 #Level 99
 //Performance Test

@@ -55,9 +55,9 @@ public class LevelSettings
 			string lV = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1];
 			string[] lVs = lV.Split(new string[] { "," }, System.StringSplitOptions.RemoveEmptyEntries);
 			if (lVs.Length == 3) {
-				aValue = new Color(float.Parse(lVs[0]),float.Parse(lVs[1]),float.Parse(lVs[2]));
+				aValue = new Color(int.Parse(lVs[0])/255f,int.Parse(lVs[1])/255f,int.Parse(lVs[2])/255f);
 			} else if (lVs.Length == 4) {
-				aValue = new Color(float.Parse(lVs[0]),float.Parse(lVs[1]),float.Parse(lVs[2]),float.Parse(lVs[3]));
+				aValue = new Color(int.Parse(lVs[0])/255f,int.Parse(lVs[1])/255f,int.Parse(lVs[2])/255f,int.Parse(lVs[3])/255f);
 			}
 			return true;
 		} else {
@@ -73,8 +73,8 @@ public class LevelSettings
 		if (!ReadInt (ref mazeDepth, aLine, "mazeDepth"))
 		if (!ReadInt (ref breakWalls, aLine, "breakWalls"))
 		if (!ReadInt (ref maxTime, aLine, "maxTime"))
-		if (!ReadFloat (ref dayLight, aLine, "dayLight"))
 		if (!ReadColor (ref dayLightColor, aLine, "dayLightColor"))
+		if (!ReadFloat (ref dayLight, aLine, "dayLight"))
 		if (!ReadInt (ref scoreForExit, aLine, "scoreForExit")) {
 			if (aLine.StartsWith ("//")) {
 				if (string.IsNullOrEmpty (levelDescription)) {
