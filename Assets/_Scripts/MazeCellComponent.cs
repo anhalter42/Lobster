@@ -7,6 +7,8 @@ public class MazeCellComponent : MonoBehaviour
 
 	public Maze.Cell cell;
 
+	public GameObject[] walls = new GameObject[6];
+
 	public Dictionary<string,int> tags = new Dictionary<string, int> ();
 	#if UNITY_EDITOR
 	public string[] m_tags = { };

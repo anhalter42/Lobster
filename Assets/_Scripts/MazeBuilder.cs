@@ -137,7 +137,7 @@ public class MazeBuilder
 					for (int lDir = 0; lDir < 6; lDir++) {
 						if (!Maze.get (x, y, z).links [lDir].broken) {
 							if (lDir > 0 || y != (Maze.height - 1)) { // oberstes Dach weglassen
-								CreateGameObject (GetOneWall (lDir), lCellObj.transform, "Wall_" + lDir.ToString ());
+								lCellComp.walls[lDir] = CreateGameObject (GetOneWall (lDir), lCellObj.transform, "Wall_" + lDir.ToString ());
 							}
 							lCellComp.SetTag (GetWallTag (lDir));
 							DropSome (lDir, lCellObj.transform, true);

@@ -88,11 +88,11 @@ public class LevelController : MonoBehaviour
 		m_textLives.text = string.Format ("Lives: {0}", playerLevelSettings.lives);
 		m_textHealth.text = string.Format ("Health: {0}", playerLevelSettings.health);
 		CheckLOD ();
-		if (Input.GetKeyUp(KeyCode.Escape)) {
+		if (Input.GetKeyUp (KeyCode.Escape)) {
 			if (isPause) {
-				ResumeLevel();
+				ResumeLevel ();
 			} else {
-				PauseLevel();
+				PauseLevel ();
 			}
 		}
 	}
@@ -146,12 +146,12 @@ public class LevelController : MonoBehaviour
 		player = Instantiate (playerPrefab, new Vector3 (builder.Maze.width / 2, builder.Maze.height / 2, builder.Maze.depth / 2), Quaternion.identity) as GameObject;
 	}
 
-	public void PlayOnBackground(AudioClip aClip)
+	public void PlayOnBackground (AudioClip aClip)
 	{
-		m_audioSourceBackground.Stop();
+		m_audioSourceBackground.Stop ();
 		if (aClip) {
 			m_audioSourceBackground.clip = aClip;
-			m_audioSourceBackground.Play();
+			m_audioSourceBackground.Play ();
 		}
 	}
 
@@ -160,32 +160,33 @@ public class LevelController : MonoBehaviour
 		isRunning = true;
 		isPause = false;
 		playerLevelSettings.startTime = Time.realtimeSinceStartup;
-		m_panelPause.gameObject.SetActive(false);
-		m_textLevel.text = settings.level.ToString();
+		m_panelPause.gameObject.SetActive (false);
+		m_textLevel.text = settings.level.ToString ();
 		m_textName.text = settings.levelName;
 		m_textDescription.text = settings.levelDescription;
-		PlayOnBackground(prefabs.audioBackgroundMusic);
+		PlayOnBackground (prefabs.audioBackgroundMusic);
 	}
 
 	public void PauseLevel ()
 	{
 		isPause = true;
 		playerLevelSettings.resumeTime = playerLevelSettings.time;
-		m_panelPause.gameObject.SetActive(true);
-		PlayOnBackground(prefabs.audioBackgroundPause);
+		m_panelPause.gameObject.SetActive (true);
+		PlayOnBackground (prefabs.audioBackgroundPause);
 	}
 
 	public void ResumeLevel ()
 	{
 		isPause = false;
 		playerLevelSettings.startTime = Time.realtimeSinceStartup;
-		PlayOnBackground(prefabs.audioBackgroundMusic);
-		m_panelPause.gameObject.SetActive(false);
+		PlayOnBackground (prefabs.audioBackgroundMusic);
+		m_panelPause.gameObject.SetActive (false);
 	}
 
 	public void AddScore (int aScore)
 	{
 		playerLevelSettings.score += aScore;
+		PlayScoreAudio (aScore, player.transform.position);
 		if (!playerLevelSettings.scoreReached && playerLevelSettings.score >= settings.scoreForExit) {
 			playerLevelSettings.scoreReached = true;
 			if (prefabs.audioScoreReached) {
@@ -228,7 +229,7 @@ public class LevelController : MonoBehaviour
 	public void AddHealth (float aHealth)
 	{
 		playerLevelSettings.health += aHealth;
-		PlayHealthAudio(aHealth, player.transform.position);
+		PlayHealthAudio (aHealth, player.transform.position);
 	}
 
 	public void AddPickupData (PickupData aPickup)
