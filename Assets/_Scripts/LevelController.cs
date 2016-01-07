@@ -39,6 +39,7 @@ public class LevelController : MonoBehaviour
 	public Text m_textDescription;
 	public Text m_textName;
 	public Text m_textLevel;
+	public AudioSource m_audioSourceBackground;
 
 	public bool isRunning = false;
 	public bool isPause = false;
@@ -66,6 +67,8 @@ public class LevelController : MonoBehaviour
 			m_textName = GameObject.Find ("TextName").GetComponent<Text> ();
 		if (!m_textLevel)
 			m_textLevel = GameObject.Find ("TextLevel").GetComponent<Text> ();
+		if (!m_audioSourceBackground)
+			m_audioSourceBackground = GameObject.Find ("AudioSourceBackground").GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -159,12 +162,19 @@ public class LevelController : MonoBehaviour
 		isPause = true;
 		playerLevelSettings.resumeTime = playerLevelSettings.time;
 		m_panelPause.gameObject.SetActive(true);
+		if (prefabs.audioBackgroundPause) {
+			m_audioSourceBackground.Stop();
+			m_audioSourceBackground.transform.position = player.transform.position;
+			m_audioSourceBackground.clip = prefabs.audioBackgroundPause;
+			m_audioSourceBackground.Play();
+		}
 	}
 
 	public void ResumeLevel ()
 	{
 		isPause = false;
 		playerLevelSettings.startTime = Time.realtimeSinceStartup;
+		m_audioSourceBackground.Stop();
 		m_panelPause.gameObject.SetActive(false);
 	}
 

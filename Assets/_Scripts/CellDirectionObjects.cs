@@ -263,6 +263,7 @@ public class CellDescription : CellDirectionObjects
 	public AudioClip audioHealthSmall;
 	public AudioClip audioHealthMedium;
 	public AudioClip audioHealthBig;
+	public AudioClip audioBackgroundPause;
 
 	public AudioScore[] ReadAudioScore (string aLine, AudioScore[] aSrc, string aName, string aFolder)
 	{
@@ -314,6 +315,7 @@ public class CellDescription : CellDirectionObjects
 		audioHealthSmall = ReadAudioClip(aLine, audioHealthSmall, "audioHealthSmall", aFolder);
 		audioHealthMedium = ReadAudioClip(aLine, audioHealthMedium, "audioHealthMedium", aFolder);
 		audioHealthBig = ReadAudioClip(aLine, audioHealthBig, "audioHealthBig", aFolder);
+		audioBackgroundPause = ReadAudioClip(aLine, audioBackgroundPause, "audioBackgroundPause", aFolder);
 	}
 
 	public void FinishedReading()

@@ -14,6 +14,7 @@ wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
 audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
+audioBackgroundPause	Background_New_Day_is_born
 
 #SimpleRocks
 Package=Cactus
@@ -31,6 +32,7 @@ wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
 audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
+audioBackgroundPause	Background_New_Day_is_born
 
 #SimpleCactus
 Package=Cactus
@@ -48,6 +50,7 @@ wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
 audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
+audioBackgroundPause	Background_New_Day_is_born
 
 #SimpleCactusRocks
 Package=Cactus
@@ -69,6 +72,7 @@ wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
 audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
+audioBackgroundPause	Background_New_Day_is_born
 
 #Grille
 Package=Dungeon
@@ -86,6 +90,7 @@ wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
 audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
+audioBackgroundPause	Background_New_Day_is_born
 
 #Dungeon1
 Package=Dungeon
@@ -137,3 +142,4 @@ wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
 audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
+audioBackgroundPause	Background_New_Day_is_born
