@@ -38,6 +38,26 @@ public class MazeBuilder
 		}
 	}
 
+	protected string GetWallTag (int aDir)
+	{
+		switch (aDir) {
+		case Maze.DirectionTop:
+			return "Top";
+		case Maze.DirectionBottom:
+			return "Bottom";
+		case Maze.DirectionLeft:
+			return "Left";
+		case Maze.DirectionRight:
+			return "Right";
+		case Maze.DirectionForward:
+			return "Forward";
+		case Maze.DirectionBackward:
+			return "Backward";
+		default:
+			return string.Empty;
+		}
+	}
+
 	protected void DropSome (int aDir, Transform aParent, bool aWithWall)
 	{
 		switch (aDir) {
@@ -99,23 +119,25 @@ public class MazeBuilder
 			}
 			for (int z = 0; z < Maze.depth; z++) {
 				for (int x = 0; x < Maze.width; x++) {
-					lPos.x = aPos.x + 1.0f * x; //2.5f
-					lPos.y = aPos.y + 1.0f * y; // 0;
-					lPos.z = aPos.z + 1.0f * z; //2.5f
+					lPos.x = aPos.x + 1.0f * x;
+					lPos.y = aPos.y + 1.0f * y;
+					lPos.z = aPos.z + 1.0f * z;
 					GameObject lCellObj = new GameObject ("Cell_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString ());
 					Maze.Cell lCell = Maze.get (x, y, z);
 					lCell.gameObject = lCellObj;
-					lCellObj.AddComponent<MazeCellComponent> ().cell = lCell;
+					MazeCellComponent lCellComp = lCellObj.AddComponent<MazeCellComponent> ();
+					lCellComp.cell = lCell;
 					lCellObj.transform.SetParent (lLevelParent.transform, false);
 					lCellObj.transform.localPosition = lPos;
 					for (int lDir = 0; lDir < 6; lDir++) {
-						if (lDir > 0 || y != (Maze.height - 1)) { // oberstes Dach weglassen
-							if (!Maze.get (x, y, z).links [lDir].broken) {
+						if (!Maze.get (x, y, z).links [lDir].broken) {
+							if (lDir > 0 || y != (Maze.height - 1)) { // oberstes Dach weglassen
 								CreateGameObject (GetOneWall (lDir), lCellObj.transform, "Wall_" + lDir.ToString ());
-								DropSome (lDir, lCellObj.transform, true);
-							} else {
-								DropSome (lDir, lCellObj.transform, false);
 							}
+							lCellComp.SetTag(GetWallTag(lDir));
+							DropSome (lDir, lCellObj.transform, true);
+						} else {
+							DropSome (lDir, lCellObj.transform, false);
 						}
 					}
 					GameObject lscore1Prefab = prefabs.GetOneForScore (prefabs.score, 1);
@@ -177,6 +199,16 @@ public class MazeBuilder
 
 	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName, Vector3 aPos, Quaternion aRotation)
 	{
+		PrefabConditions lCond = aPrefab.GetComponent<PrefabConditions> ();
+		if (lCond) {
+			MazeCellComponent lCell = aParent.GetComponent<MazeCellComponent> ();
+			if (lCell) {
+				if (lCell.ContainsTags (lCond.forbiddenTags) || !lCell.ContainsTags (lCond.mustHaveTags)) {
+					return null;
+				}
+				lCell.SetTags (lCond.ownTags);
+			}
+		}
 		GameObject lObj = GameObject.Instantiate (aPrefab, aPos, aRotation) as GameObject;
 		lObj.transform.SetParent (aParent, false);
 		lObj.name = aName;

@@ -3,8 +3,6 @@ using System.Collections;
 
 public class PitFall_Axe : MonoBehaviour
 {
-	public Transform pivot;
-	public Vector3 rotation;
 	public bool isTriggered = false;
 	private Animator animator;
 
@@ -16,11 +14,15 @@ public class PitFall_Axe : MonoBehaviour
 
 	void Start()
 	{
-		if (!pivot) {
-			pivot = transform.parent.FindChild ("Pivot");
-		}
 		if (isTriggered) {
 			TriggerIt ();
+		}
+	}
+
+	void OnEnable() 
+	{
+		if (isTriggered) {
+			animator.SetTrigger("Activate");
 		}
 	}
 	
