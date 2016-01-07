@@ -27,6 +27,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 404248}
   - 114: {fileID: 11466878}
+  - 114: {fileID: 11431788}
   m_Layer: 0
   m_Name: Barrel2_R-
   m_TagString: Untagged
@@ -106,6 +107,23 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 628e5212ccbe5044ba8b70740d37394e, type: 3}
+--- !u!114 &11431788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 192016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08cfd747f07184eb3b14002535b1d80f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownTags:
+  - leftBottom
+  mustHaveTags: []
+  forbiddenTags:
+  - leftBottom
+  - innerCell
 --- !u!114 &11466878
 MonoBehaviour:
   m_ObjectHideFlags: 1

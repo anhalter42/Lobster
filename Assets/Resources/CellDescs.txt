@@ -99,7 +99,7 @@ forward			Wall_B+;90
 forward			WallGrille_B+;5
 backward		Wall_B-;90
 backward		WallGrille_B-;5
-props			
+props			GemScore2;20;false;2;0
 score			GemScore1;0;false;1;0
 score			GemScore2;0;false;2;0
 topProps
@@ -107,23 +107,29 @@ bottomProps		Prop_Wax_Floor;1
 bottomProps		Prop_Hay_Floor;2
 bottomProps		Prop_Hay2_Floor;2
 bottomProps		Barrel;5
-bottomProps		GemScore2;20;true;2;0
 leftProps		Arch_R-;10;false
 leftProps		Barrel2_R-;5
 leftProps		Prop_Torch_R-;5
 leftProps		Pitfall_Axe_R-;100
+leftProps		CellSeat_R-;5
+leftProps		Chain_A_R-;10
 rightProps		Arch_R+;10;false
 rightProps		Prop_Torch_R+;5
 rightProps		Pitfall_Axe_R+;100
+rightProps		CellSeat_R+;5
+rightProps		Chain_A_R+;10
 forwardProps	Arch_B+;10;false
 forwardProps	Ladder_B+;1
 forwardProps	Bucket_B+;1
 forwardProps	Prop_Torch_B+;5
+forwardProps	CellSeat_B+;5
+forwardProps	Chain_A_B+;10
 backwardProps	Arch_B-;10;false
 backwardProps	Ladder_B-;1
 backwardProps	CellSeat_B-;5
 backwardProps	Prop_Torch_B-;5
 backwardProps	Pitfall_Axe_B-;100
+backwardProps	Chain_A_B-;10
 exit			ExitCylinder
 wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2

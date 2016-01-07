@@ -35,6 +35,10 @@ public class LevelController : MonoBehaviour
 	public Text m_textLives;
 	public Text m_textHealth;
 	public Light m_mainLight;
+	public RectTransform m_panelPause;
+	public Text m_textDescription;
+	public Text m_textName;
+	public Text m_textLevel;
 
 	public bool isRunning = false;
 	public bool isPause = false;
@@ -54,6 +58,14 @@ public class LevelController : MonoBehaviour
 			m_textHealth = GameObject.Find ("TextHealth").GetComponent<Text> ();
 		if (!m_mainLight)
 			m_mainLight = GameObject.Find ("MainDirectionalLight").GetComponent<Light> ();
+		if (!m_panelPause)
+			m_panelPause = GameObject.Find ("PanelPause").GetComponent<RectTransform> ();
+		if (!m_textDescription)
+			m_textDescription = GameObject.Find ("TextDescription").GetComponent<Text> ();
+		if (!m_textName)
+			m_textName = GameObject.Find ("TextName").GetComponent<Text> ();
+		if (!m_textLevel)
+			m_textLevel = GameObject.Find ("TextLevel").GetComponent<Text> ();
 	}
 	
 	// Update is called once per frame
@@ -74,7 +86,11 @@ public class LevelController : MonoBehaviour
 		m_textHealth.text = string.Format ("Health: {0}", playerLevelSettings.health);
 		CheckLOD ();
 		if (Input.GetKeyUp(KeyCode.Escape)) {
-			PauseLevel();
+			if (isPause) {
+				ResumeLevel();
+			} else {
+				PauseLevel();
+			}
 		}
 	}
 
@@ -132,18 +148,24 @@ public class LevelController : MonoBehaviour
 		isRunning = true;
 		isPause = false;
 		playerLevelSettings.startTime = Time.realtimeSinceStartup;
+		m_panelPause.gameObject.SetActive(false);
+		m_textLevel.text = settings.level.ToString();
+		m_textName.text = settings.levelName;
+		m_textDescription.text = settings.levelDescription;
 	}
 
 	public void PauseLevel ()
 	{
 		isPause = true;
 		playerLevelSettings.resumeTime = playerLevelSettings.time;
+		m_panelPause.gameObject.SetActive(true);
 	}
 
 	public void ResumeLevel ()
 	{
 		isPause = false;
 		playerLevelSettings.startTime = Time.realtimeSinceStartup;
+		m_panelPause.gameObject.SetActive(false);
 	}
 
 	public void AddScore (int aScore)
