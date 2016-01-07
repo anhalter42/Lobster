@@ -101,11 +101,13 @@ backward		Wall_B-;90
 backward		WallGrille_B-;5
 props			
 score			GemScore1;0;false;1;0
+score			GemScore2;0;false;2;0
 topProps
 bottomProps		Prop_Wax_Floor;1
 bottomProps		Prop_Hay_Floor;2
 bottomProps		Prop_Hay2_Floor;2
 bottomProps		Barrel;5
+bottomProps		GemScore2;20;true;2;0
 leftProps		Arch_R-;10;false
 leftProps		Barrel2_R-;5
 leftProps		Prop_Torch_R-;5

@@ -12,6 +12,7 @@ GameObject:
   - 114: {fileID: 11477892}
   - 114: {fileID: 11465374}
   - 135: {fileID: 13599520}
+  - 114: {fileID: 11454174}
   m_Layer: 0
   m_Name: GemScore1
   m_TagString: Untagged
@@ -181,6 +182,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotation: 3
+--- !u!114 &11454174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4269854c0b1cf4b27b18d167bfcc34c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minScale: {x: 1, y: 1, z: 1}
+  maxScale: {x: 1, y: 1, z: 1}
+  minMove: {x: -0.2, y: 0, z: -0.2}
+  maxMove: {x: 0.2, y: 0, z: 0.2}
+  minRotation: {x: 0, y: 0, z: 0}
+  maxRotation: {x: 0, y: 0, z: 0}
 --- !u!114 &11465374
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -217,7 +235,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.25
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.2, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -9,6 +9,7 @@ public class GameObjectChance
 	// 100% -> immer
 	public int score = 0;
 	public int live = 0;
+	public float health = 0f;
 	public bool wallNeeded = true;
 	public GameObject prefab;
 
@@ -30,6 +31,9 @@ public class GameObjectChance
 		}
 		if (aProps.Length > 4) {
 			live = int.Parse (aProps [4]);
+		}
+		if (aProps.Length > 5) {
+			health = float.Parse (aProps [5]);
 		}
 	}
 
@@ -256,6 +260,9 @@ public class CellDescription : CellDirectionObjects
 	public AudioClip audioDamageMedium;
 	public AudioClip audioDamageBig;
 	public AudioClip audioGameOver;
+	public AudioClip audioHealthSmall;
+	public AudioClip audioHealthMedium;
+	public AudioClip audioHealthBig;
 
 	public AudioScore[] ReadAudioScore (string aLine, AudioScore[] aSrc, string aName, string aFolder)
 	{
@@ -304,6 +311,9 @@ public class CellDescription : CellDirectionObjects
 		audioDamageBig = ReadAudioClip(aLine, audioDamageBig, "audioDamageBig", aFolder);
 		audioScoreReached = ReadAudioClip(aLine, audioScoreReached, "audioScoreReached", aFolder);
 		audioGameOver = ReadAudioClip(aLine, audioGameOver, "audioGameOver", aFolder);
+		audioHealthSmall = ReadAudioClip(aLine, audioHealthSmall, "audioHealthSmall", aFolder);
+		audioHealthMedium = ReadAudioClip(aLine, audioHealthMedium, "audioHealthMedium", aFolder);
+		audioHealthBig = ReadAudioClip(aLine, audioHealthBig, "audioHealthBig", aFolder);
 	}
 
 	public void FinishedReading()

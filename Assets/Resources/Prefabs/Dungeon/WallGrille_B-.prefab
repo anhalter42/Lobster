@@ -26,6 +26,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 443582}
+  - 65: {fileID: 6538036}
   m_Layer: 0
   m_Name: WallGrille_B-
   m_TagString: Untagged
@@ -99,10 +100,22 @@ MeshCollider:
   m_GameObject: {fileID: 140482}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300524, guid: 628e5212ccbe5044ba8b70740d37394e, type: 3}
+--- !u!65 &6538036
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169422}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.11693552}
+  m_Center: {x: 0, y: 0, z: -0.44153225}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

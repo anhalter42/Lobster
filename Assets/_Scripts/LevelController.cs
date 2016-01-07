@@ -73,6 +73,9 @@ public class LevelController : MonoBehaviour
 		m_textLives.text = string.Format ("Lives: {0}", playerLevelSettings.lives);
 		m_textHealth.text = string.Format ("Health: {0}", playerLevelSettings.health);
 		CheckLOD ();
+		if (Input.GetKeyUp(KeyCode.Escape)) {
+			PauseLevel();
+		}
 	}
 
 	public void CheckLOD ()
@@ -155,6 +158,52 @@ public class LevelController : MonoBehaviour
 			}
 			builder.ActivateExits ();
 			builder.ActivateWayPoints (builder.GetPlayerMazePoint (), builder.exitPoint);
+		}
+	}
+
+	public void AddLives (int aLives)
+	{
+		playerLevelSettings.lives += aLives;
+		if (prefabs.audioLiveAdded) {
+			AudioSource.PlayClipAtPoint (prefabs.audioLiveAdded, player.transform.position);
+		} else {
+			Debug.Log ("No audio for live added!");
+		}
+	}
+
+	public void PlayHealthAudio (float aHealth, Vector3 aPos)
+	{
+		AudioClip lAudio = null;
+		if (aHealth < 5f) {
+			lAudio = prefabs.audioHealthSmall;
+		} else if (aHealth < 20f) {
+			lAudio = prefabs.audioHealthMedium;
+		} else {
+			lAudio = prefabs.audioHealthBig;
+		}
+		if (lAudio) {
+			AudioSource.PlayClipAtPoint (lAudio, aPos);
+		} else {
+			Debug.Log (string.Format ("No audio for health {0}!", aHealth));
+		}
+	}
+
+	public void AddHealth (float aHealth)
+	{
+		playerLevelSettings.health += aHealth;
+		PlayHealthAudio(aHealth, player.transform.position);
+	}
+
+	public void AddPickupData (PickupData aPickup)
+	{
+		if (aPickup.score > 0) {
+			AddScore (aPickup.score);
+		}
+		if (aPickup.health > 0f) {
+			AddHealth (aPickup.health);
+		}
+		if (aPickup.lives > 0) {
+			AddLives (aPickup.lives);
 		}
 	}
 

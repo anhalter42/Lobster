@@ -1326,6 +1326,9 @@ MonoBehaviour:
     audioDamageMedium: {fileID: 0}
     audioDamageBig: {fileID: 0}
     audioGameOver: {fileID: 0}
+    audioHealthSmall: {fileID: 0}
+    audioHealthMedium: {fileID: 0}
+    audioHealthBig: {fileID: 0}
   playerLevelSettings:
     lives: 1
     score: 0

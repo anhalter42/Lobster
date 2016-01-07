@@ -84,9 +84,14 @@ public class MazeBuilder
 
 	protected void DropSome (string aNamePrefix, Transform aParent, GameObjectChance[] aObjs, bool aWithWall)
 	{
+		ArrayList lForLater = new ArrayList();
 		GameObject[] lObjs = prefabs.GetSome (aObjs, aWithWall);
-		for (int i = 0; i < lObjs.Length; i++) {
-			CreateGameObject (lObjs [i], aParent, aNamePrefix + i.ToString ());
+		int i;
+		for (i = 0; i < lObjs.Length; i++) {
+			CreateGameObject (lObjs [i], aParent, aNamePrefix + i.ToString (), lForLater);
+		}
+		for (int j = 0; j < lForLater.Count; j++, i++) {
+			CreateGameObject (lForLater [j] as GameObject, aParent, aNamePrefix + i.ToString ());
 		}
 	}
 
@@ -134,7 +139,7 @@ public class MazeBuilder
 							if (lDir > 0 || y != (Maze.height - 1)) { // oberstes Dach weglassen
 								CreateGameObject (GetOneWall (lDir), lCellObj.transform, "Wall_" + lDir.ToString ());
 							}
-							lCellComp.SetTag(GetWallTag(lDir));
+							lCellComp.SetTag (GetWallTag (lDir));
 							DropSome (lDir, lCellObj.transform, true);
 						} else {
 							DropSome (lDir, lCellObj.transform, false);
@@ -187,23 +192,29 @@ public class MazeBuilder
 		return GetMazePoint (AllLevels.Get ().player.transform.position);
 	}
 
-	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName)
+	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName, ArrayList aForLater = null)
 	{
-		return CreateGameObject (aPrefab, aParent, aName, Vector3.zero, Quaternion.identity);
+		return CreateGameObject (aPrefab, aParent, aName, Vector3.zero, Quaternion.identity, aForLater);
 	}
 
-	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName, Vector3 aPos)
+	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName, Vector3 aPos, ArrayList aForLater = null)
 	{
-		return CreateGameObject (aPrefab, aParent, aName, aPos, Quaternion.identity);
+		return CreateGameObject (aPrefab, aParent, aName, aPos, Quaternion.identity, aForLater);
 	}
 
-	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName, Vector3 aPos, Quaternion aRotation)
+	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName, Vector3 aPos, Quaternion aRotation, ArrayList aForLater = null)
 	{
 		PrefabConditions lCond = aPrefab.GetComponent<PrefabConditions> ();
 		if (lCond) {
 			MazeCellComponent lCell = aParent.GetComponent<MazeCellComponent> ();
 			if (lCell) {
-				if (lCell.ContainsTags (lCond.forbiddenTags) || !lCell.ContainsTags (lCond.mustHaveTags)) {
+				if (lCell.ContainsTags (lCond.forbiddenTags)) {
+					return null;
+				}
+				if (!lCell.ContainsTags (lCond.mustHaveTags)) {
+					if (aForLater != null) {
+						aForLater.Add (aPrefab);
+					}
 					return null;
 				}
 				lCell.SetTags (lCond.ownTags);
