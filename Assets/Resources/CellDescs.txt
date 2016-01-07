@@ -143,3 +143,4 @@ wayPoints		WayPoint_B-;100;true;5
 audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
 audioBackgroundPause	Background_New_Day_is_born
+audioBackgroundMusic	Background_Freak_Rage

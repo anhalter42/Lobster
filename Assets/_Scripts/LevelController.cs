@@ -146,6 +146,15 @@ public class LevelController : MonoBehaviour
 		player = Instantiate (playerPrefab, new Vector3 (builder.Maze.width / 2, builder.Maze.height / 2, builder.Maze.depth / 2), Quaternion.identity) as GameObject;
 	}
 
+	public void PlayOnBackground(AudioClip aClip)
+	{
+		m_audioSourceBackground.Stop();
+		if (aClip) {
+			m_audioSourceBackground.clip = aClip;
+			m_audioSourceBackground.Play();
+		}
+	}
+
 	public void StartLevel ()
 	{
 		isRunning = true;
@@ -155,6 +164,7 @@ public class LevelController : MonoBehaviour
 		m_textLevel.text = settings.level.ToString();
 		m_textName.text = settings.levelName;
 		m_textDescription.text = settings.levelDescription;
+		PlayOnBackground(prefabs.audioBackgroundMusic);
 	}
 
 	public void PauseLevel ()
@@ -162,19 +172,14 @@ public class LevelController : MonoBehaviour
 		isPause = true;
 		playerLevelSettings.resumeTime = playerLevelSettings.time;
 		m_panelPause.gameObject.SetActive(true);
-		if (prefabs.audioBackgroundPause) {
-			m_audioSourceBackground.Stop();
-			m_audioSourceBackground.transform.position = player.transform.position;
-			m_audioSourceBackground.clip = prefabs.audioBackgroundPause;
-			m_audioSourceBackground.Play();
-		}
+		PlayOnBackground(prefabs.audioBackgroundPause);
 	}
 
 	public void ResumeLevel ()
 	{
 		isPause = false;
 		playerLevelSettings.startTime = Time.realtimeSinceStartup;
-		m_audioSourceBackground.Stop();
+		PlayOnBackground(prefabs.audioBackgroundMusic);
 		m_panelPause.gameObject.SetActive(false);
 	}
 

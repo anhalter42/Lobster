@@ -70,6 +70,7 @@
      <Compile Include="Assets\_Scripts\PrefabModifier.cs" />
      <Compile Include="Assets\_Scripts\RotationY.cs" />
      <Compile Include="Assets\_Scripts\Start\UIStartController.cs" />
+     <Compile Include="Assets\_Scripts\StayOnTarget.cs" />
      <Compile Include="Assets\_Scripts\ThirdPersonUserControl.cs" />
      <Compile Include="Assets\_Scripts\UI.cs" />
      <None Include="Assets\CactusPack\Shaders\VertexBlend.shader" />
