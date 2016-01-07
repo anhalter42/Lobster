@@ -121,6 +121,7 @@ backwardProps	Arch_B-;10;false
 backwardProps	Ladder_B-;1
 backwardProps	CellSeat_B-;5
 backwardProps	Prop_Torch_B-;5
+backwardProps	Pitfall_Axe_B-;100
 exit			ExitCylinder
 wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2

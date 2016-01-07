@@ -167,7 +167,7 @@ public class AllLevels : MonoBehaviour
 
 	public void SetLevel (int aLevel, bool aLoad = true)
 	{
-		currentLevelSettings = levelSettings [aLevel];
+		currentLevelSettings = levelSettings [aLevel - 1]; // level numbers are from 1...
 		if (aLoad) {
 			SceneManager.LoadScene ("Main", LoadSceneMode.Single);
 		}
