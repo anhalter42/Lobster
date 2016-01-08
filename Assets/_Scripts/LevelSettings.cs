@@ -17,6 +17,7 @@ public class LevelSettings
 	public int scoreForExit = 20;// 20 points to open the exit
 	public float dayLight = 0.75f;
 	public Color dayLightColor = Color.white;
+	public Color groundColor = Color.white;
 	public AudioClip audioBackgroundPause;
 	public AudioClip audioBackgroundMusic;
 	public AudioClip audioBackgroundLevelEnd;
@@ -92,6 +93,7 @@ public class LevelSettings
 		if (!ReadInt (ref mazeDepth, aLine, "mazeDepth"))
 		if (!ReadInt (ref breakWalls, aLine, "breakWalls"))
 		if (!ReadInt (ref maxTime, aLine, "maxTime"))
+		if (!ReadColor (ref groundColor, aLine, "groundColor"))
 		if (!ReadColor (ref dayLightColor, aLine, "dayLightColor"))
 		if (!ReadFloat (ref dayLight, aLine, "dayLight"))
 		if (!ReadInt (ref scoreForExit, aLine, "scoreForExit")) {

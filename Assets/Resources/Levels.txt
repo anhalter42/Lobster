@@ -7,6 +7,7 @@ mazeHeight	1
 mazeDepth	5
 breakWalls	0
 scoreForExit	20
+groundColor	193,171,50
 
 #Tutorial 2
 //Mal etwas anders

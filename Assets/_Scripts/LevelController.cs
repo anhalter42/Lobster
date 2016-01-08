@@ -30,6 +30,7 @@ public class LevelController : MonoBehaviour
 
 	public GameObject playerPrefab { get { return AllLevels.Get ().playerPrefab; } }
 
+	public GameObject m_planeGround;
 	public Text m_textScore;
 	public Text m_textTime;
 	public Text m_textLives;
@@ -41,8 +42,11 @@ public class LevelController : MonoBehaviour
 	public Text m_textName;
 	public Text m_textLevel;
 	public AudioSource m_audioSourceBackground;
+
 	public AudioClip audioBackgroundPause { get { return settings.audioBackgroundPause == null ? prefabs.audioBackgroundPause : settings.audioBackgroundPause; } }
+
 	public AudioClip audioBackgroundMusic { get { return settings.audioBackgroundMusic == null ? prefabs.audioBackgroundMusic : settings.audioBackgroundMusic; } }
+
 	public AudioClip audioBackgroundLevelEnd { get { return settings.audioBackgroundLevelEnd == null ? prefabs.audioBackgroundLevelEnd : settings.audioBackgroundLevelEnd; } }
 
 	public float effectVolume = 0.5f;
@@ -55,6 +59,8 @@ public class LevelController : MonoBehaviour
 	{
 		if (!mazeParent)
 			mazeParent = GameObject.Find ("Maze").transform;
+		if (!m_planeGround)
+			m_planeGround = GameObject.Find ("Ground");
 		if (!m_textScore)
 			m_textScore = GameObject.Find ("TextScore").GetComponent<Text> ();
 		if (!m_textTime)
@@ -77,8 +83,8 @@ public class LevelController : MonoBehaviour
 			m_textLevel = GameObject.Find ("TextLevel").GetComponent<Text> ();
 		if (!m_audioSourceBackground)
 			m_audioSourceBackground = GameObject.Find ("AudioSourceBackground").GetComponent<AudioSource> ();
-		m_panelPause.gameObject.SetActive(false);
-		m_panelLevelFinished.gameObject.SetActive(false);
+		m_panelPause.gameObject.SetActive (false);
+		m_panelLevelFinished.gameObject.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -140,6 +146,8 @@ public class LevelController : MonoBehaviour
 		CreateLabyrinth ();
 		m_mainLight.color = settings.dayLightColor;
 		m_mainLight.intensity = settings.dayLight;
+		m_planeGround.GetComponent<Renderer> ().material.color = settings.groundColor;
+
 	}
 
 	protected void CreateLabyrinth ()
@@ -171,6 +179,7 @@ public class LevelController : MonoBehaviour
 		isPause = false;
 		playerLevelSettings.startTime = Time.realtimeSinceStartup;
 		m_panelPause.gameObject.SetActive (false);
+		m_panelLevelFinished.gameObject.SetActive (false);
 		m_textLevel.text = settings.level.ToString ();
 		m_textName.text = settings.levelName;
 		m_textDescription.text = settings.levelDescription;
@@ -303,17 +312,17 @@ public class LevelController : MonoBehaviour
 		}
 	}
 
-	public void PlayerHasExitReached()
+	public void PlayerHasExitReached ()
 	{
 		isPause = true;
 		isRunning = false;
-		m_panelLevelFinished.gameObject.SetActive(true);
-		PlayOnBackground(audioBackgroundLevelEnd);
+		m_panelLevelFinished.gameObject.SetActive (true);
+		PlayOnBackground (audioBackgroundLevelEnd);
 	}
 
-	public void StartNextLevel()
+	public void StartNextLevel ()
 	{
-		AllLevels.Get().NextLevel();
+		AllLevels.Get ().NextLevel ();
 	}
 
 }
