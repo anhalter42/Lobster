@@ -266,6 +266,7 @@ public class CellDescription : CellDirectionObjects
 	public AudioClip audioHealthBig;
 	public AudioClip audioBackgroundPause;
 	public AudioClip audioBackgroundMusic;
+	public AudioClip audioBackgroundLevelEnd;
 
 	public AudioScore[] ReadAudioScore (string aLine, AudioScore[] aSrc, string aName, string aFolder)
 	{
@@ -289,7 +290,7 @@ public class CellDescription : CellDirectionObjects
 		}
 	}
 
-	public AudioClip ReadAudioClip (string aLine, AudioClip aSrc, string aName, string aFolder)
+	public static AudioClip ReadAudioClip (string aLine, AudioClip aSrc, string aName, string aFolder)
 	{
 		if (aLine.StartsWith (aName + "\t")) {
 			string[] lArgs = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries);
@@ -334,6 +335,7 @@ public class CellDescription : CellDirectionObjects
 		audioHealthBig = ReadAudioClip (aLine, audioHealthBig, "audioHealthBig", aFolder);
 		audioBackgroundPause = ReadAudioClip (aLine, audioBackgroundPause, "audioBackgroundPause", aFolder);
 		audioBackgroundMusic = ReadAudioClip (aLine, audioBackgroundMusic, "audioBackgroundMusic", aFolder);
+		audioBackgroundLevelEnd = ReadAudioClip (aLine, audioBackgroundLevelEnd, "audioBackgroundLevelEnd", aFolder);
 	}
 
 	public void FinishedReading ()

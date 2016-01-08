@@ -36,10 +36,16 @@ public class LevelController : MonoBehaviour
 	public Text m_textHealth;
 	public Light m_mainLight;
 	public RectTransform m_panelPause;
+	public RectTransform m_panelLevelFinished;
 	public Text m_textDescription;
 	public Text m_textName;
 	public Text m_textLevel;
 	public AudioSource m_audioSourceBackground;
+	public AudioClip audioBackgroundPause { get { return settings.audioBackgroundPause == null ? prefabs.audioBackgroundPause : settings.audioBackgroundPause; } }
+	public AudioClip audioBackgroundMusic { get { return settings.audioBackgroundMusic == null ? prefabs.audioBackgroundMusic : settings.audioBackgroundMusic; } }
+	public AudioClip audioBackgroundLevelEnd { get { return settings.audioBackgroundLevelEnd == null ? prefabs.audioBackgroundLevelEnd : settings.audioBackgroundLevelEnd; } }
+
+	public float effectVolume = 0.5f;
 
 	public bool isRunning = false;
 	public bool isPause = false;
@@ -61,6 +67,8 @@ public class LevelController : MonoBehaviour
 			m_mainLight = GameObject.Find ("MainDirectionalLight").GetComponent<Light> ();
 		if (!m_panelPause)
 			m_panelPause = GameObject.Find ("PanelPause").GetComponent<RectTransform> ();
+		if (!m_panelLevelFinished)
+			m_panelLevelFinished = GameObject.Find ("PanelLevelFinished").GetComponent<RectTransform> ();
 		if (!m_textDescription)
 			m_textDescription = GameObject.Find ("TextDescription").GetComponent<Text> ();
 		if (!m_textName)
@@ -69,6 +77,8 @@ public class LevelController : MonoBehaviour
 			m_textLevel = GameObject.Find ("TextLevel").GetComponent<Text> ();
 		if (!m_audioSourceBackground)
 			m_audioSourceBackground = GameObject.Find ("AudioSourceBackground").GetComponent<AudioSource> ();
+		m_panelPause.gameObject.SetActive(false);
+		m_panelLevelFinished.gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -164,7 +174,7 @@ public class LevelController : MonoBehaviour
 		m_textLevel.text = settings.level.ToString ();
 		m_textName.text = settings.levelName;
 		m_textDescription.text = settings.levelDescription;
-		PlayOnBackground (prefabs.audioBackgroundMusic);
+		PlayOnBackground (audioBackgroundMusic);
 	}
 
 	public void PauseLevel ()
@@ -172,14 +182,14 @@ public class LevelController : MonoBehaviour
 		isPause = true;
 		playerLevelSettings.resumeTime = playerLevelSettings.time;
 		m_panelPause.gameObject.SetActive (true);
-		PlayOnBackground (prefabs.audioBackgroundPause);
+		PlayOnBackground (audioBackgroundPause);
 	}
 
 	public void ResumeLevel ()
 	{
 		isPause = false;
 		playerLevelSettings.startTime = Time.realtimeSinceStartup;
-		PlayOnBackground (prefabs.audioBackgroundMusic);
+		PlayOnBackground (audioBackgroundMusic);
 		m_panelPause.gameObject.SetActive (false);
 	}
 
@@ -190,7 +200,7 @@ public class LevelController : MonoBehaviour
 		if (!playerLevelSettings.scoreReached && playerLevelSettings.score >= settings.scoreForExit) {
 			playerLevelSettings.scoreReached = true;
 			if (prefabs.audioScoreReached) {
-				AudioSource.PlayClipAtPoint (prefabs.audioScoreReached, player.transform.position);
+				AudioSource.PlayClipAtPoint (prefabs.audioScoreReached, player.transform.position, effectVolume);
 			} else {
 				Debug.Log ("No audio for score reached!");
 			}
@@ -203,7 +213,7 @@ public class LevelController : MonoBehaviour
 	{
 		playerLevelSettings.lives += aLives;
 		if (prefabs.audioLiveAdded) {
-			AudioSource.PlayClipAtPoint (prefabs.audioLiveAdded, player.transform.position);
+			AudioSource.PlayClipAtPoint (prefabs.audioLiveAdded, player.transform.position, effectVolume);
 		} else {
 			Debug.Log ("No audio for live added!");
 		}
@@ -220,7 +230,7 @@ public class LevelController : MonoBehaviour
 			lAudio = prefabs.audioHealthBig;
 		}
 		if (lAudio) {
-			AudioSource.PlayClipAtPoint (lAudio, aPos);
+			AudioSource.PlayClipAtPoint (lAudio, aPos, effectVolume);
 		} else {
 			Debug.Log (string.Format ("No audio for health {0}!", aHealth));
 		}
@@ -252,7 +262,7 @@ public class LevelController : MonoBehaviour
 		if (playerLevelSettings.health < 0) {
 			playerLevelSettings.lives--;
 			if (prefabs.audioLiveLost) {
-				AudioSource.PlayClipAtPoint (prefabs.audioLiveLost, player.transform.position);
+				AudioSource.PlayClipAtPoint (prefabs.audioLiveLost, player.transform.position, effectVolume);
 			} else {
 				Debug.Log ("No audio for live lost!");
 			}
@@ -271,7 +281,7 @@ public class LevelController : MonoBehaviour
 			lAudio = prefabs.audioDamageBig;
 		}
 		if (lAudio) {
-			AudioSource.PlayClipAtPoint (lAudio, aPos);
+			AudioSource.PlayClipAtPoint (lAudio, aPos, effectVolume);
 		} else {
 			Debug.Log (string.Format ("No audio for damage {0}!", aDamage.Damage));
 		}
@@ -287,10 +297,23 @@ public class LevelController : MonoBehaviour
 			}
 		}
 		if (lAudio) {
-			AudioSource.PlayClipAtPoint (lAudio, aPos);
+			AudioSource.PlayClipAtPoint (lAudio, aPos, effectVolume);
 		} else {
 			Debug.Log (string.Format ("No audio for score {0}!", aScore));
 		}
+	}
+
+	public void PlayerHasExitReached()
+	{
+		isPause = true;
+		isRunning = false;
+		m_panelLevelFinished.gameObject.SetActive(true);
+		PlayOnBackground(audioBackgroundLevelEnd);
+	}
+
+	public void StartNextLevel()
+	{
+		AllLevels.Get().NextLevel();
 	}
 
 }

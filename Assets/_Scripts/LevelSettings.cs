@@ -17,6 +17,9 @@ public class LevelSettings
 	public int scoreForExit = 20;// 20 points to open the exit
 	public float dayLight = 0.75f;
 	public Color dayLightColor = Color.white;
+	public AudioClip audioBackgroundPause;
+	public AudioClip audioBackgroundMusic;
+	public AudioClip audioBackgroundLevelEnd;
 
 
 	public static bool ReadInt (ref int aValue, string aLine, string aName)
@@ -49,6 +52,19 @@ public class LevelSettings
 		}
 	}
 
+	public static bool ReadAudioClip (ref AudioClip aValue, string aLine, string aName, string aFolder)
+	{
+		if (aLine.StartsWith (aName + "\t")) {
+			string[] lArgs = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries);
+			if (lArgs.Length > 1) {
+				aValue = AllLevels.LoadResource<AudioClip> (lArgs [1], "Audio", aFolder);
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public static bool ReadColor (ref Color aValue, string aLine, string aName)
 	{
 		if (aLine.StartsWith (aName)) {
@@ -68,6 +84,9 @@ public class LevelSettings
 	public void ReadLine (string aLine)
 	{
 		if (!ReadString (ref prefabs, aLine, "prefabs"))
+		if (!ReadAudioClip (ref audioBackgroundMusic, aLine, "audioBackgroundMusic", null))
+		if (!ReadAudioClip (ref audioBackgroundPause, aLine, "audioBackgroundPause", null))
+		if (!ReadAudioClip (ref audioBackgroundLevelEnd, aLine, "audioBackgroundLevelEnd", null))
 		if (!ReadInt (ref mazeWidth, aLine, "mazeWidth"))
 		if (!ReadInt (ref mazeHeight, aLine, "mazeHeight"))
 		if (!ReadInt (ref mazeDepth, aLine, "mazeDepth"))

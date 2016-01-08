@@ -19,7 +19,7 @@ public class ExitNextLevel : MonoBehaviour
 	void OnTriggerEnter (Collider aCollider)
 	{
 		if (aCollider.gameObject.tag == "Player") {
-			AllLevels.Get ().NextLevel ();
+			AllLevels.Get ().levelController.PlayerHasExitReached();
 		}
 	}
 

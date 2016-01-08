@@ -54,7 +54,10 @@ namespace MAHN42
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
-			if (AllLevels.Get().levelController.isPause) return;
+			if (AllLevels.Get().levelController.isPause) {
+				m_Character.Move(Vector3.zero, false, false);
+				return;
+			}
 			float lScaleH = 0.5f;
 			float lScaleV = 0.5f;
 			if (m_dungeonCam) {

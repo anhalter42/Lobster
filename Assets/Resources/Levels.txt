@@ -1,5 +1,6 @@
 #Tutorial 1
 //Ganz einfach geht es los
+world	Tutorial
 prefabs	SimpleCactusRocks
 mazeWidth	5
 mazeHeight	1
@@ -9,6 +10,7 @@ scoreForExit	20
 
 #Tutorial 2
 //Mal etwas anders
+world	Tutorial
 prefabs	Grille
 mazeWidth	5
 mazeHeight	1
@@ -18,6 +20,7 @@ scoreForExit	20
 
 #Tutorial 3
 //Ein wenig größer :-)
+world	Tutorial
 prefabs	Dungeon1
 mazeWidth	10
 mazeHeight	1
@@ -29,6 +32,7 @@ dayLightColor	255,255,255
 
 #Level 1
 //Das erste Level
+world	Dungeon
 prefabs	Dungeon1
 mazeWidth	20
 mazeHeight	1
@@ -40,6 +44,7 @@ dayLightColor	255,255,255
 
 #Level 2
 //Jetzt mal bitte Alles einsammeln
+world	Dungeon
 prefabs	Dungeon1
 mazeWidth	20
 mazeHeight	1
@@ -51,6 +56,7 @@ dayLightColor	255,255,255
 
 #Level 99
 //Performance Test
+world	Dungeon
 prefabs	Dungeon1
 mazeWidth	100
 mazeHeight	1

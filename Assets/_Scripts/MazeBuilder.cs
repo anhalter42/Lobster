@@ -227,6 +227,10 @@ public class MazeBuilder
 		if (lMod) {
 			lMod.ModifyPrefab (lObj);
 		}
+		AudioSource[] lASs = lObj.GetComponentsInChildren<AudioSource>();
+		foreach(AudioSource lAS in lASs) {
+			lAS.volume = AllLevels.Get().levelController.effectVolume;
+		}
 		return lObj;
 	}
 }
