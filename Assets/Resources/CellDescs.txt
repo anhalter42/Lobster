@@ -15,6 +15,7 @@ wayPoints		WayPoint_B-;100;true;5
 audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
 audioBackgroundPause	Background_New_Day_is_born
+audioBackgroundMusic	Background_War_And_Hope_perc
 
 #SimpleRocks
 Package=Cactus
@@ -33,6 +34,7 @@ wayPoints		WayPoint_B-;100;true;5
 audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
 audioBackgroundPause	Background_New_Day_is_born
+audioBackgroundMusic	Background_War_And_Hope_perc
 
 #SimpleCactus
 Package=Cactus
@@ -51,6 +53,7 @@ wayPoints		WayPoint_B-;100;true;5
 audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
 audioBackgroundPause	Background_New_Day_is_born
+audioBackgroundMusic	Background_War_And_Hope_perc
 
 #SimpleCactusRocks
 Package=Cactus
@@ -73,6 +76,7 @@ wayPoints		WayPoint_B-;100;true;5
 audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
 audioBackgroundPause	Background_New_Day_is_born
+audioBackgroundMusic	Background_War_And_Hope_perc
 
 #Grille
 Package=Dungeon
@@ -91,6 +95,7 @@ wayPoints		WayPoint_B-;100;true;5
 audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
 audioBackgroundPause	Background_New_Day_is_born
+audioBackgroundMusic	Background_War_And_Hope_perc
 
 #Dungeon1
 Package=Dungeon
@@ -143,4 +148,4 @@ wayPoints		WayPoint_B-;100;true;5
 audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
 audioBackgroundPause	Background_New_Day_is_born
-audioBackgroundMusic	Background_Freak_Rage
+audioBackgroundMusic	Background_War_And_Hope

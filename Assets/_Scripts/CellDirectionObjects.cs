@@ -252,7 +252,8 @@ public class CellDescription : CellDirectionObjects
 	}
 
 	public string name;
-	public AudioScore[] audioScore = {};
+	public string worldName;
+	public AudioScore[] audioScore = { };
 	public AudioClip audioScoreReached;
 	public AudioClip audioLiveLost;
 	public AudioClip audioLiveAdded;
@@ -302,26 +303,44 @@ public class CellDescription : CellDirectionObjects
 		}
 	}
 
+	public string ReadString (string aLine, string aSrc, string aName, string aFolder)
+	{
+		if (aLine.StartsWith (aName + "\t")) {
+			string[] lArgs = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries);
+			if (lArgs.Length > 1) {
+				return lArgs [1];
+			} else {
+				return aSrc;
+			}
+		} else {
+			return aSrc;
+		}
+	}
+
 	public override void ReadLine (string aLine, string aFolder)
 	{
 		base.ReadLine (aLine, aFolder);
+		worldName = ReadString (aLine, aFolder, "world", aFolder);
 		audioScore = ReadAudioScore (aLine, audioScore, "audioScore", aFolder);
-		audioLiveLost = ReadAudioClip(aLine, audioLiveLost, "audioLiveLost", aFolder);
-		audioLiveAdded = ReadAudioClip(aLine, audioLiveAdded, "audioLiveAdded", aFolder);
-		audioDamageSmall = ReadAudioClip(aLine, audioDamageSmall, "audioDamageSmall", aFolder);
-		audioDamageMedium = ReadAudioClip(aLine, audioDamageMedium, "audioDamageMedium", aFolder);
-		audioDamageBig = ReadAudioClip(aLine, audioDamageBig, "audioDamageBig", aFolder);
-		audioScoreReached = ReadAudioClip(aLine, audioScoreReached, "audioScoreReached", aFolder);
-		audioGameOver = ReadAudioClip(aLine, audioGameOver, "audioGameOver", aFolder);
-		audioHealthSmall = ReadAudioClip(aLine, audioHealthSmall, "audioHealthSmall", aFolder);
-		audioHealthMedium = ReadAudioClip(aLine, audioHealthMedium, "audioHealthMedium", aFolder);
-		audioHealthBig = ReadAudioClip(aLine, audioHealthBig, "audioHealthBig", aFolder);
-		audioBackgroundPause = ReadAudioClip(aLine, audioBackgroundPause, "audioBackgroundPause", aFolder);
-		audioBackgroundMusic = ReadAudioClip(aLine, audioBackgroundMusic, "audioBackgroundMusic", aFolder);
+		audioLiveLost = ReadAudioClip (aLine, audioLiveLost, "audioLiveLost", aFolder);
+		audioLiveAdded = ReadAudioClip (aLine, audioLiveAdded, "audioLiveAdded", aFolder);
+		audioDamageSmall = ReadAudioClip (aLine, audioDamageSmall, "audioDamageSmall", aFolder);
+		audioDamageMedium = ReadAudioClip (aLine, audioDamageMedium, "audioDamageMedium", aFolder);
+		audioDamageBig = ReadAudioClip (aLine, audioDamageBig, "audioDamageBig", aFolder);
+		audioScoreReached = ReadAudioClip (aLine, audioScoreReached, "audioScoreReached", aFolder);
+		audioGameOver = ReadAudioClip (aLine, audioGameOver, "audioGameOver", aFolder);
+		audioHealthSmall = ReadAudioClip (aLine, audioHealthSmall, "audioHealthSmall", aFolder);
+		audioHealthMedium = ReadAudioClip (aLine, audioHealthMedium, "audioHealthMedium", aFolder);
+		audioHealthBig = ReadAudioClip (aLine, audioHealthBig, "audioHealthBig", aFolder);
+		audioBackgroundPause = ReadAudioClip (aLine, audioBackgroundPause, "audioBackgroundPause", aFolder);
+		audioBackgroundMusic = ReadAudioClip (aLine, audioBackgroundMusic, "audioBackgroundMusic", aFolder);
 	}
 
-	public void FinishedReading()
+	public void FinishedReading ()
 	{
-		Array.Sort(audioScore, new AudioScoreComparer());
+		Array.Sort (audioScore, new AudioScoreComparer ());
+		if (string.IsNullOrEmpty(worldName)) {
+			worldName = name;
+		}
 	}
 }

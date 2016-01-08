@@ -691,7 +691,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 485142130}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!124 &485142132
 Behaviour:
   m_ObjectHideFlags: 0
@@ -1538,6 +1538,7 @@ MonoBehaviour:
     backwardProps: []
     wayPoints: []
     name: 
+    worldName: 
     audioScoreReached: {fileID: 0}
     audioLiveLost: {fileID: 0}
     audioLiveAdded: {fileID: 0}
@@ -1948,9 +1949,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.25
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   Priority: 128
@@ -2953,7 +2954,7 @@ MonoBehaviour:
   mazeUIDepth: {fileID: 0}
   mazeUIHeight: {fileID: 0}
   controlPanel: {fileID: 0}
-  defaultLevel: 0
+  defaultLevel: 3
 --- !u!4 &1839330017
 Transform:
   m_ObjectHideFlags: 0
