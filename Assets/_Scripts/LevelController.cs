@@ -41,6 +41,14 @@ public class LevelController : MonoBehaviour
 	public Text m_textDescription;
 	public Text m_textName;
 	public Text m_textLevel;
+
+	public Text m_textLFName;
+	public Text m_textLFLevel;
+	public Text m_textLFScore;
+	public Text m_textLFScoreBonus;
+	public Text m_textLFTime;
+	public Text m_textLFTimeBonus;
+
 	public AudioSource m_audioSourceBackground;
 
 	public AudioClip audioBackgroundPause { get { return settings.audioBackgroundPause == null ? prefabs.audioBackgroundPause : settings.audioBackgroundPause; } }
@@ -81,6 +89,14 @@ public class LevelController : MonoBehaviour
 			m_textName = GameObject.Find ("TextName").GetComponent<Text> ();
 		if (!m_textLevel)
 			m_textLevel = GameObject.Find ("TextLevel").GetComponent<Text> ();
+		if (!m_textLFScore)
+			m_textLFScore = GameObject.Find ("TextLFScore").GetComponent<Text> ();
+		if (!m_textLFTime)
+			m_textLFTime = GameObject.Find ("TextLFTime").GetComponent<Text> ();
+		if (!m_textLFScoreBonus)
+			m_textLFScoreBonus = GameObject.Find ("TextLFScoreBonus").GetComponent<Text> ();
+		if (!m_textLFTimeBonus)
+			m_textLFTimeBonus = GameObject.Find ("TextLFTimeBonus").GetComponent<Text> ();
 		if (!m_audioSourceBackground)
 			m_audioSourceBackground = GameObject.Find ("AudioSourceBackground").GetComponent<AudioSource> ();
 		m_panelPause.gameObject.SetActive (false);
@@ -147,6 +163,9 @@ public class LevelController : MonoBehaviour
 		m_mainLight.color = settings.dayLightColor;
 		m_mainLight.intensity = settings.dayLight;
 		m_planeGround.GetComponent<Renderer> ().material.color = settings.groundColor;
+		if (settings.groundTexture != null) {
+			m_planeGround.GetComponent<Renderer> ().material.SetTexture ("_MainTex", settings.groundTexture);
+		}
 
 	}
 
@@ -312,12 +331,17 @@ public class LevelController : MonoBehaviour
 		}
 	}
 
+	public void StartLevelEndScreen()
+	{
+		m_panelLevelFinished.gameObject.SetActive (true);
+		PlayOnBackground (audioBackgroundLevelEnd);
+	}
+
 	public void PlayerHasExitReached ()
 	{
 		isPause = true;
 		isRunning = false;
-		m_panelLevelFinished.gameObject.SetActive (true);
-		PlayOnBackground (audioBackgroundLevelEnd);
+		Invoke("StartLevelEndScreen", 1.5f);
 	}
 
 	public void StartNextLevel ()

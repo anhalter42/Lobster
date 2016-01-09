@@ -7,7 +7,8 @@ mazeHeight	1
 mazeDepth	5
 breakWalls	0
 scoreForExit	20
-groundColor	193,171,50
+groundColor	251,255,0
+groundTexture	Sand_Tiling
 
 #Tutorial 2
 //Mal etwas anders

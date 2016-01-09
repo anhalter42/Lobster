@@ -18,6 +18,7 @@ public class LevelSettings
 	public float dayLight = 0.75f;
 	public Color dayLightColor = Color.white;
 	public Color groundColor = Color.white;
+	public Texture groundTexture = null;
 	public AudioClip audioBackgroundPause;
 	public AudioClip audioBackgroundMusic;
 	public AudioClip audioBackgroundLevelEnd;
@@ -66,6 +67,19 @@ public class LevelSettings
 		}
 	}
 
+	public static bool ReadTexture (ref Texture aValue, string aLine, string aName, string aFolder)
+	{
+		if (aLine.StartsWith (aName + "\t")) {
+			string[] lArgs = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries);
+			if (lArgs.Length > 1) {
+				aValue = AllLevels.LoadResource<Texture> (lArgs [1], "Textures", aFolder);
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public static bool ReadColor (ref Color aValue, string aLine, string aName)
 	{
 		if (aLine.StartsWith (aName)) {
@@ -88,6 +102,7 @@ public class LevelSettings
 		if (!ReadAudioClip (ref audioBackgroundMusic, aLine, "audioBackgroundMusic", null))
 		if (!ReadAudioClip (ref audioBackgroundPause, aLine, "audioBackgroundPause", null))
 		if (!ReadAudioClip (ref audioBackgroundLevelEnd, aLine, "audioBackgroundLevelEnd", null))
+		if (!ReadTexture (ref groundTexture, aLine, "groundTexture", null))
 		if (!ReadInt (ref mazeWidth, aLine, "mazeWidth"))
 		if (!ReadInt (ref mazeHeight, aLine, "mazeHeight"))
 		if (!ReadInt (ref mazeDepth, aLine, "mazeDepth"))
