@@ -84,7 +84,7 @@ public class MazeBuilder
 
 	protected void DropSome (string aNamePrefix, Transform aParent, GameObjectChance[] aObjs, bool aWithWall)
 	{
-		ArrayList lForLater = new ArrayList();
+		ArrayList lForLater = new ArrayList ();
 		GameObject[] lObjs = prefabs.GetSome (aObjs, aWithWall);
 		int i;
 		for (i = 0; i < lObjs.Length; i++) {
@@ -137,7 +137,31 @@ public class MazeBuilder
 					for (int lDir = 0; lDir < 6; lDir++) {
 						if (!Maze.get (x, y, z).links [lDir].broken) {
 							if (lDir > 0 || y != (Maze.height - 1)) { // oberstes Dach weglassen
-								lCellComp.walls[lDir] = CreateGameObject (GetOneWall (lDir), lCellObj.transform, "Wall_" + lDir.ToString ());
+								bool lSkipWall = false;
+								if (!lCell.links [lDir].isBorder
+								    && lCell.links [lDir].to (lCell).gameObject
+								    && lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)]) {
+									PrefabWallConditions lWC = lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)].GetComponent<PrefabWallConditions> ();
+									if (lWC != null) {
+										if (lWC.deleteOpositeWall) {
+											lSkipWall = true;
+										}
+									}
+								}
+								if (!lSkipWall) {
+									lCellComp.walls [lDir] = CreateGameObject (GetOneWall (lDir), lCellObj.transform, "Wall_" + lDir.ToString ());
+									PrefabWallConditions lWC = lCellComp.walls [lDir].GetComponent<PrefabWallConditions> ();
+									if (lWC != null) {
+										if (lWC.deleteOpositeWall) {
+											if (!lCell.links [lDir].isBorder
+											    && lCell.links [lDir].to (lCell).gameObject
+											    && lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)]) {
+												GameObject.Destroy (lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)]);
+												lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)] = null;
+											}
+										}
+									}
+								}
 							}
 							lCellComp.SetTag (GetWallTag (lDir));
 							DropSome (lDir, lCellObj.transform, true);
@@ -227,9 +251,9 @@ public class MazeBuilder
 		if (lMod) {
 			lMod.ModifyPrefab (lObj);
 		}
-		AudioSource[] lASs = lObj.GetComponentsInChildren<AudioSource>();
-		foreach(AudioSource lAS in lASs) {
-			lAS.volume = AllLevels.Get().levelController.effectVolume;
+		AudioSource[] lASs = lObj.GetComponentsInChildren<AudioSource> ();
+		foreach (AudioSource lAS in lASs) {
+			lAS.volume = AllLevels.Get ().levelController.effectVolume;
 		}
 		return lObj;
 	}

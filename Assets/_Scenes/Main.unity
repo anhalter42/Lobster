@@ -2225,6 +2225,12 @@ MonoBehaviour:
   m_textDescription: {fileID: 0}
   m_textName: {fileID: 0}
   m_textLevel: {fileID: 0}
+  m_textLFName: {fileID: 0}
+  m_textLFLevel: {fileID: 0}
+  m_textLFScore: {fileID: 0}
+  m_textLFScoreBonus: {fileID: 0}
+  m_textLFTime: {fileID: 0}
+  m_textLFTimeBonus: {fileID: 0}
   m_audioSourceBackground: {fileID: 0}
   effectVolume: 0.5
   isRunning: 0

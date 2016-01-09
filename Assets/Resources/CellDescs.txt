@@ -16,6 +16,7 @@ audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
 audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope_perc
+audioBackgroundLevelEnd	Background_The_gates_No_Choir
 
 #SimpleRocks
 Package=Cactus
@@ -35,6 +36,7 @@ audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
 audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope_perc
+audioBackgroundLevelEnd	Background_The_gates_No_Choir
 
 #SimpleCactus
 Package=Cactus
@@ -54,6 +56,7 @@ audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
 audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope_perc
+audioBackgroundLevelEnd	Background_The_gates_No_Choir
 
 #SimpleCactusRocks
 Package=Cactus
@@ -77,6 +80,7 @@ audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
 audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope_perc
+audioBackgroundLevelEnd	Background_The_gates_No_Choir
 
 #Grille
 Package=Dungeon
@@ -96,19 +100,20 @@ audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
 audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope_perc
+audioBackgroundLevelEnd	Background_The_gates_No_Choir
 
 #Dungeon1
 Package=Dungeon
 top				Ceiling
 bottom			Floor
 left			Wall_R-;90
-left			WallGrille_R-;5
+left			WallGrille_R-;10
 right			Wall_R+;90
-right			WallGrille_R+;5
+right			WallGrille_R+;10
 forward			Wall_B+;90
-forward			WallGrille_B+;5
+forward			WallGrille_B+;10
 backward		Wall_B-;90
-backward		WallGrille_B-;5
+backward		WallGrille_B-;10
 props			GemScore2;20;false;2;0
 score			GemScore1;0;false;1;0
 score			GemScore2;0;false;2;0
@@ -150,3 +155,4 @@ audioScore		GlassHitScroll6;1
 audioScoreReached	Ta Da
 audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope
+audioBackgroundLevelEnd	Background_The_gates_No_Choir

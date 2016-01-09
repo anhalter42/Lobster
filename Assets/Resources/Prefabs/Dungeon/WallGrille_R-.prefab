@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 441256}
   - 65: {fileID: 6575816}
+  - 114: {fileID: 11456652}
   m_Layer: 0
   m_Name: WallGrille_R-
   m_TagString: Untagged
@@ -116,6 +117,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.120625615, y: 1, z: 1}
   m_Center: {x: -0.4396872, y: 0, z: 0}
+--- !u!114 &11456652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5731ec5e79af046bb90f72b03b149fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deleteOpositeWall: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
