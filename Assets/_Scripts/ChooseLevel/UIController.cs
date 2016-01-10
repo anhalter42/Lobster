@@ -88,22 +88,99 @@ public class UIController : MonoBehaviour
 			-fBuilder.settings.mazeDepth / 2f);
 		fBuilder.CreateLabyrinth ();
 
-		/*
 		RawImage lImage = GameObject.Find ("RawImage").GetComponent<RawImage> ();
 		Texture2D lTex;
-		if (lImage.texture == null) {
-			lTex = new Texture2D (100, 100);
-			lImage.texture = lTex;
-		} else {
-			lTex = lImage.texture as Texture2D;
-		}
-		for (int x = 0; x < 10; x++) {
-			for (int z = 0; z < 10; z++) {
-				lTex.SetPixel (x, z, Color.blue);
+		int w = 11;
+		lTex = new Texture2D (fBuilder.Maze.width * w + 1, fBuilder.Maze.depth * w + 1);
+		lImage.texture = lTex;
+		for (int x = 0; x < fBuilder.Maze.width; x++) {
+			for (int z = 0; z < fBuilder.Maze.depth; z++) {
+				for (int lDir = 2; lDir < 6; lDir++) {
+					if (!fBuilder.Maze.get (x, 0, z).links [lDir].broken) {
+						int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+						//int h = fBuilder.Maze.depth - 1;
+						int d = (w - 1) / 2;
+						switch (lDir) {
+						case Maze.DirectionLeft:
+							x1 = d + x * w - d;
+							x2 = x1;
+							y1 = d + z * w - d;
+							y2 = d + z * w + d + 1;
+							break;
+						case Maze.DirectionRight:
+							x1 = d + x * w + d;
+							x2 = x1;
+							y1 = d + z * w - d;
+							y2 = d + z * w + d + 1;
+							break;
+						case Maze.DirectionForward:
+							x1 = d + x * w - d;
+							x2 = d + x * w + d + 1;
+							y1 = d + z * w + d;
+							y2 = y1;
+							break;
+						case Maze.DirectionBackward:
+							x1 = d + x * w - d;
+							x2 = d + x * w + d + 1;
+							y1 = d + z * w - d;
+							y2 = y1;
+							break;
+						}
+						DrawLine (lTex, 1 + x1, 1 + y1, 1 + x2, 1 + y2, Color.black);
+					}
+				}
 			}
 		}
 		lTex.Apply (false);
 		lImage.SetNativeSize ();
-		*/
+	}
+
+	void DrawLine (Texture2D tex, int x0, int y0, int x1, int y1, Color col)
+	{
+		int dy = (int)(y1 - y0);
+		int dx = (int)(x1 - x0);
+		int stepx, stepy;
+
+		if (dy < 0) {
+			dy = -dy;
+			stepy = -1;
+		} else {
+			stepy = 1;
+		}
+		if (dx < 0) {
+			dx = -dx;
+			stepx = -1;
+		} else {
+			stepx = 1;
+		}
+		dy <<= 1;
+		dx <<= 1;
+
+		float fraction = 0;
+
+		tex.SetPixel (x0, y0, col);
+		if (dx > dy) {
+			fraction = dy - (dx >> 1);
+			while (Mathf.Abs (x0 - x1) > 1) {
+				if (fraction >= 0) {
+					y0 += stepy;
+					fraction -= dx;
+				}
+				x0 += stepx;
+				fraction += dy;
+				tex.SetPixel (x0, y0, col);
+			}
+		} else {
+			fraction = dx - (dy >> 1);
+			while (Mathf.Abs (y0 - y1) > 1) {
+				if (fraction >= 0) {
+					x0 += stepx;
+					fraction -= dy;
+				}
+				y0 += stepy;
+				fraction += dx;
+				tex.SetPixel (x0, y0, col);
+			}
+		}
 	}
 }
