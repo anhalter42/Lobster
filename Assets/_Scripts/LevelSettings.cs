@@ -15,6 +15,8 @@ public class LevelSettings
 	public int breakWalls = 0;
 	public int maxTime = 0;// in seconds, 0 means endless
 	public int scoreForExit = 20;// 20 points to open the exit
+	public float scoreBonusFactor = 2f; // Faktor für extra Score 
+	public float scoreTimeBonusFactor = 5f; // Faktor für extra Time Bonus Score 
 	public float dayLight = 0.75f;
 	public Color dayLightColor = Color.white;
 	public Color groundColor = Color.white;
@@ -111,6 +113,8 @@ public class LevelSettings
 		if (!ReadColor (ref groundColor, aLine, "groundColor"))
 		if (!ReadColor (ref dayLightColor, aLine, "dayLightColor"))
 		if (!ReadFloat (ref dayLight, aLine, "dayLight"))
+		if (!ReadFloat (ref scoreBonusFactor, aLine, "scoreBonusFactor"))
+		if (!ReadFloat (ref scoreTimeBonusFactor, aLine, "scoreTimeBonusFactor"))
 		if (!ReadInt (ref scoreForExit, aLine, "scoreForExit")) {
 			if (aLine.StartsWith ("//")) {
 				if (string.IsNullOrEmpty (levelDescription)) {

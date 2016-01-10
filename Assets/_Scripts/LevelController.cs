@@ -10,10 +10,13 @@ public class LevelController : MonoBehaviour
 	{
 		public int lives = 1;
 		public int score = 0;
+		public int scoreBonus = 0;
+		public int scoreTimeBonus = 0;
 		public float health = 100.0f;
 		public float resumeTime = 0f;
 		public float startTime = 0f;
 		public float time = 0f;
+		public float timeBonus = 0f;
 		public bool scoreReached = false;
 	}
 
@@ -83,12 +86,18 @@ public class LevelController : MonoBehaviour
 			m_panelPause = GameObject.Find ("PanelPause").GetComponent<RectTransform> ();
 		if (!m_panelLevelFinished)
 			m_panelLevelFinished = GameObject.Find ("PanelLevelFinished").GetComponent<RectTransform> ();
+		// Pause Panel
 		if (!m_textDescription)
 			m_textDescription = GameObject.Find ("TextDescription").GetComponent<Text> ();
 		if (!m_textName)
 			m_textName = GameObject.Find ("TextName").GetComponent<Text> ();
 		if (!m_textLevel)
 			m_textLevel = GameObject.Find ("TextLevel").GetComponent<Text> ();
+		// Level End Panel
+		if (!m_textLFLevel)
+			m_textLFLevel = GameObject.Find ("TextLFLevel").GetComponent<Text> ();
+		if (!m_textLFName)
+			m_textLFName = GameObject.Find ("TextLFName").GetComponent<Text> ();
 		if (!m_textLFScore)
 			m_textLFScore = GameObject.Find ("TextLFScore").GetComponent<Text> ();
 		if (!m_textLFTime)
@@ -120,11 +129,13 @@ public class LevelController : MonoBehaviour
 		m_textLives.text = string.Format ("Lives: {0}", playerLevelSettings.lives);
 		m_textHealth.text = string.Format ("Health: {0}", playerLevelSettings.health);
 		CheckLOD ();
-		if (Input.GetKeyUp (KeyCode.Escape)) {
-			if (isPause) {
-				ResumeLevel ();
-			} else {
-				PauseLevel ();
+		if (isRunning) {
+			if (Input.GetKeyUp (KeyCode.Escape)) {
+				if (isPause) {
+					ResumeLevel ();
+				} else {
+					PauseLevel ();
+				}
 			}
 		}
 	}
@@ -331,17 +342,35 @@ public class LevelController : MonoBehaviour
 		}
 	}
 
-	public void StartLevelEndScreen()
+	public void StartLevelEndScreen ()
 	{
+		if (playerLevelSettings.score > settings.scoreForExit) {
+			playerLevelSettings.scoreBonus = Mathf.RoundToInt ((playerLevelSettings.score - settings.scoreForExit) * settings.scoreBonusFactor);
+		}
+		if (settings.maxTime > 0 && playerLevelSettings.time > settings.maxTime) {
+			playerLevelSettings.timeBonus = settings.maxTime - playerLevelSettings.time;
+			playerLevelSettings.scoreTimeBonus = Mathf.RoundToInt (playerLevelSettings.timeBonus * settings.scoreTimeBonusFactor);
+			m_textLFTimeBonus.gameObject.SetActive (true);
+		} else {
+			m_textLFTimeBonus.gameObject.SetActive (false);
+		}
+		m_textLFLevel.text = settings.level.ToString ();
+		m_textLFName.text = settings.levelName;
+		m_textLFScore.text = string.Format ("Score: {0}", playerLevelSettings.score.ToString ());
+		m_textLFScoreBonus.text = string.Format ("Bonus: {0}", playerLevelSettings.scoreBonus.ToString ());
+		m_textLFTime.text = string.Format ("Time: {0}", Mathf.RoundToInt (playerLevelSettings.time).ToString ());
+		m_textLFTimeBonus.text = string.Format ("Time Bonus: {0}", playerLevelSettings.scoreTimeBonus.ToString ());
 		m_panelLevelFinished.gameObject.SetActive (true);
 		PlayOnBackground (audioBackgroundLevelEnd);
 	}
 
 	public void PlayerHasExitReached ()
 	{
-		isPause = true;
-		isRunning = false;
-		Invoke("StartLevelEndScreen", 1.5f);
+		if (isRunning) {
+			isPause = true;
+			isRunning = false;
+			Invoke ("StartLevelEndScreen", 1.5f);
+		}
 	}
 
 	public void StartNextLevel ()
