@@ -2165,6 +2165,8 @@ MonoBehaviour:
     breakWalls: 0
     maxTime: 0
     scoreForExit: 20
+    scoreBonusFactor: 2
+    scoreTimeBonusFactor: 5
     dayLight: 0.75
     dayLightColor: {r: 1, g: 1, b: 1, a: 1}
     groundColor: {r: 1, g: 1, b: 1, a: 1}
@@ -2207,10 +2209,13 @@ MonoBehaviour:
   playerLevelSettings:
     lives: 1
     score: 0
+    scoreBonus: 0
+    scoreTimeBonus: 0
     health: 100
     resumeTime: 0
     startTime: 0
     time: 0
+    timeBonus: 0
     scoreReached: 0
   mazeParent: {fileID: 0}
   player: {fileID: 0}
