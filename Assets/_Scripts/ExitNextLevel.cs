@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Deprecated please use Activator with Method PlayerHasExitReached
+/// </summary>
+
 public class ExitNextLevel : MonoBehaviour
 {
 	public Animator m_animator;

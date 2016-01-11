@@ -84,6 +84,7 @@ GameObject:
   - 65: {fileID: 6588562}
   - 114: {fileID: 11418274}
   - 82: {fileID: 8242102}
+  - 114: {fileID: 11427736}
   m_Layer: 0
   m_Name: Pitfall_Axe_R+
   m_TagString: Untagged
@@ -438,6 +439,23 @@ MonoBehaviour:
   - Bottom
   forbiddenTags:
   - innerCell
+--- !u!114 &11427736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b758a443e4bc41789b88e91cbf09cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  when: 0
+  isActivated: 0
+  levelControllerMethod: 
+  levelControllerMethodDelay: 0
+  tags:
+  - Player
 --- !u!114 &11469824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -468,7 +486,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149902}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62ef19009ddc3435f858b1e85fbe500b, type: 3}
   m_Name: 

@@ -170,6 +170,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 444068, guid: 0ee9b75016eca4724a9d5fb8e7bbfb38, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444068, guid: 0ee9b75016eca4724a9d5fb8e7bbfb38, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0ee9b75016eca4724a9d5fb8e7bbfb38, type: 2}
   m_IsPrefabParent: 0

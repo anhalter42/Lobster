@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Deprecated please use Activator with Method PlayerHasExitReached
+/// </summary>
+
 public class PitFall_Axe : MonoBehaviour
 {
 	public bool isTriggered = false;

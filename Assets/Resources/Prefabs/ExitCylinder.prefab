@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 440860}
   - 135: {fileID: 13531220}
   - 114: {fileID: 11424746}
+  - 114: {fileID: 11463202}
   m_Layer: 0
   m_Name: ExitCylinder
   m_TagString: Untagged
@@ -247,7 +248,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113644}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 398d8c87a6dc745c08534bb1a6deca29, type: 3}
   m_Name: 
@@ -266,6 +267,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotation: 5
+--- !u!114 &11463202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b758a443e4bc41789b88e91cbf09cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  when: 0
+  isActivated: 0
+  levelControllerMethod: PlayerHasExitReached
+  levelControllerMethodDelay: 0
+  tags:
+  - Player
 --- !u!135 &13531220
 SphereCollider:
   m_ObjectHideFlags: 1
