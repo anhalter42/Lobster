@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownTags:
   - leftBottom
+  - innerCell
   mustHaveTags: []
   forbiddenTags:
   - leftBottom

@@ -56,7 +56,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 431462}
-  - 114: {fileID: 11495064}
   - 95: {fileID: 9537616}
   - 65: {fileID: 6551434}
   - 114: {fileID: 11499420}
@@ -463,18 +462,6 @@ MonoBehaviour:
   levelControllerMethodDelay: 0
   tags:
   - Player
---- !u!114 &11495064
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 125848}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62ef19009ddc3435f858b1e85fbe500b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTriggered: 0
 --- !u!114 &11499420
 MonoBehaviour:
   m_ObjectHideFlags: 1

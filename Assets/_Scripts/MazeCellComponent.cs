@@ -16,12 +16,16 @@ public class MazeCellComponent : MonoBehaviour
 		
 	public bool ContainsTags (string[] aTags)
 	{
-		for (int i = 0; i < aTags.Length; i++) {
-			if (tags.ContainsKey (aTags [i])) {
-				return true;
+		if (aTags.Length > 0) {
+			for (int i = 0; i < aTags.Length; i++) {
+				if (tags.ContainsKey (aTags [i])) {
+					return true;
+				}
 			}
+			return false;
+		} else {
+			return true;
 		}
-		return false;
 	}
 
 	public bool ContainsTag (string aTag)
@@ -47,7 +51,7 @@ public class MazeCellComponent : MonoBehaviour
 		m_tags = new string[tags.Count];
 		int i = 0;
 		foreach (string lKey in tags.Keys) {
-			m_tags [i++] = string.Format("{0}:{1}", lKey, tags[lKey]);
+			m_tags [i++] = string.Format ("{0}:{1}", lKey, tags [lKey]);
 		}
 		#endif
 	}

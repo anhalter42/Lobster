@@ -104,6 +104,7 @@ public class MazeBuilder
 	{
 		Debug.Log ("Creating Labyrinth...");
 		Init ();
+		int[] lDirs = { 0, 1, 2, 3, 4, 5 };
 		parent = aParent;
 		if (aParent) {
 			for (int i = aParent.transform.childCount - 1; i >= 0; i--) {
@@ -134,7 +135,8 @@ public class MazeBuilder
 					lCellComp.cell = lCell;
 					lCellObj.transform.SetParent (lLevelParent.transform, false);
 					lCellObj.transform.localPosition = lPos;
-					for (int lDir = 0; lDir < 6; lDir++) {
+					for (int lD = 0; lD < 6; lD++) {
+						int lDir = lDirs [lD];
 						if (!Maze.get (x, y, z).links [lDir].broken) {
 							if (lDir > 0 || y != (Maze.height - 1)) { // oberstes Dach weglassen
 								bool lSkipWall = false;
@@ -169,6 +171,14 @@ public class MazeBuilder
 							DropSome (lDir, lCellObj.transform, false);
 						}
 					}
+
+					// shift directions
+					int lSwap = lDirs [0];
+					for (int i = 0; i < (lDirs.Length - 1); i++) {
+						lDirs [i] = lDirs [i + 1];
+					}
+					lDirs [lDirs.Length - 1] = lSwap;
+
 					GameObject lscore1Prefab = prefabs.GetOneForScore (prefabs.score, 1);
 					if (lscore1Prefab) {
 						GameObject lScore = CreateGameObject (lscore1Prefab, lCellObj.transform, "Score_1"); //, Vector3.down * 0.25f) as GameObject;
@@ -251,7 +261,11 @@ public class MazeBuilder
 		if (lMod) {
 			lMod.ModifyPrefab (lObj);
 		}
-		AudioSource[] lASs = lObj.GetComponentsInChildren<AudioSource> ();
+		AudioSource[] lASs = lObj.GetComponents<AudioSource> ();
+		foreach (AudioSource lAS in lASs) {
+			lAS.volume = AllLevels.Get ().levelController.effectVolume;
+		}
+		lASs = lObj.GetComponentsInChildren<AudioSource> ();
 		foreach (AudioSource lAS in lASs) {
 			lAS.volume = AllLevels.Get ().levelController.effectVolume;
 		}
