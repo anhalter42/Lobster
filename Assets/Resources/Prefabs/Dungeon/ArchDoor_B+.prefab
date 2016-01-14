@@ -129,6 +129,7 @@ GameObject:
   - 33: {fileID: 3379260}
   - 23: {fileID: 2343516}
   - 64: {fileID: 6488978}
+  - 114: {fileID: 11482016}
   m_Layer: 0
   m_Name: Door_B
   m_TagString: Untagged
@@ -445,7 +446,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: fa2f63bc76f554678a63440143ae7783, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -468,6 +469,19 @@ MonoBehaviour:
   levelControllerMethodDelay: 0
   tags:
   - Player
+--- !u!114 &11482016
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f7a59e3889a4078a7e4464335c5f67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 9520290}
+  m_ResumeDelay: 1
 --- !u!114 &11496936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -480,11 +494,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownTags:
+  - forwardArch
   - innerCell
+  - Door
   mustHaveTags: []
   forbiddenTags:
   - innerCell
   - forwardBottom
+  - forwardArch
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

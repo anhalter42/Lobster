@@ -48,6 +48,13 @@ namespace MAHN42
 				m_Capsule = GetComponent<CapsuleCollider> ();
 		}
 
+		/*
+		void Update ()
+		{
+			transform.rotation = (-transform.localRotation.x, 0f, -transform.localRotation.y);
+		}
+		*/
+
 		void Start ()
 		{
 			CheckComponents ();
