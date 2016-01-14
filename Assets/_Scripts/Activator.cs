@@ -88,10 +88,10 @@ public class Activator : MonoBehaviour
 				m_animator.SetTrigger ("RestoreActivate");
 			} else {
 				m_animator.SetTrigger ("Activate");
-				if (!string.IsNullOrEmpty (levelControllerMethod)) {
-					AllLevels.Get ().levelController.Invoke (levelControllerMethod, levelControllerMethodDelay);
-				}
 			}
+		}
+		if (!string.IsNullOrEmpty (levelControllerMethod)) {
+			AllLevels.Get ().levelController.Invoke (levelControllerMethod, levelControllerMethodDelay);
 		}
 	}
 }
