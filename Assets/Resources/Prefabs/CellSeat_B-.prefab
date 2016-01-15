@@ -47,7 +47,6 @@ GameObject:
   - 33: {fileID: 3339684}
   - 23: {fileID: 2346280}
   - 64: {fileID: 6443760}
-  - 64: {fileID: 6450490}
   m_Layer: 0
   m_Name: Stone_1
   m_TagString: Untagged
@@ -79,6 +78,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 461912}
+  - 65: {fileID: 6508998}
   m_Layer: 0
   m_Name: Cell_Seat
   m_TagString: Untagged
@@ -257,7 +257,7 @@ MeshCollider:
   m_GameObject: {fileID: 141778}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300222, guid: fd75e63c14c4540438372a6844af68b6, type: 3}
@@ -269,7 +269,7 @@ MeshCollider:
   m_GameObject: {fileID: 104634}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300226, guid: fd75e63c14c4540438372a6844af68b6, type: 3}
@@ -281,22 +281,22 @@ MeshCollider:
   m_GameObject: {fileID: 153954}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300224, guid: fd75e63c14c4540438372a6844af68b6, type: 3}
---- !u!64 &6450490
-MeshCollider:
+--- !u!65 &6508998
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 153954}
+  m_GameObject: {fileID: 194650}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 4300224, guid: fd75e63c14c4540438372a6844af68b6, type: 3}
+  m_Size: {x: 0.9395052, y: 0.94382375, z: 4.2062483}
+  m_Center: {x: -0.1469151, y: 0.4818003, z: -0.0043224753}
 --- !u!114 &11451378
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -6,6 +6,8 @@ public class PauseAnimatorOnCollision : MonoBehaviour
 
 	public Animator m_Animator;
 	public float m_ResumeDelay = 1f;
+	public bool m_OnTrigger = true;
+	public bool m_OnCollision = true;
 	float m_OriginalSpeed;
 	bool m_InCollision = false;
 
@@ -18,20 +20,47 @@ public class PauseAnimatorOnCollision : MonoBehaviour
 
 	void OnCollisionEnter (Collision aCollision)
 	{
-		if (m_Animator.speed != 0) {
-			m_OriginalSpeed = m_Animator.speed;
-			m_Animator.speed = 0;// StopPlayback
+		if (m_OnCollision) {
+			if (m_Animator.speed != 0) {
+				m_OriginalSpeed = m_Animator.speed;
+				m_Animator.speed = 0;// StopPlayback
+			}
+			m_InCollision = true;
 		}
-		m_InCollision = true;
 	}
 
 	void OnCollisionExit (Collision aCollisionInfo)
 	{
-		m_InCollision = false;
-		Invoke("ResumePLayback", m_ResumeDelay);
+		if (m_OnCollision) {
+			m_InCollision = false;
+			Invoke ("ResumePLayback", m_ResumeDelay);
+		}
 	}
 
-	void ResumePLayback()
+	void OnTriggerEnter (Collider aOther)
+	{
+		if (m_OnTrigger) {
+			if (m_Animator.speed != 0) {
+				m_OriginalSpeed = m_Animator.speed;
+				m_Animator.speed = 0;// StopPlayback
+			}
+			m_InCollision = true;
+		}
+	}
+
+	void OnTriggerStay(Collider aOther) {
+		m_InCollision = true;
+	}
+
+	void OnTriggerExit (Collider aOther)
+	{
+		if (m_OnTrigger) {
+			m_InCollision = false;
+			Invoke ("ResumePLayback", m_ResumeDelay);
+		}
+	}
+
+	void ResumePLayback ()
 	{
 		if (!m_InCollision) {
 			m_Animator.speed = m_OriginalSpeed;

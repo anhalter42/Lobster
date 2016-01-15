@@ -79,6 +79,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 451514}
+  - 65: {fileID: 6596246}
   m_Layer: 0
   m_Name: Cell_Seat
   m_TagString: Untagged
@@ -297,6 +298,18 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300222, guid: fd75e63c14c4540438372a6844af68b6, type: 3}
+--- !u!65 &6596246
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 179988}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9913481, y: 0.93944424, z: 4.2613482}
+  m_Center: {x: -0.16004057, y: 0.48011908, z: -0.0043250183}
 --- !u!114 &11482686
 MonoBehaviour:
   m_ObjectHideFlags: 1

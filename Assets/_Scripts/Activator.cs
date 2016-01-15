@@ -77,9 +77,11 @@ public class Activator : MonoBehaviour
 		isActivated = true;
 		if (m_activationObject) {
 			// AudioSource Workaround
-			AudioSource lAS = m_activationObject.GetComponent<AudioSource> ();
-			if (lAS != null) {
-				lAS.enabled = false;
+			if (aRestore) {
+				AudioSource lAS = m_activationObject.GetComponent<AudioSource> ();
+				if (lAS != null) {
+					lAS.enabled = false;
+				}
 			}
 			m_activationObject.SetActive (true);
 		}
