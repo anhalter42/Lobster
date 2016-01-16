@@ -338,7 +338,8 @@ AudioSource:
   m_GameObject: {fileID: 149144}
   m_Enabled: 0
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24380740, guid: 1d2dc6f6057be4767af7af671b1f5dfe,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: dcb9f9ea01a5b4ed48596a62041d94f0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -349,7 +350,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -392,7 +393,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -461,10 +462,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b758a443e4bc41789b88e91cbf09cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Behaviours: []
   when: 0
   isActivated: 0
   levelControllerMethod: 
   levelControllerMethodDelay: 0
+  m_ObjectActivationDelay: 0
   tags:
   - Player
 --- !u!114 &11485816

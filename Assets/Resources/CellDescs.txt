@@ -172,6 +172,7 @@ forwardProps	Prop_Torch_B+;5
 forwardProps	CellSeat_B+;5
 forwardProps	Pitfall_Axe_B+;10
 forwardProps	Chain_A_B+;10
+forwardProps	ChestGreen_B+;10
 backwardProps	Arch_B-;10;false
 backwardProps	Ladder_B-;1
 backwardProps	CellSeat_B-;5

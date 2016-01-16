@@ -29,8 +29,8 @@ mazeHeight	1
 mazeDepth	10
 breakWalls	1
 scoreForExit	75
-dayLight	0.75
-dayLightColor	255,255,255
+dayLight	0.25
+dayLightColor	200,150,50
 
 #Level 1
 //Das erste Level

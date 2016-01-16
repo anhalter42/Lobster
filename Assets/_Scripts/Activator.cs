@@ -10,10 +10,12 @@ public class Activator : MonoBehaviour
 		OnTriggerLeave
 	}
 
+	public Behaviour[] m_Behaviours = { };
 	public When when = When.OnTriggerEnter;
 	public bool isActivated = false;
 	public string levelControllerMethod = string.Empty;
 	public float levelControllerMethodDelay = 0f;
+	public float m_ObjectActivationDelay = 0f;
 	public string[] tags = { "Player" };
 
 	Animator m_animator;
@@ -75,6 +77,18 @@ public class Activator : MonoBehaviour
 	void ActivateIt (bool aRestore = false)
 	{
 		isActivated = true;
+		foreach (Behaviour lBeh in m_Behaviours) {
+			lBeh.enabled = true;
+			if (lBeh is Animation) {
+				((Animation)lBeh).Play ();
+			} else if (lBeh is Animator) {
+				if (aRestore) {
+					((Animator)lBeh).SetTrigger ("RestoreActivate");
+				} else {
+					((Animator)lBeh).SetTrigger ("Activate");
+				}
+			}
+		}
 		if (m_activationObject) {
 			// AudioSource Workaround
 			if (aRestore) {
@@ -83,7 +97,11 @@ public class Activator : MonoBehaviour
 					lAS.enabled = false;
 				}
 			}
-			m_activationObject.SetActive (true);
+			if (m_ObjectActivationDelay <= 0f) {
+				ActivateObject ();
+			} else {
+				Invoke ("ActivateObject", m_ObjectActivationDelay);
+			}
 		}
 		if (m_animator) {
 			if (aRestore) {
@@ -95,5 +113,10 @@ public class Activator : MonoBehaviour
 		if (!string.IsNullOrEmpty (levelControllerMethod)) {
 			AllLevels.Get ().levelController.Invoke (levelControllerMethod, levelControllerMethodDelay);
 		}
+	}
+
+	void ActivateObject ()
+	{
+		m_activationObject.SetActive (true);
 	}
 }

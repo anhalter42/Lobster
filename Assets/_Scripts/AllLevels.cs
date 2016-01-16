@@ -63,9 +63,12 @@ public class AllLevels : MonoBehaviour
 	// Use this for initialization
 	void Awake ()
 	{
-		UnityEngine.UI.Text lText = GameObject.Find ("Version").GetComponent<UnityEngine.UI.Text> ();
-		if (lText) {
-			lText.text = "Lobster " + Version;
+		GameObject lObj = GameObject.Find ("Version") as GameObject;
+		if (lObj) {
+			UnityEngine.UI.Text lText = lObj.GetComponent<UnityEngine.UI.Text> ();
+			if (lText) {
+				lText.text = "Lobster " + Version;
+			}
 		}
 		if (!levels) {
 			levels = Resources.Load<TextAsset> ("Levels");
@@ -123,7 +126,7 @@ public class AllLevels : MonoBehaviour
 			string lNewLine = lLine.Replace ("\r", "");
 			if (lNewLine.StartsWith ("#")) {
 				if (lDesc != null) {
-					lDesc.FinishedReading();
+					lDesc.FinishedReading ();
 				}
 				lDesc = new CellDescription ();
 				lDesc.name = lNewLine.Substring (1);
@@ -173,20 +176,20 @@ public class AllLevels : MonoBehaviour
 		}
 	}
 
-	public static T LoadResource<T>(string aName, string aMainFolder, string aSubFolder) where T : UnityEngine.Object
+	public static T LoadResource<T> (string aName, string aMainFolder, string aSubFolder) where T : UnityEngine.Object
 	{
 		T lObj = null;
-		if (!string.IsNullOrEmpty(aSubFolder)) {
-			lObj = Resources.Load<T>(aMainFolder + "/" + aSubFolder + "/" + aName);
+		if (!string.IsNullOrEmpty (aSubFolder)) {
+			lObj = Resources.Load<T> (aMainFolder + "/" + aSubFolder + "/" + aName);
 		}
 		if (lObj == null) {
-			lObj = Resources.Load<T>(aMainFolder + "/" + aName);
+			lObj = Resources.Load<T> (aMainFolder + "/" + aName);
 		}
 		if (lObj == null) {
-			lObj = Resources.Load<T>(aName);
+			lObj = Resources.Load<T> (aName);
 		}
 		if (lObj == null) {
-			Debug.Log (string.Format("Could not find {0} '{1}' (Folder '{2}')!",aMainFolder,aName, aSubFolder));
+			Debug.Log (string.Format ("Could not find {0} '{1}' (Folder '{2}')!", aMainFolder, aName, aSubFolder));
 		}
 		return lObj;
 	}
