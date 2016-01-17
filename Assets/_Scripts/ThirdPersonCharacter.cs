@@ -18,9 +18,12 @@ namespace MAHN42
 		[SerializeField] float m_AnimSpeedMultiplier = 1f;
 		[SerializeField] float m_GroundCheckDistance = 0.1f;
 		[SerializeField] float m_FootOffsetUp = 0.01f;
+		[SerializeField] Vector3 m_BoxAdjust = new Vector3 (0.1f, 0.1f, 0.1f);
 		[SerializeField] Transform m_FootLeft;
 		[SerializeField] Transform m_FootRight;
 		[SerializeField] Transform m_Head;
+		[SerializeField] Transform m_HandLeft;
+		[SerializeField] Transform m_HandRight;
 
 		Rigidbody m_Rigidbody;
 		Animator m_Animator;
@@ -35,6 +38,7 @@ namespace MAHN42
 		float m_CapsuleHeight;
 		Vector3 m_CapsuleCenter;
 		CapsuleCollider m_Capsule;
+		BoxCollider m_Box;
 		bool m_Crouching;
 
 
@@ -46,6 +50,8 @@ namespace MAHN42
 				m_Rigidbody = GetComponent<Rigidbody> ();
 			if (!m_Capsule)
 				m_Capsule = GetComponent<CapsuleCollider> ();
+			if (!m_Box)
+				m_Box = GetComponent<BoxCollider> ();
 		}
 
 		/*
@@ -77,6 +83,7 @@ namespace MAHN42
 				move.Normalize ();
 			move = transform.InverseTransformDirection (move);
 			ScaleCapsule ();
+			ScaleBox ();
 			CheckGroundStatus ();
 			move = Vector3.ProjectOnPlane (move, m_GroundNormal);
 			m_TurnAmount = Mathf.Atan2 (move.x, move.z);
@@ -144,6 +151,23 @@ namespace MAHN42
 			}
 		}
 
+		void ScaleBox ()
+		{
+			if (m_Box) {
+				m_Box.center = m_Capsule.center;
+				if (m_Head && m_FootLeft && m_FootRight && m_HandLeft && m_HandRight) {
+					float lMinX = Mathf.Min (m_FootLeft.position.x, m_FootRight.position.x, m_Head.position.x, m_HandLeft.position.x, m_HandRight.position.x);
+					float lMaxX = Mathf.Max (m_FootLeft.position.x, m_FootRight.position.x, m_Head.position.x, m_HandLeft.position.x, m_HandRight.position.x);
+					float lMinY = Mathf.Min (m_FootLeft.position.y, m_FootRight.position.y, m_Head.position.y, m_HandLeft.position.y, m_HandRight.position.y);
+					float lMaxY = Mathf.Max (m_FootLeft.position.y, m_FootRight.position.y, m_Head.position.y, m_HandLeft.position.y, m_HandRight.position.y);
+					float lMinZ = Mathf.Min (m_FootLeft.position.z, m_FootRight.position.z, m_Head.position.z, m_HandLeft.position.z, m_HandRight.position.z);
+					float lMaxZ = Mathf.Max (m_FootLeft.position.z, m_FootRight.position.z, m_Head.position.z, m_HandLeft.position.z, m_HandRight.position.z);
+					m_Box.center = m_Box.transform.InverseTransformPoint (lMinX + (lMaxX - lMinX) / 2f, lMinY + (lMaxY - lMinY) / 2f, lMinZ + (lMaxZ - lMinZ) / 2f);
+					//m_Box.size = m_Box.transform.InverseTransformPoint (lMaxX - lMinX, lMaxY - lMinY, lMaxZ - lMinZ) + m_BoxAdjust;
+					m_Box.size = new Vector3(lMaxX - lMinX, lMaxY - lMinY, lMaxZ - lMinZ) + m_BoxAdjust;
+				}
+			}
+		}
 
 		void HandleAirborneMovement ()
 		{

@@ -6,7 +6,7 @@ public class PlayerDamage : MonoBehaviour
 	void OnTriggerEnter (Collider aOther)
 	{
 		DamageData lDamage = aOther.GetComponent<DamageData> ();
-		if (lDamage) {
+		if (lDamage && lDamage.enabled) {
 			AllLevels.Get ().levelController.TakeDamage (lDamage);
 		}
 	}

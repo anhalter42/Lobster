@@ -15,6 +15,9 @@ namespace MAHN42
 		private DungeonCamera m_dungeonCam;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
 		public bool useAbsoluteMovement = false;
+		public float inputScale = 0.5f;
+		public float shiftPressMoveFactor = 1.5f;
+		public float ctrlPressMoveFactor = 0.5f;
         
         private void Start()
         {
@@ -58,8 +61,8 @@ namespace MAHN42
 				m_Character.Move(Vector3.zero, false, false);
 				return;
 			}
-			float lScaleH = 0.5f;
-			float lScaleV = 0.5f;
+			float lScaleH = inputScale;
+			float lScaleV = inputScale;
 			if (m_dungeonCam) {
 				if (m_dungeonCam.offset.z > 0) {
 					lScaleH = -lScaleH;
@@ -85,7 +88,8 @@ namespace MAHN42
             }
 #if !MOBILE_INPUT
 			// walk speed multiplier
-	        if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
+			if (Input.GetKey(KeyCode.LeftShift)) m_Move *= shiftPressMoveFactor;
+			if (Input.GetKey(KeyCode.LeftControl)) m_Move *= ctrlPressMoveFactor;
 #endif
 
             // pass all parameters to the character control script

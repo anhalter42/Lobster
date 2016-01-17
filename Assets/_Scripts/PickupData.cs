@@ -7,4 +7,6 @@ public class PickupData : MonoBehaviour {
 	public float health = 0;
 	public int lives = 0;
 
+	public PlayerInventory.InventoryItem[] items = {};
+
 }

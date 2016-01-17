@@ -2755,6 +2755,7 @@ GameObject:
   - 114: {fileID: 11484800}
   - 114: {fileID: 11475420}
   - 65: {fileID: 6597514}
+  - 114: {fileID: 11434580}
   m_Layer: 0
   m_Name: PlayerWinston
   m_TagString: Player
@@ -5933,6 +5934,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11434580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53dd48721021746bd8e562de4b4d550d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Items: []
 --- !u!114 &11475420
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5946,6 +5959,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MAHN42: 1
   useAbsoluteMovement: 1
+  inputScale: 0.75
+  shiftPressMoveFactor: 1.5
+  ctrlPressMoveFactor: 0.5
 --- !u!114 &11480966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5974,13 +5990,16 @@ MonoBehaviour:
   m_JumpPower: 4
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
-  m_MoveSpeedMultiplier: 1
+  m_MoveSpeedMultiplier: 0.35
   m_AnimSpeedMultiplier: 1
   m_GroundCheckDistance: 0.2
   m_FootOffsetUp: 0.01
+  m_BoxAdjust: {x: 0.1, y: 0.1, z: 0.1}
   m_FootLeft: {fileID: 402298}
   m_FootRight: {fileID: 458742}
   m_Head: {fileID: 412386}
+  m_HandLeft: {fileID: 445464}
+  m_HandRight: {fileID: 420598}
 --- !u!136 &13616896
 CapsuleCollider:
   m_ObjectHideFlags: 1

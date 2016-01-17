@@ -38,6 +38,7 @@ public class LevelController : MonoBehaviour
 	public Text m_textTime;
 	public Text m_textLives;
 	public Text m_textHealth;
+	public Text m_textInventory;
 	public Light m_mainLight;
 	public RectTransform m_panelPause;
 	public RectTransform m_panelLevelFinished;
@@ -53,6 +54,7 @@ public class LevelController : MonoBehaviour
 	public Text m_textLFTimeBonus;
 
 	public AudioSource m_audioSourceBackground;
+	public AudioSource m_audioSourceEffects;
 
 	public AudioClip audioBackgroundPause { get { return settings.audioBackgroundPause == null ? prefabs.audioBackgroundPause : settings.audioBackgroundPause; } }
 
@@ -64,6 +66,16 @@ public class LevelController : MonoBehaviour
 
 	public bool isRunning = false;
 	public bool isPause = false;
+
+	DungeonCamera m_dungeonCamera;
+
+	public DungeonCamera dungeonCamera {
+		get {
+			if (!m_dungeonCamera)
+				m_dungeonCamera = Camera.main.GetComponent<DungeonCamera> ();
+			return m_dungeonCamera;
+		}
+	}
 
 	// Use this for initialization
 	void Awake ()
@@ -80,6 +92,8 @@ public class LevelController : MonoBehaviour
 			m_textLives = GameObject.Find ("TextLives").GetComponent<Text> ();
 		if (!m_textHealth)
 			m_textHealth = GameObject.Find ("TextHealth").GetComponent<Text> ();
+		if (!m_textInventory)
+			m_textInventory = GameObject.Find ("TextInventory").GetComponent<Text> ();
 		if (!m_mainLight)
 			m_mainLight = GameObject.Find ("MainDirectionalLight").GetComponent<Light> ();
 		if (!m_panelPause)
@@ -108,6 +122,8 @@ public class LevelController : MonoBehaviour
 			m_textLFTimeBonus = GameObject.Find ("TextLFTimeBonus").GetComponent<Text> ();
 		if (!m_audioSourceBackground)
 			m_audioSourceBackground = GameObject.Find ("AudioSourceBackground").GetComponent<AudioSource> ();
+		if (!m_audioSourceEffects)
+			m_audioSourceEffects = GameObject.Find ("AudioSourceEffects").GetComponent<AudioSource> ();
 		m_panelPause.gameObject.SetActive (false);
 		m_panelLevelFinished.gameObject.SetActive (false);
 	}
@@ -128,6 +144,7 @@ public class LevelController : MonoBehaviour
 		}
 		m_textLives.text = string.Format ("Lives: {0}", playerLevelSettings.lives);
 		m_textHealth.text = string.Format ("Health: {0}", playerLevelSettings.health);
+		m_textInventory.text = player.GetComponent<PlayerInventory>().forDisplay();
 		CheckLOD ();
 		if (isRunning) {
 			if (Input.GetKeyUp (KeyCode.Escape)) {
@@ -239,7 +256,8 @@ public class LevelController : MonoBehaviour
 		if (!playerLevelSettings.scoreReached && playerLevelSettings.score >= settings.scoreForExit) {
 			playerLevelSettings.scoreReached = true;
 			if (prefabs.audioScoreReached) {
-				AudioSource.PlayClipAtPoint (prefabs.audioScoreReached, player.transform.position, effectVolume);
+				PlayAudioEffect(prefabs.audioScoreReached);
+				//AudioSource.PlayClipAtPoint (prefabs.audioScoreReached, player.transform.position, effectVolume);
 			} else {
 				Debug.Log ("No audio for score reached!");
 			}
@@ -252,7 +270,8 @@ public class LevelController : MonoBehaviour
 	{
 		playerLevelSettings.lives += aLives;
 		if (prefabs.audioLiveAdded) {
-			AudioSource.PlayClipAtPoint (prefabs.audioLiveAdded, player.transform.position, effectVolume);
+			PlayAudioEffect(prefabs.audioLiveAdded);
+			//AudioSource.PlayClipAtPoint (prefabs.audioLiveAdded, player.transform.position, effectVolume);
 		} else {
 			Debug.Log ("No audio for live added!");
 		}
@@ -269,7 +288,8 @@ public class LevelController : MonoBehaviour
 			lAudio = prefabs.audioHealthBig;
 		}
 		if (lAudio) {
-			AudioSource.PlayClipAtPoint (lAudio, aPos, effectVolume);
+			PlayAudioEffect(lAudio);
+			//AudioSource.PlayClipAtPoint (lAudio, aPos, effectVolume);
 		} else {
 			Debug.Log (string.Format ("No audio for health {0}!", aHealth));
 		}
@@ -279,6 +299,19 @@ public class LevelController : MonoBehaviour
 	{
 		playerLevelSettings.health += aHealth;
 		PlayHealthAudio (aHealth, player.transform.position);
+	}
+
+	public void AddInventoryItem (PlayerInventory.InventoryItem aItem)
+	{
+		PlayerInventory lInv = player.GetComponent<PlayerInventory> ();
+		lInv.AddItem (aItem);
+	}
+
+	public void AddInventoryItems (PlayerInventory.InventoryItem[] aItems)
+	{
+		foreach (PlayerInventory.InventoryItem lItem in aItems) {
+			AddInventoryItem (lItem);
+		}
 	}
 
 	public void AddPickupData (PickupData aPickup)
@@ -292,6 +325,9 @@ public class LevelController : MonoBehaviour
 		if (aPickup.lives > 0) {
 			AddLives (aPickup.lives);
 		}
+		if (aPickup.items.Length > 0) {
+			AddInventoryItems (aPickup.items);
+		}
 	}
 
 	public void TakeDamage (DamageData aDamage)
@@ -301,12 +337,18 @@ public class LevelController : MonoBehaviour
 		if (playerLevelSettings.health < 0) {
 			playerLevelSettings.lives--;
 			if (prefabs.audioLiveLost) {
-				AudioSource.PlayClipAtPoint (prefabs.audioLiveLost, player.transform.position, effectVolume);
+				PlayAudioEffect(prefabs.audioLiveLost);
+				//AudioSource.PlayClipAtPoint (prefabs.audioLiveLost, player.transform.position, effectVolume);
 			} else {
 				Debug.Log ("No audio for live lost!");
 			}
 			playerLevelSettings.health = 100;
 		}
+	}
+
+	public void PlayAudioEffect(AudioClip aClip)
+	{
+		m_audioSourceEffects.PlayOneShot(aClip);
 	}
 
 	public void PlayDamageAudio (DamageData aDamage, Vector3 aPos)
@@ -320,7 +362,8 @@ public class LevelController : MonoBehaviour
 			lAudio = prefabs.audioDamageBig;
 		}
 		if (lAudio) {
-			AudioSource.PlayClipAtPoint (lAudio, aPos, effectVolume);
+			PlayAudioEffect(lAudio);
+			//AudioSource.PlayClipAtPoint (lAudio, aPos, effectVolume);
 		} else {
 			Debug.Log (string.Format ("No audio for damage {0}!", aDamage.Damage));
 		}
@@ -336,7 +379,8 @@ public class LevelController : MonoBehaviour
 			}
 		}
 		if (lAudio) {
-			AudioSource.PlayClipAtPoint (lAudio, aPos, effectVolume);
+			PlayAudioEffect(lAudio);
+			//AudioSource.PlayClipAtPoint (lAudio, aPos, effectVolume);
 		} else {
 			Debug.Log (string.Format ("No audio for score {0}!", aScore));
 		}
@@ -378,4 +422,25 @@ public class LevelController : MonoBehaviour
 		AllLevels.Get ().NextLevel ();
 	}
 
+	public void ResetCamera ()
+	{
+		if (dungeonCamera) {
+			dungeonCamera.offset = new Vector3 (0, 2.5f, -1.5f);
+		}
+	}
+
+	public void FocusPlayer ()
+	{
+		if (dungeonCamera) {
+			dungeonCamera.offset = new Vector3 (0, 1.5f, -0.5f);
+		}
+	}
+
+	public void FocusPlayerForShort ()
+	{
+		if (dungeonCamera) {
+			FocusPlayer();
+			Invoke ("ResetCamera", 5f);
+		}
+	}
 }
