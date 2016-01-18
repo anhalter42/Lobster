@@ -70,17 +70,27 @@ public class AllLevels : MonoBehaviour
 				lText.text = "Lobster " + Version;
 			}
 		}
-		if (!levels) {
-			levels = Resources.Load<TextAsset> ("Levels");
-		}
-		if (levels) {
-			ReadLevels (levels.text);
-		}
 		if (!cellDescs) {
 			cellDescs = Resources.Load<TextAsset> ("CellDescs");
 		}
-		if (cellDescs) {
-			ReadCellDescs (cellDescs.text);
+		if (System.IO.File.Exists ("CellDescs.txt")) {
+			string lCellDescs = System.IO.File.ReadAllText ("CellDescs.txt");
+			ReadCellDescs (lCellDescs);
+		} else {
+			if (cellDescs) {
+				ReadCellDescs (cellDescs.text);
+			}
+		}
+		if (!levels) {
+			levels = Resources.Load<TextAsset> ("Levels");
+		}
+		if (System.IO.File.Exists ("Levels.txt")) {
+			string lLevels = System.IO.File.ReadAllText ("Levels.txt");
+			ReadLevels (lLevels);
+		} else {
+			if (levels) {
+				ReadLevels (levels.text);
+			}
 		}
 		if (hasLevels ()) {
 			currentLevelSettings = levelSettings [0];
@@ -109,13 +119,6 @@ public class AllLevels : MonoBehaviour
 		return cellDescriptions [0];
 	}
 
-	void ReadInt (ref int aValue, string aLine, string aName)
-	{
-		if (aLine.StartsWith (aName)) {
-			aValue = int.Parse (aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1]);
-		}
-	}
-
 	void ReadCellDescs (string aText)
 	{
 		ArrayList lDescs = new ArrayList ();
@@ -137,6 +140,9 @@ public class AllLevels : MonoBehaviour
 			} else if (lDesc != null) {
 				lDesc.ReadLine (lNewLine, lFolder);
 			}
+		}
+		if (lDesc != null) {
+			lDesc.FinishedReading ();
 		}
 		cellDescriptions = lDescs.ToArray (typeof(CellDescription)) as CellDescription[];
 	}

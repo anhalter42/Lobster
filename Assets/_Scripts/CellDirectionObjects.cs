@@ -92,25 +92,25 @@ public class CellDirectionObjects
 	public GameObjectChance[] backwardProps = { };
 	public GameObjectChance[] wayPoints = { };
 
-	public virtual CellDirectionObjects Clone (CellDirectionObjects aNew)
+	public virtual CellDirectionObjects Clone ()
 	{
 		CellDirectionObjects lNew = new CellDirectionObjects ();
-		lNew.top = GameObjectChance.CloneArray (aNew.top);
-		lNew.bottom = GameObjectChance.CloneArray (aNew.bottom);
-		lNew.left = GameObjectChance.CloneArray (aNew.left);
-		lNew.right = GameObjectChance.CloneArray (aNew.right);
-		lNew.forward = GameObjectChance.CloneArray (aNew.forward);
-		lNew.backward = GameObjectChance.CloneArray (aNew.backward);
-		lNew.props = GameObjectChance.CloneArray (aNew.props);
-		lNew.score = GameObjectChance.CloneArray (aNew.score);
-		lNew.exit = GameObjectChance.CloneArray (aNew.exit);
-		lNew.topProps = GameObjectChance.CloneArray (aNew.topProps);
-		lNew.bottomProps = GameObjectChance.CloneArray (aNew.bottomProps);
-		lNew.leftProps = GameObjectChance.CloneArray (aNew.leftProps);
-		lNew.rightProps = GameObjectChance.CloneArray (aNew.rightProps);
-		lNew.forwardProps = GameObjectChance.CloneArray (aNew.forwardProps);
-		lNew.backwardProps = GameObjectChance.CloneArray (aNew.backwardProps);
-		lNew.wayPoints = GameObjectChance.CloneArray (aNew.wayPoints);
+		lNew.top = GameObjectChance.CloneArray (top);
+		lNew.bottom = GameObjectChance.CloneArray (bottom);
+		lNew.left = GameObjectChance.CloneArray (left);
+		lNew.right = GameObjectChance.CloneArray (right);
+		lNew.forward = GameObjectChance.CloneArray (forward);
+		lNew.backward = GameObjectChance.CloneArray (backward);
+		lNew.props = GameObjectChance.CloneArray (props);
+		lNew.score = GameObjectChance.CloneArray (score);
+		lNew.exit = GameObjectChance.CloneArray (exit);
+		lNew.topProps = GameObjectChance.CloneArray (topProps);
+		lNew.bottomProps = GameObjectChance.CloneArray (bottomProps);
+		lNew.leftProps = GameObjectChance.CloneArray (leftProps);
+		lNew.rightProps = GameObjectChance.CloneArray (rightProps);
+		lNew.forwardProps = GameObjectChance.CloneArray (forwardProps);
+		lNew.backwardProps = GameObjectChance.CloneArray (backwardProps);
+		lNew.wayPoints = GameObjectChance.CloneArray (wayPoints);
 		return lNew;
 	}
 
@@ -251,6 +251,31 @@ public class CellDescription : CellDirectionObjects
 		}
 	}
 
+	public class AudioItem
+	{
+		public string type = string.Empty;
+		public AudioClip audioGet;
+		public AudioClip audioUse;
+		public AudioClip audioDrop;
+
+		public void ReadLine (string aLine, string aFolder)
+		{
+			string[] aProps = aLine.Split (new string[] { ";" }, System.StringSplitOptions.None);
+			if (aProps.Length > 1) {
+				type = aProps[0];
+				audioGet = AllLevels.LoadResource<AudioClip> (aProps [1], "Audio", aFolder);
+				audioUse = audioGet;
+				audioDrop = audioGet;
+			}
+			if (aProps.Length > 2) {
+				audioUse = AllLevels.LoadResource<AudioClip> (aProps [2], "Audio", aFolder);
+			}
+			if (aProps.Length > 3) {
+				audioDrop = AllLevels.LoadResource<AudioClip> (aProps [3], "Audio", aFolder);
+			}
+		}
+	}
+
 	public string name;
 	public string worldName;
 	public AudioScore[] audioScore = { };
@@ -267,6 +292,26 @@ public class CellDescription : CellDirectionObjects
 	public AudioClip audioBackgroundPause;
 	public AudioClip audioBackgroundMusic;
 	public AudioClip audioBackgroundLevelEnd;
+	public AudioItem[] audioItems = { };
+	protected System.Collections.Generic.Dictionary<string, AudioItem> fAudioItems;
+
+	public AudioClip GetAudioItemGet(string aType)
+	{
+		AudioItem lItem = fAudioItems[aType];
+		return lItem == null ? null : lItem.audioGet;
+	}
+
+	public AudioClip GetAudioItemUse(string aType)
+	{
+		AudioItem lItem = fAudioItems[aType];
+		return lItem == null ? null : lItem.audioUse;
+	}
+
+	public AudioClip GetAudioItemDrop(string aType)
+	{
+		AudioItem lItem = fAudioItems[aType];
+		return lItem == null ? null : lItem.audioDrop;
+	}
 
 	public AudioScore[] ReadAudioScore (string aLine, AudioScore[] aSrc, string aName, string aFolder)
 	{
@@ -279,6 +324,28 @@ public class CellDescription : CellDirectionObjects
 					ArrayList lList = new ArrayList (aSrc);
 					lList.Add (lAS);
 					return lList.ToArray (typeof(AudioScore)) as AudioScore[];
+				} else {
+					return aSrc;
+				}
+			} else {
+				return aSrc;
+			}
+		} else {
+			return aSrc;
+		}
+	}
+
+	public AudioItem[] ReadAudioItem (string aLine, AudioItem[] aSrc, string aName, string aFolder)
+	{
+		if (aLine.StartsWith (aName + "\t")) {
+			string[] lArgs = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries);
+			if (lArgs.Length > 1) {
+				AudioItem lAI = new AudioItem ();
+				lAI.ReadLine (lArgs [1], aFolder);
+				if (lAI.audioGet != null) {
+					ArrayList lList = new ArrayList (aSrc);
+					lList.Add (lAI);
+					return lList.ToArray (typeof(AudioItem)) as AudioItem[];
 				} else {
 					return aSrc;
 				}
@@ -323,6 +390,7 @@ public class CellDescription : CellDirectionObjects
 		base.ReadLine (aLine, aFolder);
 		worldName = ReadString (aLine, aFolder, "world", aFolder);
 		audioScore = ReadAudioScore (aLine, audioScore, "audioScore", aFolder);
+		audioItems = ReadAudioItem (aLine, audioItems, "audioItem", aFolder);
 		audioLiveLost = ReadAudioClip (aLine, audioLiveLost, "audioLiveLost", aFolder);
 		audioLiveAdded = ReadAudioClip (aLine, audioLiveAdded, "audioLiveAdded", aFolder);
 		audioDamageSmall = ReadAudioClip (aLine, audioDamageSmall, "audioDamageSmall", aFolder);
@@ -343,6 +411,10 @@ public class CellDescription : CellDirectionObjects
 		Array.Sort (audioScore, new AudioScoreComparer ());
 		if (string.IsNullOrEmpty(worldName)) {
 			worldName = name;
+		}
+		fAudioItems = new System.Collections.Generic.Dictionary<string, AudioItem>();
+		foreach(AudioItem lItem in audioItems) {
+			fAudioItems.Add(lItem.type, lItem);
 		}
 	}
 }

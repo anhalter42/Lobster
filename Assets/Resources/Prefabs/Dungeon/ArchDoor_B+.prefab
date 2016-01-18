@@ -613,7 +613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 9520290}
-  m_ResumeDelay: 2
+  m_ResumeDelay: 1
   m_OnTrigger: 1
   m_OnCollision: 0
 --- !u!114 &11496936

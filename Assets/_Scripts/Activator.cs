@@ -77,15 +77,17 @@ public class Activator : MonoBehaviour
 	void ActivateIt (bool aRestore = false)
 	{
 		isActivated = true;
-		foreach (Behaviour lBeh in m_Behaviours) {
-			lBeh.enabled = true;
-			if (lBeh is Animation) {
-				((Animation)lBeh).Play ();
-			} else if (lBeh is Animator) {
-				if (aRestore) {
-					((Animator)lBeh).SetTrigger ("RestoreActivate");
-				} else {
-					((Animator)lBeh).SetTrigger ("Activate");
+		if (!aRestore) {
+			foreach (Behaviour lBeh in m_Behaviours) {
+				lBeh.enabled = true;
+				if (lBeh is Animation) {
+					((Animation)lBeh).Play ();
+				} else if (lBeh is Animator) {
+					if (aRestore) {
+						((Animator)lBeh).SetTrigger ("RestoreActivate");
+					} else {
+						((Animator)lBeh).SetTrigger ("Activate");
+					}
 				}
 			}
 		}
@@ -110,7 +112,7 @@ public class Activator : MonoBehaviour
 				m_animator.SetTrigger ("Activate");
 			}
 		}
-		if (!string.IsNullOrEmpty (levelControllerMethod)) {
+		if (!aRestore && !string.IsNullOrEmpty (levelControllerMethod)) {
 			AllLevels.Get ().levelController.Invoke (levelControllerMethod, levelControllerMethodDelay);
 		}
 	}

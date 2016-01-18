@@ -188,13 +188,20 @@ public class LevelController : MonoBehaviour
 		settings = aSettings;
 		prefabs = AllLevels.Get ().GetCellDescription (settings.prefabs);
 		CreateLabyrinth ();
+		SetupScene();
+	}
+
+	public void SetupScene()
+	{
 		m_mainLight.color = settings.dayLightColor;
 		m_mainLight.intensity = settings.dayLight;
 		m_planeGround.GetComponent<Renderer> ().material.color = settings.groundColor;
 		if (settings.groundTexture != null) {
 			m_planeGround.GetComponent<Renderer> ().material.SetTexture ("_MainTex", settings.groundTexture);
 		}
-
+		RenderSettings.ambientMode = settings.ambientMode;
+		RenderSettings.ambientLight = settings.ambientLightColor;
+		RenderSettings.ambientIntensity = settings.ambientLight;
 	}
 
 	protected void CreateLabyrinth ()
@@ -305,6 +312,10 @@ public class LevelController : MonoBehaviour
 	{
 		PlayerInventory lInv = player.GetComponent<PlayerInventory> ();
 		lInv.AddItem (aItem);
+		AudioClip lAudio = prefabs.GetAudioItemGet(aItem.type);
+		if (lAudio) {
+			PlayAudioEffect(lAudio);
+		}
 	}
 
 	public void AddInventoryItems (PlayerInventory.InventoryItem[] aItems)

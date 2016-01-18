@@ -12,8 +12,13 @@ wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
-audioScore		GlassHitScroll6;1
-audioScoreReached	Ta Da
+audioScore		coins1;1
+audioScore		coins2;2
+audioScore		coins3;5
+audioScore		coins4;5
+audioScore		coins6;10
+audioScore		coins8;20
+audioScoreReached	completed1
 audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope_perc
 audioBackgroundLevelEnd	Background_The_gates_No_Choir
@@ -32,8 +37,13 @@ wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
-audioScore		GlassHitScroll6;1
-audioScoreReached	Ta Da
+audioScore		coins1;1
+audioScore		coins2;2
+audioScore		coins3;5
+audioScore		coins4;5
+audioScore		coins6;10
+audioScore		coins8;20
+audioScoreReached	completed1
 audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope_perc
 audioBackgroundLevelEnd	Background_The_gates_No_Choir
@@ -52,8 +62,13 @@ wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
-audioScore		GlassHitScroll6;1
-audioScoreReached	Ta Da
+audioScore		coins1;1
+audioScore		coins2;2
+audioScore		coins3;5
+audioScore		coins4;5
+audioScore		coins6;10
+audioScore		coins8;20
+audioScoreReached	completed1
 audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope_perc
 audioBackgroundLevelEnd	Background_The_gates_No_Choir
@@ -76,8 +91,13 @@ wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
-audioScore		GlassHitScroll6;1
-audioScoreReached	Ta Da
+audioScore		coins1;1
+audioScore		coins2;2
+audioScore		coins3;5
+audioScore		coins4;5
+audioScore		coins6;10
+audioScore		coins8;20
+audioScoreReached	completed3
 audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope_perc
 audioBackgroundLevelEnd	Background_The_gates_No_Choir
@@ -96,8 +116,13 @@ wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
-audioScore		GlassHitScroll6;1
-audioScoreReached	Ta Da
+audioScore		coins1;1
+audioScore		coins2;2
+audioScore		coins3;5
+audioScore		coins4;5
+audioScore		coins6;10
+audioScore		coins8;20
+audioScoreReached	completed1
 audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope_perc
 audioBackgroundLevelEnd	Background_The_gates_No_Choir
@@ -127,8 +152,13 @@ wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
-audioScore		GlassHitScroll6;1
-audioScoreReached	Ta Da
+audioScore		coins1;1
+audioScore		coins2;2
+audioScore		coins3;5
+audioScore		coins4;5
+audioScore		coins6;10
+audioScore		coins8;20
+audioScoreReached	completed1
 audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope
 audioBackgroundLevelEnd	Background_The_gates_No_Choir
@@ -141,8 +171,9 @@ left			Wall_R-;90
 left			WallGrille_R-;10
 right			Wall_R+;90
 right			WallGrille_R+;10
-forward			Wall_B+;90
+forward			Wall_B+;80
 forward			WallGrille_B+;10
+forward			WallBarrel_B+;5
 backward		Wall_B-;90
 backward		WallGrille_B-;10
 props			GemScore2;20;false;2;0
@@ -184,8 +215,14 @@ wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
-audioScore		GlassHitScroll6;1
-audioScoreReached	Ta Da
+audioScore		coins1;1
+audioScore		coins2;2
+audioScore		coins3;5
+audioScore		coins4;5
+audioScore		coins6;10
+audioScore		coins8;20
+audioScoreReached	completed2
 audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope
 audioBackgroundLevelEnd	Background_The_gates_No_Choir
+audioItem	GreenKey;key1;key4;key2

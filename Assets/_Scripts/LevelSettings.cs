@@ -13,10 +13,13 @@ public class LevelSettings
 	public int mazeHeight = 1;
 	public int mazeDepth = 5;
 	public int breakWalls = 0;
-	public int maxTime = 0;// in seconds, 0 means endless
-	public int scoreForExit = 20;// 20 points to open the exit
-	public float scoreBonusFactor = 2f; // Faktor für extra Score 
-	public float scoreTimeBonusFactor = 5f; // Faktor für extra Time Bonus Score 
+	public int maxTime = 0; 									// in seconds, 0 means endless
+	public int scoreForExit = 20; 								// 20 points to open the exit
+	public float scoreBonusFactor = 2f;							// Faktor für extra Score
+	public float scoreTimeBonusFactor = 5f;						// Faktor für extra Time Bonus Score
+	public float ambientLight = 0.75f;
+	public Color ambientLightColor = new Color (77 / 255, 77 / 255, 77 / 255);
+	public UnityEngine.Rendering.AmbientMode ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
 	public float dayLight = 0.75f;
 	public Color dayLightColor = Color.white;
 	public Color groundColor = Color.white;
@@ -39,7 +42,7 @@ public class LevelSettings
 	public static bool ReadFloat (ref float aValue, string aLine, string aName)
 	{
 		if (aLine.StartsWith (aName)) {
-			aValue = float.Parse(aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1]);
+			aValue = float.Parse (aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1]);
 			return true;
 		} else {
 			return false;
@@ -86,13 +89,29 @@ public class LevelSettings
 	{
 		if (aLine.StartsWith (aName)) {
 			string lV = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1];
-			string[] lVs = lV.Split(new string[] { "," }, System.StringSplitOptions.RemoveEmptyEntries);
+			string[] lVs = lV.Split (new string[] { "," }, System.StringSplitOptions.RemoveEmptyEntries);
 			if (lVs.Length == 3) {
-				aValue = new Color(int.Parse(lVs[0])/255f,int.Parse(lVs[1])/255f,int.Parse(lVs[2])/255f);
+				aValue = new Color (int.Parse (lVs [0]) / 255f, int.Parse (lVs [1]) / 255f, int.Parse (lVs [2]) / 255f);
 			} else if (lVs.Length == 4) {
-				aValue = new Color(int.Parse(lVs[0])/255f,int.Parse(lVs[1])/255f,int.Parse(lVs[2])/255f,int.Parse(lVs[3])/255f);
+				aValue = new Color (int.Parse (lVs [0]) / 255f, int.Parse (lVs [1]) / 255f, int.Parse (lVs [2]) / 255f, int.Parse (lVs [3]) / 255f);
 			}
 			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static bool ReadAmbientMode(ref UnityEngine.Rendering.AmbientMode aValue, string aLine, string aName)
+	{
+		if (aLine.StartsWith (aName)) {
+			string lV = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1];
+			if (!string.IsNullOrEmpty(lV)) {
+				aValue = (UnityEngine.Rendering.AmbientMode)System.Enum.Parse(typeof(UnityEngine.Rendering.AmbientMode), lV, true);
+				return true;
+			} else {
+				Debug.Log(string.Format("Unknown ambient mode '{0}‘!", lV));
+				return false;
+			}
 		} else {
 			return false;
 		}
@@ -110,6 +129,9 @@ public class LevelSettings
 		if (!ReadInt (ref mazeDepth, aLine, "mazeDepth"))
 		if (!ReadInt (ref breakWalls, aLine, "breakWalls"))
 		if (!ReadInt (ref maxTime, aLine, "maxTime"))
+		if (!ReadColor (ref ambientLightColor, aLine, "ambientLightColor"))
+		if (!ReadFloat (ref ambientLight, aLine, "ambientLight"))
+		if (!ReadAmbientMode (ref ambientMode, aLine, "ambientMode"))
 		if (!ReadColor (ref groundColor, aLine, "groundColor"))
 		if (!ReadColor (ref dayLightColor, aLine, "dayLightColor"))
 		if (!ReadFloat (ref dayLight, aLine, "dayLight"))
