@@ -2333,6 +2333,7 @@ MonoBehaviour:
     scoreTimeBonusFactor: 5
     ambientLight: 0.75
     ambientLightColor: {r: 0, g: 0, b: 0, a: 1}
+    ambientMode: 0
     dayLight: 0.75
     dayLightColor: {r: 1, g: 1, b: 1, a: 1}
     groundColor: {r: 1, g: 1, b: 1, a: 1}
@@ -4945,7 +4946,7 @@ MonoBehaviour:
   mazeUIDepth: {fileID: 0}
   mazeUIHeight: {fileID: 0}
   controlPanel: {fileID: 0}
-  defaultLevel: 3
+  defaultLevel: 0
 --- !u!4 &1839330017
 Transform:
   m_ObjectHideFlags: 0
