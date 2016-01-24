@@ -63,6 +63,7 @@ public class LevelController : MonoBehaviour
 	public Light m_mainLight;
 	public RectTransform m_panelPause;
 	public RectTransform m_panelLevelFinished;
+	public RectTransform m_panelStart;
 	public Text m_textDescription;
 	public Text m_textName;
 	public Text m_textLevel;
@@ -74,6 +75,11 @@ public class LevelController : MonoBehaviour
 	public Text m_textLFTime;
 	public Text m_textLFTimeBonus;
 
+	public Text m_textSDescription;
+	public Text m_textSName;
+	public Text m_textSLevel;
+	public Text m_textSAchievements;
+
 	public AudioSource m_audioSourceBackground;
 	public AudioSource m_audioSourceEffects;
 
@@ -82,6 +88,24 @@ public class LevelController : MonoBehaviour
 	public AudioClip audioBackgroundMusic { get { return settings.audioBackgroundMusic == null ? prefabs.audioBackgroundMusic : settings.audioBackgroundMusic; } }
 
 	public AudioClip audioBackgroundLevelEnd { get { return settings.audioBackgroundLevelEnd == null ? prefabs.audioBackgroundLevelEnd : settings.audioBackgroundLevelEnd; } }
+
+	public AudioClip audioBackgroundLevelStart { get { return settings.audioBackgroundLevelStart == null ? prefabs.audioBackgroundLevelStart : settings.audioBackgroundLevelStart; } }
+
+	public AudioClip audioBackgroundLevelExitOpen { get { return settings.audioBackgroundLevelExitOpen == null ? prefabs.audioBackgroundLevelExitOpen : settings.audioBackgroundLevelExitOpen; } }
+
+	public AudioClip audioBackgroundLevelMusic {
+		get {
+			if (!isRunning) {
+				return audioBackgroundLevelStart ? audioBackgroundLevelStart : audioBackgroundPause;
+			} else if (isPause) {
+				return audioBackgroundPause;
+			} else if (playerLevelSettings.scoreReached) {
+				return audioBackgroundLevelExitOpen ? audioBackgroundLevelExitOpen : audioBackgroundMusic;
+			} else {
+				return audioBackgroundMusic;
+			}
+		}
+	}
 
 	public float effectVolume = 0.5f;
 
@@ -121,6 +145,17 @@ public class LevelController : MonoBehaviour
 			m_panelPause = GameObject.Find ("PanelPause").GetComponent<RectTransform> ();
 		if (!m_panelLevelFinished)
 			m_panelLevelFinished = GameObject.Find ("PanelLevelFinished").GetComponent<RectTransform> ();
+		if (!m_panelStart)
+			m_panelStart = GameObject.Find ("PanelStart").GetComponent<RectTransform> ();
+		// Start Panel
+		if (!m_textSDescription)
+			m_textSDescription = GameObject.Find ("TextSDescription").GetComponent<Text> ();
+		if (!m_textSName)
+			m_textSName = GameObject.Find ("TextSName").GetComponent<Text> ();
+		if (!m_textSLevel)
+			m_textSLevel = GameObject.Find ("TextSLevel").GetComponent<Text> ();
+		if (!m_textSAchievements)
+			m_textSAchievements = GameObject.Find ("TextSAchievements").GetComponent<Text> ();
 		// Pause Panel
 		if (!m_textDescription)
 			m_textDescription = GameObject.Find ("TextDescription").GetComponent<Text> ();
@@ -145,6 +180,7 @@ public class LevelController : MonoBehaviour
 			m_audioSourceBackground = GameObject.Find ("AudioSourceBackground").GetComponent<AudioSource> ();
 		if (!m_audioSourceEffects)
 			m_audioSourceEffects = GameObject.Find ("AudioSourceEffects").GetComponent<AudioSource> ();
+		m_panelStart.gameObject.SetActive (false);
 		m_panelPause.gameObject.SetActive (false);
 		m_panelLevelFinished.gameObject.SetActive (false);
 	}
@@ -223,6 +259,7 @@ public class LevelController : MonoBehaviour
 		RenderSettings.ambientMode = settings.ambientMode;
 		RenderSettings.ambientLight = settings.ambientLightColor;
 		RenderSettings.ambientIntensity = settings.ambientLight;
+		dungeonCamera.transform.position = player.transform.position + new Vector3 (0f, 4f, -3f);
 	}
 
 	protected void CreateLabyrinth ()
@@ -248,8 +285,17 @@ public class LevelController : MonoBehaviour
 		}
 	}
 
+	public void StartLevelIntro ()
+	{
+		StartLevelStartScreen ();
+		dungeonCamera.mode = DungeonCamera.Mode.Spectate;
+		Invoke ("StartLevel", 5f);
+	}
+
 	public void StartLevel ()
 	{
+		CloseLevelStartScreen ();
+		dungeonCamera.mode = DungeonCamera.Mode.FollowTarget;
 		isRunning = true;
 		isPause = false;
 		playerLevelSettings.startTime = Time.realtimeSinceStartup;
@@ -273,7 +319,7 @@ public class LevelController : MonoBehaviour
 	{
 		isPause = false;
 		playerLevelSettings.startTime = Time.realtimeSinceStartup;
-		PlayOnBackground (audioBackgroundMusic);
+		PlayOnBackground (audioBackgroundLevelMusic);
 		m_panelPause.gameObject.SetActive (false);
 	}
 
@@ -285,6 +331,7 @@ public class LevelController : MonoBehaviour
 			playerLevelSettings.scoreReached = true;
 			if (prefabs.audioScoreReached) {
 				PlayAudioEffect (prefabs.audioScoreReached);
+				PlayOnBackground (audioBackgroundLevelMusic);
 				//AudioSource.PlayClipAtPoint (prefabs.audioScoreReached, player.transform.position, effectVolume);
 			} else {
 				Debug.Log ("No audio for score reached!");
@@ -417,6 +464,21 @@ public class LevelController : MonoBehaviour
 		} else {
 			Debug.Log (string.Format ("No audio for score {0}!", aScore));
 		}
+	}
+
+	public void StartLevelStartScreen ()
+	{
+		m_textSLevel.text = settings.level.ToString ();
+		m_textSName.text = settings.levelName;
+		m_textSDescription.text = settings.levelDescription;
+		m_textSAchievements.text = string.Format ("Score: {0} Time: {1} ", settings.scoreForExit, Mathf.RoundToInt (settings.maxTime));
+		m_panelStart.gameObject.SetActive (true);
+		PlayOnBackground (audioBackgroundLevelStart);
+	}
+
+	public void CloseLevelStartScreen ()
+	{
+		m_panelStart.gameObject.SetActive (false);
 	}
 
 	public void StartLevelEndScreen ()

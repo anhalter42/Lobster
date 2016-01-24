@@ -4,8 +4,14 @@ using System.Collections;
 
 public class DungeonCamera : MonoBehaviour
 {
+	public enum Mode
+	{
+		FollowTarget,
+		Spectate
+	}
 
-	//[FormerlySerializedAs ("target")]
+	public Mode mode = Mode.FollowTarget;
+
 	public GameObject m_Target;
 
 	public GameObject target { get { return GetTarget (); } set { SetTarget (value); } }
@@ -27,13 +33,14 @@ public class DungeonCamera : MonoBehaviour
 	void LateUpdate ()
 	{
 		if (target != null) {
-			UpdatePositionAndRotation (true);
-			//Vector3 desiredPosition = target.transform.position + offset;
-			//Vector3 position = Vector3.Lerp (transform.position, desiredPosition, Time.deltaTime * damping);
-			//transform.position = position;
-			//Quaternion lRotation =  Quaternion.LookRotation(target.transform.position - position, Vector3.up);
-			//Quaternion.Lerp(transform.rotation, lRotation, Time.deltaTime * rollDamping);
-			//transform.LookAt(target.transform.position);
+			switch (mode) {
+			case Mode.FollowTarget:
+				UpdatePositionAndRotation (true);
+				break;
+			case Mode.Spectate:
+				transform.RotateAround (target.transform.position, Vector3.up, 20f * Time.deltaTime);
+				break;
+			}
 		}
 	}
 

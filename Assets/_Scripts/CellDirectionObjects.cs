@@ -292,6 +292,9 @@ public class CellDescription : CellDirectionObjects
 	public AudioClip audioBackgroundPause;
 	public AudioClip audioBackgroundMusic;
 	public AudioClip audioBackgroundLevelEnd;
+	public AudioClip audioBackgroundLevelStart;
+	public AudioClip audioBackgroundLevelExitOpen;
+
 	public AudioItem[] audioItems = { };
 	protected System.Collections.Generic.Dictionary<string, AudioItem> fAudioItems;
 
@@ -404,6 +407,8 @@ public class CellDescription : CellDirectionObjects
 		audioBackgroundPause = ReadAudioClip (aLine, audioBackgroundPause, "audioBackgroundPause", aFolder);
 		audioBackgroundMusic = ReadAudioClip (aLine, audioBackgroundMusic, "audioBackgroundMusic", aFolder);
 		audioBackgroundLevelEnd = ReadAudioClip (aLine, audioBackgroundLevelEnd, "audioBackgroundLevelEnd", aFolder);
+		audioBackgroundLevelStart = ReadAudioClip (aLine, audioBackgroundMusic, "audioBackgroundLevelStart", aFolder);
+		audioBackgroundLevelExitOpen = ReadAudioClip (aLine, audioBackgroundLevelEnd, "audioBackgroundLevelExitOpen", aFolder);
 	}
 
 	public void FinishedReading ()

@@ -27,6 +27,8 @@ public class LevelSettings
 	public AudioClip audioBackgroundPause;
 	public AudioClip audioBackgroundMusic;
 	public AudioClip audioBackgroundLevelEnd;
+	public AudioClip audioBackgroundLevelStart;
+	public AudioClip audioBackgroundLevelExitOpen;
 
 
 	public static bool ReadInt (ref int aValue, string aLine, string aName)
@@ -123,6 +125,8 @@ public class LevelSettings
 		if (!ReadAudioClip (ref audioBackgroundMusic, aLine, "audioBackgroundMusic", null))
 		if (!ReadAudioClip (ref audioBackgroundPause, aLine, "audioBackgroundPause", null))
 		if (!ReadAudioClip (ref audioBackgroundLevelEnd, aLine, "audioBackgroundLevelEnd", null))
+		if (!ReadAudioClip (ref audioBackgroundLevelStart, aLine, "audioBackgroundLevelStart", null))
+		if (!ReadAudioClip (ref audioBackgroundLevelExitOpen, aLine, "audioBackgroundLevelExitOpen", null))
 		if (!ReadTexture (ref groundTexture, aLine, "groundTexture", null))
 		if (!ReadInt (ref mazeWidth, aLine, "mazeWidth"))
 		if (!ReadInt (ref mazeHeight, aLine, "mazeHeight"))
