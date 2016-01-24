@@ -2385,7 +2385,6 @@ MonoBehaviour:
     timeBonus: 0
     scoreReached: 0
   mazeParent: {fileID: 0}
-  player: {fileID: 0}
   m_planeGround: {fileID: 0}
   m_textScore: {fileID: 0}
   m_textTime: {fileID: 0}
@@ -3873,8 +3872,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 899858151}
-        m_MethodName: 
+      - m_Target: {fileID: 58788817}
+        m_MethodName: set_volume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

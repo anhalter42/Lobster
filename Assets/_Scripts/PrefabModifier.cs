@@ -11,6 +11,16 @@ public class PrefabModifier : MonoBehaviour
 	public Vector3 minRotation = Vector3.zero;
 	public Vector3 maxRotation = Vector3.zero;
 
+	bool modified = false;
+
+	public void Start ()
+	{
+		if (!modified) {
+			modified = true;
+			ModifyPrefab (gameObject);
+		}
+	}
+
 	public void ModifyPrefab (GameObject aPrefab)
 	{
 		Vector3 lScale = new Vector3 (
@@ -31,6 +41,6 @@ public class PrefabModifier : MonoBehaviour
 			aPrefab.transform.localScale.z * lScale.z
 		);
 		aPrefab.transform.localPosition = aPrefab.transform.localPosition + lMove;
-		aPrefab.transform.Rotate(lRotation);
+		aPrefab.transform.Rotate(lRotation, Space.World);
 	}
 }

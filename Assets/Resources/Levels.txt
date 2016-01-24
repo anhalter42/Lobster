@@ -32,7 +32,7 @@ scoreForExit	75
 dayLight	0.25
 dayLightColor	200,150,50
 ambientMode	Flat
-ambientLight	0
+ambientLight	0.1
 
 #Level 1
 //Das erste Level

@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\GemExample\Scripts\DemoTimeOfDay.cs" />
      <Compile Include="Assets\GemExample\Scripts\Orbit.cs" />
+     <Compile Include="Assets\Mixamo\Magic Pack\Demo\CameraScroll.cs" />
      <Compile Include="Assets\_Scripts\Activator.cs" />
      <Compile Include="Assets\_Scripts\AllLevels.cs" />
      <Compile Include="Assets\_Scripts\Camera\DungeonCamera.cs" />
@@ -62,6 +63,7 @@
      <Compile Include="Assets\_Scripts\MazeCellComponent.cs" />
      <Compile Include="Assets\_Scripts\MazeMarker.cs" />
      <Compile Include="Assets\_Scripts\MiniMap.cs" />
+     <Compile Include="Assets\_Scripts\MultiActivator.cs" />
      <Compile Include="Assets\_Scripts\PauseAnimatorOnCollision.cs" />
      <Compile Include="Assets\_Scripts\Pickup.cs" />
      <Compile Include="Assets\_Scripts\PickupData.cs" />
@@ -71,6 +73,7 @@
      <Compile Include="Assets\_Scripts\PrefabModifier.cs" />
      <Compile Include="Assets\_Scripts\PrefabVariation.cs" />
      <Compile Include="Assets\_Scripts\PrefabWallConditions.cs" />
+     <Compile Include="Assets\_Scripts\RandomPosAround.cs" />
      <Compile Include="Assets\_Scripts\RotationY.cs" />
      <Compile Include="Assets\_Scripts\Start\UIStartController.cs" />
      <Compile Include="Assets\_Scripts\StayOnTarget.cs" />

@@ -90,6 +90,9 @@ namespace MAHN42
 			// walk speed multiplier
 			if (Input.GetKey(KeyCode.LeftShift)) m_Move *= shiftPressMoveFactor;
 			if (Input.GetKey(KeyCode.LeftControl)) m_Move *= ctrlPressMoveFactor;
+			if (Input.GetKey(KeyCode.D)) {
+				m_Character.SetDeath(true);
+			}
 #endif
 
             // pass all parameters to the character control script

@@ -19,11 +19,14 @@ namespace MAHN42
 		[SerializeField] float m_GroundCheckDistance = 0.1f;
 		[SerializeField] float m_FootOffsetUp = 0.01f;
 		[SerializeField] Vector3 m_BoxAdjust = new Vector3 (0.1f, 0.1f, 0.1f);
+		[SerializeField] Vector3 m_BoxColliderAdjust = new Vector3 (0.01f, 0.01f, 0.01f);
 		[SerializeField] Transform m_FootLeft;
 		[SerializeField] Transform m_FootRight;
 		[SerializeField] Transform m_Head;
 		[SerializeField] Transform m_HandLeft;
 		[SerializeField] Transform m_HandRight;
+		[SerializeField] BoxCollider m_BoxCollider;
+		[SerializeField] BoxCollider m_BoxTrigger;
 
 		Rigidbody m_Rigidbody;
 		Animator m_Animator;
@@ -31,15 +34,17 @@ namespace MAHN42
 		bool m_IsLeftGrounded;
 		bool m_IsRightGrounded;
 		float m_OrigGroundCheckDistance;
+		float m_OrigCapsuleRadius;
 		const float k_Half = 0.5f;
 		float m_TurnAmount;
 		float m_ForwardAmount;
 		Vector3 m_GroundNormal;
-		float m_CapsuleHeight;
-		Vector3 m_CapsuleCenter;
+		//float m_CapsuleHeight;
+		//Vector3 m_CapsuleCenter;
 		CapsuleCollider m_Capsule;
 		BoxCollider m_Box;
 		bool m_Crouching;
+		bool m_death = false;
 
 
 		void CheckComponents ()
@@ -48,10 +53,12 @@ namespace MAHN42
 				m_Animator = GetComponent<Animator> ();
 			if (!m_Rigidbody)
 				m_Rigidbody = GetComponent<Rigidbody> ();
-			if (!m_Capsule)
-				m_Capsule = GetComponent<CapsuleCollider> ();
-			if (!m_Box)
-				m_Box = GetComponent<BoxCollider> ();
+			if (!m_BoxCollider) {
+				if (!m_Capsule)
+					m_Capsule = GetComponent<CapsuleCollider> ();
+				if (!m_Box)
+					m_Box = GetComponent<BoxCollider> ();
+			}
 		}
 
 		/*
@@ -64,13 +71,19 @@ namespace MAHN42
 		void Start ()
 		{
 			CheckComponents ();
-			m_CapsuleHeight = m_Capsule.height;
-			m_CapsuleCenter = m_Capsule.center;
+			//m_CapsuleHeight = m_Capsule.height;
+			//m_CapsuleCenter = m_Capsule.center;
+			if (m_Capsule)
+				m_OrigCapsuleRadius = m_Capsule.radius;
 
 			m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
 		}
 
+		public void SetDeath(bool aDeath) 
+		{
+			m_death = aDeath;
+		}
 
 		public void Move (Vector3 move, bool crouch, bool jump)
 		{
@@ -82,8 +95,12 @@ namespace MAHN42
 			if (move.magnitude > 1f)
 				move.Normalize ();
 			move = transform.InverseTransformDirection (move);
-			ScaleCapsule ();
-			ScaleBox ();
+			if (m_BoxCollider) {
+				ScaleCollider ();
+			} else {
+				ScaleCapsule ();
+				ScaleBox ();
+			}
 			CheckGroundStatus ();
 			move = Vector3.ProjectOnPlane (move, m_GroundNormal);
 			m_TurnAmount = Mathf.Atan2 (move.x, move.z);
@@ -107,6 +124,7 @@ namespace MAHN42
 			// update the animator parameters
 			m_Animator.SetFloat ("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
 			m_Animator.SetFloat ("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
+			m_Animator.SetBool ("Death", m_death);
 			m_Animator.SetBool ("Crouch", m_Crouching);
 			m_Animator.SetBool ("OnGround", m_IsGrounded);
 			m_Animator.SetBool ("OnGroundLeft", m_IsLeftGrounded);
@@ -136,6 +154,24 @@ namespace MAHN42
 			}
 		}
 
+		void ScaleCollider ()
+		{
+			if (m_Head && m_FootLeft && m_FootRight && m_HandLeft && m_HandRight) {
+				float lMinX = Mathf.Min (m_FootLeft.position.x, m_FootRight.position.x, m_Head.position.x, m_HandLeft.position.x, m_HandRight.position.x);
+				float lMaxX = Mathf.Max (m_FootLeft.position.x, m_FootRight.position.x, m_Head.position.x, m_HandLeft.position.x, m_HandRight.position.x);
+				float lMinY = Mathf.Min (m_FootLeft.position.y, m_FootRight.position.y, m_Head.position.y, m_HandLeft.position.y, m_HandRight.position.y);
+				float lMaxY = Mathf.Max (m_FootLeft.position.y, m_FootRight.position.y, m_Head.position.y, m_HandLeft.position.y, m_HandRight.position.y);
+				float lMinZ = Mathf.Min (m_FootLeft.position.z, m_FootRight.position.z, m_Head.position.z, m_HandLeft.position.z, m_HandRight.position.z);
+				float lMaxZ = Mathf.Max (m_FootLeft.position.z, m_FootRight.position.z, m_Head.position.z, m_HandLeft.position.z, m_HandRight.position.z);
+				Vector3 lCenter = new Vector3 (lMinX + (lMaxX - lMinX) / 2f, lMinY + (lMaxY - lMinY) / 2f, lMinZ + (lMaxZ - lMinZ) / 2f);
+				m_BoxTrigger.center = m_BoxTrigger.transform.InverseTransformPoint (lCenter);
+				Vector3 lSize = new Vector3 (lMaxX - lMinX, lMaxY - lMinY, lMaxZ - lMinZ);
+				m_BoxTrigger.size = m_BoxTrigger.transform.InverseTransformVector (lSize + m_BoxAdjust);
+				m_BoxCollider.center = m_BoxCollider.transform.InverseTransformPoint (lCenter);
+				m_BoxCollider.size = m_BoxCollider.transform.InverseTransformVector (lSize + m_BoxColliderAdjust);
+			}
+		}
+
 		void ScaleCapsule ()
 		{
 			if (m_Head && m_FootLeft && m_FootRight) {
@@ -146,8 +182,9 @@ namespace MAHN42
 				float lMinZ = Mathf.Min (m_FootLeft.position.z, m_FootRight.position.z, m_Head.position.z);
 				float lMaxZ = Mathf.Max (m_FootLeft.position.z, m_FootRight.position.z, m_Head.position.z);
 				m_Capsule.center = m_Capsule.transform.InverseTransformPoint (lMinX + (lMaxX - lMinX) / 2f, lMinY + (lMaxY - lMinY) / 2f, lMinZ + (lMaxZ - lMinZ) / 2f);
-				m_Capsule.height = m_Capsule.transform.InverseTransformPoint (0, lMaxY - lMinY, 0).y + m_Capsule.radius * 2;
+				m_Capsule.height = m_Capsule.transform.InverseTransformPoint (0, lMaxY - lMinY, 0).y + m_OrigCapsuleRadius * 2; // m_Capsule.radius * 2;
 				//m_Capsule.radius = m_Capsule.transform.InverseTransformPoint(lMaxX - lMinX, 0, lMaxZ - lMinZ).magnitude;
+				//m_Capsule.radius = Mathf.Min(Mathf.Max(m_OrigCapsuleRadius, Mathf.Max(lMaxX - lMinX, lMaxZ - lMinZ)), m_OrigCapsuleRadius * 3f);
 			}
 		}
 
@@ -164,7 +201,9 @@ namespace MAHN42
 					float lMaxZ = Mathf.Max (m_FootLeft.position.z, m_FootRight.position.z, m_Head.position.z, m_HandLeft.position.z, m_HandRight.position.z);
 					m_Box.center = m_Box.transform.InverseTransformPoint (lMinX + (lMaxX - lMinX) / 2f, lMinY + (lMaxY - lMinY) / 2f, lMinZ + (lMaxZ - lMinZ) / 2f);
 					//m_Box.size = m_Box.transform.InverseTransformPoint (lMaxX - lMinX, lMaxY - lMinY, lMaxZ - lMinZ) + m_BoxAdjust;
-					m_Box.size = new Vector3(lMaxX - lMinX, lMaxY - lMinY, lMaxZ - lMinZ) + m_BoxAdjust;
+					//m_Box.size = new Vector3(lMaxX - lMinX, lMaxY - lMinY, lMaxZ - lMinZ) + m_BoxAdjust;
+					//m_Box.size = m_Box.transform.InverseTransformVector (lMaxX - lMinX, lMaxY - lMinY, lMaxZ - lMinZ) + m_BoxAdjust;
+					m_Box.size = m_Box.transform.InverseTransformVector (new Vector3 (lMaxX - lMinX, lMaxY - lMinY, lMaxZ - lMinZ) + m_BoxAdjust);
 				}
 			}
 		}

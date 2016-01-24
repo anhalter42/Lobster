@@ -49,6 +49,17 @@ public class PlayerInventory : MonoBehaviour
 		return aItem.count;
 	}
 
+	public int SubItem (InventoryItem aItem)
+	{
+		foreach (InventoryItem lItem in m_Items) {
+			if (lItem.type.Equals (aItem.type)) {
+				lItem.count -= aItem.count;
+				return lItem.count;
+			}
+		}
+		return 0;
+	}
+
 	public string forDisplay ()
 	{
 		string lRes = string.Empty;

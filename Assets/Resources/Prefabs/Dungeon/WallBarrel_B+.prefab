@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 475550}
   - 114: {fileID: 11432282}
+  - 114: {fileID: 11403672}
   m_Layer: 0
   m_Name: WallBarrel_B+
   m_TagString: Untagged
@@ -27,6 +28,7 @@ GameObject:
   - 33: {fileID: 3339190}
   - 23: {fileID: 2362024}
   - 64: {fileID: 6437870}
+  - 54: {fileID: 5483116}
   m_Layer: 0
   m_Name: Barrel (1)
   m_TagString: Untagged
@@ -45,6 +47,7 @@ GameObject:
   - 33: {fileID: 3376958}
   - 23: {fileID: 2357902}
   - 64: {fileID: 6482572}
+  - 54: {fileID: 5412210}
   m_Layer: 0
   m_Name: Barrel (4)
   m_TagString: Untagged
@@ -63,6 +66,7 @@ GameObject:
   - 33: {fileID: 3306378}
   - 23: {fileID: 2334532}
   - 64: {fileID: 6483152}
+  - 54: {fileID: 5490776}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: Untagged
@@ -81,6 +85,7 @@ GameObject:
   - 33: {fileID: 3392188}
   - 23: {fileID: 2364988}
   - 64: {fileID: 6458098}
+  - 54: {fileID: 5407204}
   m_Layer: 0
   m_Name: Barrel (3)
   m_TagString: Untagged
@@ -99,6 +104,7 @@ GameObject:
   - 33: {fileID: 3353242}
   - 23: {fileID: 2326036}
   - 64: {fileID: 6485566}
+  - 54: {fileID: 5426712}
   m_Layer: 0
   m_Name: Barrel (2)
   m_TagString: Untagged
@@ -358,6 +364,81 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 152400}
   m_Mesh: {fileID: 4300192, guid: fd75e63c14c4540438372a6844af68b6, type: 3}
+--- !u!54 &5407204
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152400}
+  serializedVersion: 2
+  m_Mass: 8
+  m_Drag: 1
+  m_AngularDrag: 0.5
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &5412210
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144584}
+  serializedVersion: 2
+  m_Mass: 8
+  m_Drag: 1
+  m_AngularDrag: 0.5
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &5426712
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197708}
+  serializedVersion: 2
+  m_Mass: 8
+  m_Drag: 1
+  m_AngularDrag: 0.5
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &5483116
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 123782}
+  serializedVersion: 2
+  m_Mass: 8
+  m_Drag: 1
+  m_AngularDrag: 0.5
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &5490776
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150590}
+  serializedVersion: 2
+  m_Mass: 8
+  m_Drag: 1
+  m_AngularDrag: 0.5
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!64 &6437870
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -368,7 +449,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 628e5212ccbe5044ba8b70740d37394e, type: 3}
 --- !u!64 &6458098
 MeshCollider:
@@ -380,7 +461,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 628e5212ccbe5044ba8b70740d37394e, type: 3}
 --- !u!64 &6482572
 MeshCollider:
@@ -392,7 +473,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 628e5212ccbe5044ba8b70740d37394e, type: 3}
 --- !u!64 &6483152
 MeshCollider:
@@ -404,7 +485,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 628e5212ccbe5044ba8b70740d37394e, type: 3}
 --- !u!64 &6485566
 MeshCollider:
@@ -416,8 +497,25 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 628e5212ccbe5044ba8b70740d37394e, type: 3}
+--- !u!114 &11403672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d77a761ab4b472aa6f6154f40b5d2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  probability: 50
+  mode: 4
+  behaviours: []
+  objects:
+  - {fileID: 152400}
+  - {fileID: 144584}
 --- !u!114 &11432282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -431,9 +529,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownTags:
   - forwardBottom
+  - innerCell
   mustHaveTags: []
   forbiddenTags:
   - forwardBottom
+  - innerCell
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

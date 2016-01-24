@@ -45,6 +45,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 470372}
   - 108: {fileID: 10892660}
+  - 114: {fileID: 11416570}
   m_Layer: 0
   m_Name: Point light
   m_TagString: Untagged
@@ -258,7 +259,7 @@ Light:
     m_Strength: 0.75
     m_Bias: 0.05
     m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_NearPlane: 0.1
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
@@ -271,6 +272,20 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
+--- !u!114 &11416570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae57ff4bbf07f4ca291147ae4e63c331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  min: {x: -0.01, y: -0.01, z: -0.01}
+  max: {x: 0.01, y: 0.05, z: 0.01}
+  speed: 40
 --- !u!198 &19894480
 ParticleSystem:
   m_ObjectHideFlags: 1

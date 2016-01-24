@@ -168,6 +168,7 @@ public class MazeBuilder
 							lCellComp.SetTag (GetWallTag (lDir));
 							DropSome (lDir, lCellObj.transform, true);
 						} else {
+							lCellComp.SetTag ("No" + GetWallTag (lDir));
 							DropSome (lDir, lCellObj.transform, false);
 						}
 					}
@@ -257,18 +258,18 @@ public class MazeBuilder
 		GameObject lObj = GameObject.Instantiate (aPrefab, aPos, aRotation) as GameObject;
 		lObj.transform.SetParent (aParent, false);
 		lObj.name = aName;
-		PrefabModifier lMod = lObj.GetComponent<PrefabModifier> ();
-		if (lMod) {
-			lMod.ModifyPrefab (lObj);
+		/*
+		PrefabModifier[] lMods = lObj.GetComponentsInChildren<PrefabModifier> ();
+		foreach (PrefabModifier lMod in lMods) {
+			lMod.ModifyPrefab (lMod.gameObject);
 		}
-		AudioSource[] lASs = lObj.GetComponents<AudioSource> ();
+		*/
+		/*
+		AudioSource[] lASs = lObj.GetComponentsInChildren<AudioSource> ();
 		foreach (AudioSource lAS in lASs) {
 			lAS.volume = AllLevels.Get ().levelController.effectVolume;
 		}
-		lASs = lObj.GetComponentsInChildren<AudioSource> ();
-		foreach (AudioSource lAS in lASs) {
-			lAS.volume = AllLevels.Get ().levelController.effectVolume;
-		}
+		*/
 		return lObj;
 	}
 }

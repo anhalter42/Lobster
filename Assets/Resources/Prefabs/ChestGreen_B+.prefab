@@ -186,10 +186,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 449406}
   - 65: {fileID: 6596346}
-  - 114: {fileID: 11407022}
   - 114: {fileID: 11431998}
   - 82: {fileID: 8281420}
   - 114: {fileID: 11422924}
+  - 114: {fileID: 11447230}
   m_Layer: 0
   m_Name: ChestGreen_B+
   m_TagString: Untagged
@@ -552,7 +552,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24380740, guid: 1d2dc6f6057be4767af7af671b1f5dfe,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 5ad5a6f8d5a7d467f80d9850471ec372, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -664,27 +664,6 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &11407022
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 184072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b758a443e4bc41789b88e91cbf09cb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Behaviours:
-  - {fileID: 11102040}
-  - {fileID: 8281420}
-  when: 0
-  isActivated: 0
-  levelControllerMethod: FocusPlayerForShort
-  levelControllerMethodDelay: 1
-  m_ObjectActivationDelay: 2.2
-  tags:
-  - Player
 --- !u!114 &11407468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -726,6 +705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d77a761ab4b472aa6f6154f40b5d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  probability: 50
   mode: 2
   behaviours: []
   objects:
@@ -747,6 +727,60 @@ MonoBehaviour:
   mustHaveTags: []
   forbiddenTags:
   - forwardBottom
+--- !u!114 &11447230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f29085e6b6c4fddbfc2b474eb81998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlledObjects:
+  - when: 0
+    action: 0
+    gameObject: {fileID: 148772}
+    delay: 2.2
+    tags:
+    - Player
+    isRepeatable: 0
+    isDone: 0
+  controlledBehaviors:
+  - when: 0
+    action: 0
+    behaviour: {fileID: 8281420}
+    delay: 0
+    argument: 
+    tags:
+    - Player
+    isRepeatable: 0
+    isDone: 0
+  - when: 0
+    action: 0
+    behaviour: {fileID: 11102040}
+    delay: 0
+    argument: 
+    tags:
+    - Player
+    isRepeatable: 0
+    isDone: 0
+  controlledMethods:
+  - when: 0
+    method: FocusPlayer
+    delay: 0
+    tags:
+    - Player
+    isRepeatable: 1
+    isDone: 0
+  - when: 1
+    method: ResetCamera
+    delay: 0
+    tags:
+    - Player
+    isRepeatable: 1
+    isDone: 0
 --- !u!114 &11467690
 MonoBehaviour:
   m_ObjectHideFlags: 1

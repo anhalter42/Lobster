@@ -44,12 +44,16 @@ public class Activator : MonoBehaviour
 
 	bool TagMatched (string aTag)
 	{
-		foreach (string lTag in tags) {
-			if (lTag.Equals (aTag)) {
-				return true;
+		if (tags.Length == 0) {
+			return true;
+		} else {
+			foreach (string lTag in tags) {
+				if (lTag.Equals (aTag)) {
+					return true;
+				}
 			}
+			return false;
 		}
-		return false;
 	}
 
 	void OnTriggerEnter (Collider aOther)
@@ -63,7 +67,7 @@ public class Activator : MonoBehaviour
 		}
 	}
 
-	void OnTriggerLeave (Collider aOther)
+	void OnTriggerExit (Collider aOther)
 	{
 		if (when == When.OnTriggerLeave) {
 			if (!isActivated) {
@@ -88,6 +92,8 @@ public class Activator : MonoBehaviour
 					} else {
 						((Animator)lBeh).SetTrigger ("Activate");
 					}
+				} else if (lBeh is AudioSource) {
+					((AudioSource)lBeh).Play ();
 				}
 			}
 		}

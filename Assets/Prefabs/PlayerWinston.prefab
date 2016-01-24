@@ -2756,6 +2756,7 @@ GameObject:
   - 114: {fileID: 11475420}
   - 65: {fileID: 6597514}
   - 114: {fileID: 11434580}
+  - 65: {fileID: 6540810}
   m_Layer: 0
   m_Name: PlayerWinston
   m_TagString: Player
@@ -5898,6 +5899,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &6540810
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186784}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1113565, y: 0.5723526, z: 0.08389285}
+  m_Center: {x: 0.0009808093, y: 0.2903295, z: 0.0009807795}
 --- !u!65 &6597514
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -6000,6 +6013,8 @@ MonoBehaviour:
   m_Head: {fileID: 412386}
   m_HandLeft: {fileID: 445464}
   m_HandRight: {fileID: 420598}
+  m_BoxCollider: {fileID: 6540810}
+  m_BoxTrigger: {fileID: 6597514}
 --- !u!136 &13616896
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -6008,7 +6023,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 186784}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.065
   m_Height: 0.65
   m_Direction: 1

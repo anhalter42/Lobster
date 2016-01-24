@@ -29,7 +29,28 @@ public class LevelController : MonoBehaviour
 
 	public Transform mazeParent;
 
-	public GameObject player;
+	GameObject m_player;
+
+	public GameObject player {
+		get {
+			if (!m_player) {
+				m_player = GameObject.FindWithTag ("Player");
+			}
+			return m_player;
+		}
+		set { m_player = value; }
+	}
+
+	PlayerInventory m_playerInventory;
+
+	public PlayerInventory playerInventory {
+		get {
+			if (!m_playerInventory) {
+				m_playerInventory = player.GetComponent<PlayerInventory> ();
+			}
+			return m_playerInventory;
+		}
+	}
 
 	public GameObject playerPrefab { get { return AllLevels.Get ().playerPrefab; } }
 
@@ -144,7 +165,7 @@ public class LevelController : MonoBehaviour
 		}
 		m_textLives.text = string.Format ("Lives: {0}", playerLevelSettings.lives);
 		m_textHealth.text = string.Format ("Health: {0}", playerLevelSettings.health);
-		m_textInventory.text = player.GetComponent<PlayerInventory>().forDisplay();
+		m_textInventory.text = playerInventory.forDisplay ();
 		CheckLOD ();
 		if (isRunning) {
 			if (Input.GetKeyUp (KeyCode.Escape)) {
@@ -188,10 +209,10 @@ public class LevelController : MonoBehaviour
 		settings = aSettings;
 		prefabs = AllLevels.Get ().GetCellDescription (settings.prefabs);
 		CreateLabyrinth ();
-		SetupScene();
+		SetupScene ();
 	}
 
-	public void SetupScene()
+	public void SetupScene ()
 	{
 		m_mainLight.color = settings.dayLightColor;
 		m_mainLight.intensity = settings.dayLight;
@@ -263,13 +284,15 @@ public class LevelController : MonoBehaviour
 		if (!playerLevelSettings.scoreReached && playerLevelSettings.score >= settings.scoreForExit) {
 			playerLevelSettings.scoreReached = true;
 			if (prefabs.audioScoreReached) {
-				PlayAudioEffect(prefabs.audioScoreReached);
+				PlayAudioEffect (prefabs.audioScoreReached);
 				//AudioSource.PlayClipAtPoint (prefabs.audioScoreReached, player.transform.position, effectVolume);
 			} else {
 				Debug.Log ("No audio for score reached!");
 			}
-			builder.ActivateExits ();
-			builder.ActivateWayPoints (builder.GetPlayerMazePoint (), builder.exitPoint);
+			if (builder != null) {
+				builder.ActivateExits ();
+				builder.ActivateWayPoints (builder.GetPlayerMazePoint (), builder.exitPoint);
+			}
 		}
 	}
 
@@ -277,7 +300,7 @@ public class LevelController : MonoBehaviour
 	{
 		playerLevelSettings.lives += aLives;
 		if (prefabs.audioLiveAdded) {
-			PlayAudioEffect(prefabs.audioLiveAdded);
+			PlayAudioEffect (prefabs.audioLiveAdded);
 			//AudioSource.PlayClipAtPoint (prefabs.audioLiveAdded, player.transform.position, effectVolume);
 		} else {
 			Debug.Log ("No audio for live added!");
@@ -295,7 +318,7 @@ public class LevelController : MonoBehaviour
 			lAudio = prefabs.audioHealthBig;
 		}
 		if (lAudio) {
-			PlayAudioEffect(lAudio);
+			PlayAudioEffect (lAudio);
 			//AudioSource.PlayClipAtPoint (lAudio, aPos, effectVolume);
 		} else {
 			Debug.Log (string.Format ("No audio for health {0}!", aHealth));
@@ -310,11 +333,10 @@ public class LevelController : MonoBehaviour
 
 	public void AddInventoryItem (PlayerInventory.InventoryItem aItem)
 	{
-		PlayerInventory lInv = player.GetComponent<PlayerInventory> ();
-		lInv.AddItem (aItem);
-		AudioClip lAudio = prefabs.GetAudioItemGet(aItem.type);
+		playerInventory.AddItem (aItem);
+		AudioClip lAudio = prefabs.GetAudioItemGet (aItem.type);
 		if (lAudio) {
-			PlayAudioEffect(lAudio);
+			PlayAudioEffect (lAudio);
 		}
 	}
 
@@ -348,7 +370,7 @@ public class LevelController : MonoBehaviour
 		if (playerLevelSettings.health < 0) {
 			playerLevelSettings.lives--;
 			if (prefabs.audioLiveLost) {
-				PlayAudioEffect(prefabs.audioLiveLost);
+				PlayAudioEffect (prefabs.audioLiveLost);
 				//AudioSource.PlayClipAtPoint (prefabs.audioLiveLost, player.transform.position, effectVolume);
 			} else {
 				Debug.Log ("No audio for live lost!");
@@ -357,9 +379,9 @@ public class LevelController : MonoBehaviour
 		}
 	}
 
-	public void PlayAudioEffect(AudioClip aClip)
+	public void PlayAudioEffect (AudioClip aClip)
 	{
-		m_audioSourceEffects.PlayOneShot(aClip);
+		m_audioSourceEffects.PlayOneShot (aClip);
 	}
 
 	public void PlayDamageAudio (DamageData aDamage, Vector3 aPos)
@@ -373,7 +395,7 @@ public class LevelController : MonoBehaviour
 			lAudio = prefabs.audioDamageBig;
 		}
 		if (lAudio) {
-			PlayAudioEffect(lAudio);
+			PlayAudioEffect (lAudio);
 			//AudioSource.PlayClipAtPoint (lAudio, aPos, effectVolume);
 		} else {
 			Debug.Log (string.Format ("No audio for damage {0}!", aDamage.Damage));
@@ -390,7 +412,7 @@ public class LevelController : MonoBehaviour
 			}
 		}
 		if (lAudio) {
-			PlayAudioEffect(lAudio);
+			PlayAudioEffect (lAudio);
 			//AudioSource.PlayClipAtPoint (lAudio, aPos, effectVolume);
 		} else {
 			Debug.Log (string.Format ("No audio for score {0}!", aScore));
@@ -450,7 +472,7 @@ public class LevelController : MonoBehaviour
 	public void FocusPlayerForShort ()
 	{
 		if (dungeonCamera) {
-			FocusPlayer();
+			FocusPlayer ();
 			Invoke ("ResetCamera", 5f);
 		}
 	}

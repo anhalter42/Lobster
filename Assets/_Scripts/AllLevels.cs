@@ -20,6 +20,11 @@ public class AllLevels : MonoBehaviour
 				GameObject lObj = GameObject.Find ("LevelController") as GameObject;
 				if (lObj) {
 					m_levelController = lObj.GetComponent<LevelController> ();
+					if (!m_levelController) {
+						m_levelController = lObj.AddComponent<LevelController> ();
+					}
+				} else {
+					m_levelController = new GameObject ().AddComponent<LevelController> ();
 				}
 			}
 			return m_levelController;

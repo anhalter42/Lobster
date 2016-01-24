@@ -6,14 +6,17 @@ public class PrefabVariation : MonoBehaviour
 
 	public enum Mode
 	{
-		ActivateOne,
-		ActivateSome,
-		ActivateSomeAtleastOne,
-		DeactivateOne,
-		DeactivateSome,
-		DeactivateSomeAtleastOne,
+		ActivateZeroOrOne = 6,
+		ActivateOne = 0,
+		ActivateSome = 1,
+		ActivateSomeAtleastOne = 2,
+		DeactivateZeroOrOne = 7,
+		DeactivateOne = 3,
+		DeactivateSome = 4,
+		DeactivateSomeAtleastOne = 5,
 	}
 
+	public int probability = 50;
 	public Mode mode = Mode.ActivateOne;
 	public Behaviour[] behaviours = { };
 	public GameObject[] objects = { };
@@ -31,6 +34,9 @@ public class PrefabVariation : MonoBehaviour
 	public void ModifyPrefab ()
 	{
 		switch (mode) {
+		case Mode.ActivateZeroOrOne:
+			ModifyForActivateZeroOrOne (true);
+			break;
 		case Mode.ActivateOne:
 			ModifyForActivateOne (true);
 			break;
@@ -39,6 +45,9 @@ public class PrefabVariation : MonoBehaviour
 			break;
 		case Mode.ActivateSomeAtleastOne:
 			ModifyForActivateSome (1, true);
+			break;
+		case Mode.DeactivateZeroOrOne:
+			ModifyForActivateZeroOrOne (false);
 			break;
 		case Mode.DeactivateOne:
 			ModifyForActivateOne (false);
@@ -52,13 +61,29 @@ public class PrefabVariation : MonoBehaviour
 		}
 	}
 
+	void ModifyForActivateZeroOrOne (bool aState = true)
+	{
+		if (Random.Range (0, 100) <= probability) {
+			ModifyForActivateOne (aState);
+		}
+	}
+
 	void ModifyForActivateOne (bool aState = true)
 	{
 		if (behaviours.Length > 0) {
 			behaviours [Random.Range (0, behaviours.Length - 1)].enabled = aState;
 		}
 		if (objects.Length > 0) {
-			objects [Random.Range (0, objects.Length - 1)].SetActive (aState);
+			int j = Random.Range (0, objects.Length - 1);
+			objects [j].SetActive (aState);
+			/*
+			if (aState) {
+				PrefabModifier[] lMods = objects [j].GetComponentsInChildren<PrefabModifier> ();
+				foreach (PrefabModifier lMod in lMods) {
+					lMod.ModifyPrefab (lMod.gameObject);
+				}
+			}
+			*/
 		}
 	}
 
@@ -71,23 +96,39 @@ public class PrefabVariation : MonoBehaviour
 	{
 		if (behaviours.Length > 0) {
 			int lCount = Random.Range (MinMax (aMin, behaviours.Length - 1), behaviours.Length + 1);
-			int i = 0;
+			int i = 0, x = 0;
 			while (i < lCount) {
 				int j = Random.Range (0, behaviours.Length);
 				if (behaviours [j].enabled != aState) {
 					behaviours [j].enabled = aState;
 					i++;
+				} else {
+					x++;
+					if (x > 1000)
+						break;
 				}
 			}
 		}
 		if (objects.Length > 0) {
 			int lCount = Random.Range (MinMax (aMin, objects.Length - 1), objects.Length + 1);
-			int i = 0;
+			int i = 0, x = 0;
 			while (i < lCount) {
 				int j = Random.Range (0, objects.Length);
 				if (objects [j].activeSelf != aState) {
 					objects [j].SetActive (aState);
+					/*
+					if (aState) {
+						PrefabModifier[] lMods = objects [j].GetComponentsInChildren<PrefabModifier> ();
+						foreach (PrefabModifier lMod in lMods) {
+							lMod.ModifyPrefab (lMod.gameObject);
+						}
+					}
+					*/
 					i++;
+				} else {
+					x++;
+					if (x > 1000)
+						break;
 				}
 			}
 		}
