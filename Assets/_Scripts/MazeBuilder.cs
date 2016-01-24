@@ -15,6 +15,7 @@ public class MazeBuilder
 	{
 		Maze = new Maze (settings.mazeWidth, settings.mazeHeight, settings.mazeDepth);
 		Maze.chanceForBreakWalls = settings.breakWalls;
+		settings.PrepareMaze (Maze);
 		Maze.build ();
 	}
 
@@ -38,7 +39,7 @@ public class MazeBuilder
 		}
 	}
 
-	protected string GetWallTag (int aDir)
+	public static string GetWallTag (int aDir)
 	{
 		switch (aDir) {
 		case Maze.DirectionTop:
@@ -55,6 +56,26 @@ public class MazeBuilder
 			return "Backward";
 		default:
 			return string.Empty;
+		}
+	}
+
+	public static int GetWallDir (string aTag)
+	{
+		switch (aTag) {
+		case "Top":
+			return Maze.DirectionTop;
+		case "Bottom":
+			return Maze.DirectionBottom;
+		case "Left":
+			return Maze.DirectionLeft;
+		case "Right":
+			return Maze.DirectionRight;
+		case "Forward":
+			return Maze.DirectionForward;
+		case "Backward":
+			return Maze.DirectionBackward;
+		default:
+			return -1;
 		}
 	}
 
@@ -166,6 +187,7 @@ public class MazeBuilder
 								}
 							}
 							lCellComp.SetTag (GetWallTag (lDir));
+							//DropForSettings(lCellObj.transform);
 							DropSome (lDir, lCellObj.transform, true);
 						} else {
 							lCellComp.SetTag ("No" + GetWallTag (lDir));

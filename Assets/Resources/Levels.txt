@@ -21,6 +21,24 @@ breakWalls	0
 scoreForExit	20
 
 #Tutorial 3
+//In den Dungeons
+world	Tutorial
+prefabs	Simple
+mazeWidth	6
+mazeHeight	1
+mazeDepth	6
+breakWalls	2
+scoreForExit	20
+dayLight	0.5
+dayLightColor	200,150,50
+ambientMode	Flat
+ambientLight	0.3
+ambientLightColor	200,150,50
+playerStart	0,0,0
+directCell	3,0,3;Left,Forward,Right,Backward;true
+directPrefab	ChestGreen_B+;3,0,3
+
+#Tutorial 3
 //Ein wenig größer :-)
 world	Tutorial
 prefabs	Dungeon1

@@ -6,9 +6,6 @@ using System.Collections;
 public class UI : MonoBehaviour
 {
 	public GameObject playerPrefab;
-	public InputField mazeUIWidth;
-	public InputField mazeUIDepth;
-	public InputField mazeUIHeight;
 	public int defaultLevel = 0;
 
 	// Use this for initialization

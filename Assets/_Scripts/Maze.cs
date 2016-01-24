@@ -322,7 +322,10 @@ public class Maze
             endwhile
             */
 		//Random lRnd = new Random();
-		Cell lCurrent = get (width / 2, height / 2, depth / 2); // first from center
+		Cell lCurrent = null; //get (width / 2, height / 2, depth / 2); // first from center
+		while (lCurrent == null || lCurrent.visited) {
+			lCurrent = get (Random.Range (0, width), Random.Range (0, height), Random.Range (0, depth));
+		}
 		//Stack<Cell> lStack = new Stack<Cell>();
 		Stack lStack = new Stack (); //Cell
 		int lVisitedCells = 1;

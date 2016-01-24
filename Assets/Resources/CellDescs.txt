@@ -127,42 +127,6 @@ audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope_perc
 audioBackgroundLevelEnd	Background_The_gates_No_Choir
 
-#DungeonTest
-Package=Dungeon
-top				Ceiling
-bottom			Floor
-left			Wall_R-;90
-left			WallGrille_R-;10
-right			Wall_R+;90
-right			WallGrille_R+;10
-forward			Wall_B+;90
-forward			WallGrille_B+;10
-backward		Wall_B-;90
-backward		WallGrille_B-;10
-props			GemScore2;20;false;2;0
-score			GemScore1;0;false;1;0
-score			GemScore2;0;false;2;0
-leftProps		Prop_Torch_R-;5
-rightProps		Prop_Torch_R+;5
-forwardProps	ArchDoor_B+;100;false
-forwardProps	Prop_Torch_B+;5
-backwardProps	Prop_Torch_B-;5
-exit			ExitCylinder
-wayPoints		WayPoint_R-;100;true;3
-wayPoints		WayPoint_R+;100;true;2
-wayPoints		WayPoint_B+;100;true;4
-wayPoints		WayPoint_B-;100;true;5
-audioScore		coins1;1
-audioScore		coins2;2
-audioScore		coins3;5
-audioScore		coins4;5
-audioScore		coins6;10
-audioScore		coins8;20
-audioScoreReached	completed1
-audioBackgroundPause	Background_New_Day_is_born
-audioBackgroundMusic	Background_War_And_Hope
-audioBackgroundLevelEnd	Background_The_gates_No_Choir
-
 #Dungeon1
 Package=Dungeon
 top				Ceiling

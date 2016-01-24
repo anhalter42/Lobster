@@ -273,7 +273,13 @@ public class LevelController : MonoBehaviour
 		if (player) {
 			Destroy (player);
 		}
-		player = Instantiate (playerPrefab, new Vector3 (builder.Maze.width / 2, builder.Maze.height / 2, builder.Maze.depth / 2), Quaternion.identity) as GameObject;
+		Vector3 lPos;
+		if (settings.playerStart != null) {
+			lPos = new Vector3(settings.playerStart.x, settings.playerStart.y, settings.playerStart.z);
+		} else {
+			lPos = new Vector3 (builder.Maze.width / 2, builder.Maze.height / 2, builder.Maze.depth / 2);
+		}
+		player = Instantiate (playerPrefab, mazeParent.TransformPoint(lPos), Quaternion.identity) as GameObject;
 	}
 
 	public void PlayOnBackground (AudioClip aClip)

@@ -4,6 +4,77 @@ using System.Collections;
 [System.Serializable]
 public class LevelSettings
 {
+	public class CellDescOverride
+	{
+		public string name;
+		public int maxCount = -1;
+		public int minCount = -1;
+
+		public bool ReadLine (string aLine, string aFolder)
+		{
+			string[] lVs = aLine.Split (new string[] { ";" }, System.StringSplitOptions.RemoveEmptyEntries);
+			if (lVs.Length > 0) {
+				name = lVs [0];
+			}
+			if (lVs.Length > 2) {
+				maxCount = int.Parse (lVs [1]);
+				minCount = int.Parse (lVs [2]);
+			}
+			return true;
+		}
+	}
+
+	public class Cell
+	{
+		public int x = -1;
+		public int y = -1;
+		public int z = -1;
+		public string[] tags = { };
+		public bool visited = false;
+
+		public bool ReadLine (string aLine, string aFolder)
+		{
+			string[] lVs = aLine.Split (new string[] { ";" }, System.StringSplitOptions.RemoveEmptyEntries);
+			if (lVs.Length > 0) {
+				string[] lPs = lVs [0].Split (new string[] { "," }, System.StringSplitOptions.RemoveEmptyEntries);
+				x = int.Parse (lPs [0]);
+				y = int.Parse (lPs [1]);
+				z = int.Parse (lPs [2]);
+			}
+			if (lVs.Length > 1) {
+				tags = lVs [1].Split (new string[] { "," }, System.StringSplitOptions.RemoveEmptyEntries);
+			}
+			if (lVs.Length > 2) {
+				visited = bool.Parse (lVs [2]);
+			}
+			return true;
+		}
+	}
+
+	public class PrefabSet
+	{
+		public string name;
+		public int x = -1;
+		public int y = -1;
+		public int z = -1;
+		public GameObject prefab;
+
+		public bool ReadLine (string aLine, string aFolder)
+		{
+			string[] lVs = aLine.Split (new string[] { ";" }, System.StringSplitOptions.RemoveEmptyEntries);
+			if (lVs.Length > 0) {
+				name = lVs [0];
+				prefab = AllLevels.LoadResource<GameObject> (name, "Prefabs", aFolder);
+			}
+			if (lVs.Length > 1) {
+				string[] lPs = lVs [1].Split (new string[] { "," }, System.StringSplitOptions.RemoveEmptyEntries);
+				x = int.Parse (lPs [0]);
+				y = int.Parse (lPs [1]);
+				z = int.Parse (lPs [2]);
+			}
+			return prefab != null;
+		}
+	}
 
 	public string prefabs = "Simple";
 	public int level = 1;
@@ -13,10 +84,15 @@ public class LevelSettings
 	public int mazeHeight = 1;
 	public int mazeDepth = 5;
 	public int breakWalls = 0;
-	public int maxTime = 0; 									// in seconds, 0 means endless
-	public int scoreForExit = 20; 								// 20 points to open the exit
-	public float scoreBonusFactor = 2f;							// Faktor für extra Score
-	public float scoreTimeBonusFactor = 5f;						// Faktor für extra Time Bonus Score
+	public int maxTime = 0;
+	// in seconds, 0 means endless
+	public int scoreForExit = 20;
+	// 20 points to open the exit
+	public float scoreBonusFactor = 2f;
+	// Faktor für extra Score
+	public float scoreTimeBonusFactor = 5f;
+	// Faktor für extra Time Bonus Score
+	public Maze.Point playerStart = null;
 	public float ambientLight = 0.75f;
 	public Color ambientLightColor = new Color (77 / 255, 77 / 255, 77 / 255);
 	public UnityEngine.Rendering.AmbientMode ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
@@ -29,6 +105,10 @@ public class LevelSettings
 	public AudioClip audioBackgroundLevelEnd;
 	public AudioClip audioBackgroundLevelStart;
 	public AudioClip audioBackgroundLevelExitOpen;
+
+	public Cell[] directCells = { };
+	public PrefabSet[] directPrefabs = { };
+	public CellDescOverride[] cellDescOverrides = { };
 
 
 	public static bool ReadInt (ref int aValue, string aLine, string aName)
@@ -103,16 +183,92 @@ public class LevelSettings
 		}
 	}
 
-	public static bool ReadAmbientMode(ref UnityEngine.Rendering.AmbientMode aValue, string aLine, string aName)
+	public static bool ReadMazePoint (ref Maze.Point aValue, string aLine, string aName)
 	{
 		if (aLine.StartsWith (aName)) {
 			string lV = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1];
-			if (!string.IsNullOrEmpty(lV)) {
-				aValue = (UnityEngine.Rendering.AmbientMode)System.Enum.Parse(typeof(UnityEngine.Rendering.AmbientMode), lV, true);
+			string[] lVs = lV.Split (new string[] { "," }, System.StringSplitOptions.RemoveEmptyEntries);
+			if (lVs.Length == 2) {
+				aValue = new Maze.Point (int.Parse (lVs [0]), 0, int.Parse (lVs [1]));
+			} else if (lVs.Length == 3) {
+				aValue = new Maze.Point (int.Parse (lVs [0]), int.Parse (lVs [1]), int.Parse (lVs [2]));
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static bool ReadAmbientMode (ref UnityEngine.Rendering.AmbientMode aValue, string aLine, string aName)
+	{
+		if (aLine.StartsWith (aName)) {
+			string lV = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1];
+			if (!string.IsNullOrEmpty (lV)) {
+				aValue = (UnityEngine.Rendering.AmbientMode)System.Enum.Parse (typeof(UnityEngine.Rendering.AmbientMode), lV, true);
 				return true;
 			} else {
-				Debug.Log(string.Format("Unknown ambient mode '{0}‘!", lV));
-				return false;
+				Debug.Log ("no ambient mode given!");
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public bool ReadPrefabSet (ref PrefabSet[] aValue, string aLine, string aName)
+	{
+		if (aLine.StartsWith (aName)) {
+			string lV = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1];
+			if (!string.IsNullOrEmpty (lV)) {
+				PrefabSet lP = new PrefabSet ();
+				if (lP.ReadLine (lV, prefabs)) {
+					System.Array.Resize<PrefabSet> (ref aValue, aValue.Length + 1);
+					aValue [aValue.Length - 1] = lP;
+				}
+				return true;
+			} else {
+				Debug.Log ("No prefabset given!");
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public bool ReadCellDescOverride (ref CellDescOverride[] aValue, string aLine, string aName)
+	{
+		if (aLine.StartsWith (aName)) {
+			string lV = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1];
+			if (!string.IsNullOrEmpty (lV)) {
+				CellDescOverride lC = new CellDescOverride ();
+				if (lC.ReadLine (lV, prefabs)) {
+					System.Array.Resize<CellDescOverride> (ref aValue, aValue.Length + 1);
+					aValue [aValue.Length - 1] = lC;
+				}
+				return true;
+			} else {
+				Debug.Log ("No celldescoverride given!");
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	public bool ReadCells (ref Cell[] aValue, string aLine, string aName)
+	{
+		if (aLine.StartsWith (aName)) {
+			string lV = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1];
+			if (!string.IsNullOrEmpty (lV)) {
+				Cell lC = new Cell ();
+				if (lC.ReadLine (lV, prefabs)) {
+					System.Array.Resize<Cell> (ref aValue, aValue.Length + 1);
+					aValue [aValue.Length - 1] = lC;
+				}
+				return true;
+			} else {
+				Debug.Log ("No cell given!");
+				return true;
 			}
 		} else {
 			return false;
@@ -127,12 +283,16 @@ public class LevelSettings
 		if (!ReadAudioClip (ref audioBackgroundLevelEnd, aLine, "audioBackgroundLevelEnd", null))
 		if (!ReadAudioClip (ref audioBackgroundLevelStart, aLine, "audioBackgroundLevelStart", null))
 		if (!ReadAudioClip (ref audioBackgroundLevelExitOpen, aLine, "audioBackgroundLevelExitOpen", null))
+		if (!ReadCells (ref directCells, aLine, "directCell"))
+		if (!ReadPrefabSet (ref directPrefabs, aLine, "directPrefab"))
+		if (!ReadCellDescOverride (ref cellDescOverrides, aLine, "cellDescOverride"))
 		if (!ReadTexture (ref groundTexture, aLine, "groundTexture", null))
 		if (!ReadInt (ref mazeWidth, aLine, "mazeWidth"))
 		if (!ReadInt (ref mazeHeight, aLine, "mazeHeight"))
 		if (!ReadInt (ref mazeDepth, aLine, "mazeDepth"))
 		if (!ReadInt (ref breakWalls, aLine, "breakWalls"))
 		if (!ReadInt (ref maxTime, aLine, "maxTime"))
+		if (!ReadMazePoint( ref playerStart, aLine, "playerStart"))
 		if (!ReadColor (ref ambientLightColor, aLine, "ambientLightColor"))
 		if (!ReadFloat (ref ambientLight, aLine, "ambientLight"))
 		if (!ReadAmbientMode (ref ambientMode, aLine, "ambientMode"))
@@ -149,6 +309,27 @@ public class LevelSettings
 					levelDescription += "\n" + aLine.Substring (2);
 				}
 			}
+		}
+	}
+
+	public void PrepareMaze (Maze aMaze)
+	{
+		foreach (Cell lC in directCells) {
+			Maze.Cell lCell = aMaze.get (lC.x, lC.y, lC.z);
+			foreach (string lTag in lC.tags) {
+				if (lTag.StartsWith ("No")) {
+					int lDir = MazeBuilder.GetWallDir (lTag.Substring (2));
+					if (lDir >= 0) {
+						lCell.links [lDir].broken = true;
+					}
+				} else {
+					int lDir = MazeBuilder.GetWallDir (lTag);
+					if (lDir >= 0) {
+						lCell.links [lDir].breakable = false;
+					}
+				}
+			}
+			lCell.visited = lC.visited;
 		}
 	}
 }
