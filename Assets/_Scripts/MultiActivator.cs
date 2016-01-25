@@ -220,10 +220,10 @@ public class MultiActivator : MonoBehaviour
 			inventoryItemsPayed = true;
 			foreach (InventoryItem lI in inventoryItems) {
 				if (lI.getAmount > 0) {
-					AllLevels.Get ().levelController.playerInventory.AddItem (new PlayerInventory.InventoryItem(lI.type, lI.getAmount));
+					AllLevels.Get ().levelController.AddInventoryItem(new PlayerInventory.InventoryItem(lI.type, lI.getAmount));
 				}
 				if (lI.costAmount > 0) {
-					AllLevels.Get ().levelController.playerInventory.SubItem (new PlayerInventory.InventoryItem(lI.type, lI.costAmount));
+					AllLevels.Get ().levelController.SubInventoryItem (new PlayerInventory.InventoryItem(lI.type, lI.costAmount));
 				}
 			}
 		}

@@ -225,9 +225,13 @@ public class MazeBuilder
 
 	public void ActivateExits ()
 	{
-		exitPoint = new Maze.Point (Random.Range (0, Maze.width - 1),
-			Random.Range (0, Maze.height - 1),
-			Random.Range (0, Maze.depth - 1));
+		if (settings.exitPos != null) {
+			exitPoint = settings.exitPos;
+		} else {
+			exitPoint = new Maze.Point (Random.Range (0, Maze.width - 1),
+				Random.Range (0, Maze.height - 1),
+				Random.Range (0, Maze.depth - 1));
+		}
 		CreateGameObject (prefabs.GetOne (prefabs.exit), Maze.get (exitPoint).gameObject.transform, "Exit");
 	}
 

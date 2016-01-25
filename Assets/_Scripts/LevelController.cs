@@ -275,11 +275,11 @@ public class LevelController : MonoBehaviour
 		}
 		Vector3 lPos;
 		if (settings.playerStart != null) {
-			lPos = new Vector3(settings.playerStart.x, settings.playerStart.y, settings.playerStart.z);
+			lPos = new Vector3 (settings.playerStart.x, settings.playerStart.y, settings.playerStart.z);
 		} else {
 			lPos = new Vector3 (builder.Maze.width / 2, builder.Maze.height / 2, builder.Maze.depth / 2);
 		}
-		player = Instantiate (playerPrefab, mazeParent.TransformPoint(lPos), Quaternion.identity) as GameObject;
+		player = Instantiate (playerPrefab, mazeParent.TransformPoint (lPos), Quaternion.identity) as GameObject;
 	}
 
 	public void PlayOnBackground (AudioClip aClip)
@@ -400,6 +400,22 @@ public class LevelController : MonoBehaviour
 		}
 	}
 
+	public void SubInventoryItem (PlayerInventory.InventoryItem aItem)
+	{
+		playerInventory.SubItem (aItem);
+		AudioClip lAudio = prefabs.GetAudioItemUse (aItem.type);
+		if (lAudio) {
+			PlayAudioEffect (lAudio);
+		}
+	}
+
+	public void SubInventoryItems (PlayerInventory.InventoryItem[] aItems)
+	{
+		foreach (PlayerInventory.InventoryItem lItem in aItems) {
+			SubInventoryItem (lItem);
+		}
+	}
+
 	public void AddPickupData (PickupData aPickup)
 	{
 		if (aPickup.score > 0) {
@@ -507,6 +523,19 @@ public class LevelController : MonoBehaviour
 		m_textLFTimeBonus.text = string.Format ("Time Bonus: {0}", playerLevelSettings.scoreTimeBonus.ToString ());
 		m_panelLevelFinished.gameObject.SetActive (true);
 		PlayOnBackground (audioBackgroundLevelEnd);
+		PlayerLevel lL = AllLevels.Get ().currentPlayer.GetLevel (settings.worldName, settings.levelName, true);
+		int lScoreComplete = playerLevelSettings.score + playerLevelSettings.scoreBonus + playerLevelSettings.scoreTimeBonus;
+		if (lScoreComplete > lL.scoreComplete) {
+			lL.score = playerLevelSettings.score;
+			lL.scoreBonus = playerLevelSettings.scoreBonus;
+			lL.timeBonusScore = playerLevelSettings.scoreTimeBonus;
+			lL.time = playerLevelSettings.time;
+			lL.scoreComplete = lScoreComplete;
+		}
+		if (lL.minTime <= 0 || playerLevelSettings.time < lL.minTime) {
+			lL.minTime = playerLevelSettings.time;
+		}
+		AllLevels.Get ().SaveData ();
 	}
 
 	public void PlayerHasExitReached ()

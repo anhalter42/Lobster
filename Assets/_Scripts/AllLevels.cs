@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 public class AllLevels : MonoBehaviour
 {
@@ -8,6 +10,11 @@ public class AllLevels : MonoBehaviour
 	public TextAsset levels;
 	public TextAsset cellDescs;
 	public CellDescription[] cellDescriptions;
+
+	public PlayersData data = new PlayersData ();
+
+	public string playerName = string.Empty;
+	public Player currentPlayer;
 
 	public LevelSettings currentLevelSettings;
 	public LevelSettings[] levelSettings;
@@ -97,6 +104,13 @@ public class AllLevels : MonoBehaviour
 				ReadLevels (levels.text);
 			}
 		}
+		LoadData ();
+		if (string.IsNullOrEmpty (playerName)) {
+			playerName = PlayerPrefs.GetString ("PlayerName", "Winston");
+		}
+		if (!string.IsNullOrEmpty (playerName)) {
+			SetPlayerName (playerName);
+		}
 		if (hasLevels ()) {
 			currentLevelSettings = levelSettings [0];
 		} else {
@@ -105,12 +119,6 @@ public class AllLevels : MonoBehaviour
 		if (!playerPrefab) {
 			playerPrefab = Resources.Load ("Prefabs/Player") as GameObject;
 		}
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	
 	}
 
 	public CellDescription GetCellDescription (string aName)
@@ -203,5 +211,34 @@ public class AllLevels : MonoBehaviour
 			Debug.Log (string.Format ("Could not find {0} '{1}' (Folder '{2}')!", aMainFolder, aName, aSubFolder));
 		}
 		return lObj;
+	}
+
+	public Player GetPlayer (string aName, bool aCreate = false)
+	{
+		return data.GetPlayer (aName, aCreate);
+	}
+
+	public void SetPlayerName (string aName)
+	{
+		currentPlayer = GetPlayer (aName, true);
+	}
+
+	public void LoadData ()
+	{
+		string lPath = Path.Combine (Application.persistentDataPath, "data.dat");
+		if (File.Exists (lPath)) {
+			BinaryFormatter lBf = new BinaryFormatter ();
+			FileStream lFile = File.OpenRead (lPath);
+			data = lBf.Deserialize (lFile) as PlayersData;
+			lFile.Close ();
+		}
+	}
+
+	public void SaveData ()
+	{
+		BinaryFormatter lBf = new BinaryFormatter ();
+		FileStream lFile = File.Create (Path.Combine (Application.persistentDataPath, "data.dat"));
+		lBf.Serialize (lFile, data);
+		lFile.Close ();
 	}
 }

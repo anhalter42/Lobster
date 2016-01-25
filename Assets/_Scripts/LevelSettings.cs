@@ -79,6 +79,18 @@ public class LevelSettings
 	public string prefabs = "Simple";
 	public int level = 1;
 	public string levelName = "NO LEVELS";
+
+	string m_worldName = string.Empty;
+	public string worldName {
+		get {
+			if (string.IsNullOrEmpty (m_worldName) && !string.IsNullOrEmpty (prefabs)) {
+				m_worldName = AllLevels.Get ().GetCellDescription (prefabs).worldName;
+			}
+			return m_worldName;
+		}
+		set { m_worldName = value; }
+	}
+
 	public string levelDescription = string.Empty;
 	public int mazeWidth = 5;
 	public int mazeHeight = 1;
@@ -93,6 +105,7 @@ public class LevelSettings
 	public float scoreTimeBonusFactor = 5f;
 	// Faktor für extra Time Bonus Score
 	public Maze.Point playerStart = null;
+	public Maze.Point exitPos = null;
 	public float ambientLight = 0.75f;
 	public Color ambientLightColor = new Color (77 / 255, 77 / 255, 77 / 255);
 	public UnityEngine.Rendering.AmbientMode ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
@@ -278,6 +291,7 @@ public class LevelSettings
 	public void ReadLine (string aLine)
 	{
 		if (!ReadString (ref prefabs, aLine, "prefabs"))
+		if (!ReadString (ref m_worldName, aLine, "world"))
 		if (!ReadAudioClip (ref audioBackgroundMusic, aLine, "audioBackgroundMusic", null))
 		if (!ReadAudioClip (ref audioBackgroundPause, aLine, "audioBackgroundPause", null))
 		if (!ReadAudioClip (ref audioBackgroundLevelEnd, aLine, "audioBackgroundLevelEnd", null))
@@ -292,7 +306,8 @@ public class LevelSettings
 		if (!ReadInt (ref mazeDepth, aLine, "mazeDepth"))
 		if (!ReadInt (ref breakWalls, aLine, "breakWalls"))
 		if (!ReadInt (ref maxTime, aLine, "maxTime"))
-		if (!ReadMazePoint( ref playerStart, aLine, "playerStart"))
+		if (!ReadMazePoint (ref playerStart, aLine, "playerStart"))
+		if (!ReadMazePoint (ref exitPos, aLine, "exitPos"))
 		if (!ReadColor (ref ambientLightColor, aLine, "ambientLightColor"))
 		if (!ReadFloat (ref ambientLight, aLine, "ambientLight"))
 		if (!ReadAmbientMode (ref ambientMode, aLine, "ambientMode"))
