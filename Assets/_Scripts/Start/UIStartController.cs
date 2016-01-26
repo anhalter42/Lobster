@@ -1,18 +1,32 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UIStartController : MonoBehaviour
 {
 
 	public Material material;
 
+	public InputField m_NewPlayerName;
+	public RectTransform m_NewPlayerPanel;
+	public Dropdown m_DropdownPlayer;
 
 	Texture2D texture;
 
 	// Use this for initialization
 	void Start ()
 	{
+		if (!m_NewPlayerPanel) {
+			m_NewPlayerPanel = GameObject.Find ("PanelNewPlayer").GetComponent<RectTransform> ();
+		}
+		if (!m_NewPlayerName) {
+			m_NewPlayerName = GameObject.Find ("InputFieldName").GetComponent<InputField> ();
+		}
+		if (!m_DropdownPlayer) {
+			m_DropdownPlayer = GameObject.Find ("DropdownPlayer").GetComponent<Dropdown> ();
+		}
 		DontDestroyOnLoad (GameObject.Find ("Master"));
 		texture = new Texture2D (500, 500);
 		if (material) {
@@ -47,6 +61,25 @@ public class UIStartController : MonoBehaviour
 		di [13] = 2;
 		di [14] = 3;
 		di [15] = 2;
+		m_NewPlayerPanel.gameObject.SetActive (false);
+		UpdatePlayerDrowpdown();
+	}
+
+	void UpdatePlayerDrowpdown()
+	{
+		string lName = PlayerPrefs.GetString("PlayerName", "Winston");
+		int i = 0, lIndex = 0;
+		m_DropdownPlayer.ClearOptions ();
+		List<string> lPlayers = new List<string> ();
+		foreach (Player lP in AllLevels.Get().data.players) {
+			lPlayers.Add (lP.name);
+			if (lP.name == lName) {
+				lIndex = i;
+			}
+			i++;
+		}
+		m_DropdownPlayer.AddOptions (lPlayers);
+		m_DropdownPlayer.value = lIndex;
 	}
 
 	int x, y;
@@ -120,5 +153,23 @@ public class UIStartController : MonoBehaviour
 	public void ButtonStart ()
 	{
 		SceneManager.LoadScene ("ChooseLevel", LoadSceneMode.Single);
+	}
+
+	public void ButtonNewPlayer ()
+	{
+		m_NewPlayerPanel.gameObject.SetActive (true);
+		m_NewPlayerName.ActivateInputField();
+	}
+
+	public void ButtonNewPlayerCancel ()
+	{
+		m_NewPlayerPanel.gameObject.SetActive (false);
+	}
+
+	public void ButtonNewPlayerOK ()
+	{
+		AllLevels.Get ().SetPlayerName (m_NewPlayerName.text);
+		UpdatePlayerDrowpdown();
+		m_NewPlayerPanel.gameObject.SetActive (false);
 	}
 }

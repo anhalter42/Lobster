@@ -221,6 +221,7 @@ public class AllLevels : MonoBehaviour
 	public void SetPlayerName (string aName)
 	{
 		currentPlayer = GetPlayer (aName, true);
+		PlayerPrefs.SetString ("PlayerName", currentPlayer.name);
 	}
 
 	public void LoadData ()
