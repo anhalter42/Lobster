@@ -10,6 +10,7 @@ public class UIStartController : MonoBehaviour
 	public Material material;
 
 	public InputField m_NewPlayerName;
+	public InputField m_NewPlayerAge;
 	public RectTransform m_NewPlayerPanel;
 	public Dropdown m_DropdownPlayer;
 
@@ -24,6 +25,10 @@ public class UIStartController : MonoBehaviour
 		if (!m_NewPlayerName) {
 			m_NewPlayerName = GameObject.Find ("InputFieldName").GetComponent<InputField> ();
 		}
+		if (!m_NewPlayerAge) {
+			m_NewPlayerAge = GameObject.Find ("InputFieldAge").GetComponent<InputField> ();
+		}
+
 		if (!m_DropdownPlayer) {
 			m_DropdownPlayer = GameObject.Find ("DropdownPlayer").GetComponent<Dropdown> ();
 		}
@@ -169,6 +174,8 @@ public class UIStartController : MonoBehaviour
 	public void ButtonNewPlayerOK ()
 	{
 		AllLevels.Get ().SetPlayerName (m_NewPlayerName.text);
+		if (!int.TryParse(m_NewPlayerAge.text, out AllLevels.Get ().currentPlayer.age))
+			AllLevels.Get ().currentPlayer.age = 0;
 		UpdatePlayerDrowpdown();
 		m_NewPlayerPanel.gameObject.SetActive (false);
 	}

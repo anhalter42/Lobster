@@ -56,6 +56,9 @@ public class UIController : MonoBehaviour
 		if (Input.GetKeyUp (KeyCode.RightArrow)) {
 			ButtonNext ();
 		}
+		if (Input.GetKeyUp (KeyCode.Space)) {
+			ButtonPlay ();
+		}
 	}
 
 	public void ButtonNext ()

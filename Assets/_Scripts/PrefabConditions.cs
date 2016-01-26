@@ -7,4 +7,7 @@ public class PrefabConditions : MonoBehaviour {
 	public string[] mustHaveTags;
 	public string[] forbiddenTags;
 
+	public int minAge = 0;
+	public int maxAge = 999;
+
 }

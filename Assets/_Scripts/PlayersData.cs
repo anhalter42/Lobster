@@ -24,6 +24,7 @@ public class PlayerLevel
 public class Player
 {
 	public string name;
+	public int age = 0;
 	public List<PlayerLevel> levels = new List<PlayerLevel>();
 
 	public PlayerLevel GetLevel(string aWorld, string aName, bool aCreate = false)

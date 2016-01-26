@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -210,6 +211,16 @@ public class LevelController : MonoBehaviour
 				} else {
 					PauseLevel ();
 				}
+			}
+		}
+		if (m_panelStart.gameObject.activeSelf) {
+
+		} else if (m_panelLevelFinished.gameObject.activeSelf) {
+			if (Input.GetKeyUp (KeyCode.Escape)) {
+				StartChooseLevel();
+			}
+			if (Input.GetKeyUp (KeyCode.Space) || Input.GetKeyUp (KeyCode.Return) || Input.GetButtonDown("Fire1")) {
+				StartNextLevel();
 			}
 		}
 	}
@@ -573,4 +584,10 @@ public class LevelController : MonoBehaviour
 			Invoke ("ResetCamera", 5f);
 		}
 	}
+
+	public void StartChooseLevel ()
+	{
+		SceneManager.LoadScene ("ChooseLevel", LoadSceneMode.Single);
+	}
+
 }
