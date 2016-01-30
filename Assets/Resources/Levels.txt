@@ -38,7 +38,7 @@ playerStart	0,0,0
 directCell	3,0,3;Left,Forward,Right,Backward;true
 directPrefab	ChestGreen_B+;3,0,3
 
-#Tutorial 3
+#Tutorial 4
 //Ein wenig größer :-)
 world	Tutorial
 prefabs	Dungeon1

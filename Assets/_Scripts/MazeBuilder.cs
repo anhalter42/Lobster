@@ -272,7 +272,7 @@ public class MazeBuilder
 				if (lCell.ContainsTags (lCond.forbiddenTags)) {
 					return null;
 				}
-				if (!lCell.ContainsTags (lCond.mustHaveTags)) {
+				if (!lCell.ContainsAllTags (lCond.mustHaveTags)) {
 					if (aForLater != null) {
 						aForLater.Add (aPrefab);
 					}

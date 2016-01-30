@@ -28,6 +28,20 @@ public class MazeCellComponent : MonoBehaviour
 		}
 	}
 
+	public bool ContainsAllTags (string[] aTags)
+	{
+		if (aTags.Length > 0) {
+			for (int i = 0; i < aTags.Length; i++) {
+				if (!tags.ContainsKey (aTags [i])) {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			return true;
+		}
+	}
+
 	public bool ContainsTag (string aTag)
 	{
 		return tags.ContainsKey (aTag);

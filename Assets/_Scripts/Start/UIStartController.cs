@@ -179,4 +179,10 @@ public class UIStartController : MonoBehaviour
 		UpdatePlayerDrowpdown();
 		m_NewPlayerPanel.gameObject.SetActive (false);
 	}
+
+	public void ButtonProfile ()
+	{
+		SceneManager.LoadScene ("PlayerProfile", LoadSceneMode.Single);
+	}
+
 }

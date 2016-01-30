@@ -7,6 +7,7 @@ using System;
 public class PlayerLevel
 {
 	public string world;
+	public int level;
 	public string levelName;
 
 	// completed with max scoreComplete
@@ -18,6 +19,18 @@ public class PlayerLevel
 
 	// overrall min time
 	public float minTime;
+}
+
+public class PlayerLevelComparer : IComparer<PlayerLevel> 
+{
+	public int Compare(PlayerLevel x, PlayerLevel y)
+	{
+		int lres = x.world.CompareTo(y.world);
+		if (lres == 0) {
+			lres = x.levelName.CompareTo(y.levelName);
+		}
+		return lres;
+	}
 }
 
 [Serializable]

@@ -535,6 +535,7 @@ public class LevelController : MonoBehaviour
 		m_panelLevelFinished.gameObject.SetActive (true);
 		PlayOnBackground (audioBackgroundLevelEnd);
 		PlayerLevel lL = AllLevels.Get ().currentPlayer.GetLevel (settings.worldName, settings.levelName, true);
+		lL.level = settings.level;
 		int lScoreComplete = playerLevelSettings.score + playerLevelSettings.scoreBonus + playerLevelSettings.scoreTimeBonus;
 		if (lScoreComplete > lL.scoreComplete) {
 			lL.score = playerLevelSettings.score;

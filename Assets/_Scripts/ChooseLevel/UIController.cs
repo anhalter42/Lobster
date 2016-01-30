@@ -59,6 +59,9 @@ public class UIController : MonoBehaviour
 		if (Input.GetKeyUp (KeyCode.Space)) {
 			ButtonPlay ();
 		}
+		if (Input.GetKeyUp (KeyCode.Escape)) {
+			ButtonBack ();
+		}
 	}
 
 	public void ButtonNext ()
@@ -80,6 +83,16 @@ public class UIController : MonoBehaviour
 	public void ButtonPlay ()
 	{
 		SceneManager.LoadScene ("Main", LoadSceneMode.Single);
+	}
+
+	public void ButtonBack ()
+	{
+		SceneManager.LoadScene ("Start", LoadSceneMode.Single);
+	}
+
+	public void ButtonProfile ()
+	{
+		SceneManager.LoadScene ("PlayerProfile", LoadSceneMode.Single);
 	}
 
 	void CreateLabyrinth ()

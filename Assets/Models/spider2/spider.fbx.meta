@@ -1,0 +1,1811 @@
+fileFormatVersion: 2
+guid: 04b1137ffb32141ffb366dc7b22b1432
+timeCreated: 1453993684
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: _
+    100002: Body
+    100004: Body2
+    100006: Body_002
+    100008: Body_003
+    100010: Cube
+    100012: Cube_001
+    100014: Cube_002
+    100016: Cube_003
+    100018: Cube_004
+    100020: FU_1_L
+    100022: FU_1_R
+    100024: FU_2_L
+    100026: FU_2_R
+    100028: FU_3_L
+    100030: FU_3_R
+    100032: Hemi
+    100034: Plane
+    100036: //RootNode
+    100038: v2_B1_L
+    100040: v2_B1_R
+    100042: v2_B2_L
+    100044: v2_B2_R
+    100046: v2_B3_L
+    100048: v2_B3_L_001
+    100050: v2_B3_R
+    100052: v2_B3_R_001
+    100054: v3_B1_L
+    100056: v3_B1_R
+    100058: v3_B2_L
+    100060: v3_B2_R
+    100062: v3_B3_L
+    100064: v3_B3_L_001
+    100066: v3_B3_R
+    100068: v3_B3_R_001
+    100070: v4_B1_L
+    100072: v4_B1_R
+    100074: v4_B2_L
+    100076: v4_B2_R
+    100078: v4_B3_L
+    100080: v4_B3_L_001
+    100082: v4_B3_R
+    100084: v4_B3_R_001
+    100086: v_B1_L
+    100088: v_B1_R
+    100090: v_B2_L
+    100092: v_B2_R
+    100094: v_B3_L
+    100096: v_B3_L_001
+    100098: v_B3_R
+    100100: v_B3_R_001
+    100102: Zahn_L
+    100104: Zahn_R
+    400000: _
+    400002: Body
+    400004: Body2
+    400006: Body_002
+    400008: Body_003
+    400010: Cube
+    400012: Cube_001
+    400014: Cube_002
+    400016: Cube_003
+    400018: Cube_004
+    400020: FU_1_L
+    400022: FU_1_R
+    400024: FU_2_L
+    400026: FU_2_R
+    400028: FU_3_L
+    400030: FU_3_R
+    400032: Hemi
+    400034: Plane
+    400036: //RootNode
+    400038: v2_B1_L
+    400040: v2_B1_R
+    400042: v2_B2_L
+    400044: v2_B2_R
+    400046: v2_B3_L
+    400048: v2_B3_L_001
+    400050: v2_B3_R
+    400052: v2_B3_R_001
+    400054: v3_B1_L
+    400056: v3_B1_R
+    400058: v3_B2_L
+    400060: v3_B2_R
+    400062: v3_B3_L
+    400064: v3_B3_L_001
+    400066: v3_B3_R
+    400068: v3_B3_R_001
+    400070: v4_B1_L
+    400072: v4_B1_R
+    400074: v4_B2_L
+    400076: v4_B2_R
+    400078: v4_B3_L
+    400080: v4_B3_L_001
+    400082: v4_B3_R
+    400084: v4_B3_R_001
+    400086: v_B1_L
+    400088: v_B1_R
+    400090: v_B2_L
+    400092: v_B2_R
+    400094: v_B3_L
+    400096: v_B3_L_001
+    400098: v_B3_R
+    400100: v_B3_R_001
+    400102: Zahn_L
+    400104: Zahn_R
+    2300000: Plane
+    3300000: Plane
+    4300000: Cube_004
+    4300002: Cube_003
+    4300004: Cube_001
+    4300006: Cube_002
+    4300008: Cube
+    4300010: Plane
+    7400000: 01_run_forward
+    7400002: 02_Attack
+    7400004: 03_die
+    7400006: 04_die_2
+    7400008: 05_Idle_Animation
+    7400010: 06_Jump
+    7400012: 07_run_left
+    7400014: 08_run_right
+    7400016: 09_walk_forward
+    7400018: 10_walk_left
+    7400020: 11_walk_right
+    7400022: 12_walk_back
+    9500000: //RootNode
+    13700000: Cube
+    13700002: Cube_001
+    13700004: Cube_002
+    13700006: Cube_003
+    13700008: Cube_004
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: 01_run_forward
+      takeName: 01_run_forward
+      firstFrame: 0
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _
+        weight: 1
+      - path: _/Body_003
+        weight: 1
+      - path: _/Body_003/Body_002
+        weight: 1
+      - path: _/Body_003/Body_002/Body
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Body2
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L/FU_3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R/FU_3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L/v2_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R/v2_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L/v3_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R/v3_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L/v4_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R/v4_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L/v_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R/v_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_R
+        weight: 1
+      - path: _/Body_003/v2_B3_L_001
+        weight: 1
+      - path: _/Body_003/v2_B3_R_001
+        weight: 1
+      - path: _/Body_003/v3_B3_L_001
+        weight: 1
+      - path: _/Body_003/v3_B3_R_001
+        weight: 1
+      - path: _/Body_003/v4_B3_L_001
+        weight: 1
+      - path: _/Body_003/v4_B3_R_001
+        weight: 1
+      - path: _/Body_003/v_B3_L_001
+        weight: 1
+      - path: _/Body_003/v_B3_R_001
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: Cube_001
+        weight: 1
+      - path: Cube_002
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      - path: Cube_004
+        weight: 1
+      - path: Hemi
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: 02_Attack
+      takeName: 02_Attack
+      firstFrame: -1
+      lastFrame: 49
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _
+        weight: 1
+      - path: _/Body_003
+        weight: 1
+      - path: _/Body_003/Body_002
+        weight: 1
+      - path: _/Body_003/Body_002/Body
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Body2
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L/FU_3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R/FU_3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L/v2_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R/v2_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L/v3_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R/v3_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L/v4_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R/v4_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L/v_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R/v_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_R
+        weight: 1
+      - path: _/Body_003/v2_B3_L_001
+        weight: 1
+      - path: _/Body_003/v2_B3_R_001
+        weight: 1
+      - path: _/Body_003/v3_B3_L_001
+        weight: 1
+      - path: _/Body_003/v3_B3_R_001
+        weight: 1
+      - path: _/Body_003/v4_B3_L_001
+        weight: 1
+      - path: _/Body_003/v4_B3_R_001
+        weight: 1
+      - path: _/Body_003/v_B3_L_001
+        weight: 1
+      - path: _/Body_003/v_B3_R_001
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: Cube_001
+        weight: 1
+      - path: Cube_002
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      - path: Cube_004
+        weight: 1
+      - path: Hemi
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: 03_die
+      takeName: 03_die
+      firstFrame: -1
+      lastFrame: 99
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _
+        weight: 1
+      - path: _/Body_003
+        weight: 1
+      - path: _/Body_003/Body_002
+        weight: 1
+      - path: _/Body_003/Body_002/Body
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Body2
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L/FU_3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R/FU_3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L/v2_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R/v2_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L/v3_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R/v3_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L/v4_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R/v4_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L/v_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R/v_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_R
+        weight: 1
+      - path: _/Body_003/v2_B3_L_001
+        weight: 1
+      - path: _/Body_003/v2_B3_R_001
+        weight: 1
+      - path: _/Body_003/v3_B3_L_001
+        weight: 1
+      - path: _/Body_003/v3_B3_R_001
+        weight: 1
+      - path: _/Body_003/v4_B3_L_001
+        weight: 1
+      - path: _/Body_003/v4_B3_R_001
+        weight: 1
+      - path: _/Body_003/v_B3_L_001
+        weight: 1
+      - path: _/Body_003/v_B3_R_001
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: Cube_001
+        weight: 1
+      - path: Cube_002
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      - path: Cube_004
+        weight: 1
+      - path: Hemi
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: 04_die_2
+      takeName: 04_die_2
+      firstFrame: -1
+      lastFrame: 58
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _
+        weight: 1
+      - path: _/Body_003
+        weight: 1
+      - path: _/Body_003/Body_002
+        weight: 1
+      - path: _/Body_003/Body_002/Body
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Body2
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L/FU_3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R/FU_3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L/v2_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R/v2_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L/v3_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R/v3_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L/v4_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R/v4_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L/v_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R/v_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_R
+        weight: 1
+      - path: _/Body_003/v2_B3_L_001
+        weight: 1
+      - path: _/Body_003/v2_B3_R_001
+        weight: 1
+      - path: _/Body_003/v3_B3_L_001
+        weight: 1
+      - path: _/Body_003/v3_B3_R_001
+        weight: 1
+      - path: _/Body_003/v4_B3_L_001
+        weight: 1
+      - path: _/Body_003/v4_B3_R_001
+        weight: 1
+      - path: _/Body_003/v_B3_L_001
+        weight: 1
+      - path: _/Body_003/v_B3_R_001
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: Cube_001
+        weight: 1
+      - path: Cube_002
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      - path: Cube_004
+        weight: 1
+      - path: Hemi
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: 05_Idle_Animation
+      takeName: 05_Idle_Animation
+      firstFrame: -1
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _
+        weight: 1
+      - path: _/Body_003
+        weight: 1
+      - path: _/Body_003/Body_002
+        weight: 1
+      - path: _/Body_003/Body_002/Body
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Body2
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L/FU_3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R/FU_3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L/v2_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R/v2_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L/v3_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R/v3_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L/v4_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R/v4_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L/v_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R/v_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_R
+        weight: 1
+      - path: _/Body_003/v2_B3_L_001
+        weight: 1
+      - path: _/Body_003/v2_B3_R_001
+        weight: 1
+      - path: _/Body_003/v3_B3_L_001
+        weight: 1
+      - path: _/Body_003/v3_B3_R_001
+        weight: 1
+      - path: _/Body_003/v4_B3_L_001
+        weight: 1
+      - path: _/Body_003/v4_B3_R_001
+        weight: 1
+      - path: _/Body_003/v_B3_L_001
+        weight: 1
+      - path: _/Body_003/v_B3_R_001
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: Cube_001
+        weight: 1
+      - path: Cube_002
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      - path: Cube_004
+        weight: 1
+      - path: Hemi
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: 06_Jump
+      takeName: 06_Jump
+      firstFrame: -1
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _
+        weight: 1
+      - path: _/Body_003
+        weight: 1
+      - path: _/Body_003/Body_002
+        weight: 1
+      - path: _/Body_003/Body_002/Body
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Body2
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L/FU_3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R/FU_3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L/v2_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R/v2_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L/v3_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R/v3_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L/v4_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R/v4_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L/v_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R/v_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_R
+        weight: 1
+      - path: _/Body_003/v2_B3_L_001
+        weight: 1
+      - path: _/Body_003/v2_B3_R_001
+        weight: 1
+      - path: _/Body_003/v3_B3_L_001
+        weight: 1
+      - path: _/Body_003/v3_B3_R_001
+        weight: 1
+      - path: _/Body_003/v4_B3_L_001
+        weight: 1
+      - path: _/Body_003/v4_B3_R_001
+        weight: 1
+      - path: _/Body_003/v_B3_L_001
+        weight: 1
+      - path: _/Body_003/v_B3_R_001
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: Cube_001
+        weight: 1
+      - path: Cube_002
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      - path: Cube_004
+        weight: 1
+      - path: Hemi
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: 07_run_left
+      takeName: 07_run_left
+      firstFrame: 0
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _
+        weight: 1
+      - path: _/Body_003
+        weight: 1
+      - path: _/Body_003/Body_002
+        weight: 1
+      - path: _/Body_003/Body_002/Body
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Body2
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L/FU_3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R/FU_3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L/v2_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R/v2_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L/v3_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R/v3_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L/v4_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R/v4_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L/v_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R/v_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_R
+        weight: 1
+      - path: _/Body_003/v2_B3_L_001
+        weight: 1
+      - path: _/Body_003/v2_B3_R_001
+        weight: 1
+      - path: _/Body_003/v3_B3_L_001
+        weight: 1
+      - path: _/Body_003/v3_B3_R_001
+        weight: 1
+      - path: _/Body_003/v4_B3_L_001
+        weight: 1
+      - path: _/Body_003/v4_B3_R_001
+        weight: 1
+      - path: _/Body_003/v_B3_L_001
+        weight: 1
+      - path: _/Body_003/v_B3_R_001
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: Cube_001
+        weight: 1
+      - path: Cube_002
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      - path: Cube_004
+        weight: 1
+      - path: Hemi
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: 08_run_right
+      takeName: 08_run_right
+      firstFrame: 0
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _
+        weight: 1
+      - path: _/Body_003
+        weight: 1
+      - path: _/Body_003/Body_002
+        weight: 1
+      - path: _/Body_003/Body_002/Body
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Body2
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L/FU_3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R/FU_3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L/v2_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R/v2_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L/v3_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R/v3_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L/v4_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R/v4_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L/v_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R/v_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_R
+        weight: 1
+      - path: _/Body_003/v2_B3_L_001
+        weight: 1
+      - path: _/Body_003/v2_B3_R_001
+        weight: 1
+      - path: _/Body_003/v3_B3_L_001
+        weight: 1
+      - path: _/Body_003/v3_B3_R_001
+        weight: 1
+      - path: _/Body_003/v4_B3_L_001
+        weight: 1
+      - path: _/Body_003/v4_B3_R_001
+        weight: 1
+      - path: _/Body_003/v_B3_L_001
+        weight: 1
+      - path: _/Body_003/v_B3_R_001
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: Cube_001
+        weight: 1
+      - path: Cube_002
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      - path: Cube_004
+        weight: 1
+      - path: Hemi
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: 09_walk_forward
+      takeName: 09_walk_forward
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _
+        weight: 1
+      - path: _/Body_003
+        weight: 1
+      - path: _/Body_003/Body_002
+        weight: 1
+      - path: _/Body_003/Body_002/Body
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Body2
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L/FU_3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R/FU_3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L/v2_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R/v2_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L/v3_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R/v3_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L/v4_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R/v4_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L/v_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R/v_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_R
+        weight: 1
+      - path: _/Body_003/v2_B3_L_001
+        weight: 1
+      - path: _/Body_003/v2_B3_R_001
+        weight: 1
+      - path: _/Body_003/v3_B3_L_001
+        weight: 1
+      - path: _/Body_003/v3_B3_R_001
+        weight: 1
+      - path: _/Body_003/v4_B3_L_001
+        weight: 1
+      - path: _/Body_003/v4_B3_R_001
+        weight: 1
+      - path: _/Body_003/v_B3_L_001
+        weight: 1
+      - path: _/Body_003/v_B3_R_001
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: Cube_001
+        weight: 1
+      - path: Cube_002
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      - path: Cube_004
+        weight: 1
+      - path: Hemi
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: 10_walk_left
+      takeName: 10_walk_left
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _
+        weight: 1
+      - path: _/Body_003
+        weight: 1
+      - path: _/Body_003/Body_002
+        weight: 1
+      - path: _/Body_003/Body_002/Body
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Body2
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L/FU_3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R/FU_3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L/v2_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R/v2_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L/v3_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R/v3_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L/v4_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R/v4_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L/v_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R/v_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_R
+        weight: 1
+      - path: _/Body_003/v2_B3_L_001
+        weight: 1
+      - path: _/Body_003/v2_B3_R_001
+        weight: 1
+      - path: _/Body_003/v3_B3_L_001
+        weight: 1
+      - path: _/Body_003/v3_B3_R_001
+        weight: 1
+      - path: _/Body_003/v4_B3_L_001
+        weight: 1
+      - path: _/Body_003/v4_B3_R_001
+        weight: 1
+      - path: _/Body_003/v_B3_L_001
+        weight: 1
+      - path: _/Body_003/v_B3_R_001
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: Cube_001
+        weight: 1
+      - path: Cube_002
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      - path: Cube_004
+        weight: 1
+      - path: Hemi
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: 11_walk_right
+      takeName: 11_walk_right
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _
+        weight: 1
+      - path: _/Body_003
+        weight: 1
+      - path: _/Body_003/Body_002
+        weight: 1
+      - path: _/Body_003/Body_002/Body
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Body2
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L/FU_3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R/FU_3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L/v2_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R/v2_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L/v3_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R/v3_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L/v4_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R/v4_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L/v_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R/v_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_R
+        weight: 1
+      - path: _/Body_003/v2_B3_L_001
+        weight: 1
+      - path: _/Body_003/v2_B3_R_001
+        weight: 1
+      - path: _/Body_003/v3_B3_L_001
+        weight: 1
+      - path: _/Body_003/v3_B3_R_001
+        weight: 1
+      - path: _/Body_003/v4_B3_L_001
+        weight: 1
+      - path: _/Body_003/v4_B3_R_001
+        weight: 1
+      - path: _/Body_003/v_B3_L_001
+        weight: 1
+      - path: _/Body_003/v_B3_R_001
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: Cube_001
+        weight: 1
+      - path: Cube_002
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      - path: Cube_004
+        weight: 1
+      - path: Hemi
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: 12_walk_back
+      takeName: 12_walk_back
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _
+        weight: 1
+      - path: _/Body_003
+        weight: 1
+      - path: _/Body_003/Body_002
+        weight: 1
+      - path: _/Body_003/Body_002/Body
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Body2
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_L/FU_2_L/FU_3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/FU_1_R/FU_2_R/FU_3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_L/v2_B2_L/v2_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v2_B1_R/v2_B2_R/v2_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_L/v3_B2_L/v3_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v3_B1_R/v3_B2_R/v3_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_L/v4_B2_L/v4_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v4_B1_R/v4_B2_R/v4_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_L/v_B2_L/v_B3_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/v_B1_R/v_B2_R/v_B3_R
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_L
+        weight: 1
+      - path: _/Body_003/Body_002/Body/Zahn_R
+        weight: 1
+      - path: _/Body_003/v2_B3_L_001
+        weight: 1
+      - path: _/Body_003/v2_B3_R_001
+        weight: 1
+      - path: _/Body_003/v3_B3_L_001
+        weight: 1
+      - path: _/Body_003/v3_B3_R_001
+        weight: 1
+      - path: _/Body_003/v4_B3_L_001
+        weight: 1
+      - path: _/Body_003/v4_B3_R_001
+        weight: 1
+      - path: _/Body_003/v_B3_L_001
+        weight: 1
+      - path: _/Body_003/v_B3_R_001
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: Cube_001
+        weight: 1
+      - path: Cube_002
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      - path: Cube_004
+        weight: 1
+      - path: Hemi
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -69,6 +69,7 @@
      <Compile Include="Assets\_Scripts\PickupData.cs" />
      <Compile Include="Assets\_Scripts\PlayerDamage.cs" />
      <Compile Include="Assets\_Scripts\PlayerInventory.cs" />
+     <Compile Include="Assets\_Scripts\PlayerProfile\UIPlayerProfileController.cs" />
      <Compile Include="Assets\_Scripts\PlayersData.cs" />
      <Compile Include="Assets\_Scripts\PrefabConditions.cs" />
      <Compile Include="Assets\_Scripts\PrefabModifier.cs" />
@@ -76,6 +77,7 @@
      <Compile Include="Assets\_Scripts\PrefabWallConditions.cs" />
      <Compile Include="Assets\_Scripts\RandomPosAround.cs" />
      <Compile Include="Assets\_Scripts\RotationY.cs" />
+     <Compile Include="Assets\_Scripts\Spider2Controller.cs" />
      <Compile Include="Assets\_Scripts\Start\UIStartController.cs" />
      <Compile Include="Assets\_Scripts\StayOnTarget.cs" />
      <Compile Include="Assets\_Scripts\TextureUtils.cs" />
