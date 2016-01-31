@@ -14,7 +14,7 @@ public class MazeCellComponent : MonoBehaviour
 	public string[] m_tags = { };
 	#endif
 		
-	public bool ContainsTags (string[] aTags)
+	public bool ContainsSomeTags (string[] aTags, bool aDefault = false)
 	{
 		if (aTags.Length > 0) {
 			for (int i = 0; i < aTags.Length; i++) {
@@ -24,7 +24,7 @@ public class MazeCellComponent : MonoBehaviour
 			}
 			return false;
 		} else {
-			return true;
+			return aDefault;
 		}
 	}
 

@@ -27,7 +27,7 @@ prefabs	Simple
 mazeWidth	6
 mazeHeight	1
 mazeDepth	6
-breakWalls	100
+breakWalls	2
 scoreForExit	20
 dayLight	0.5
 dayLightColor	200,150,50
@@ -71,7 +71,7 @@ prefabs	Dungeon1
 mazeWidth	20
 mazeHeight	1
 mazeDepth	20
-breakWalls	5
+breakWalls	40
 scoreForExit	400
 dayLight	0.75
 dayLightColor	255,255,255

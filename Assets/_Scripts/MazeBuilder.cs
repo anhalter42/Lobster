@@ -315,7 +315,7 @@ public class MazeBuilder
 		if (lCond) {
 			MazeCellComponent lCell = aParent.GetComponent<MazeCellComponent> ();
 			if (lCell) {
-				if (lCell.ContainsTags (lCond.forbiddenTags)) {
+				if (lCell.ContainsSomeTags (lCond.forbiddenTags)) {
 					return null;
 				}
 				if (!lCell.ContainsAllTags (lCond.mustHaveTags)) {
