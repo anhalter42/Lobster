@@ -6,6 +6,8 @@ public class MazeBuilder
 	public CellDirectionObjects prefabs;
 	public Transform parent;
 
+	public Vector3 positionScale = new Vector3 (1f, 1f, 1f);
+
 	public LevelSettings settings;
 
 	public Maze Maze;
@@ -55,7 +57,7 @@ public class MazeBuilder
 		case Maze.DirectionBackward:
 			return "Backward";
 		default:
-			return string.Empty;
+			return "Prop";
 		}
 	}
 
@@ -79,40 +81,65 @@ public class MazeBuilder
 		}
 	}
 
-	protected void DropSome (int aDir, Transform aParent, bool aWithWall)
+	protected void DropSome (int aDir, Transform aParent, bool aWithWall, ArrayList aForLater = null)
 	{
+		string lPrefix = GetWallTag (aDir) + "_";
+		GameObjectChance[] lGOCs = null;
 		switch (aDir) {
 		case Maze.DirectionTop:
-			DropSome ("Top_", aParent, prefabs.topProps, aWithWall);
+			lGOCs = prefabs.topProps;
 			break;
 		case Maze.DirectionBottom:
-			DropSome ("Bottom_", aParent, prefabs.bottomProps, aWithWall);
+			lGOCs = prefabs.bottomProps;
 			break;
 		case Maze.DirectionLeft:
-			DropSome ("Left_", aParent, prefabs.leftProps, aWithWall);
+			lGOCs = prefabs.leftProps;
 			break;
 		case Maze.DirectionRight:
-			DropSome ("Right_", aParent, prefabs.rightProps, aWithWall);
+			lGOCs = prefabs.rightProps;
 			break;
 		case Maze.DirectionForward:
-			DropSome ("Forward_", aParent, prefabs.forwardProps, aWithWall);
+			lGOCs = prefabs.forwardProps;
 			break;
 		case Maze.DirectionBackward:
-			DropSome ("Backward_", aParent, prefabs.backwardProps, aWithWall);
+			lGOCs = prefabs.backwardProps;
 			break;
+		}
+		if (lGOCs != null) {
+			DropSome (lPrefix, aParent, lGOCs, aWithWall, aForLater);
 		}
 	}
 
-	protected void DropSome (string aNamePrefix, Transform aParent, GameObjectChance[] aObjs, bool aWithWall)
+	public class ForLater
+	{
+		public string prefix;
+		public Transform parent;
+		public GameObject prefab;
+
+		public ForLater (string aPrefix, Transform aParent, GameObject aPrefab)
+		{
+			prefix = aPrefix;
+			parent = aParent;
+			prefab = aPrefab;
+		}
+	}
+
+	protected void DropSome (string aNamePrefix, Transform aParent, GameObjectChance[] aObjs, bool aWithWall, ArrayList aForLater = null)
 	{
 		ArrayList lForLater = new ArrayList ();
+		ArrayList lForLater2 = new ArrayList ();
 		GameObject[] lObjs = prefabs.GetSome (aObjs, aWithWall);
 		int i;
 		for (i = 0; i < lObjs.Length; i++) {
 			CreateGameObject (lObjs [i], aParent, aNamePrefix + i.ToString (), lForLater);
 		}
 		for (int j = 0; j < lForLater.Count; j++, i++) {
-			CreateGameObject (lForLater [j] as GameObject, aParent, aNamePrefix + i.ToString ());
+			CreateGameObject (lForLater [j] as GameObject, aParent, aNamePrefix + i.ToString (), lForLater2);
+		}
+		if (aForLater != null) {
+			for (int j = 0; j < lForLater2.Count; j++, i++) {
+				aForLater.Add (new ForLater (aNamePrefix, aParent, lForLater2 [j] as GameObject));
+			}
 		}
 	}
 
@@ -121,9 +148,44 @@ public class MazeBuilder
 		CreateLabyrinth (aParent, Vector3.zero);
 	}
 
+	GameObject[] levels;
+
+	void CreateCellObjects (Transform aParent, Vector3 aPos)
+	{
+		levels = new GameObject[Maze.height];
+		Vector3 lPos = new Vector3 ();
+		for (int y = 0; y < Maze.height; y++) {
+			GameObject lLevelParent = new GameObject ("Level_" + y.ToString ());
+			levels [y] = lLevelParent;
+			if (aParent) {
+				lLevelParent.transform.SetParent (aParent, false);
+			}
+			for (int z = 0; z < Maze.depth; z++) {
+				for (int x = 0; x < Maze.width; x++) {
+					lPos.x = aPos.x + positionScale.x * x;
+					lPos.y = aPos.y + positionScale.y * y;
+					lPos.z = aPos.z + positionScale.z * z;
+					GameObject lCellObj = new GameObject ("Cell_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString ());
+					Maze.Cell lCell = Maze.get (x, y, z);
+					lCell.gameObject = lCellObj;
+					MazeCellComponent lCellComp = lCellObj.AddComponent<MazeCellComponent> ();
+					lCellComp.cell = lCell;
+					lCellObj.transform.SetParent (lLevelParent.transform, false);
+					lCellObj.transform.localPosition = lPos;
+					for (int lDir = 0; lDir < 6; lDir++) {
+						if (!Maze.get (x, y, z).links [lDir].broken) {
+							lCellComp.SetTag (GetWallTag (lDir));
+						} else {
+							lCellComp.SetTag ("No" + GetWallTag (lDir));
+						}
+					}
+				}
+			}
+		}
+	}
+
 	public void CreateLabyrinth (Transform aParent, Vector3 aPos)
 	{
-		Debug.Log ("Creating Labyrinth...");
 		Init ();
 		int[] lDirs = { 0, 1, 2, 3, 4, 5 };
 		parent = aParent;
@@ -132,30 +194,14 @@ public class MazeBuilder
 				GameObject.DestroyObject (aParent.transform.GetChild (i).gameObject);
 			}
 		}
-		GameObject lWallParent = new GameObject ("Walls");
-		GameObject lMarkerParent = new GameObject ("Markers");
-		if (aParent) {
-			lWallParent.transform.SetParent (aParent, false);
-			lMarkerParent.transform.SetParent (aParent, false);
-		}
-		Vector3 lPos = new Vector3 ();
+		CreateCellObjects (aParent, aPos);
+		ArrayList lForLater = new ArrayList ();
 		for (int y = 0; y < Maze.height; y++) {
-			GameObject lLevelParent = new GameObject ("Level_" + y.ToString ());
-			if (aParent) {
-				lLevelParent.transform.SetParent (lWallParent.transform, false);
-			}
 			for (int z = 0; z < Maze.depth; z++) {
 				for (int x = 0; x < Maze.width; x++) {
-					lPos.x = aPos.x + 1.0f * x;
-					lPos.y = aPos.y + 1.0f * y;
-					lPos.z = aPos.z + 1.0f * z;
-					GameObject lCellObj = new GameObject ("Cell_" + y.ToString () + "_" + x.ToString () + "_" + z.ToString ());
 					Maze.Cell lCell = Maze.get (x, y, z);
-					lCell.gameObject = lCellObj;
-					MazeCellComponent lCellComp = lCellObj.AddComponent<MazeCellComponent> ();
-					lCellComp.cell = lCell;
-					lCellObj.transform.SetParent (lLevelParent.transform, false);
-					lCellObj.transform.localPosition = lPos;
+					GameObject lCellObj = lCell.gameObject;
+					MazeCellComponent lCellComp = lCellObj.GetComponent<MazeCellComponent> ();
 					for (int lD = 0; lD < 6; lD++) {
 						int lDir = lDirs [lD];
 						if (!Maze.get (x, y, z).links [lDir].broken) {
@@ -186,12 +232,9 @@ public class MazeBuilder
 									}
 								}
 							}
-							lCellComp.SetTag (GetWallTag (lDir));
-							//DropForSettings(lCellObj.transform);
-							DropSome (lDir, lCellObj.transform, true);
+							DropSome (lDir, lCellObj.transform, true, lForLater);
 						} else {
-							lCellComp.SetTag ("No" + GetWallTag (lDir));
-							DropSome (lDir, lCellObj.transform, false);
+							DropSome (lDir, lCellObj.transform, false, lForLater);
 						}
 					}
 
@@ -204,14 +247,17 @@ public class MazeBuilder
 
 					GameObject lscore1Prefab = prefabs.GetOneForScore (prefabs.score, 1);
 					if (lscore1Prefab) {
-						GameObject lScore = CreateGameObject (lscore1Prefab, lCellObj.transform, "Score_1"); //, Vector3.down * 0.25f) as GameObject;
+						GameObject lScore = CreateGameObject (lscore1Prefab, lCellObj.transform, "Score_1");
 						lScore.GetComponent<PickupData> ().score = 1;
 					}
-					DropSome ("Prop_", lCellObj.transform, prefabs.props, false);
+					DropSome ("Prop_", lCellObj.transform, prefabs.props, false, lForLater);
 				}
 			}
 		}
-		Debug.Log ("Labyrinth created.");
+		for (int j = 0; j < lForLater.Count; j++) {
+			ForLater lFL = lForLater [j] as ForLater;
+			CreateGameObject (lFL.prefab, lFL.parent, lFL.prefix + "L_" + j.ToString ());
+		}
 	}
 
 	public void ActivateWayPoints (Maze.Point aFrom, Maze.Point aTo)
@@ -238,9 +284,9 @@ public class MazeBuilder
 	public Maze.Point GetMazePointFromLocal (Vector3 aPos)
 	{
 		return new Maze.Point (
-			(int)(aPos.x + 0.5f),
-			(int)(aPos.y + 0.5f),
-			(int)(aPos.z + 0.5f));
+			(int)(aPos.x/positionScale.x + positionScale.x/2f),
+			(int)(aPos.y/positionScale.y + positionScale.y/2f),
+			(int)(aPos.z/positionScale.z + positionScale.z/2f));
 	}
 
 	public Maze.Point GetMazePoint (Vector3 aPos)

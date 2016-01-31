@@ -9,7 +9,7 @@ public class MazeCellComponent : MonoBehaviour
 
 	public GameObject[] walls = new GameObject[6];
 
-	public Dictionary<string,int> tags = new Dictionary<string, int> ();
+	Dictionary<string,int> tags = new Dictionary<string, int> ();
 	#if UNITY_EDITOR
 	public string[] m_tags = { };
 	#endif
@@ -18,7 +18,7 @@ public class MazeCellComponent : MonoBehaviour
 	{
 		if (aTags.Length > 0) {
 			for (int i = 0; i < aTags.Length; i++) {
-				if (tags.ContainsKey (aTags [i])) {
+				if (tags.ContainsKey (aTags [i].Trim().ToUpper())) {
 					return true;
 				}
 			}
@@ -32,7 +32,7 @@ public class MazeCellComponent : MonoBehaviour
 	{
 		if (aTags.Length > 0) {
 			for (int i = 0; i < aTags.Length; i++) {
-				if (!tags.ContainsKey (aTags [i])) {
+				if (!tags.ContainsKey (aTags [i].Trim().ToUpper())) {
 					return false;
 				}
 			}
@@ -44,7 +44,7 @@ public class MazeCellComponent : MonoBehaviour
 
 	public bool ContainsTag (string aTag)
 	{
-		return tags.ContainsKey (aTag);
+		return tags.ContainsKey (aTag.ToUpper());
 	}
 
 	public void SetTags (string[] aTags)
@@ -56,10 +56,11 @@ public class MazeCellComponent : MonoBehaviour
 
 	public void SetTag (string aTag)
 	{
-		if (tags.ContainsKey (aTag)) {
-			tags [aTag]++;
+		string lTag = aTag.Trim().ToUpper();
+		if (tags.ContainsKey (lTag)) {
+			tags [lTag]++;
 		} else {
-			tags.Add (aTag, 1);
+			tags.Add (lTag, 1);
 		}
 		#if UNITY_EDITOR
 		m_tags = new string[tags.Count];

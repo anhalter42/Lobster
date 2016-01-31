@@ -429,6 +429,17 @@ public class Maze
 		bool lFound = false;
 		aCurrent.visited = true;
 		if (aCurrent != aTarget) {
+			// waren wir schon in einer nachbar zelle?
+			// --> dann war das ein Umweg
+			for (int lDir = 0; lDir < 6; lDir++) {
+				if (aCurrent.links [lDir].broken) {
+					Cell lNext = aCurrent.links [lDir].to (aCurrent);
+					if (lNext.visited && lNext != ((WayPoint)aStack.Peek()).cell) {
+						aCurrent.visited = false;
+						return false;
+					}
+				}
+			}
 			for (int lDir = 0; lDir < 6; lDir++) {
 				if (aCurrent.links [lDir].broken) {
 					Cell lNext = aCurrent.links [lDir].to (aCurrent);
