@@ -18,6 +18,22 @@ public class AllLevels : MonoBehaviour
 
 	public LevelSettings currentLevelSettings;
 	public LevelSettings[] levelSettings;
+	string[] m_worlds = null;
+
+	public string[] worlds {
+		get {  
+			if (m_worlds == null || m_worlds.Length == 0) {
+				ArrayList lList = new ArrayList ();
+				foreach (LevelSettings lS in levelSettings) {
+					if (!lList.Contains (lS.worldName)) {
+						lList.Add (lS.worldName);
+					}
+				}
+				m_worlds = lList.ToArray (typeof(string)) as string[];
+			}
+			return m_worlds;
+		}
+	}
 
 	private LevelController m_levelController;
 
@@ -42,6 +58,8 @@ public class AllLevels : MonoBehaviour
 
 	public GameObject player { get { return levelController.player; } }
 
+	public AudioSource audioGlobal;
+
 	protected static GameObject fMaster;
 
 	public static GameObject GetMaster ()
@@ -51,7 +69,15 @@ public class AllLevels : MonoBehaviour
 			if (!fMaster) {
 				fMaster = new GameObject ("Master");
 				DontDestroyOnLoad (fMaster);
-				fMaster.AddComponent<AllLevels> ();
+			}
+			if (fMaster.GetComponent<AllLevels> () == null) {
+				fAllLevels = fMaster.AddComponent<AllLevels> ();
+			}
+			if (fMaster.GetComponent<AudioSource> () == null) {
+				Get().audioGlobal = fMaster.AddComponent<AudioSource> ();
+				Get().audioGlobal.volume = 0.25f;
+				Get().audioGlobal.clip = LoadResource<AudioClip>("Background_Journey_to_Golden_ark", "Audio");
+				Get().audioGlobal.Play();
 			}
 		}
 		return fMaster;
@@ -195,7 +221,7 @@ public class AllLevels : MonoBehaviour
 		}
 	}
 
-	public static T LoadResource<T> (string aName, string aMainFolder, string aSubFolder) where T : UnityEngine.Object
+	public static T LoadResource<T> (string aName, string aMainFolder, string aSubFolder = null) where T : UnityEngine.Object
 	{
 		T lObj = null;
 		if (!string.IsNullOrEmpty (aSubFolder)) {

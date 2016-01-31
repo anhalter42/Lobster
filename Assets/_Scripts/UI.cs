@@ -11,6 +11,7 @@ public class UI : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		AllLevels.Get().audioGlobal.Stop();
 		if (playerPrefab) {
 			AllLevels.Get ().playerPrefab = playerPrefab;
 		}
@@ -25,6 +26,7 @@ public class UI : MonoBehaviour
 	
 	public void ButtonExit ()
 	{
+		AllLevels.Get().audioGlobal.Play();
 		SceneManager.LoadScene ("ChooseLevel", LoadSceneMode.Single);
 	}
 }

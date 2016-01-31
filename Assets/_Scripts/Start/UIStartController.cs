@@ -185,4 +185,9 @@ public class UIStartController : MonoBehaviour
 		SceneManager.LoadScene ("PlayerProfile", LoadSceneMode.Single);
 	}
 
+	public void ButtonHighscore ()
+	{
+		SceneManager.LoadScene ("Highscore", LoadSceneMode.Single);
+	}
+
 }
