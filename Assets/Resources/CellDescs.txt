@@ -141,6 +141,7 @@ forward			WallGrille_B+;10
 backward		Wall_B-;90
 backward		WallGrille_B-;10
 props			GemScore2;20;false;2;0
+props			Flies;20;false
 score			GemScore1;0;false;1;0
 score			GemScore2;0;false;2;0
 topProps

@@ -727,6 +727,8 @@ MonoBehaviour:
   mustHaveTags: []
   forbiddenTags:
   - forwardBottom
+  minAge: 0
+  maxAge: 999
 --- !u!114 &11447230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -747,6 +749,7 @@ MonoBehaviour:
     - Player
     isRepeatable: 0
     isDone: 0
+    triggerCount: 0
   controlledBehaviors:
   - when: 0
     action: 0
@@ -757,6 +760,7 @@ MonoBehaviour:
     - Player
     isRepeatable: 0
     isDone: 0
+    triggerCount: 0
   - when: 0
     action: 0
     behaviour: {fileID: 11102040}
@@ -766,21 +770,25 @@ MonoBehaviour:
     - Player
     isRepeatable: 0
     isDone: 0
+    triggerCount: 0
   controlledMethods:
   - when: 0
     method: FocusPlayer
     delay: 0
     tags:
-    - Player
+    - PlayerInner
     isRepeatable: 1
     isDone: 0
+    triggerCount: 0
   - when: 1
     method: ResetCamera
     delay: 0
     tags:
-    - Player
+    - PlayerOuter
     isRepeatable: 1
     isDone: 0
+    triggerCount: 0
+  inventoryItems: []
 --- !u!114 &11467690
 MonoBehaviour:
   m_ObjectHideFlags: 1
