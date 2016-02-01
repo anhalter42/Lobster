@@ -151,13 +151,13 @@ bottomProps		Prop_Hay2_Floor;2
 bottomProps		Barrel;5
 leftProps		Arch_R-;10;false
 leftProps		Barrel2_R-;5
-leftProps		Prop_Torch_R-;100
+leftProps		Prop_Torch_R-;10
 leftProps		Pitfall_Axe_R-;10
 leftProps		CellSeat_R-;5
 leftProps		Chain_A_R-;10
 leftProps		FireBreather_R-;5
 rightProps		Arch_R+;10;false
-rightProps		Prop_Torch_R+;100
+rightProps		Prop_Torch_R+;10
 rightProps		Pitfall_Axe_R+;10
 rightProps		CellSeat_R+;5
 rightProps		Chain_A_R+;10
@@ -168,7 +168,7 @@ forwardProps	Arch_B+;10;false
 forwardProps	Ladder_B+;1
 forwardProps	Bucket_B+;1;true
 forwardProps	Bucket_B+;1;false
-forwardProps	Prop_Torch_B+;100
+forwardProps	Prop_Torch_B+;10
 forwardProps	CellSeat_B+;5
 forwardProps	Pitfall_Axe_B+;10
 forwardProps	Chain_A_B+;10
@@ -180,7 +180,7 @@ backwardProps	WallBarrel_B-;5;false
 backwardProps	Arch_B-;10;false
 backwardProps	Ladder_B-;1
 backwardProps	CellSeat_B-;5
-backwardProps	Prop_Torch_B-;100
+backwardProps	Prop_Torch_B-;10
 backwardProps	Pitfall_Axe_B-;10
 backwardProps	Chain_A_B-;10
 backwardProps	FireBreather_B-;5
