@@ -190,4 +190,8 @@ public class UIStartController : MonoBehaviour
 		SceneManager.LoadScene ("Highscore", LoadSceneMode.Single);
 	}
 
+	public void DropdownPlayerChanged()
+	{
+		AllLevels.Get ().SetPlayerName (m_DropdownPlayer.options[m_DropdownPlayer.value].text);
+	}
 }
