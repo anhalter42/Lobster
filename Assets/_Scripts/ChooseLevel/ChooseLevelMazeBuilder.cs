@@ -62,7 +62,6 @@ public class ChooseLevelMazeBuilder {
 
 	public void CreateLabyrinth ()
 	{
-		Debug.Log ("Creating Labyrinth...");
 		Init();
 		if (mazeParent) {
 			for (int i = mazeParent.transform.childCount - 1; i >= 0; i--) {
@@ -109,6 +108,5 @@ public class ChooseLevelMazeBuilder {
 				}
 			}
 		}
-		Debug.Log ("Labyrinth created.");
 	}
 }

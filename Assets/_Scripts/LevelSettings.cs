@@ -92,6 +92,7 @@ public class LevelSettings
 	}
 
 	public string levelDescription = string.Empty;
+	public string startupText = null;
 	public int mazeWidth = 5;
 	public int mazeHeight = 1;
 	public int mazeDepth = 5;
@@ -292,6 +293,7 @@ public class LevelSettings
 	{
 		if (!ReadString (ref prefabs, aLine, "prefabs"))
 		if (!ReadString (ref m_worldName, aLine, "world"))
+		if (!ReadString (ref startupText, aLine, "startupText"))
 		if (!ReadAudioClip (ref audioBackgroundMusic, aLine, "audioBackgroundMusic", null))
 		if (!ReadAudioClip (ref audioBackgroundPause, aLine, "audioBackgroundPause", null))
 		if (!ReadAudioClip (ref audioBackgroundLevelEnd, aLine, "audioBackgroundLevelEnd", null))

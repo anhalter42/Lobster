@@ -157,7 +157,15 @@ public class MultiActivator : MonoBehaviour
 			if (!isRepeatable) {
 				isDone = true;
 			}
-			AllLevels.Get ().levelController.Invoke (method, delay);
+			if (string.Equals (method, "Toast", System.StringComparison.OrdinalIgnoreCase)) {
+				string[] lParts = method.Split (new char[] { ';' });
+				string lTitle = lParts.Length > 2 ? lParts [2] : AllLevels.Get ().levelController.settings.levelName;
+				string lText = lParts.Length > 1 ? lParts [1] : "What?";
+				float lTime = lParts.Length > 3 ? float.Parse (lParts [3]) : 2f;
+				AllLevels.Get ().levelController.ShowToast (lTitle, lText, lTime);
+			} else {
+				AllLevels.Get ().levelController.Invoke (method, delay);
+			}
 		}
 	}
 
@@ -220,10 +228,10 @@ public class MultiActivator : MonoBehaviour
 			inventoryItemsPayed = true;
 			foreach (InventoryItem lI in inventoryItems) {
 				if (lI.getAmount > 0) {
-					AllLevels.Get ().levelController.AddInventoryItem(new PlayerInventory.InventoryItem(lI.type, lI.getAmount));
+					AllLevels.Get ().levelController.AddInventoryItem (new PlayerInventory.InventoryItem (lI.type, lI.getAmount));
 				}
 				if (lI.costAmount > 0) {
-					AllLevels.Get ().levelController.SubInventoryItem (new PlayerInventory.InventoryItem(lI.type, lI.costAmount));
+					AllLevels.Get ().levelController.SubInventoryItem (new PlayerInventory.InventoryItem (lI.type, lI.costAmount));
 				}
 			}
 		}

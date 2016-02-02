@@ -62,6 +62,7 @@ public class LevelController : MonoBehaviour
 	public Text m_textHealth;
 	public Text m_textInventory;
 	public Light m_mainLight;
+	public RectTransform m_panelToast;
 	public RectTransform m_panelPause;
 	public RectTransform m_panelLevelFinished;
 	public RectTransform m_panelStart;
@@ -80,6 +81,9 @@ public class LevelController : MonoBehaviour
 	public Text m_textSName;
 	public Text m_textSLevel;
 	public Text m_textSAchievements;
+
+	public Text m_textToastTitle;
+	public Text m_textToastText;
 
 	public AudioSource m_audioSourceBackground;
 	public AudioSource m_audioSourceEffects;
@@ -113,6 +117,15 @@ public class LevelController : MonoBehaviour
 	public bool isRunning = false;
 	public bool isPause = false;
 
+	public Vector3 m_CameraOffsetForward = new Vector3 (0f, 2.5f, -1.2f);
+	public Vector3 m_CameraOffsetFocus = new Vector3 (0, 1.5f, -0.5f);
+	public Vector3 m_CameraOffsetSpectate = new Vector3 (0f, 4f, -3f);
+
+	public Maze.Point m_minLOD = new Maze.Point (4, 4, 4);
+	public Maze.Point m_spectateLOD = new Maze.Point (6, 6, 6);
+
+	public Vector3 m_MazeCellSize = new Vector3 (1f, 1f, 1f);
+
 	DungeonCamera m_dungeonCamera;
 
 	public DungeonCamera dungeonCamera {
@@ -142,6 +155,8 @@ public class LevelController : MonoBehaviour
 			m_textInventory = GameObject.Find ("TextInventory").GetComponent<Text> ();
 		if (!m_mainLight)
 			m_mainLight = GameObject.Find ("MainDirectionalLight").GetComponent<Light> ();
+		if (!m_panelToast)
+			m_panelToast = GameObject.Find ("PanelToast").GetComponent<RectTransform> ();
 		if (!m_panelPause)
 			m_panelPause = GameObject.Find ("PanelPause").GetComponent<RectTransform> ();
 		if (!m_panelLevelFinished)
@@ -157,6 +172,11 @@ public class LevelController : MonoBehaviour
 			m_textSLevel = GameObject.Find ("TextSLevel").GetComponent<Text> ();
 		if (!m_textSAchievements)
 			m_textSAchievements = GameObject.Find ("TextSAchievements").GetComponent<Text> ();
+		// Toast Panel
+		if (!m_textToastTitle)
+			m_textToastTitle = GameObject.Find ("TextToastTitle").GetComponent<Text> ();
+		if (!m_textToastText)
+			m_textToastText = GameObject.Find ("TextToastText").GetComponent<Text> ();
 		// Pause Panel
 		if (!m_textDescription)
 			m_textDescription = GameObject.Find ("TextDescription").GetComponent<Text> ();
@@ -184,6 +204,7 @@ public class LevelController : MonoBehaviour
 		m_panelStart.gameObject.SetActive (false);
 		m_panelPause.gameObject.SetActive (false);
 		m_panelLevelFinished.gameObject.SetActive (false);
+		m_panelToast.gameObject.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -217,10 +238,10 @@ public class LevelController : MonoBehaviour
 
 		} else if (m_panelLevelFinished.gameObject.activeSelf) {
 			if (Input.GetKeyUp (KeyCode.Escape)) {
-				StartChooseLevel();
+				StartChooseLevel ();
 			}
-			if (Input.GetKeyUp (KeyCode.Space) || Input.GetKeyUp (KeyCode.Return) || Input.GetButtonDown("Fire1")) {
-				StartNextLevel();
+			if (Input.GetKeyUp (KeyCode.Space) || Input.GetKeyUp (KeyCode.Return) || Input.GetButtonDown ("Fire1")) {
+				StartNextLevel ();
 			}
 		}
 	}
@@ -231,8 +252,14 @@ public class LevelController : MonoBehaviour
 			return;
 		//deactivate far cells and activate near by cells
 		Maze.Point lPoint = builder.GetPlayerMazePoint ();
-		Maze.Point lMin = new Maze.Point (lPoint.x - 6, lPoint.y - 6, lPoint.z - 6);
-		Maze.Point lMax = new Maze.Point (lPoint.x + 6, lPoint.y + 6, lPoint.z + 6);
+		Maze.Point lLOD;
+		if (dungeonCamera.mode == DungeonCamera.Mode.Spectate) {
+			lLOD = m_spectateLOD;
+		} else {
+			lLOD = m_minLOD;
+		}
+		Maze.Point lMin = new Maze.Point (lPoint.x - lLOD.x, lPoint.y - lLOD.y, lPoint.z - lLOD.z);
+		Maze.Point lMax = new Maze.Point (lPoint.x + lLOD.x, lPoint.y + lLOD.y, lPoint.z + lLOD.z);
 		for (int y = 0; y < builder.Maze.height; y++) {
 			for (int z = 0; z < builder.Maze.depth; z++) {
 				for (int x = 0; x < builder.Maze.width; x++) {
@@ -255,6 +282,11 @@ public class LevelController : MonoBehaviour
 	{
 		settings = aSettings;
 		prefabs = AllLevels.Get ().GetCellDescription (settings.prefabs);
+		string lStartUpText = settings.startupText;
+		if (string.IsNullOrEmpty (lStartUpText)) {
+			lStartUpText = string.Format ("Make you ready for level {0}!", settings.levelName);
+		}
+		ShowToast (settings.levelName, lStartUpText);
 		CreateLabyrinth ();
 		SetupScene ();
 	}
@@ -270,12 +302,13 @@ public class LevelController : MonoBehaviour
 		RenderSettings.ambientMode = settings.ambientMode;
 		RenderSettings.ambientLight = settings.ambientLightColor;
 		RenderSettings.ambientIntensity = settings.ambientLight;
-		dungeonCamera.transform.position = player.transform.position + new Vector3 (0f, 4f, -3f);
+		dungeonCamera.transform.position = player.transform.position + m_CameraOffsetSpectate;
 	}
 
 	protected void CreateLabyrinth ()
 	{
 		builder = new MazeBuilder ();
+		builder.positionScale = m_MazeCellSize;
 		builder.settings = settings;
 		builder.prefabs = prefabs;
 		builder.CreateLabyrinth (mazeParent);
@@ -313,6 +346,7 @@ public class LevelController : MonoBehaviour
 	{
 		CloseLevelStartScreen ();
 		dungeonCamera.mode = DungeonCamera.Mode.FollowTarget;
+		ResetCamera();
 		isRunning = true;
 		isPause = false;
 		playerLevelSettings.startTime = Time.realtimeSinceStartup;
@@ -550,6 +584,7 @@ public class LevelController : MonoBehaviour
 		AllLevels.Get ().SaveData ();
 	}
 
+	/* for controlled methods */
 	public void PlayerHasExitReached ()
 	{
 		if (isRunning) {
@@ -564,20 +599,23 @@ public class LevelController : MonoBehaviour
 		AllLevels.Get ().NextLevel ();
 	}
 
+	/* for controlled methods */
 	public void ResetCamera ()
 	{
 		if (dungeonCamera) {
-			dungeonCamera.offset = new Vector3 (0, 2.5f, -1.5f);
+			dungeonCamera.offset = m_CameraOffsetForward;
 		}
 	}
 
+	/* for controlled methods */
 	public void FocusPlayer ()
 	{
 		if (dungeonCamera) {
-			dungeonCamera.offset = new Vector3 (0, 1.5f, -0.5f);
+			dungeonCamera.offset = m_CameraOffsetFocus;
 		}
 	}
 
+	/* for controlled methods */
 	public void FocusPlayerForShort ()
 	{
 		if (dungeonCamera) {
@@ -591,4 +629,17 @@ public class LevelController : MonoBehaviour
 		SceneManager.LoadScene ("ChooseLevel", LoadSceneMode.Single);
 	}
 
+	/* for controlled methods */
+	public void ShowToast (string aTitle, string aText, float aTime = 2f)
+	{
+		m_textToastTitle.text = aTitle;
+		m_textToastText.text = aText;
+		m_panelToast.gameObject.SetActive (true);
+		Invoke ("CloseToast", aTime);
+	}
+
+	public void CloseToast ()
+	{
+		m_panelToast.gameObject.SetActive (false);
+	}
 }

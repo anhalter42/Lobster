@@ -8,6 +8,7 @@ using System.Collections;
 
 public class Maze
 {
+	[System.Serializable]
 	public class Point
 	{
 		public int x, y, z;
@@ -296,7 +297,8 @@ public class Maze
 
 	protected int nextRandomInt (int aMax)
 	{
-		return Mathf.FloorToInt (Random.Range (0.0f, (float)aMax));
+		//return Mathf.FloorToInt (Random.Range (0.0f, (float)aMax));
+		return Random.Range (0, aMax); // aMax will never returned
 	}
 
 	public void build ()
