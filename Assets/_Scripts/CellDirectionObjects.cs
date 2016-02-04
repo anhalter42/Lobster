@@ -14,12 +14,9 @@ public class GameObjectChance
 	public GameObject prefab;
 
 	//prefabname;chance;wallNeeded;score;live;
-	public void ReadLine (string aLine, string aFolder = null)
+	public void ReadLine (string aLine, ref GameObjectChance[] aArray, string aFolder = null)
 	{
 		string[] aProps = aLine.Split (new string[] { ";" }, System.StringSplitOptions.None);
-		if (aProps.Length > 0) {
-			prefab = AllLevels.LoadResource<GameObject> (aProps [0], "Prefabs", aFolder);
-		}
 		if (aProps.Length > 1) {
 			chance = int.Parse (aProps [1]);
 		}
@@ -34,6 +31,16 @@ public class GameObjectChance
 		}
 		if (aProps.Length > 5) {
 			health = float.Parse (aProps [5]);
+		}
+		if (aProps.Length > 0) {
+			string[] lPrefabNames = aProps[0].Split(new char[] {','});
+			foreach(string lName in lPrefabNames) {
+				prefab = AllLevels.LoadResource<GameObject> (lName, "Prefabs", aFolder);
+				if (prefab != null) {
+					System.Array.Resize<GameObjectChance> (ref aArray, aArray.Length + 1);
+					aArray [aArray.Length - 1] = Clone();
+				}
+			}
 		}
 	}
 
@@ -92,9 +99,9 @@ public class CellDirectionObjects
 	public GameObjectChance[] backwardProps = { };
 	public GameObjectChance[] wayPoints = { };
 
-	public virtual CellDirectionObjects Clone ()
+	public virtual CellDirectionObjects Clone (CellDirectionObjects aNew = null)
 	{
-		CellDirectionObjects lNew = new CellDirectionObjects ();
+		CellDirectionObjects lNew = aNew == null ? new CellDirectionObjects () : aNew;
 		lNew.top = GameObjectChance.CloneArray (top);
 		lNew.bottom = GameObjectChance.CloneArray (bottom);
 		lNew.left = GameObjectChance.CloneArray (left);
@@ -175,46 +182,38 @@ public class CellDirectionObjects
 		return null;
 	}
 
-	public GameObjectChance[] ReadGameObjectChance (string aLine, GameObjectChance[] aGOC, string aName, string aFolder = null)
+	public bool ReadGameObjectChance (string aLine, ref GameObjectChance[] aGOC, string aName, string aFolder = null)
 	{
 		if (aLine.StartsWith (aName + "\t")) {
 			string[] lArgs = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries);
 			if (lArgs.Length > 1) {
 				GameObjectChance lGOC = new GameObjectChance ();
-				lGOC.ReadLine (lArgs [1], aFolder);
-				if (lGOC.prefab != null) {
-					ArrayList lList = new ArrayList (aGOC);
-					lList.Add (lGOC);
-					return lList.ToArray (typeof(GameObjectChance)) as GameObjectChance[];
-				} else {
-					return aGOC;
-				}
-			} else {
-				return aGOC;
+				lGOC.ReadLine (lArgs [1], ref aGOC, aFolder);
 			}
+			return true;
 		} else {
-			return aGOC;
+			return false;
 		}
 	}
 
 	public virtual void ReadLine (string aLine, string aFolder = null)
 	{
-		top = ReadGameObjectChance (aLine, top, "top", aFolder);
-		bottom = ReadGameObjectChance (aLine, bottom, "bottom", aFolder);
-		left = ReadGameObjectChance (aLine, left, "left", aFolder);
-		right = ReadGameObjectChance (aLine, right, "right", aFolder);
-		forward = ReadGameObjectChance (aLine, forward, "forward", aFolder);
-		backward = ReadGameObjectChance (aLine, backward, "backward", aFolder);
-		props = ReadGameObjectChance (aLine, props, "props", aFolder);
-		score = ReadGameObjectChance (aLine, score, "score", aFolder);
-		exit = ReadGameObjectChance (aLine, exit, "exit", aFolder);
-		topProps = ReadGameObjectChance (aLine, topProps, "topProps", aFolder);
-		bottomProps = ReadGameObjectChance (aLine, bottomProps, "bottomProps", aFolder);
-		leftProps = ReadGameObjectChance (aLine, leftProps, "leftProps", aFolder);
-		rightProps = ReadGameObjectChance (aLine, rightProps, "rightProps", aFolder);
-		forwardProps = ReadGameObjectChance (aLine, forwardProps, "forwardProps", aFolder);
-		backwardProps = ReadGameObjectChance (aLine, backwardProps, "backwardProps", aFolder);
-		wayPoints = ReadGameObjectChance (aLine, wayPoints, "wayPoints", aFolder);
+		if (!ReadGameObjectChance (aLine, ref top, "top", aFolder))
+		if (!ReadGameObjectChance (aLine, ref bottom, "bottom", aFolder))
+		if (!ReadGameObjectChance (aLine, ref left, "left", aFolder))
+		if (!ReadGameObjectChance (aLine, ref right, "right", aFolder))
+		if (!ReadGameObjectChance (aLine, ref forward, "forward", aFolder))
+		if (!ReadGameObjectChance (aLine, ref backward, "backward", aFolder))
+		if (!ReadGameObjectChance (aLine, ref props, "props", aFolder))
+		if (!ReadGameObjectChance (aLine, ref score, "score", aFolder))
+		if (!ReadGameObjectChance (aLine, ref exit, "exit", aFolder))
+		if (!ReadGameObjectChance (aLine, ref topProps, "topProps", aFolder))
+		if (!ReadGameObjectChance (aLine, ref bottomProps, "bottomProps", aFolder))
+		if (!ReadGameObjectChance (aLine, ref leftProps, "leftProps", aFolder))
+		if (!ReadGameObjectChance (aLine, ref rightProps, "rightProps", aFolder))
+		if (!ReadGameObjectChance (aLine, ref forwardProps, "forwardProps", aFolder))
+		if (!ReadGameObjectChance (aLine, ref backwardProps, "backwardProps", aFolder))
+			ReadGameObjectChance (aLine, ref wayPoints, "wayPoints", aFolder);
 	}
 }
 
@@ -262,7 +261,7 @@ public class CellDescription : CellDirectionObjects
 		{
 			string[] aProps = aLine.Split (new string[] { ";" }, System.StringSplitOptions.None);
 			if (aProps.Length > 1) {
-				type = aProps[0];
+				type = aProps [0];
 				audioGet = AllLevels.LoadResource<AudioClip> (aProps [1], "Audio", aFolder);
 				audioUse = audioGet;
 				audioDrop = audioGet;
@@ -298,21 +297,49 @@ public class CellDescription : CellDirectionObjects
 	public AudioItem[] audioItems = { };
 	protected System.Collections.Generic.Dictionary<string, AudioItem> fAudioItems;
 
-	public AudioClip GetAudioItemGet(string aType)
+	public override CellDirectionObjects Clone (CellDirectionObjects aNew)
 	{
-		AudioItem lItem = fAudioItems[aType];
+		CellDirectionObjects lCD = base.Clone (aNew);
+		if (lCD is CellDescription) {
+			CellDescription lNew = (CellDescription)lCD;
+			lNew.name = name;
+			lNew.worldName = worldName;
+			lNew.audioScore = new AudioScore[audioScore.Length]; System.Array.Copy(audioScore, lNew.audioScore, lNew.audioScore.Length);
+			lNew.audioScoreReached = audioScoreReached;
+			lNew.audioLiveLost = audioLiveLost;
+			lNew.audioLiveAdded = audioLiveAdded;
+			lNew.audioDamageSmall = audioDamageSmall;
+			lNew.audioDamageMedium = audioDamageMedium;
+			lNew.audioDamageBig = audioDamageBig;
+			lNew.audioGameOver = audioGameOver;
+			lNew.audioHealthSmall = audioHealthSmall;
+			lNew.audioHealthMedium = audioHealthMedium;
+			lNew.audioHealthBig = audioHealthBig;
+			lNew.audioBackgroundPause = audioBackgroundPause;
+			lNew.audioBackgroundMusic = audioBackgroundMusic;
+			lNew.audioBackgroundLevelEnd = audioBackgroundLevelEnd;
+			lNew.audioBackgroundLevelStart = audioBackgroundLevelStart;
+			lNew.audioBackgroundLevelExitOpen = audioBackgroundLevelExitOpen;
+			lNew.audioItems = new AudioItem[audioItems.Length]; System.Array.Copy(audioItems, lNew.audioItems, lNew.audioItems.Length);
+		}
+		return lCD;
+	}
+
+	public AudioClip GetAudioItemGet (string aType)
+	{
+		AudioItem lItem = fAudioItems [aType];
 		return lItem == null ? null : lItem.audioGet;
 	}
 
-	public AudioClip GetAudioItemUse(string aType)
+	public AudioClip GetAudioItemUse (string aType)
 	{
-		AudioItem lItem = fAudioItems[aType];
+		AudioItem lItem = fAudioItems [aType];
 		return lItem == null ? null : lItem.audioUse;
 	}
 
-	public AudioClip GetAudioItemDrop(string aType)
+	public AudioClip GetAudioItemDrop (string aType)
 	{
-		AudioItem lItem = fAudioItems[aType];
+		AudioItem lItem = fAudioItems [aType];
 		return lItem == null ? null : lItem.audioDrop;
 	}
 
@@ -390,6 +417,9 @@ public class CellDescription : CellDirectionObjects
 
 	public override void ReadLine (string aLine, string aFolder)
 	{
+//		if (aLine.StartsWith ("basedOn\t")) {
+//			AllLevels.Get().GetCellDescription();
+//		}
 		base.ReadLine (aLine, aFolder);
 		worldName = ReadString (aLine, aFolder, "world", aFolder);
 		audioScore = ReadAudioScore (aLine, audioScore, "audioScore", aFolder);
@@ -414,12 +444,12 @@ public class CellDescription : CellDirectionObjects
 	public void FinishedReading ()
 	{
 		Array.Sort (audioScore, new AudioScoreComparer ());
-		if (string.IsNullOrEmpty(worldName)) {
+		if (string.IsNullOrEmpty (worldName)) {
 			worldName = name;
 		}
-		fAudioItems = new System.Collections.Generic.Dictionary<string, AudioItem>();
-		foreach(AudioItem lItem in audioItems) {
-			fAudioItems.Add(lItem.type, lItem);
+		fAudioItems = new System.Collections.Generic.Dictionary<string, AudioItem> ();
+		foreach (AudioItem lItem in audioItems) {
+			fAudioItems.Add (lItem.type, lItem);
 		}
 	}
 }

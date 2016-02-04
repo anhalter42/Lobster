@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+#if UNITY_EDITOR
+
+#endif
+
+[ExecuteInEditMode]
 public class GhostMeshParticle : MonoBehaviour
 {
 	public GameObject m_Mesh;
+	public int m_Multiplicator = 1;
+	public Vector3 m_RandomOffset = new Vector3 (0, 0, 0);
 	ParticleSystem m_System;
 	ParticleSystem.Particle[] m_Particles;
 
@@ -24,7 +31,7 @@ public class GhostMeshParticle : MonoBehaviour
 		}
 //		m_System.Clear();
 		int numParticlesAlive = m_System.GetParticles (m_Particles);
-		int neededParticles = CountPoints (m_Mesh.transform);
+		int neededParticles = CountPoints (m_Mesh.transform) * m_Multiplicator;
 		if (numParticlesAlive < neededParticles) {
 			m_System.Emit (neededParticles - numParticlesAlive);
 		}
@@ -36,8 +43,17 @@ public class GhostMeshParticle : MonoBehaviour
 
 	void SetParticle (ref int aPos, Transform aTransform)
 	{
-		m_Particles [aPos].position = aTransform.position;
-		aPos++;
+		for (int j = 0; j < m_Multiplicator; j++) {
+			//Vector3 lPos = transform.InverseTransformPoint(aTransform.position);
+			//Vector3 lPos = m_Mesh.transform.position - aTransform.position;
+			Vector3 lPos = transform.InverseTransformPoint(aTransform.position) - (m_Mesh.transform.position - transform.position);
+			lPos = new Vector3 (
+				lPos.x + Random.Range (-m_RandomOffset.x, m_RandomOffset.x),
+				lPos.y + Random.Range (-m_RandomOffset.y, m_RandomOffset.y),
+				lPos.z + Random.Range (-m_RandomOffset.z, m_RandomOffset.z));
+			m_Particles [aPos].position = lPos;
+			aPos++;
+		}
 		for (int i = 0; i < aTransform.childCount; i++) {
 			SetParticle (ref aPos, aTransform.GetChild (i));
 		}
