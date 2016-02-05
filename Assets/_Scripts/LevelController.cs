@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -235,12 +234,15 @@ public class LevelController : MonoBehaviour
 			}
 		}
 		if (m_panelStart.gameObject.activeSelf) {
-
+			if (Input.GetKeyUp (KeyCode.Space) || Input.GetKeyUp (KeyCode.Return) || Input.GetButtonDown ("Fire1")) {
+				CancelInvoke ("StartLevel");
+				StartLevel ();
+			}
 		} else if (m_panelLevelFinished.gameObject.activeSelf) {
 			if (Input.GetKeyUp (KeyCode.Escape)) {
 				StartChooseLevel ();
 			}
-			if (Input.GetKeyUp (KeyCode.Space) || Input.GetKeyUp (KeyCode.Return) || Input.GetButtonDown ("Fire1")) {
+			if (Input.GetKeyUp (KeyCode.Space) || Input.GetKeyUp (KeyCode.Return) || Input.GetButtonDown ("Fire2")) {
 				StartNextLevel ();
 			}
 		}
@@ -346,7 +348,7 @@ public class LevelController : MonoBehaviour
 	{
 		CloseLevelStartScreen ();
 		dungeonCamera.mode = DungeonCamera.Mode.FollowTarget;
-		ResetCamera();
+		ResetCamera ();
 		isRunning = true;
 		isPause = false;
 		playerLevelSettings.startTime = Time.realtimeSinceStartup;
@@ -626,7 +628,7 @@ public class LevelController : MonoBehaviour
 
 	public void StartChooseLevel ()
 	{
-		SceneManager.LoadScene ("ChooseLevel", LoadSceneMode.Single);
+		AllLevels.Get ().StartChooseLevel ();
 	}
 
 	/* for controlled methods */

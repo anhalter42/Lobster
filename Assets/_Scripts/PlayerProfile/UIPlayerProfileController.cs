@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+
+//using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class UIPlayerProfileController : MonoBehaviour
@@ -28,7 +29,7 @@ public class UIPlayerProfileController : MonoBehaviour
 		m_IFAge.text = player.age.ToString ();
 		m_ScoreTemplate.SetActive (false);
 		Vector3 lPos = m_ScoreOffset;
-		player.levels.Sort(new PlayerLevelComparer());
+		player.levels.Sort (new PlayerLevelComparer ());
 		foreach (PlayerLevel lL in player.levels) {
 			GameObject lLine = Instantiate (m_ScoreTemplate) as GameObject;
 			lLine.GetComponent<RectTransform> ().localPosition = lPos;
@@ -43,15 +44,16 @@ public class UIPlayerProfileController : MonoBehaviour
 		}
 	}
 
-	void Update()
+	void Update ()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Fire3")) {
-			ButtonBack();
+		if (Input.GetKeyDown (KeyCode.Escape) || Input.GetButtonDown ("Fire3")) {
+			ButtonBack ();
 		}
 	}
 
-	public void ButtonBack()
+	public void ButtonBack ()
 	{
-		SceneManager.LoadScene("Start", LoadSceneMode.Single);
+		AllLevels.Get ().StartNewGame ();
+		//SceneManager.LoadScene("Start", LoadSceneMode.Single);
 	}
 }

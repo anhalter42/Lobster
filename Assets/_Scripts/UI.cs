@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class UI : MonoBehaviour
@@ -11,22 +10,16 @@ public class UI : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		AllLevels.Get().audioGlobal.Stop();
+		AllLevels.Get ().audioGlobal.Stop ();
 		if (playerPrefab) {
 			AllLevels.Get ().playerPrefab = playerPrefab;
 		}
 		if (defaultLevel > 0) {
-			AllLevels.Get ().SetLevel(defaultLevel, false);
+			AllLevels.Get ().SetLevel (defaultLevel, false);
 		}
 		if (AllLevels.Get ().currentLevelSettings != null) {
-			AllLevels.Get ().levelController.Generate(AllLevels.Get ().currentLevelSettings);
-			AllLevels.Get ().levelController.StartLevelIntro();
+			AllLevels.Get ().levelController.Generate (AllLevels.Get ().currentLevelSettings);
+			AllLevels.Get ().levelController.StartLevelIntro ();
 		}
-	}
-	
-	public void ButtonExit ()
-	{
-		AllLevels.Get().audioGlobal.Play();
-		SceneManager.LoadScene ("ChooseLevel", LoadSceneMode.Single);
 	}
 }

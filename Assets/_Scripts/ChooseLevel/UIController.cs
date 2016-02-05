@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+
+//using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class UIController : MonoBehaviour
@@ -82,17 +83,20 @@ public class UIController : MonoBehaviour
 
 	public void ButtonPlay ()
 	{
-		SceneManager.LoadScene ("Main", LoadSceneMode.Single);
+		AllLevels.Get ().StartLevel ();
+		//SceneManager.LoadScene ("Main", LoadSceneMode.Single);
 	}
 
 	public void ButtonBack ()
 	{
-		SceneManager.LoadScene ("Start", LoadSceneMode.Single);
+		AllLevels.Get ().StartNewGame ();
+		//SceneManager.LoadScene ("Start", LoadSceneMode.Single);
 	}
 
 	public void ButtonProfile ()
 	{
-		SceneManager.LoadScene ("PlayerProfile", LoadSceneMode.Single);
+		AllLevels.Get ().StartProfile ();
+		//SceneManager.LoadScene ("PlayerProfile", LoadSceneMode.Single);
 	}
 
 	void CreateLabyrinth ()

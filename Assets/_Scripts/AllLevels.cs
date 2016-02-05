@@ -9,7 +9,7 @@ public class AllLevels : MonoBehaviour
 	public string Version = "0.3";
 	public TextAsset levels;
 	public TextAsset cellDescs;
-	public CellDescription[] cellDescriptions;
+	public CellDescription[] cellDescriptions = { };
 
 	public PlayersData data = new PlayersData ();
 
@@ -74,10 +74,10 @@ public class AllLevels : MonoBehaviour
 				fAllLevels = fMaster.AddComponent<AllLevels> ();
 			}
 			if (fMaster.GetComponent<AudioSource> () == null) {
-				Get().audioGlobal = fMaster.AddComponent<AudioSource> ();
-				Get().audioGlobal.volume = 0.25f;
-				Get().audioGlobal.clip = LoadResource<AudioClip>("Background_Journey_to_Golden_ark", "Audio");
-				Get().audioGlobal.Play();
+				Get ().audioGlobal = fMaster.AddComponent<AudioSource> ();
+				Get ().audioGlobal.volume = 0.25f;
+				Get ().audioGlobal.clip = LoadResource<AudioClip> ("Background_Journey_to_Golden_ark", "Audio");
+				Get ().audioGlobal.Play ();
 			}
 		}
 		return fMaster;
@@ -173,9 +173,20 @@ public class AllLevels : MonoBehaviour
 				lDesc = new CellDescription ();
 				lDesc.name = lNewLine.Substring (1);
 				lDescs.Add (lDesc);
+				cellDescriptions = lDescs.ToArray (typeof(CellDescription)) as CellDescription[];
 				lFolder = null;
 			} else if (lNewLine.StartsWith ("Package=")) {
 				lFolder = lNewLine.Split (new string[] { "=" }, System.StringSplitOptions.RemoveEmptyEntries) [1];
+			} else if (lNewLine.StartsWith ("BasedOn=")) {
+				string lBaseDescName = lNewLine.Split (new string[] { "=" }, System.StringSplitOptions.RemoveEmptyEntries) [1];
+				CellDescription lBaseDesc = GetCellDescription (lBaseDescName);
+				if (lBaseDesc == null) {
+					Debug.Log (string.Format ("BasedOn '{0}' {1} not found!", lBaseDescName, lDesc.name));
+				} else {
+					string lName = lDesc.name;
+					lBaseDesc.Clone (lDesc);
+					lDesc.name = lName;
+				}
 			} else if (lDesc != null) {
 				lDesc.ReadLine (lNewLine, lFolder);
 			}
@@ -209,7 +220,7 @@ public class AllLevels : MonoBehaviour
 	{
 		if (currentLevelSettings.level < levelSettings.Length - 1) {
 			currentLevelSettings = levelSettings [currentLevelSettings.level/* + 1*/];
-			SceneManager.LoadScene ("Main", LoadSceneMode.Single);
+			StartLevel ();
 		}
 	}
 
@@ -217,8 +228,38 @@ public class AllLevels : MonoBehaviour
 	{
 		currentLevelSettings = levelSettings [aLevel - 1]; // level numbers are from 1...
 		if (aLoad) {
-			SceneManager.LoadScene ("Main", LoadSceneMode.Single);
+			StartLevel ();
 		}
+	}
+
+	public void StartLevel ()
+	{
+		audioGlobal.Stop();
+		SceneManager.LoadScene ("Main", LoadSceneMode.Single);
+	}
+
+	public void StartChooseLevel ()
+	{
+		audioGlobal.Play();
+		SceneManager.LoadScene ("ChooseLevel", LoadSceneMode.Single);
+	}
+
+	public void StartNewGame ()
+	{
+		audioGlobal.Play();
+		SceneManager.LoadScene ("Start", LoadSceneMode.Single);
+	}
+
+	public void StartProfile ()
+	{
+		audioGlobal.Play();
+		SceneManager.LoadScene ("PlayerProfile", LoadSceneMode.Single);
+	}
+
+	public void StartHighscore ()
+	{
+		audioGlobal.Play();
+		SceneManager.LoadScene ("Highscore", LoadSceneMode.Single);
 	}
 
 	public static T LoadResource<T> (string aName, string aMainFolder, string aSubFolder = null) where T : UnityEngine.Object

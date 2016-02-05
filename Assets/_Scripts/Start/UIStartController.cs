@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+
+//using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -67,12 +68,12 @@ public class UIStartController : MonoBehaviour
 		di [14] = 3;
 		di [15] = 2;
 		m_NewPlayerPanel.gameObject.SetActive (false);
-		UpdatePlayerDrowpdown();
+		UpdatePlayerDrowpdown ();
 	}
 
-	void UpdatePlayerDrowpdown()
+	void UpdatePlayerDrowpdown ()
 	{
-		string lName = PlayerPrefs.GetString("PlayerName", "Winston");
+		string lName = PlayerPrefs.GetString ("PlayerName", "Winston");
 		int i = 0, lIndex = 0;
 		m_DropdownPlayer.ClearOptions ();
 		List<string> lPlayers = new List<string> ();
@@ -157,13 +158,14 @@ public class UIStartController : MonoBehaviour
 
 	public void ButtonStart ()
 	{
-		SceneManager.LoadScene ("ChooseLevel", LoadSceneMode.Single);
+		AllLevels.Get ().StartChooseLevel ();
+		//SceneManager.LoadScene ("ChooseLevel", LoadSceneMode.Single);
 	}
 
 	public void ButtonNewPlayer ()
 	{
 		m_NewPlayerPanel.gameObject.SetActive (true);
-		m_NewPlayerName.ActivateInputField();
+		m_NewPlayerName.ActivateInputField ();
 	}
 
 	public void ButtonNewPlayerCancel ()
@@ -174,24 +176,26 @@ public class UIStartController : MonoBehaviour
 	public void ButtonNewPlayerOK ()
 	{
 		AllLevels.Get ().SetPlayerName (m_NewPlayerName.text);
-		if (!int.TryParse(m_NewPlayerAge.text, out AllLevels.Get ().currentPlayer.age))
+		if (!int.TryParse (m_NewPlayerAge.text, out AllLevels.Get ().currentPlayer.age))
 			AllLevels.Get ().currentPlayer.age = 0;
-		UpdatePlayerDrowpdown();
+		UpdatePlayerDrowpdown ();
 		m_NewPlayerPanel.gameObject.SetActive (false);
 	}
 
 	public void ButtonProfile ()
 	{
-		SceneManager.LoadScene ("PlayerProfile", LoadSceneMode.Single);
+		AllLevels.Get ().StartProfile ();
+		//SceneManager.LoadScene ("PlayerProfile", LoadSceneMode.Single);
 	}
 
 	public void ButtonHighscore ()
 	{
-		SceneManager.LoadScene ("Highscore", LoadSceneMode.Single);
+		AllLevels.Get ().StartHighscore ();
+		//SceneManager.LoadScene ("Highscore", LoadSceneMode.Single);
 	}
 
-	public void DropdownPlayerChanged()
+	public void DropdownPlayerChanged ()
 	{
-		AllLevels.Get ().SetPlayerName (m_DropdownPlayer.options[m_DropdownPlayer.value].text);
+		AllLevels.Get ().SetPlayerName (m_DropdownPlayer.options [m_DropdownPlayer.value].text);
 	}
 }

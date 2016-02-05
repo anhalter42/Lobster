@@ -417,9 +417,6 @@ public class CellDescription : CellDirectionObjects
 
 	public override void ReadLine (string aLine, string aFolder)
 	{
-//		if (aLine.StartsWith ("basedOn\t")) {
-//			AllLevels.Get().GetCellDescription();
-//		}
 		base.ReadLine (aLine, aFolder);
 		worldName = ReadString (aLine, aFolder, "world", aFolder);
 		audioScore = ReadAudioScore (aLine, audioScore, "audioScore", aFolder);
