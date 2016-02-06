@@ -220,4 +220,4 @@ audioScoreReached	completed2
 audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope
 audioBackgroundLevelEnd	Background_The_gates_No_Choir
-audioItem	GreenKey;key1;key4;key2
+;audioItem	GreenKey;key1;key4;key2

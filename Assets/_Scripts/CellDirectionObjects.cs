@@ -327,20 +327,17 @@ public class CellDescription : CellDirectionObjects
 
 	public AudioClip GetAudioItemGet (string aType)
 	{
-		AudioItem lItem = fAudioItems [aType];
-		return lItem == null ? null : lItem.audioGet;
+		return fAudioItems.ContainsKey(aType) ? fAudioItems[aType].audioGet : null;
 	}
 
 	public AudioClip GetAudioItemUse (string aType)
 	{
-		AudioItem lItem = fAudioItems [aType];
-		return lItem == null ? null : lItem.audioUse;
+		return fAudioItems.ContainsKey(aType) ? fAudioItems[aType].audioUse : null;
 	}
 
 	public AudioClip GetAudioItemDrop (string aType)
 	{
-		AudioItem lItem = fAudioItems [aType];
-		return lItem == null ? null : lItem.audioDrop;
+		return fAudioItems.ContainsKey(aType) ? fAudioItems[aType].audioDrop : null;
 	}
 
 	public AudioScore[] ReadAudioScore (string aLine, AudioScore[] aSrc, string aName, string aFolder)

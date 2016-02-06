@@ -58,8 +58,11 @@
      <Compile Include="Assets\_Scripts\DestroyAfter.cs" />
      <Compile Include="Assets\_Scripts\GhostMeshParticle.cs" />
      <Compile Include="Assets\_Scripts\HighScore\UIHighScoreController.cs" />
+     <Compile Include="Assets\_Scripts\Inventory.cs" />
      <Compile Include="Assets\_Scripts\LevelController.cs" />
      <Compile Include="Assets\_Scripts\LevelSettings.cs" />
+     <Compile Include="Assets\_Scripts\Localization.cs" />
+     <Compile Include="Assets\_Scripts\LocalizationData.cs" />
      <Compile Include="Assets\_Scripts\Maze.cs" />
      <Compile Include="Assets\_Scripts\MazeBuilder.cs" />
      <Compile Include="Assets\_Scripts\MazeCellComponent.cs" />
@@ -88,6 +91,7 @@
      <Compile Include="Assets\_Scripts\UI.cs" />
      <None Include="Assets\CactusPack\Shaders\VertexBlend.shader" />
      <None Include="Assets\Resources\Levels.txt" />
+     <None Include="Assets\Resources\Text.English.txt" />
      <None Include="Assets\Gem\Shaders\Ghost.shader" />
      <None Include="Assets\CactusPack\Readme.txt" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
@@ -100,6 +104,8 @@
      <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
      <None Include="Assets\Gem\Shaders\Gem.shader" />
+     <None Include="Assets\Resources\Text.German.txt" />
+     <None Include="Assets\Resources\Inventory.txt" />
      <None Include="Assets\Resources\CellDescs.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Volumes/Daten/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

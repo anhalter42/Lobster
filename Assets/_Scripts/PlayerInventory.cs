@@ -9,6 +9,8 @@ public class PlayerInventory : MonoBehaviour
 	{
 		public string type = string.Empty;
 		public int count = 1;
+		public string name { get { return AllLevels.Get().local.GetText(type); } }
+		public bool isVisibleInUI { get { return AllLevels.Get().inventory.Get(type).VisibleInUI; } }
 
 		public InventoryItem ()
 		{
@@ -64,11 +66,11 @@ public class PlayerInventory : MonoBehaviour
 	{
 		string lRes = string.Empty;
 		foreach (InventoryItem lItem in m_Items) {
-			if (lItem.count > 0) {
+			if (lItem.count > 0 && lItem.isVisibleInUI) {
 				if (lItem.count > 1) {
-					lRes += string.Format ("{0}x{1} ", lItem.count, lItem.type);
+					lRes += string.Format ("{0}x{1} ", lItem.count, lItem.name);
 				} else {
-					lRes += lItem.type + " ";
+					lRes += lItem.name + " ";
 				}
 			}
 		}

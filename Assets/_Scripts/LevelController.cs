@@ -205,11 +205,16 @@ public class LevelController : MonoBehaviour
 		m_panelLevelFinished.gameObject.SetActive (false);
 		m_panelToast.gameObject.SetActive (false);
 	}
+
+	public string GetLocalText(string aKey)
+	{
+		return AllLevels.Get().local.GetText(aKey);
+	}
 	
 	// Update is called once per frame
 	void LateUpdate ()
 	{
-		m_textScore.text = string.Format ("Score: {0}/{1}", playerLevelSettings.score, settings.scoreForExit);
+		m_textScore.text = string.Format (GetLocalText("HUDScore"), playerLevelSettings.score, settings.scoreForExit);
 		if (!playerLevelSettings.scoreReached) {
 			if (!isPause) {
 				if (settings.maxTime > 0) {
@@ -218,10 +223,10 @@ public class LevelController : MonoBehaviour
 					playerLevelSettings.time = playerLevelSettings.resumeTime + (Time.realtimeSinceStartup - playerLevelSettings.startTime);
 				}
 			}
-			m_textTime.text = string.Format ("Time: {0}", Mathf.RoundToInt (playerLevelSettings.time));
+			m_textTime.text = string.Format (GetLocalText("HUDTime"), Mathf.RoundToInt (playerLevelSettings.time));
 		}
-		m_textLives.text = string.Format ("Lives: {0}", playerLevelSettings.lives);
-		m_textHealth.text = string.Format ("Health: {0}", playerLevelSettings.health);
+		m_textLives.text = string.Format (GetLocalText("HUDLives"), playerLevelSettings.lives);
+		m_textHealth.text = string.Format (GetLocalText("HUDHealth"), playerLevelSettings.health);
 		m_textInventory.text = playerInventory.forDisplay ();
 		CheckLOD ();
 		if (isRunning) {
@@ -286,7 +291,7 @@ public class LevelController : MonoBehaviour
 		prefabs = AllLevels.Get ().GetCellDescription (settings.prefabs);
 		string lStartUpText = settings.startupText;
 		if (string.IsNullOrEmpty (lStartUpText)) {
-			lStartUpText = string.Format ("Make you ready for level {0}!", settings.levelName);
+			lStartUpText = string.Format (GetLocalText("MakeYouReadyForLevel"), settings.levelName);
 		}
 		ShowToast (settings.levelName, lStartUpText);
 		CreateLabyrinth ();
@@ -431,10 +436,37 @@ public class LevelController : MonoBehaviour
 		PlayHealthAudio (aHealth, player.transform.position);
 	}
 
+	public AudioClip GetAudioItemGet(string aType)
+	{
+		AudioClip lAudio = prefabs.GetAudioItemGet (aType);
+		if (lAudio == null) {
+			lAudio = AllLevels.Get().inventory.GetAudioItemGet (aType);
+		}
+		return lAudio;
+	}
+
+	public AudioClip GetAudioItemUse(string aType)
+	{
+		AudioClip lAudio = prefabs.GetAudioItemUse (aType);
+		if (lAudio == null) {
+			lAudio = AllLevels.Get().inventory.GetAudioItemUse (aType);
+		}
+		return lAudio;
+	}
+
+	public AudioClip GetAudioItemDrop(string aType)
+	{
+		AudioClip lAudio = prefabs.GetAudioItemDrop (aType);
+		if (lAudio == null) {
+			lAudio = AllLevels.Get().inventory.GetAudioItemDrop (aType);
+		}
+		return lAudio;
+	}
+
 	public void AddInventoryItem (PlayerInventory.InventoryItem aItem)
 	{
 		playerInventory.AddItem (aItem);
-		AudioClip lAudio = prefabs.GetAudioItemGet (aItem.type);
+		AudioClip lAudio = GetAudioItemGet(aItem.type);
 		if (lAudio) {
 			PlayAudioEffect (lAudio);
 		}
@@ -450,7 +482,7 @@ public class LevelController : MonoBehaviour
 	public void SubInventoryItem (PlayerInventory.InventoryItem aItem)
 	{
 		playerInventory.SubItem (aItem);
-		AudioClip lAudio = prefabs.GetAudioItemUse (aItem.type);
+		AudioClip lAudio = GetAudioItemUse (aItem.type);
 		if (lAudio) {
 			PlayAudioEffect (lAudio);
 		}
@@ -564,10 +596,10 @@ public class LevelController : MonoBehaviour
 		}
 		m_textLFLevel.text = settings.level.ToString ();
 		m_textLFName.text = settings.levelName;
-		m_textLFScore.text = string.Format ("Score: {0}", playerLevelSettings.score.ToString ());
-		m_textLFScoreBonus.text = string.Format ("Bonus: {0}", playerLevelSettings.scoreBonus.ToString ());
-		m_textLFTime.text = string.Format ("Time: {0}", Mathf.RoundToInt (playerLevelSettings.time).ToString ());
-		m_textLFTimeBonus.text = string.Format ("Time Bonus: {0}", playerLevelSettings.scoreTimeBonus.ToString ());
+		m_textLFScore.text = string.Format (GetLocalText("LevelEndScore"), playerLevelSettings.score.ToString ());
+		m_textLFScoreBonus.text = string.Format (GetLocalText("LevelEndScoreBonus"), playerLevelSettings.scoreBonus.ToString ());
+		m_textLFTime.text = string.Format (GetLocalText("LevelEndTime"), Mathf.RoundToInt (playerLevelSettings.time).ToString ());
+		m_textLFTimeBonus.text = string.Format (GetLocalText("LevelEndTimeBonus"), playerLevelSettings.scoreTimeBonus.ToString ());
 		m_panelLevelFinished.gameObject.SetActive (true);
 		PlayOnBackground (audioBackgroundLevelEnd);
 		PlayerLevel lL = AllLevels.Get ().currentPlayer.GetLevel (settings.worldName, settings.levelName, true);

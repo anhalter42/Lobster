@@ -7,8 +7,7 @@ using System.IO;
 public class AllLevels : MonoBehaviour
 {
 	public string Version = "0.3";
-	public TextAsset levels;
-	public TextAsset cellDescs;
+
 	public CellDescription[] cellDescriptions = { };
 
 	public PlayersData data = new PlayersData ();
@@ -18,6 +17,11 @@ public class AllLevels : MonoBehaviour
 
 	public LevelSettings currentLevelSettings;
 	public LevelSettings[] levelSettings;
+
+	public Inventory inventory = new Inventory ();
+
+	public Localization local = new Localization ();
+
 	string[] m_worlds = null;
 
 	public string[] worlds {
@@ -108,26 +112,32 @@ public class AllLevels : MonoBehaviour
 				lText.text = "Lobster " + Version;
 			}
 		}
-		if (!cellDescs) {
-			cellDescs = Resources.Load<TextAsset> ("CellDescs");
-		}
+		local.Read ();
 		if (System.IO.File.Exists ("CellDescs.txt")) {
 			string lCellDescs = System.IO.File.ReadAllText ("CellDescs.txt");
 			ReadCellDescs (lCellDescs);
 		} else {
-			if (cellDescs) {
-				ReadCellDescs (cellDescs.text);
+			TextAsset lText = Resources.Load<TextAsset> ("CellDescs");
+			if (lText) {
+				ReadCellDescs (lText.text);
 			}
-		}
-		if (!levels) {
-			levels = Resources.Load<TextAsset> ("Levels");
 		}
 		if (System.IO.File.Exists ("Levels.txt")) {
 			string lLevels = System.IO.File.ReadAllText ("Levels.txt");
 			ReadLevels (lLevels);
 		} else {
-			if (levels) {
-				ReadLevels (levels.text);
+			TextAsset lText = Resources.Load<TextAsset> ("Levels");
+			if (lText) {
+				ReadLevels (lText.text);
+			}
+		}
+		if (System.IO.File.Exists ("Inventory.txt")) {
+			string lText = System.IO.File.ReadAllText ("Inventory.txt");
+			inventory.ReadInventory (lText);
+		} else {
+			TextAsset lText = Resources.Load<TextAsset> ("Inventory");
+			if (lText) {
+				inventory.ReadInventory (lText.text);
 			}
 		}
 		LoadData ();
@@ -234,31 +244,35 @@ public class AllLevels : MonoBehaviour
 
 	public void StartLevel ()
 	{
-		audioGlobal.Stop();
+		audioGlobal.Stop ();
 		SceneManager.LoadScene ("Main", LoadSceneMode.Single);
 	}
 
 	public void StartChooseLevel ()
 	{
-		audioGlobal.Play();
+		if (!audioGlobal.isPlaying)
+			audioGlobal.Play ();
 		SceneManager.LoadScene ("ChooseLevel", LoadSceneMode.Single);
 	}
 
 	public void StartNewGame ()
 	{
-		audioGlobal.Play();
+		if (!audioGlobal.isPlaying)
+			audioGlobal.Play ();
 		SceneManager.LoadScene ("Start", LoadSceneMode.Single);
 	}
 
 	public void StartProfile ()
 	{
-		audioGlobal.Play();
+		if (!audioGlobal.isPlaying)
+			audioGlobal.Play ();
 		SceneManager.LoadScene ("PlayerProfile", LoadSceneMode.Single);
 	}
 
 	public void StartHighscore ()
 	{
-		audioGlobal.Play();
+		if (!audioGlobal.isPlaying)
+			audioGlobal.Play ();
 		SceneManager.LoadScene ("Highscore", LoadSceneMode.Single);
 	}
 
