@@ -164,6 +164,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 463018}
+  - 114: {fileID: 11442820}
   m_Layer: 0
   m_Name: Prop_Crates2_R-
   m_TagString: Untagged
@@ -861,7 +862,7 @@ Light:
   m_Type: 2
   m_Color: {r: 0.61764705, g: 0.37058824, b: 0, a: 1}
   m_Intensity: 4.81
-  m_Range: 0.5
+  m_Range: 0.8
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -883,6 +884,26 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
+--- !u!114 &11442820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 173036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08cfd747f07184eb3b14002535b1d80f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownTags:
+  - innerCell
+  - leftBottom
+  mustHaveTags: []
+  forbiddenTags:
+  - innerCell
+  - leftBottom
+  minAge: 0
+  maxAge: 999
 --- !u!198 &19839054
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -1558,7 +1579,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 1
   UVModule:
-    enabled: 0
+    enabled: 1
     frameOverTime:
       scalar: 1
       maxCurve:
@@ -1595,7 +1616,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 1
     tilesX: 1
-    tilesY: 1
+    tilesY: 4
     animationType: 0
     rowIndex: 0
     cycles: 1
@@ -3057,7 +3078,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 1
   UVModule:
-    enabled: 0
+    enabled: 1
     frameOverTime:
       scalar: 1
       maxCurve:
@@ -3094,7 +3115,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 1
     tilesX: 1
-    tilesY: 1
+    tilesY: 4
     animationType: 0
     rowIndex: 0
     cycles: 1
@@ -4556,7 +4577,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 1
   UVModule:
-    enabled: 0
+    enabled: 1
     frameOverTime:
       scalar: 1
       maxCurve:
@@ -4593,7 +4614,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 1
     tilesX: 1
-    tilesY: 1
+    tilesY: 4
     animationType: 0
     rowIndex: 0
     cycles: 1
@@ -7554,7 +7575,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 1
   UVModule:
-    enabled: 0
+    enabled: 1
     frameOverTime:
       scalar: 1
       maxCurve:
@@ -7591,7 +7612,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 1
     tilesX: 1
-    tilesY: 1
+    tilesY: 4
     animationType: 0
     rowIndex: 0
     cycles: 1

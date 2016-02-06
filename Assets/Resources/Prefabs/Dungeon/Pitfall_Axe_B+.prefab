@@ -478,17 +478,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownTags:
   - innerCell
+  - floor
   mustHaveTags:
   - Bottom
   forbiddenTags:
   - innerCell
+  minAge: 0
+  maxAge: 999
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: ownTags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ownTags.Array.data[1]
+      value: floor
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 170702}

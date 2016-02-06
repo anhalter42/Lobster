@@ -331,7 +331,8 @@ MonoBehaviour:
   ownTags:
   - forwardTorch
   mustHaveTags: []
-  forbiddenTags: []
+  forbiddenTags:
+  - forwardTorch
   minAge: 0
   maxAge: 999
 --- !u!198 &19803656
