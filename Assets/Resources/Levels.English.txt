@@ -1,0 +1,25 @@
+#Tutorial.Tutorial 1
+//Quite simply we go
+name	Tutorial 1
+startupText	Collect all the diamonds
+
+#Tutorial.Tutorial 2
+//Something different
+
+#Tutorial.Tutorial 3
+//In the Dungeons
+
+#Tutorial.Tutorial 4
+//A little bigger :-)
+
+#Dungeon.Level 1
+//The first Level
+name	The Dungeons
+
+#Dungeon.Level 2
+//Please collect now all times
+name	All beginning...
+
+#Dungeon.Level 99
+//Testing the Performance
+name	Performance

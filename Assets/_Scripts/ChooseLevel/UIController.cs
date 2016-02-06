@@ -46,7 +46,7 @@ public class UIController : MonoBehaviour
 			LevelSettings lSet = AllLevels.Get ().levelSettings [level - 1];
 			AllLevels.Get ().currentLevelSettings = lSet;
 			m_textLevel.text = lSet.level.ToString ();
-			m_textName.text = lSet.levelName;
+			m_textName.text = lSet.name;
 			m_textDescription.text = lSet.levelDescription;
 			m_textWord.text = AllLevels.Get ().GetCellDescription (lSet.prefabs).worldName;
 			m_textHits.text = string.Format ("{0}x{1}x{2} Score: {3} Time: {4}", lSet.mazeWidth, lSet.mazeDepth, lSet.mazeHeight, lSet.scoreForExit, lSet.maxTime);

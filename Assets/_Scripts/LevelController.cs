@@ -291,9 +291,9 @@ public class LevelController : MonoBehaviour
 		prefabs = AllLevels.Get ().GetCellDescription (settings.prefabs);
 		string lStartUpText = settings.startupText;
 		if (string.IsNullOrEmpty (lStartUpText)) {
-			lStartUpText = string.Format (GetLocalText("MakeYouReadyForLevel"), settings.levelName);
+			lStartUpText = string.Format (GetLocalText("MakeYouReadyForLevel"), settings.name);
 		}
-		ShowToast (settings.levelName, lStartUpText);
+		ShowToast (settings.name, lStartUpText);
 		CreateLabyrinth ();
 		SetupScene ();
 	}
@@ -360,7 +360,7 @@ public class LevelController : MonoBehaviour
 		m_panelPause.gameObject.SetActive (false);
 		m_panelLevelFinished.gameObject.SetActive (false);
 		m_textLevel.text = settings.level.ToString ();
-		m_textName.text = settings.levelName;
+		m_textName.text = settings.name;
 		m_textDescription.text = settings.levelDescription;
 		PlayOnBackground (audioBackgroundMusic);
 	}
@@ -570,7 +570,7 @@ public class LevelController : MonoBehaviour
 	public void StartLevelStartScreen ()
 	{
 		m_textSLevel.text = settings.level.ToString ();
-		m_textSName.text = settings.levelName;
+		m_textSName.text = settings.name;
 		m_textSDescription.text = settings.levelDescription;
 		m_textSAchievements.text = string.Format ("Score: {0} Time: {1} ", settings.scoreForExit, Mathf.RoundToInt (settings.maxTime));
 		m_panelStart.gameObject.SetActive (true);
@@ -595,7 +595,7 @@ public class LevelController : MonoBehaviour
 			m_textLFTimeBonus.gameObject.SetActive (false);
 		}
 		m_textLFLevel.text = settings.level.ToString ();
-		m_textLFName.text = settings.levelName;
+		m_textLFName.text = settings.name;
 		m_textLFScore.text = string.Format (GetLocalText("LevelEndScore"), playerLevelSettings.score.ToString ());
 		m_textLFScoreBonus.text = string.Format (GetLocalText("LevelEndScoreBonus"), playerLevelSettings.scoreBonus.ToString ());
 		m_textLFTime.text = string.Format (GetLocalText("LevelEndTime"), Mathf.RoundToInt (playerLevelSettings.time).ToString ());

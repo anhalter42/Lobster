@@ -79,6 +79,7 @@ public class LevelSettings
 	public string prefabs = "Simple";
 	public int level = 1;
 	public string levelName = "NO LEVELS";
+	public string name;
 
 	string m_worldName = string.Empty;
 	public string worldName {
@@ -292,6 +293,7 @@ public class LevelSettings
 	public void ReadLine (string aLine)
 	{
 		if (!ReadString (ref prefabs, aLine, "prefabs"))
+		if (!ReadString (ref name, aLine, "name"))
 		if (!ReadString (ref m_worldName, aLine, "world"))
 		if (!ReadString (ref startupText, aLine, "startupText"))
 		if (!ReadAudioClip (ref audioBackgroundMusic, aLine, "audioBackgroundMusic", null))

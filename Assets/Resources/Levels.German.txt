@@ -1,0 +1,25 @@
+#Tutorial.Tutorial 1
+//Ganz einfach geht es los
+name	Tutorial 1
+startupText	Sammle alle Diamanten ein
+
+#Tutorial.Tutorial 2
+//Mal etwas anders
+
+#Tutorial.Tutorial 3
+//In den Dungeons
+
+#Tutorial.Tutorial 4
+//Ein wenig größer :-)
+
+#Dungeon.Level 1
+//Das erste Level
+name	Die Dungeons
+
+#Dungeon.Level 2
+//Jetzt mal bitte Alles einsammeln
+name	Aller Anfang...
+
+#Dungeon.Level 99
+//Performance Test
+name	Dungeontest

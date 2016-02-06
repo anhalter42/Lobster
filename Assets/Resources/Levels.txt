@@ -1,7 +1,7 @@
 #Tutorial 1
-//Ganz einfach geht es los
 world	Tutorial
 prefabs	SimpleCactusRocks
+startupText	Sammle alle Diamanten ein
 mazeWidth	5
 mazeHeight	1
 mazeDepth	5
@@ -11,7 +11,6 @@ groundColor	251,255,0
 groundTexture	Sand_Tiling
 
 #Tutorial 2
-//Mal etwas anders
 world	Tutorial
 prefabs	Grille
 mazeWidth	5
@@ -21,7 +20,6 @@ breakWalls	0
 scoreForExit	20
 
 #Tutorial 3
-//In den Dungeons
 world	Tutorial
 prefabs	Simple
 mazeWidth	6
@@ -39,7 +37,6 @@ directCell	3,0,3;Left,Forward,Right,Backward;true
 directPrefab	ChestGreen_B+;3,0,3
 
 #Tutorial 4
-//Ein wenig größer :-)
 world	Tutorial
 prefabs	Dungeon1
 mazeWidth	10
@@ -53,7 +50,6 @@ ambientMode	Flat
 ambientLight	0.1
 
 #Level 1
-//Das erste Level
 world	Dungeon
 prefabs	Dungeon1
 mazeWidth	20
@@ -65,7 +61,6 @@ dayLight	0.1
 dayLightColor	100,150,150
 
 #Level 2
-//Jetzt mal bitte Alles einsammeln
 world	Dungeon
 prefabs	Dungeon1
 mazeWidth	20
@@ -77,7 +72,6 @@ dayLight	0.75
 dayLightColor	255,255,255
 
 #Level 99
-//Performance Test
 world	Dungeon
 prefabs	Dungeon1
 mazeWidth	100

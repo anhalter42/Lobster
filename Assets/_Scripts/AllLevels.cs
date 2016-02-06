@@ -113,6 +113,15 @@ public class AllLevels : MonoBehaviour
 			}
 		}
 		local.Read ();
+		if (System.IO.File.Exists ("Inventory.txt")) {
+			string lText = System.IO.File.ReadAllText ("Inventory.txt");
+			inventory.ReadInventory (lText);
+		} else {
+			TextAsset lText = Resources.Load<TextAsset> ("Inventory");
+			if (lText) {
+				inventory.ReadInventory (lText.text);
+			}
+		}
 		if (System.IO.File.Exists ("CellDescs.txt")) {
 			string lCellDescs = System.IO.File.ReadAllText ("CellDescs.txt");
 			ReadCellDescs (lCellDescs);
@@ -131,13 +140,14 @@ public class AllLevels : MonoBehaviour
 				ReadLevels (lText.text);
 			}
 		}
-		if (System.IO.File.Exists ("Inventory.txt")) {
-			string lText = System.IO.File.ReadAllText ("Inventory.txt");
-			inventory.ReadInventory (lText);
+		string lFName = string.Format ("Levels.{0}.txt", Application.systemLanguage);
+		if (System.IO.File.Exists (lFName)) {
+			string lLevels = System.IO.File.ReadAllText (lFName);
+			MergeLevels (lLevels);
 		} else {
-			TextAsset lText = Resources.Load<TextAsset> ("Inventory");
+			TextAsset lText = Resources.Load<TextAsset> ("Levels." + Application.systemLanguage);
 			if (lText) {
-				inventory.ReadInventory (lText.text);
+				MergeLevels (lText.text);
 			}
 		}
 		LoadData ();
@@ -217,6 +227,7 @@ public class AllLevels : MonoBehaviour
 			if (lNewLine.StartsWith ("#")) {
 				lSetting = new LevelSettings ();
 				lSetting.levelName = lNewLine.Substring (1);
+				lSetting.name = lSetting.levelName;
 				lSettings.Add (lSetting);
 				lSetting.level = lSettings.Count;
 			} else if (lSetting != null) {
@@ -224,6 +235,38 @@ public class AllLevels : MonoBehaviour
 			}
 		}
 		levelSettings = lSettings.ToArray (typeof(LevelSettings)) as LevelSettings[];
+	}
+
+	void MergeLevels (string aText)
+	{
+		LevelSettings lSetting = null;
+		string[] lLines = aText.Split (new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
+		foreach (string lLine in lLines) {
+			string lNewLine = lLine.Replace ("\r", "");
+			if (lNewLine.StartsWith ("#")) {
+				int lI = lNewLine.IndexOf ('.');
+				if (lI > 1) {
+					string lWorld = lNewLine.Substring (1, lI - 1);
+					string lName = lNewLine.Substring (lI + 1);
+					lSetting = GetLevel (lWorld, lName);
+				}
+				if (lSetting == null) {
+					Debug.Log (string.Format ("Can't find level '{0}'!", lNewLine));
+				}
+			} else if (lSetting != null) {
+				lSetting.ReadLine (lNewLine);
+			}
+		}
+	}
+
+	public LevelSettings GetLevel (string aWorld, string aLevelName)
+	{
+		foreach (LevelSettings lS in levelSettings) {
+			if (lS.levelName == aLevelName && lS.worldName == aWorld) {
+				return lS;
+			}
+		}
+		return null;
 	}
 
 	public void NextLevel ()
