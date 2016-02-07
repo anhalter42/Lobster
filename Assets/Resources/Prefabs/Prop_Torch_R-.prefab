@@ -25,6 +25,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 480736}
+  - 114: {fileID: 11465416}
   m_Layer: 0
   m_Name: Prop_Torch_R-
   m_TagString: Untagged
@@ -286,6 +287,25 @@ MonoBehaviour:
   min: {x: -0.01, y: -0.01, z: -0.01}
   max: {x: 0.01, y: 0.05, z: 0.01}
   speed: 40
+--- !u!114 &11465416
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08cfd747f07184eb3b14002535b1d80f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownTags:
+  - leftTorch
+  mustHaveTags:
+  - Left
+  forbiddenTags:
+  - leftTorch
+  minAge: 0
+  maxAge: 999
 --- !u!198 &19850580
 ParticleSystem:
   m_ObjectHideFlags: 1

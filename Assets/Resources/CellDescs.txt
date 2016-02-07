@@ -184,7 +184,8 @@ rightProps		CellSeat_R+;5
 rightProps		Chain_A_R+;10
 rightProps		FireBreather_R+;5
 forwardProps	WallBarrel_B+;5;false
-forwardProps	ArchDoor_B+;10;false
+;forwardProps	ArchDoor_B+;10;false
+forwardProps	ArchDoorHinge_B+;10;false
 forwardProps	Arch_B+;10;false
 forwardProps	Ladder_B+;1
 forwardProps	Bucket_B+;1;true

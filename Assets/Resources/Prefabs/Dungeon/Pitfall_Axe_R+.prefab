@@ -435,10 +435,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownTags:
   - innerCell
+  - Floor
   mustHaveTags:
   - Bottom
   forbiddenTags:
   - innerCell
+  - Floor
+  minAge: 0
+  maxAge: 999
 --- !u!114 &11427736
 MonoBehaviour:
   m_ObjectHideFlags: 1

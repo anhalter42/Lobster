@@ -62,6 +62,7 @@ GameObject:
   - 65: {fileID: 6502308}
   - 114: {fileID: 11438346}
   - 82: {fileID: 8240108}
+  - 114: {fileID: 11495134}
   m_Layer: 0
   m_Name: FireBreather_B+
   m_TagString: Untagged
@@ -414,6 +415,25 @@ MonoBehaviour:
     triggerCount: 0
   controlledMethods: []
   inventoryItems: []
+--- !u!114 &11495134
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08cfd747f07184eb3b14002535b1d80f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownTags:
+  - forwardBottom
+  mustHaveTags:
+  - Bottom
+  forbiddenTags:
+  - forwardBottom
+  minAge: 0
+  maxAge: 999
 --- !u!198 &19800426
 ParticleSystem:
   m_ObjectHideFlags: 1

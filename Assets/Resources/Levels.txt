@@ -47,7 +47,8 @@ scoreForExit	75
 dayLight	0.25
 dayLightColor	200,150,50
 ambientMode	Flat
-ambientLight	0.1
+ambientLight	0.2
+ambientLightColor	200,150,50
 
 #Level 1
 world	Dungeon
@@ -57,8 +58,11 @@ mazeHeight	1
 mazeDepth	20
 breakWalls	3
 scoreForExit	300
-dayLight	0.1
+dayLight	0.2
 dayLightColor	100,150,150
+ambientMode	Flat
+ambientLight	0.2
+ambientLightColor	200,150,50
 
 #Level 2
 world	Dungeon
