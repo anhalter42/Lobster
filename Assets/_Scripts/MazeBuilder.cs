@@ -274,16 +274,7 @@ public class MazeBuilder
 			if (!lMA) {
 				lMA = exits [lIndex].AddComponent<MultiActivator> ();
 			}
-			if (lE.items.Length > 0) {
-				lMA.inventoryItems = new MultiActivator.InventoryItem[lE.items.Length];
-				int lI = 0;
-				foreach (PlayerInventory.InventoryItem lII in lE.items) {
-					lMA.inventoryItems [lI] = new MultiActivator.InventoryItem ();
-					lMA.inventoryItems [lI].type = lII.type;
-					lMA.inventoryItems [lI].neededAmount = lII.count;
-					lI++;
-				}
-			}
+			lMA.inventoryItems = lE.items;
 			lIndex++;
 		}
 		exits [lIndex] = CreateExit (exitPoint);

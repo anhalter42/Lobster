@@ -71,7 +71,7 @@ public class LevelSettings
 	{
 		public string levelName;
 		public Maze.Point pos = new Maze.Point (-1, -1, -1);
-		public PlayerInventory.InventoryItem[] items = { };
+		public MultiActivator.InventoryItem[] items = { };
 		public GameObject prefab;
 
 		public bool ReadLine (string aLine, string aFolder)
@@ -85,10 +85,10 @@ public class LevelSettings
 			}
 			if (lVs.Length > 2) {
 				string[] lIs = lVs [2].Split (new char[] { ',' });
-				System.Array.Resize<PlayerInventory.InventoryItem> (ref items, lIs.Length);
+				System.Array.Resize<MultiActivator.InventoryItem> (ref items, lIs.Length);
 				int lIndex = 0;
 				foreach (string lI in lIs) {
-					PlayerInventory.InventoryItem lItem = new PlayerInventory.InventoryItem ();
+					MultiActivator.InventoryItem lItem = new MultiActivator.InventoryItem ();
 					lItem.ReadLine (lI);
 					items [lIndex] = lItem;
 					lIndex++;

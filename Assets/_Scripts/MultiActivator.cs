@@ -25,6 +25,24 @@ public class MultiActivator : MonoBehaviour
 		public int neededAmount = 1;
 		public int costAmount = 1;
 		public int getAmount = 0;
+
+		public bool ReadLine(string aLine)
+		{
+			string[] lVs = aLine.Split(new char[] {':'});
+			if (lVs.Length > 0) {
+				type = lVs[0];
+			}
+			if (lVs.Length > 1) {
+				neededAmount = int.Parse(lVs[1]);
+			}
+			if (lVs.Length > 2) {
+				costAmount = int.Parse(lVs[2]);
+			}
+			if (lVs.Length > 3) {
+				getAmount = int.Parse(lVs[3]);
+			}
+			return !string.IsNullOrEmpty(type);
+		}
 	}
 
 	public class LateExecute
