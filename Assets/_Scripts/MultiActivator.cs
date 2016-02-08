@@ -166,7 +166,7 @@ public class MultiActivator : MonoBehaviour
 				AllLevels.Get ().levelController.ShowToast (lTitle, lText, lTime);
 			} else if (method.StartsWith ("Exit", System.StringComparison.OrdinalIgnoreCase)) {
 				string[] lParts = method.Split (new char[] { ';' });
-				string lLevelName = lParts.Length > 1 ? lParts [1] : null;
+				string lLevelName = lParts.Length > 1 ? (string.IsNullOrEmpty (lParts [1]) ? "NEXT" : lParts [1]) : "NEXT";
 				AllLevels.Get ().levelController.PlayerHasExitReached (lLevelName);
 			} else {
 				AllLevels.Get ().levelController.Invoke (method, delay);

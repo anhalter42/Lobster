@@ -1109,11 +1109,66 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 113644, guid: 769f042458fd544fcadc50d9db1f1997, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463202, guid: 769f042458fd544fcadc50d9db1f1997, type: 2}
+      propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11461210, guid: 769f042458fd544fcadc50d9db1f1997, type: 2}
+      propertyPath: rotation
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 769f042458fd544fcadc50d9db1f1997, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &682060012 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 196796, guid: 769f042458fd544fcadc50d9db1f1997, type: 2}
+  m_PrefabInternal: {fileID: 682060011}
+--- !u!1 &682060013 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 113644, guid: 769f042458fd544fcadc50d9db1f1997, type: 2}
+  m_PrefabInternal: {fileID: 682060011}
+--- !u!82 &682060014 stripped
+AudioSource:
+  m_PrefabParentObject: {fileID: 8206134, guid: 769f042458fd544fcadc50d9db1f1997,
+    type: 2}
+  m_PrefabInternal: {fileID: 682060011}
+--- !u!114 &682060015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 682060013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f29085e6b6c4fddbfc2b474eb81998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlledObjects:
+  - when: 0
+    action: 0
+    gameObject: {fileID: 682060012}
+    delay: 0
+    tags:
+    - Player
+    isRepeatable: 0
+    isDone: 0
+    triggerCount: 0
+  controlledBehaviors:
+  - when: 0
+    action: 0
+    behaviour: {fileID: 682060014}
+    delay: 0
+    argument: 
+    tags:
+    - Player
+    isRepeatable: 0
+    isDone: 0
+    triggerCount: 0
+  controlledMethods: []
+  inventoryItems: []
 --- !u!1001 &700456598
 Prefab:
   m_ObjectHideFlags: 0

@@ -260,33 +260,33 @@ public class MazeBuilder
 			ForLater lFL = lForLater [j] as ForLater;
 			CreateGameObject (lFL.prefab, lFL.parent, lFL.prefix + "L_" + j.ToString ());
 		}
-		CreateExits();
+		CreateExits ();
 	}
 
-	protected void CreateExits()
+	protected void CreateExits ()
 	{
 		System.Array.Resize<GameObject> (ref exits, settings.exits.Length + 1);
 		int lIndex = 0;
 		foreach (LevelSettings.Exit lE in settings.exits) {
-			exits [lIndex] = CreateExit (lE.pos, lE.prefab);
+			exits [lIndex] = CreateExit (lE.pos, lE.prefab, lE.levelName);
 			exits [lIndex].SetActive (false);
-			MultiActivator lMA = exits [lIndex].AddComponent<MultiActivator>();
+			MultiActivator lMA = exits [lIndex].GetComponent<MultiActivator> ();
+			if (!lMA) {
+				lMA = exits [lIndex].AddComponent<MultiActivator> ();
+			}
 			if (lE.items.Length > 0) {
 				lMA.inventoryItems = new MultiActivator.InventoryItem[lE.items.Length];
 				int lI = 0;
-				foreach(PlayerInventory.InventoryItem lII in lE.items) {
-					lMA.inventoryItems[lI] = new MultiActivator.InventoryItem();
-					lMA.inventoryItems[lI].type = lII.type;
-					lMA.inventoryItems[lI].neededAmount = lII.count;
+				foreach (PlayerInventory.InventoryItem lII in lE.items) {
+					lMA.inventoryItems [lI] = new MultiActivator.InventoryItem ();
+					lMA.inventoryItems [lI].type = lII.type;
+					lMA.inventoryItems [lI].neededAmount = lII.count;
 					lI++;
 				}
 			}
-			lMA.controlledMethods = new MultiActivator.ControlledMethod[1];
-			lMA.controlledMethods[0] = new MultiActivator.ControlledMethod();
-			lMA.controlledMethods[0].method = string.Format("Exit;{0}", lE.levelName);
 			lIndex++;
 		}
-		exits [lIndex] = CreateExit (exitPoint, null);
+		exits [lIndex] = CreateExit (exitPoint);
 		exits [lIndex].SetActive (false);
 		exitPoint = exits [lIndex].transform.parent.GetComponent<MazeCellComponent> ().cell.pos;
 	}
@@ -301,7 +301,7 @@ public class MazeBuilder
 		}
 	}
 
-	public GameObject CreateExit (Maze.Point aPoint, GameObject aPrefab)
+	public GameObject CreateExit (Maze.Point aPoint, GameObject aPrefab = null, string aLevelName = "NEXT")
 	{
 		Maze.Point lP;
 		if (!Maze.Point.IsNullOrEmpty (aPoint)) {
@@ -313,6 +313,13 @@ public class MazeBuilder
 		}
 		GameObject lPrefab = aPrefab != null ? aPrefab : prefabs.GetOne (prefabs.exit);
 		GameObject lExit = CreateGameObject (lPrefab, Maze.get (lP).gameObject.transform, "Exit");
+		MultiActivator lMA = lExit.GetComponent<MultiActivator> ();
+		if (!lMA) {
+			lMA = lExit.AddComponent<MultiActivator> ();
+		}
+		System.Array.Resize<MultiActivator.ControlledMethod> (ref lMA.controlledMethods, lMA.controlledMethods.Length + 1);
+		lMA.controlledMethods [lMA.controlledMethods.Length - 1] = new MultiActivator.ControlledMethod ()
+		{ isRepeatable = false, method = string.Format ("Exit;", aLevelName) };
 		return lExit;
 	}
 
