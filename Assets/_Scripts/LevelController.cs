@@ -619,7 +619,7 @@ public class LevelController : MonoBehaviour
 	}
 
 	/* for controlled methods */
-	public void PlayerHasExitReached ()
+	public void PlayerHasExitReached (string lLevelName = null)
 	{
 		if (isRunning) {
 			isPause = true;

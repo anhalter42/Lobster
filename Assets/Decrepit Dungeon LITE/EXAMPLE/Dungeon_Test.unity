@@ -5534,6 +5534,7 @@ MonoBehaviour:
     name: 
     levelDescription: 
     startupText: 
+    deathLevel: 
     mazeWidth: 5
     mazeHeight: 1
     mazeDepth: 5
@@ -5562,6 +5563,7 @@ MonoBehaviour:
     audioBackgroundLevelEnd: {fileID: 0}
     audioBackgroundLevelStart: {fileID: 0}
     audioBackgroundLevelExitOpen: {fileID: 0}
+    cellDescs: []
   prefabs:
     top: []
     bottom: []

@@ -9,8 +9,10 @@ public class PlayerInventory : MonoBehaviour
 	{
 		public string type = string.Empty;
 		public int count = 1;
-		public string name { get { return AllLevels.Get().local.GetText(type); } }
-		public bool isVisibleInUI { get { return AllLevels.Get().inventory.Get(type).VisibleInUI; } }
+
+		public string name { get { return AllLevels.Get ().local.GetText (type); } }
+
+		public bool isVisibleInUI { get { return AllLevels.Get ().inventory.Get (type).VisibleInUI; } }
 
 		public InventoryItem ()
 		{
@@ -20,6 +22,17 @@ public class PlayerInventory : MonoBehaviour
 		{
 			type = aType;
 			count = aCount;
+		}
+
+		public void ReadLine (string aLine)
+		{
+			string[] lVs = aLine.Split (new char[] { ':' });
+			if (lVs.Length > 0) {
+				type = lVs [0];
+			}
+			if (lVs.Length > 1) {
+				count = int.Parse (lVs [1]);
+			}
 		}
 	}
 

@@ -344,7 +344,7 @@ MonoBehaviour:
   - {fileID: 8206134}
   when: 0
   isActivated: 0
-  levelControllerMethod: PlayerHasExitReached
+  levelControllerMethod: 
   levelControllerMethodDelay: 0
   m_ObjectActivationDelay: 0
   tags:

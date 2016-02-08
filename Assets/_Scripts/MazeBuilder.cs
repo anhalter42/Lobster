@@ -13,10 +13,14 @@ public class MazeBuilder
 	public Maze Maze;
 	public Maze.Point exitPoint;
 
+	GameObject[] levels;
+	GameObject[] exits;
+
 	protected void Init ()
 	{
 		Maze = new Maze (settings.mazeWidth, settings.mazeHeight, settings.mazeDepth);
 		Maze.chanceForBreakWalls = settings.breakWalls;
+		prefabs = settings.PreparePrefabs (prefabs);
 		settings.PrepareMaze (Maze);
 		Maze.build ();
 	}
@@ -148,8 +152,6 @@ public class MazeBuilder
 		CreateLabyrinth (aParent, Vector3.zero);
 	}
 
-	GameObject[] levels;
-
 	void CreateCellObjects (Transform aParent, Vector3 aPos)
 	{
 		levels = new GameObject[Maze.height];
@@ -258,7 +260,37 @@ public class MazeBuilder
 			ForLater lFL = lForLater [j] as ForLater;
 			CreateGameObject (lFL.prefab, lFL.parent, lFL.prefix + "L_" + j.ToString ());
 		}
+		CreateExits();
 	}
+
+	protected void CreateExits()
+	{
+		System.Array.Resize<GameObject> (ref exits, settings.exits.Length + 1);
+		int lIndex = 0;
+		foreach (LevelSettings.Exit lE in settings.exits) {
+			exits [lIndex] = CreateExit (lE.pos, lE.prefab);
+			exits [lIndex].SetActive (false);
+			MultiActivator lMA = exits [lIndex].AddComponent<MultiActivator>();
+			if (lE.items.Length > 0) {
+				lMA.inventoryItems = new MultiActivator.InventoryItem[lE.items.Length];
+				int lI = 0;
+				foreach(PlayerInventory.InventoryItem lII in lE.items) {
+					lMA.inventoryItems[lI] = new MultiActivator.InventoryItem();
+					lMA.inventoryItems[lI].type = lII.type;
+					lMA.inventoryItems[lI].neededAmount = lII.count;
+					lI++;
+				}
+			}
+			lMA.controlledMethods = new MultiActivator.ControlledMethod[1];
+			lMA.controlledMethods[0] = new MultiActivator.ControlledMethod();
+			lMA.controlledMethods[0].method = string.Format("Exit;{0}", lE.levelName);
+			lIndex++;
+		}
+		exits [lIndex] = CreateExit (exitPoint, null);
+		exits [lIndex].SetActive (false);
+		exitPoint = exits [lIndex].transform.parent.GetComponent<MazeCellComponent> ().cell.pos;
+	}
+
 
 	public void ActivateWayPoints (Maze.Point aFrom, Maze.Point aTo)
 	{
@@ -269,24 +301,34 @@ public class MazeBuilder
 		}
 	}
 
+	public GameObject CreateExit (Maze.Point aPoint, GameObject aPrefab)
+	{
+		Maze.Point lP;
+		if (!Maze.Point.IsNullOrEmpty (aPoint)) {
+			lP = aPoint;
+		} else {
+			lP = new Maze.Point (Random.Range (0, Maze.width),
+				Random.Range (0, Maze.height),
+				Random.Range (0, Maze.depth));
+		}
+		GameObject lPrefab = aPrefab != null ? aPrefab : prefabs.GetOne (prefabs.exit);
+		GameObject lExit = CreateGameObject (lPrefab, Maze.get (lP).gameObject.transform, "Exit");
+		return lExit;
+	}
+
 	public void ActivateExits ()
 	{
-		if (settings.exitPos != null) {
-			exitPoint = settings.exitPos;
-		} else {
-			exitPoint = new Maze.Point (Random.Range (0, Maze.width - 1),
-				Random.Range (0, Maze.height - 1),
-				Random.Range (0, Maze.depth - 1));
+		foreach (GameObject lE in exits) {
+			lE.SetActive (true);
 		}
-		CreateGameObject (prefabs.GetOne (prefabs.exit), Maze.get (exitPoint).gameObject.transform, "Exit");
 	}
 
 	public Maze.Point GetMazePointFromLocal (Vector3 aPos)
 	{
 		return new Maze.Point (
-			(int)(aPos.x/positionScale.x + positionScale.x/2f),
-			(int)(aPos.y/positionScale.y + positionScale.y/2f),
-			(int)(aPos.z/positionScale.z + positionScale.z/2f));
+			(int)(aPos.x / positionScale.x + positionScale.x / 2f),
+			(int)(aPos.y / positionScale.y + positionScale.y / 2f),
+			(int)(aPos.z / positionScale.z + positionScale.z / 2f));
 	}
 
 	public Maze.Point GetMazePoint (Vector3 aPos)

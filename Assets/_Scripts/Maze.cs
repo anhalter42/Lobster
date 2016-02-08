@@ -48,6 +48,11 @@ public class Maze
 			return System.String.Format ("({0},{1},{2})", x, y, z);
 		}
 
+		public static bool IsNullOrEmpty(Point aP)
+		{
+			return aP == null || (aP.x == -1 && aP.y == -1 && aP.z == -1);
+		}
+
 		public static bool operator == (Point a, Point b)
 		{
 			// If both are null, or both are same instance, return true.
@@ -104,6 +109,7 @@ public class Maze
 
 		public bool visited = false;
 		public GameObject gameObject;
+		public bool playerHasVisited = false;
 
 		public Cell (int aX, int aY, int aZ)
 		{

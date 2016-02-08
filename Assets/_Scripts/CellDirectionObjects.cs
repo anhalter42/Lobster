@@ -33,12 +33,17 @@ public class GameObjectChance
 			health = float.Parse (aProps [5]);
 		}
 		if (aProps.Length > 0) {
-			string[] lPrefabNames = aProps[0].Split(new char[] {','});
-			foreach(string lName in lPrefabNames) {
+			string[] lPrefabNames = aProps [0].Split (new char[] { ',' });
+			foreach (string lName in lPrefabNames) {
 				prefab = AllLevels.LoadResource<GameObject> (lName, "Prefabs", aFolder);
 				if (prefab != null) {
-					System.Array.Resize<GameObjectChance> (ref aArray, aArray.Length + 1);
-					aArray [aArray.Length - 1] = Clone();
+					int lIndex = Find (aArray, prefab, wallNeeded);
+					if (lIndex >= 0) {
+						aArray [lIndex] = Clone ();
+					} else {
+						System.Array.Resize<GameObjectChance> (ref aArray, aArray.Length + 1);
+						aArray [aArray.Length - 1] = Clone ();
+					}
 				}
 			}
 		}
@@ -62,6 +67,18 @@ public class GameObjectChance
 			lNew [i] = aNew [i].Clone ();
 		}
 		return lNew;
+	}
+
+	public static int Find (GameObjectChance[] aList, GameObject aPrefab, bool aWithWall)
+	{
+		int lIndex = 0;
+		foreach (GameObjectChance lG in aList) {
+			if (lG.prefab == aPrefab && lG.wallNeeded == aWithWall) {
+				return lIndex;
+			}
+			lIndex++;
+		}
+		return -1;
 	}
 }
 
@@ -99,9 +116,14 @@ public class CellDirectionObjects
 	public GameObjectChance[] backwardProps = { };
 	public GameObjectChance[] wayPoints = { };
 
+	public virtual CellDirectionObjects Create ()
+	{
+		return new CellDirectionObjects ();
+	}
+
 	public virtual CellDirectionObjects Clone (CellDirectionObjects aNew = null)
 	{
-		CellDirectionObjects lNew = aNew == null ? new CellDirectionObjects () : aNew;
+		CellDirectionObjects lNew = aNew == null ? Create () : aNew;
 		lNew.top = GameObjectChance.CloneArray (top);
 		lNew.bottom = GameObjectChance.CloneArray (bottom);
 		lNew.left = GameObjectChance.CloneArray (left);
@@ -297,6 +319,11 @@ public class CellDescription : CellDirectionObjects
 	public AudioItem[] audioItems = { };
 	protected System.Collections.Generic.Dictionary<string, AudioItem> fAudioItems;
 
+	public override CellDirectionObjects Create ()
+	{
+		return new CellDescription ();
+	}
+
 	public override CellDirectionObjects Clone (CellDirectionObjects aNew)
 	{
 		CellDirectionObjects lCD = base.Clone (aNew);
@@ -304,7 +331,8 @@ public class CellDescription : CellDirectionObjects
 			CellDescription lNew = (CellDescription)lCD;
 			lNew.name = name;
 			lNew.worldName = worldName;
-			lNew.audioScore = new AudioScore[audioScore.Length]; System.Array.Copy(audioScore, lNew.audioScore, lNew.audioScore.Length);
+			lNew.audioScore = new AudioScore[audioScore.Length];
+			System.Array.Copy (audioScore, lNew.audioScore, lNew.audioScore.Length);
 			lNew.audioScoreReached = audioScoreReached;
 			lNew.audioLiveLost = audioLiveLost;
 			lNew.audioLiveAdded = audioLiveAdded;
@@ -320,24 +348,25 @@ public class CellDescription : CellDirectionObjects
 			lNew.audioBackgroundLevelEnd = audioBackgroundLevelEnd;
 			lNew.audioBackgroundLevelStart = audioBackgroundLevelStart;
 			lNew.audioBackgroundLevelExitOpen = audioBackgroundLevelExitOpen;
-			lNew.audioItems = new AudioItem[audioItems.Length]; System.Array.Copy(audioItems, lNew.audioItems, lNew.audioItems.Length);
+			lNew.audioItems = new AudioItem[audioItems.Length];
+			System.Array.Copy (audioItems, lNew.audioItems, lNew.audioItems.Length);
 		}
 		return lCD;
 	}
 
 	public AudioClip GetAudioItemGet (string aType)
 	{
-		return fAudioItems.ContainsKey(aType) ? fAudioItems[aType].audioGet : null;
+		return fAudioItems.ContainsKey (aType) ? fAudioItems [aType].audioGet : null;
 	}
 
 	public AudioClip GetAudioItemUse (string aType)
 	{
-		return fAudioItems.ContainsKey(aType) ? fAudioItems[aType].audioUse : null;
+		return fAudioItems.ContainsKey (aType) ? fAudioItems [aType].audioUse : null;
 	}
 
 	public AudioClip GetAudioItemDrop (string aType)
 	{
-		return fAudioItems.ContainsKey(aType) ? fAudioItems[aType].audioDrop : null;
+		return fAudioItems.ContainsKey (aType) ? fAudioItems [aType].audioDrop : null;
 	}
 
 	public AudioScore[] ReadAudioScore (string aLine, AudioScore[] aSrc, string aName, string aFolder)

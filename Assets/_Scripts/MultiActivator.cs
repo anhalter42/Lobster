@@ -157,12 +157,17 @@ public class MultiActivator : MonoBehaviour
 			if (!isRepeatable) {
 				isDone = true;
 			}
-			if (string.Equals (method, "Toast", System.StringComparison.OrdinalIgnoreCase)) {
+			//Toast;<Splash_Text>;<Title>;<tandingTime>
+			if (method.StartsWith ("Toast;", System.StringComparison.OrdinalIgnoreCase)) {
 				string[] lParts = method.Split (new char[] { ';' });
 				string lTitle = lParts.Length > 2 ? lParts [2] : AllLevels.Get ().levelController.settings.name;
 				string lText = lParts.Length > 1 ? lParts [1] : "What?";
 				float lTime = lParts.Length > 3 ? float.Parse (lParts [3]) : 2f;
 				AllLevels.Get ().levelController.ShowToast (lTitle, lText, lTime);
+			} else if (method.StartsWith ("Exit", System.StringComparison.OrdinalIgnoreCase)) {
+				string[] lParts = method.Split (new char[] { ';' });
+				string lLevelName = lParts.Length > 1 ? lParts [1] : null;
+				AllLevels.Get ().levelController.PlayerHasExitReached (lLevelName);
 			} else {
 				AllLevels.Get ().levelController.Invoke (method, delay);
 			}
