@@ -80,7 +80,7 @@ namespace MAHN42
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
 		}
 
-		public void SetDeath(bool aDeath) 
+		public void SetDeath (bool aDeath)
 		{
 			m_death = aDeath;
 		}
@@ -122,34 +122,45 @@ namespace MAHN42
 		void UpdateAnimator (Vector3 move)
 		{
 			// update the animator parameters
-			m_Animator.SetFloat ("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
-			m_Animator.SetFloat ("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
 			m_Animator.SetBool ("Death", m_death);
-			m_Animator.SetBool ("Crouch", m_Crouching);
-			m_Animator.SetBool ("OnGround", m_IsGrounded);
-			m_Animator.SetBool ("OnGroundLeft", m_IsLeftGrounded);
-			m_Animator.SetBool ("OnGroundRight", m_IsRightGrounded);
-			if (!m_IsGrounded) {
-				m_Animator.SetFloat ("Jump", m_Rigidbody.velocity.y);
-			}
+			if (!m_death) {
+				m_Animator.SetFloat ("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
+				m_Animator.SetFloat ("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
+				m_Animator.SetBool ("Crouch", m_Crouching);
+				m_Animator.SetBool ("OnGround", m_IsGrounded);
+				m_Animator.SetBool ("OnGroundLeft", m_IsLeftGrounded);
+				m_Animator.SetBool ("OnGroundRight", m_IsRightGrounded);
+				if (!m_IsGrounded) {
+					m_Animator.SetFloat ("Jump", m_Rigidbody.velocity.y);
+				}
 
-			// calculate which leg is behind, so as to leave that leg trailing in the jump animation
-			// (This code is reliant on the specific run cycle offset in our animations,
-			// and assumes one leg passes the other at the normalized clip times of 0.0 and 0.5)
-			float runCycle =
-				Mathf.Repeat (
-					m_Animator.GetCurrentAnimatorStateInfo (0).normalizedTime + m_RunCycleLegOffset, 1);
-			float jumpLeg = (runCycle < k_Half ? 1 : -1) * m_ForwardAmount;
-			if (m_IsGrounded) {
-				m_Animator.SetFloat ("JumpLeg", jumpLeg);
-			}
+				// calculate which leg is behind, so as to leave that leg trailing in the jump animation
+				// (This code is reliant on the specific run cycle offset in our animations,
+				// and assumes one leg passes the other at the normalized clip times of 0.0 and 0.5)
+				float runCycle =
+					Mathf.Repeat (
+						m_Animator.GetCurrentAnimatorStateInfo (0).normalizedTime + m_RunCycleLegOffset, 1);
+				float jumpLeg = (runCycle < k_Half ? 1 : -1) * m_ForwardAmount;
+				if (m_IsGrounded) {
+					m_Animator.SetFloat ("JumpLeg", jumpLeg);
+				}
 
-			// the anim speed multiplier allows the overall speed of walking/running to be tweaked in the inspector,
-			// which affects the movement speed because of the root motion.
-			if (m_IsGrounded && move.magnitude > 0) {
-				m_Animator.speed = m_AnimSpeedMultiplier;
+				// the anim speed multiplier allows the overall speed of walking/running to be tweaked in the inspector,
+				// which affects the movement speed because of the root motion.
+				if (m_IsGrounded && move.magnitude > 0) {
+					m_Animator.speed = m_AnimSpeedMultiplier;
+				} else {
+					// don't use that while airborne
+					m_Animator.speed = 1;
+				}
 			} else {
-				// don't use that while airborne
+				m_Animator.SetFloat ("Forward", 0f, 0.1f, Time.deltaTime);
+				m_Animator.SetFloat ("Turn", 0f, 0.1f, Time.deltaTime);
+				m_Animator.SetBool ("Crouch", false);
+				m_Animator.SetBool ("OnGround", true);
+				m_Animator.SetBool ("OnGroundLeft", true);
+				m_Animator.SetBool ("OnGroundRight", true);
+				m_Animator.SetFloat ("Jump", 0f);
 				m_Animator.speed = 1;
 			}
 		}

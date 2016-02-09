@@ -126,6 +126,7 @@ public class LevelSettings
 	public int mazeDepth = 5;
 	public int breakWalls = 0;
 	public int maxTime = 0;
+	public int lives = 0;
 	// in seconds, 0 means endless
 	public int scoreForExit = 20;
 	// 20 points to open the exit
@@ -135,6 +136,7 @@ public class LevelSettings
 	// Faktor für extra Time Bonus Score
 	public Maze.Point playerStart = null;
 	public Maze.Point exitPos = null;
+	public float playerProtectionTime = 10f;
 	public float ambientLight = 0.75f;
 	public Color ambientLightColor = new Color (77 / 255, 77 / 255, 77 / 255);
 	public UnityEngine.Rendering.AmbientMode ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
@@ -373,6 +375,7 @@ public class LevelSettings
 		if (!ReadLevelName (ref deathLevel, aLine, "deathLevel"))
 		if (!ReadString (ref m_worldName, aLine, "world"))
 		if (!ReadString (ref startupText, aLine, "startupText"))
+		if (!ReadFloat (ref playerProtectionTime, aLine, "playerProtectionTime"))
 		if (!ReadAudioClip (ref audioBackgroundMusic, aLine, "audioBackgroundMusic", null))
 		if (!ReadAudioClip (ref audioBackgroundPause, aLine, "audioBackgroundPause", null))
 		if (!ReadAudioClip (ref audioBackgroundLevelEnd, aLine, "audioBackgroundLevelEnd", null))
@@ -388,6 +391,7 @@ public class LevelSettings
 		if (!ReadInt (ref mazeDepth, aLine, "mazeDepth"))
 		if (!ReadInt (ref breakWalls, aLine, "breakWalls"))
 		if (!ReadInt (ref maxTime, aLine, "maxTime"))
+		if (!ReadInt (ref lives, aLine, "lives"))
 		if (!ReadMazePoint (ref playerStart, aLine, "playerStart"))
 		if (!ReadMazePoint (ref exitPos, aLine, "exitPos"))
 		if (!ReadExit (ref exits, aLine, "exit"))
