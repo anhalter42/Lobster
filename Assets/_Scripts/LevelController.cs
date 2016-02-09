@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LevelController : MonoBehaviour
 {
+	[System.Serializable]
+	public class PlayerSettings
+	{
+		public int lives = 1;
+		public int score = 0;
+	}
 
 	[System.Serializable]
 	public class PlayerLevelSettings
@@ -23,12 +30,50 @@ public class LevelController : MonoBehaviour
 		public float protectionTime = 0f;
 	}
 
+	public class LevelStackItem
+	{
+		public LevelSettings settings;
+		public CellDescription prefabs;
+		public MazeBuilder builder;
+		public PlayerLevelSettings playerLevelSettings;
+		public GameObject mazeParent;
+		public Vector3 playerPos;
+
+		public LevelStackItem ()
+		{
+		}
+
+		public LevelStackItem (LevelController aController)
+		{
+			settings = aController.settings;
+			prefabs = aController.prefabs;
+			builder = aController.builder;
+			playerLevelSettings = aController.playerLevelSettings;
+			mazeParent = aController.m_MainMazeParent;
+			playerPos = aController.player.transform.position;
+		}
+
+		public void Restore (LevelController aController)
+		{
+			aController.settings = settings;
+			aController.prefabs = prefabs;
+			aController.builder = builder;
+			aController.playerLevelSettings = playerLevelSettings;
+			aController.m_MainMazeParent = mazeParent;
+			aController.player.transform.position = playerPos;
+		}
+	}
+
+	public Stack<LevelStackItem> levelStack = new Stack<LevelStackItem> ();
+
 	public LevelSettings settings;
 	[SerializeField]
 	public CellDescription prefabs;
 	public MazeBuilder builder;
 
 	public PlayerLevelSettings playerLevelSettings = new PlayerLevelSettings ();
+
+	public PlayerSettings playerSettings = new PlayerSettings ();
 
 	public Transform mazeParent;
 
@@ -139,7 +184,7 @@ public class LevelController : MonoBehaviour
 	}
 
 	GameObject m_playerProtectionEffect;
-	GameObject m_MainMazeParent;
+	public GameObject m_MainMazeParent;
 
 	// Use this for initialization
 	void Awake ()
@@ -210,8 +255,7 @@ public class LevelController : MonoBehaviour
 		m_panelPause.gameObject.SetActive (false);
 		m_panelLevelFinished.gameObject.SetActive (false);
 		m_panelToast.gameObject.SetActive (false);
-		m_MainMazeParent = new GameObject();
-		m_MainMazeParent.transform.SetParent(mazeParent.transform, false);
+		CreateMainMazeParent ("Main");
 	}
 
 	public string GetLocalText (string aKey)
@@ -326,6 +370,13 @@ public class LevelController : MonoBehaviour
 		dungeonCamera.transform.position = player.transform.position + m_CameraOffsetSpectate;
 	}
 
+	protected void CreateMainMazeParent (string aName)
+	{
+		m_MainMazeParent = new GameObject ();
+		m_MainMazeParent.name = aName;
+		m_MainMazeParent.transform.SetParent (mazeParent.transform, false);
+	}
+
 	protected void CreateLabyrinth ()
 	{
 		builder = new MazeBuilder ();
@@ -339,7 +390,7 @@ public class LevelController : MonoBehaviour
 			Destroy (player);
 		}
 		Vector3 lPos;
-		if (!Maze.Point.IsNullOrEmpty(settings.playerStart)) {
+		if (!Maze.Point.IsNullOrEmpty (settings.playerStart)) {
 			lPos = new Vector3 (settings.playerStart.x, settings.playerStart.y, settings.playerStart.z);
 		} else {
 			lPos = new Vector3 (builder.Maze.width / 2, builder.Maze.height / 2, builder.Maze.depth / 2);
@@ -371,13 +422,14 @@ public class LevelController : MonoBehaviour
 		isRunning = true;
 		isPause = false;
 		playerLevelSettings.startTime = Time.realtimeSinceStartup;
+		playerLevelSettings.levelRuntime = 0f;
 		playerLevelSettings.lives += settings.lives;
 		m_panelPause.gameObject.SetActive (false);
 		m_panelLevelFinished.gameObject.SetActive (false);
 		m_textLevel.text = settings.level.ToString ();
 		m_textName.text = settings.name;
 		m_textDescription.text = settings.levelDescription;
-		PlayerAwake();
+		PlayerAwake ();
 		PlayOnBackground (audioBackgroundMusic);
 	}
 
@@ -561,7 +613,7 @@ public class LevelController : MonoBehaviour
 		}
 	}
 
-	public void PlayerAwake()
+	public void PlayerAwake ()
 	{
 		player.GetComponent<MAHN42.ThirdPersonCharacter> ().SetDeath (false);
 		playerLevelSettings.health = 100;
@@ -578,7 +630,7 @@ public class LevelController : MonoBehaviour
 			} else {
 				Debug.Log ("No audio for live lost!");
 			}
-			Invoke("PlayerAwake", 4f);
+			Invoke ("PlayerAwake", 4f);
 		} else {
 			PlayerInDeathMode ();
 		}
@@ -587,6 +639,18 @@ public class LevelController : MonoBehaviour
 	public void PlayerInDeathMode ()
 	{
 		//TODO: Death Mode
+		if (!string.IsNullOrEmpty (settings.deathLevel)) {
+			levelStack.Push (new LevelStackItem (this));
+			m_MainMazeParent.SetActive (false);
+			CreateMainMazeParent ("Death_" + levelStack.Count.ToString ());
+			settings = AllLevels.Get ().GetLevel (settings.deathLevel);
+			Generate (settings);
+			StartLevelIntro ();
+		} else {
+			player.GetComponent<MAHN42.ThirdPersonCharacter> ().SetDeath (true);
+			ShowToast (settings.name, GetLocalText ("GameOver"), 5f);
+			Invoke ("StartChooseLevel", 5f);
+		}
 	}
 
 	public void PlayAudioEffect (AudioClip aClip)
@@ -690,7 +754,14 @@ public class LevelController : MonoBehaviour
 
 	public void StartNextLevel ()
 	{
-		AllLevels.Get ().NextLevel ();
+		if (levelStack.Count == 0) {
+			AllLevels.Get ().NextLevel ();
+		} else {
+			m_MainMazeParent.SetActive (false);
+			Destroy(m_MainMazeParent);
+			levelStack.Pop ().Restore (this);
+			m_MainMazeParent.SetActive (true);
+		}
 	}
 
 	/* for controlled methods */

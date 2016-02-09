@@ -259,6 +259,12 @@ public class AllLevels : MonoBehaviour
 		}
 	}
 
+	public LevelSettings GetLevel (string aLevelName)
+	{
+		string[] lParts = aLevelName.Split(new char[] {'.'});
+		return GetLevel(lParts[0], lParts[1]);
+	}
+
 	public LevelSettings GetLevel (string aWorld, string aLevelName)
 	{
 		foreach (LevelSettings lS in levelSettings) {
