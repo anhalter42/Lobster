@@ -15,3 +15,5 @@ EditorBuildSettings:
     path: Assets/_Scenes/PlayerProfile.unity
   - enabled: 1
     path: Assets/_Scenes/HighScore.unity
+  - enabled: 1
+    path: Assets/_Scenes/ChooseStory.unity

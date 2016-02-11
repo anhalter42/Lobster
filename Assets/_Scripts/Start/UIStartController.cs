@@ -14,6 +14,7 @@ public class UIStartController : MonoBehaviour
 	public InputField m_NewPlayerAge;
 	public RectTransform m_NewPlayerPanel;
 	public Dropdown m_DropdownPlayer;
+	public Dropdown m_DropdownLanguage;
 
 	Texture2D texture;
 
@@ -32,6 +33,9 @@ public class UIStartController : MonoBehaviour
 
 		if (!m_DropdownPlayer) {
 			m_DropdownPlayer = GameObject.Find ("DropdownPlayer").GetComponent<Dropdown> ();
+		}
+		if (!m_DropdownLanguage) {
+			m_DropdownLanguage = GameObject.Find ("DropdownLanguage").GetComponent<Dropdown> ();
 		}
 		DontDestroyOnLoad (GameObject.Find ("Master"));
 		texture = new Texture2D (500, 500);
@@ -68,6 +72,7 @@ public class UIStartController : MonoBehaviour
 		di [14] = 3;
 		di [15] = 2;
 		m_NewPlayerPanel.gameObject.SetActive (false);
+		UpdateLanguageDrowpdown ();
 		UpdatePlayerDrowpdown ();
 	}
 
@@ -86,6 +91,23 @@ public class UIStartController : MonoBehaviour
 		}
 		m_DropdownPlayer.AddOptions (lPlayers);
 		m_DropdownPlayer.value = lIndex;
+	}
+
+	void UpdateLanguageDrowpdown ()
+	{
+		string lName = PlayerPrefs.GetString ("Language", AllLevels.Get ().language.ToString ());
+		int i = 0, lIndex = 0;
+		m_DropdownLanguage.ClearOptions ();
+		List<string> lLangus = new List<string> ();
+		foreach (SystemLanguage lL in AllLevels.Get().supportedLanguages) {
+			lLangus.Add (lL.ToString ());
+			if (lL.ToString () == lName) {
+				lIndex = i;
+			}
+			i++;
+		}
+		m_DropdownLanguage.AddOptions (lLangus);
+		m_DropdownLanguage.value = lIndex;
 	}
 
 	int x, y;
@@ -156,10 +178,14 @@ public class UIStartController : MonoBehaviour
 		texture.Apply (false);
 	}
 
-	public void ButtonStart ()
+	public void ButtonStartStory ()
+	{
+		AllLevels.Get ().StartChooseStory ();
+	}
+
+	public void ButtonStartLevel ()
 	{
 		AllLevels.Get ().StartChooseLevel ();
-		//SceneManager.LoadScene ("ChooseLevel", LoadSceneMode.Single);
 	}
 
 	public void ButtonNewPlayer ()
@@ -185,17 +211,21 @@ public class UIStartController : MonoBehaviour
 	public void ButtonProfile ()
 	{
 		AllLevels.Get ().StartProfile ();
-		//SceneManager.LoadScene ("PlayerProfile", LoadSceneMode.Single);
 	}
 
 	public void ButtonHighscore ()
 	{
 		AllLevels.Get ().StartHighscore ();
-		//SceneManager.LoadScene ("Highscore", LoadSceneMode.Single);
 	}
 
 	public void DropdownPlayerChanged ()
 	{
 		AllLevels.Get ().SetPlayerName (m_DropdownPlayer.options [m_DropdownPlayer.value].text);
+	}
+
+	public void DropdownLanguageChanged ()
+	{
+		SystemLanguage lLanguage = (SystemLanguage)System.Enum.Parse (typeof(SystemLanguage), m_DropdownLanguage.options [m_DropdownLanguage.value].text);
+		AllLevels.Get ().SetLanguage (lLanguage);
 	}
 }

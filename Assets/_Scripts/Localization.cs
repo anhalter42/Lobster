@@ -8,7 +8,7 @@ public class Localization
 
 	public void Read ()
 	{
-		string lLangu = Application.systemLanguage.ToString();//System.Globalization.CultureInfo.InstalledUICulture.Name;
+		string lLangu = AllLevels.Get().language.ToString();
 		string lName = string.Format ("Text.{0}.txt", lLangu);
 		if (System.IO.File.Exists (lName)) {
 			string lLines = System.IO.File.ReadAllText (lName);

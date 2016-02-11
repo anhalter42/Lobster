@@ -8,6 +8,10 @@ public class AllLevels : MonoBehaviour
 {
 	public string Version = "0.3";
 
+	public SystemLanguage language;
+
+	public SystemLanguage[] supportedLanguages = { SystemLanguage.English, SystemLanguage.German };
+
 	public CellDescription[] cellDescriptions = { };
 
 	public PlayersData data = new PlayersData ();
@@ -17,6 +21,8 @@ public class AllLevels : MonoBehaviour
 
 	public LevelSettings currentLevelSettings;
 	public LevelSettings[] levelSettings;
+
+	public Story[] stories = { };
 
 	public Inventory inventory = new Inventory ();
 
@@ -105,6 +111,7 @@ public class AllLevels : MonoBehaviour
 	// Use this for initialization
 	void Awake ()
 	{
+		language = (SystemLanguage)System.Enum.Parse (typeof(SystemLanguage), PlayerPrefs.GetString ("Language", Application.systemLanguage.ToString ()), true);
 		GameObject lObj = GameObject.Find ("Version") as GameObject;
 		if (lObj) {
 			UnityEngine.UI.Text lText = lObj.GetComponent<UnityEngine.UI.Text> ();
@@ -140,14 +147,23 @@ public class AllLevels : MonoBehaviour
 				ReadLevels (lText.text);
 			}
 		}
-		string lFName = string.Format ("Levels.{0}.txt", Application.systemLanguage);
+		string lFName = string.Format ("Levels.{0}.txt", language);
 		if (System.IO.File.Exists (lFName)) {
 			string lLevels = System.IO.File.ReadAllText (lFName);
 			MergeLevels (lLevels);
 		} else {
-			TextAsset lText = Resources.Load<TextAsset> ("Levels." + Application.systemLanguage);
+			TextAsset lText = Resources.Load<TextAsset> ("Levels." + language);
 			if (lText) {
 				MergeLevels (lText.text);
+			}
+		}
+		if (System.IO.File.Exists ("Stories.txt")) {
+			string lLevels = System.IO.File.ReadAllText ("Stories.txt");
+			ReadStories (lLevels);
+		} else {
+			TextAsset lText = Resources.Load<TextAsset> ("Stories");
+			if (lText) {
+				ReadStories (lText.text);
 			}
 		}
 		LoadData ();
@@ -259,10 +275,15 @@ public class AllLevels : MonoBehaviour
 		}
 	}
 
+	void ReadStories (string aText)
+	{
+		stories = Story.Read (aText);
+	}
+
 	public LevelSettings GetLevel (string aLevelName)
 	{
-		string[] lParts = aLevelName.Split(new char[] {'.'});
-		return GetLevel(lParts[0], lParts[1]);
+		string[] lParts = aLevelName.Split (new char[] { '.' });
+		return GetLevel (lParts [0], lParts [1]);
 	}
 
 	public LevelSettings GetLevel (string aWorld, string aLevelName)
@@ -302,6 +323,13 @@ public class AllLevels : MonoBehaviour
 		if (!audioGlobal.isPlaying)
 			audioGlobal.Play ();
 		SceneManager.LoadScene ("ChooseLevel", LoadSceneMode.Single);
+	}
+
+	public void StartChooseStory ()
+	{
+		if (!audioGlobal.isPlaying)
+			audioGlobal.Play ();
+		SceneManager.LoadScene ("ChooseStory", LoadSceneMode.Single);
 	}
 
 	public void StartNewGame ()
@@ -371,5 +399,15 @@ public class AllLevels : MonoBehaviour
 		FileStream lFile = File.Create (Path.Combine (Application.persistentDataPath, "data.dat"));
 		lBf.Serialize (lFile, data);
 		lFile.Close ();
+	}
+
+	public void SetLanguage(SystemLanguage aLanguage)
+	{
+		if (aLanguage != language) {
+			language = aLanguage;
+			PlayerPrefs.SetString ("Language", language.ToString ());
+			Destroy(gameObject);
+			StartNewGame ();
+		}
 	}
 }
