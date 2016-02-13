@@ -105,10 +105,13 @@
      <None Include="Assets\Resources\Levels.German.txt" />
      <None Include="Assets\Resources\Levels.txt" />
      <None Include="Assets\Resources\Text.English.txt" />
+     <None Include="Assets\Lava_Flowing_Shader\Shaders\Unlit_Lava_Simple.shader" />
      <None Include="Assets\Gem\Shaders\Ghost.shader" />
      <None Include="Assets\CactusPack\Readme.txt" />
+     <None Include="Assets\Lava_Flowing_Shader\Shaders\Unlit_Lava_Distort.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
+     <None Include="Assets\Lava_Flowing_Shader\ReadMe.txt" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
      <None Include="Assets\Resources\Levels.English.txt" />

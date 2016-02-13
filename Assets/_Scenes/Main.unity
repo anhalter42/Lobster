@@ -2035,6 +2035,9 @@ MonoBehaviour:
     isProtected: 0
     levelRuntime: 0
     protectionTime: 0
+  playerSettings:
+    lives: 1
+    score: 0
   mazeParent: {fileID: 0}
   m_planeGround: {fileID: 0}
   m_textScore: {fileID: 0}
@@ -2079,6 +2082,7 @@ MonoBehaviour:
     y: 6
     z: 6
   m_MazeCellSize: {x: 1, y: 1, z: 1}
+  m_MainMazeParent: {fileID: 0}
 --- !u!4 &899858153
 Transform:
   m_ObjectHideFlags: 0

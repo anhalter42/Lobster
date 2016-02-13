@@ -90,8 +90,8 @@ namespace MAHN42
 			// walk speed multiplier
 			if (Input.GetKey(KeyCode.LeftShift)) m_Move *= shiftPressMoveFactor;
 			if (Input.GetKey(KeyCode.LeftControl)) m_Move *= ctrlPressMoveFactor;
-			if (Input.GetKey(KeyCode.T)) {
-				AllLevels.Get().levelController.TakeDamage(new DamageData() { Damage = 200 });
+			if (Input.GetKeyUp(KeyCode.T)) {
+				AllLevels.Get().levelController.TakeDamage(200f);
 			}
 #endif
 

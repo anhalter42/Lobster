@@ -16,6 +16,25 @@ audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope_perc
 audioBackgroundLevelEnd	Background_The_gates_No_Choir
 
+#Lava
+BasedOn=SimpleBasic
+Package=Lava
+top				CrackedLavaStone
+bottom			CrackedLavaStone
+;left			Lava_R-
+;right			Lava_R+
+;forward		Lava_B+
+;backward		Lava_B-
+left			Wall_R-
+right			Wall_R+
+forward			Wall_B+
+backward		Wall_B-
+leftProps		BridgeLeft;100;false
+rightProps		BridgeRight;100;false
+forwardProps	BridgeForward;100;false
+backwardProps	BridgeBackward;100;false
+audioBackgroundMusic	Background_Fight-to-the-Death
+
 #Simple
 Package=Dungeon
 top				Ceiling

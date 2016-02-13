@@ -14,6 +14,7 @@ cellDescs	bottom	Cactus/CFloor_Sand;0
 directCell	3,0,3;Left,Forward,Right,Backward;true
 directPrefab	ChestGreen_B+;3,0,3
 exit	NEXT
+deathLevel	Tutorial.Tutorial 5
 
 #Tutorial 2
 world	Tutorial
@@ -54,6 +55,21 @@ dayLightColor	200,150,50
 ambientMode	Flat
 ambientLight	0.2
 ambientLightColor	200,150,50
+
+#Tutorial 5
+world	Tutorial
+prefabs	Lava
+mazeWidth	10
+mazeHeight	1
+mazeDepth	10
+breakWalls	5
+scoreForExit	5
+groundColor	0,0,0
+dayLight	1
+dayLightColor	200,50,50
+ambientMode	Flat
+ambientLight	0.2
+ambientLightColor	200,50,50
 
 #Level 1
 world	Dungeon

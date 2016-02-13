@@ -602,15 +602,20 @@ public class LevelController : MonoBehaviour
 		m_playerProtectionEffect.transform.SetParent (player.transform, false);
 	}
 
-	public void TakeDamage (DamageData aDamage)
+	public void TakeDamage (float aDamage)
 	{
 		if (!playerLevelSettings.isProtected) {
-			playerLevelSettings.health -= aDamage.Damage;
+			playerLevelSettings.health -= aDamage;
 			PlayDamageAudio (aDamage, player.transform.position);
 			if (playerLevelSettings.health < 0) {
 				PlayerDied ();
 			}
 		}
+	}
+
+	public void TakeDamage (DamageData aDamage)
+	{
+		TakeDamage(aDamage.Damage);
 	}
 
 	public void PlayerAwake ()
@@ -622,7 +627,7 @@ public class LevelController : MonoBehaviour
 
 	public void PlayerDied ()
 	{
-		if (playerLevelSettings.lives > 0) {
+		if (playerLevelSettings.lives > 1) {
 			player.GetComponent<MAHN42.ThirdPersonCharacter> ().SetDeath (true);
 			playerLevelSettings.lives--;
 			if (prefabs.audioLiveLost) {
@@ -632,7 +637,13 @@ public class LevelController : MonoBehaviour
 			}
 			Invoke ("PlayerAwake", 4f);
 		} else {
-			PlayerInDeathMode ();
+			player.GetComponent<MAHN42.ThirdPersonCharacter> ().SetDeath (true);
+			if (prefabs.audioLiveLost) {
+				PlayAudioEffect (prefabs.audioLiveLost);
+			} else {
+				Debug.Log ("No audio for live lost!");
+			}
+			Invoke("PlayerInDeathMode", 4f);
 		}
 	}
 
@@ -658,12 +669,12 @@ public class LevelController : MonoBehaviour
 		m_audioSourceEffects.PlayOneShot (aClip);
 	}
 
-	public void PlayDamageAudio (DamageData aDamage, Vector3 aPos)
+	public void PlayDamageAudio (float aDamage, Vector3 aPos)
 	{
 		AudioClip lAudio = null;
-		if (aDamage.Damage < 5) {
+		if (aDamage < 5) {
 			lAudio = prefabs.audioDamageSmall;
-		} else if (aDamage.Damage < 20) {
+		} else if (aDamage < 20) {
 			lAudio = prefabs.audioDamageMedium;
 		} else {
 			lAudio = prefabs.audioDamageBig;
@@ -671,7 +682,7 @@ public class LevelController : MonoBehaviour
 		if (lAudio) {
 			PlayAudioEffect (lAudio);
 		} else {
-			Debug.Log (string.Format ("No audio for damage {0}!", aDamage.Damage));
+			Debug.Log (string.Format ("No audio for damage {0}!", aDamage));
 		}
 	}
 
@@ -757,10 +768,14 @@ public class LevelController : MonoBehaviour
 		if (levelStack.Count == 0) {
 			AllLevels.Get ().NextLevel ();
 		} else {
+			m_panelLevelFinished.gameObject.SetActive (false);
 			m_MainMazeParent.SetActive (false);
 			Destroy(m_MainMazeParent);
 			levelStack.Pop ().Restore (this);
 			m_MainMazeParent.SetActive (true);
+			isRunning = true;
+			isPause = false;
+			PlayerAwake();
 		}
 	}
 
