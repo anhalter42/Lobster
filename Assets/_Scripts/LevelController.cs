@@ -646,7 +646,7 @@ public class LevelController : MonoBehaviour
 	public void PlayerAwake ()
 	{
 		player.GetComponent<MAHN42.ThirdPersonCharacter> ().SetDeath (false);
-		playerLevelSettings.health = 100;
+		playerLevelSettings.health = 100f;
 		ActivatePlayerProtection ();
 	}
 

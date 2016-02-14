@@ -12,6 +12,11 @@ startupText	Collect all the diamonds
 #Tutorial.Tutorial 4
 //A little bigger :-)
 
+#Tutorial.Death 1
+//You are in hell
+startupText	Locate the exit to continue your way
+name	The Hell
+
 #Dungeon.Level 1
 //The first Level
 name	The Dungeons

@@ -13,8 +13,7 @@ cellDescs	bottom	Cactus/CFloor_Grass
 cellDescs	bottom	Cactus/CFloor_Sand;0
 directCell	3,0,3;Left,Forward,Right,Backward;true
 directPrefab	ChestGreen_B+;3,0,3
-exit	NEXT
-deathLevel	Tutorial.Tutorial 5
+deathLevel	Tutorial.Death 1
 
 #Tutorial 2
 world	Tutorial
@@ -24,6 +23,7 @@ mazeHeight	1
 mazeDepth	5
 breakWalls	0
 scoreForExit	20
+deathLevel	Tutorial.Death 1
 
 #Tutorial 3
 world	Tutorial
@@ -41,6 +41,7 @@ ambientLightColor	200,150,50
 playerStart	0,0,0
 directCell	3,0,3;Left,Forward,Right,Backward;true
 directPrefab	ChestGreen_B+;3,0,3
+deathLevel	Tutorial.Death 1
 
 #Tutorial 4
 world	Tutorial
@@ -55,8 +56,9 @@ dayLightColor	200,150,50
 ambientMode	Flat
 ambientLight	0.2
 ambientLightColor	200,150,50
+deathLevel	Tutorial.Death 1
 
-#Tutorial 5
+#Death 1
 world	Tutorial
 prefabs	Lava
 mazeWidth	10
@@ -84,6 +86,7 @@ dayLightColor	100,150,150
 ambientMode	Flat
 ambientLight	0.2
 ambientLightColor	200,150,50
+deathLevel	Tutorial.Death 1
 
 #Level 2
 world	Dungeon
@@ -95,6 +98,7 @@ breakWalls	40
 scoreForExit	400
 dayLight	0.75
 dayLightColor	255,255,255
+deathLevel	Tutorial.Death 1
 
 #Level 99
 world	Dungeon
@@ -104,3 +108,4 @@ mazeHeight	1
 mazeDepth	100
 breakWalls	5
 scoreForExit	900
+deathLevel	Tutorial.Death 1

@@ -12,6 +12,11 @@ startupText	Sammle alle Diamanten ein
 #Tutorial.Tutorial 4
 //Ein wenig größer :-)
 
+#Tutorial.Death 1
+//Du bist in der Hölle
+startupText	Finde den Ausgang um deinen Weg fortzusetzen
+name	Die Hölle
+
 #Dungeon.Level 1
 //Das erste Level
 name	Die Dungeons
