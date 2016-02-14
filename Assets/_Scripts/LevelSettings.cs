@@ -126,7 +126,7 @@ public class LevelSettings
 	public int mazeDepth = 5;
 	public int breakWalls = 0;
 	public int maxTime = 0;
-	public int lives = 0;
+	public int lives = 1; // only for level mode
 	// in seconds, 0 means endless
 	public int scoreForExit = 20;
 	// 20 points to open the exit

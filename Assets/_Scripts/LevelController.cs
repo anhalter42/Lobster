@@ -28,6 +28,29 @@ public class LevelController : MonoBehaviour
 		public bool isProtected = false;
 		public float levelRuntime = 0f;
 		public float protectionTime = 0f;
+		public string nextLevelName = "NEXT";
+
+		public PlayerLevelSettings()
+		{
+		}
+
+		public PlayerLevelSettings(PlayerLevelSettings aSrc)
+		{
+			lives = aSrc.lives;
+			score = aSrc.score;
+			scoreBonus = aSrc.scoreBonus;
+			scoreTimeBonus = aSrc.scoreTimeBonus;
+			health = aSrc.health;
+			resumeTime = aSrc.resumeTime;
+			startTime = aSrc.startTime;
+			time = aSrc.time;
+			timeBonus = aSrc.timeBonus;
+			scoreReached = aSrc.scoreReached;
+			isProtected = aSrc.isProtected;
+			levelRuntime = aSrc.levelRuntime;
+			protectionTime = aSrc.protectionTime;
+			nextLevelName = aSrc.nextLevelName;
+		}
 	}
 
 	public class LevelStackItem
@@ -48,7 +71,7 @@ public class LevelController : MonoBehaviour
 			settings = aController.settings;
 			prefabs = aController.prefabs;
 			builder = aController.builder;
-			playerLevelSettings = aController.playerLevelSettings;
+			playerLevelSettings = new PlayerLevelSettings(aController.playerLevelSettings);
 			mazeParent = aController.m_MainMazeParent;
 			playerPos = aController.player.transform.position;
 		}
@@ -71,7 +94,7 @@ public class LevelController : MonoBehaviour
 	public CellDescription prefabs;
 	public MazeBuilder builder;
 
-	public PlayerLevelSettings playerLevelSettings = new PlayerLevelSettings ();
+	public PlayerLevelSettings playerLevelSettings;
 
 	public PlayerSettings playerSettings = new PlayerSettings ();
 
@@ -345,6 +368,7 @@ public class LevelController : MonoBehaviour
 
 	public void Generate (LevelSettings aSettings)
 	{
+		playerLevelSettings = new PlayerLevelSettings ();
 		settings = aSettings;
 		prefabs = AllLevels.Get ().GetCellDescription (settings.prefabs);
 		string lStartUpText = settings.startupText;
@@ -423,7 +447,8 @@ public class LevelController : MonoBehaviour
 		isPause = false;
 		playerLevelSettings.startTime = Time.realtimeSinceStartup;
 		playerLevelSettings.levelRuntime = 0f;
-		playerLevelSettings.lives += settings.lives;
+		//TODO if in level mode
+		playerLevelSettings.lives = settings.lives;
 		m_panelPause.gameObject.SetActive (false);
 		m_panelLevelFinished.gameObject.SetActive (false);
 		m_textLevel.text = settings.level.ToString ();
@@ -759,6 +784,7 @@ public class LevelController : MonoBehaviour
 		if (isRunning) {
 			isPause = true;
 			isRunning = false;
+			playerLevelSettings.nextLevelName = lLevelName;
 			Invoke ("StartLevelEndScreen", 1.5f);
 		}
 	}
@@ -766,7 +792,7 @@ public class LevelController : MonoBehaviour
 	public void StartNextLevel ()
 	{
 		if (levelStack.Count == 0) {
-			AllLevels.Get ().NextLevel ();
+			AllLevels.Get ().NextLevel ( playerLevelSettings.nextLevelName );
 		} else {
 			m_panelLevelFinished.gameObject.SetActive (false);
 			m_MainMazeParent.SetActive (false);
@@ -775,6 +801,7 @@ public class LevelController : MonoBehaviour
 			m_MainMazeParent.SetActive (true);
 			isRunning = true;
 			isPause = false;
+			SetupScene ();
 			PlayerAwake();
 		}
 	}

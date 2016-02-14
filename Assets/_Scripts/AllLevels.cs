@@ -296,10 +296,15 @@ public class AllLevels : MonoBehaviour
 		return null;
 	}
 
-	public void NextLevel ()
+	public void NextLevel (string aNextLevelName = null)
 	{
-		if (currentLevelSettings.level < levelSettings.Length - 1) {
-			currentLevelSettings = levelSettings [currentLevelSettings.level/* + 1*/];
+		if (string.IsNullOrEmpty (aNextLevelName) || aNextLevelName == "NEXT") {
+			if (currentLevelSettings.level < levelSettings.Length - 1) {
+				currentLevelSettings = levelSettings [currentLevelSettings.level/* + 1*/];
+				StartLevel ();
+			}
+		} else {
+			currentLevelSettings = GetLevel (aNextLevelName);
 			StartLevel ();
 		}
 	}
@@ -401,12 +406,12 @@ public class AllLevels : MonoBehaviour
 		lFile.Close ();
 	}
 
-	public void SetLanguage(SystemLanguage aLanguage)
+	public void SetLanguage (SystemLanguage aLanguage)
 	{
 		if (aLanguage != language) {
 			language = aLanguage;
 			PlayerPrefs.SetString ("Language", language.ToString ());
-			Destroy(gameObject);
+			Destroy (gameObject);
 			StartNewGame ();
 		}
 	}
