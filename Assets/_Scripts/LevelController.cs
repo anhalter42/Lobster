@@ -676,6 +676,7 @@ public class LevelController : MonoBehaviour
 	{
 		//TODO: Death Mode
 		if (!string.IsNullOrEmpty (settings.deathLevel)) {
+			playerLevelSettings.resumeTime = playerLevelSettings.time;
 			levelStack.Push (new LevelStackItem (this));
 			m_MainMazeParent.SetActive (false);
 			CreateMainMazeParent ("Death_" + levelStack.Count.ToString ());
@@ -800,8 +801,8 @@ public class LevelController : MonoBehaviour
 			levelStack.Pop ().Restore (this);
 			m_MainMazeParent.SetActive (true);
 			isRunning = true;
-			isPause = false;
 			SetupScene ();
+			ResumeLevel();
 			PlayerAwake();
 		}
 	}

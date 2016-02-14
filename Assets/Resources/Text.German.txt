@@ -34,4 +34,5 @@ LevelEndScore=Punkte: {0}
 LevelEndScoreBonus=Bonus: {0}
 LevelEndTime=Zeit: {0}
 LevelEndTimeBonus=Zeit Bonus: {0}
+GameOver=Verloren
 GreenKey=Grüner Schlüssel
