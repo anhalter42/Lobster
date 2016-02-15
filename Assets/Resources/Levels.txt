@@ -60,6 +60,7 @@ deathLevel	Tutorial.Death 1
 
 #Death 1
 world	Tutorial
+isVisible	false
 prefabs	Lava
 mazeWidth	10
 mazeHeight	1

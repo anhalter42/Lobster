@@ -12,8 +12,8 @@ public class UIController : MonoBehaviour
 	public Text m_textDescription;
 	public Text m_textHits;
 	public Text m_textWord;
-	public int level = 1;
 	public GameObject mazeWallPrefab;
+	public LevelSettings settings;
 	ChooseLevelMazeBuilder fBuilder = new ChooseLevelMazeBuilder ();
 
 	// Use this for initialization
@@ -31,7 +31,7 @@ public class UIController : MonoBehaviour
 			m_textWord = GameObject.Find ("TextWorld").GetComponent<Text> ();
 		
 		if (AllLevels.Get ().currentLevelSettings != null) {
-			level = AllLevels.Get ().currentLevelSettings.level;
+			settings = AllLevels.Get ().currentLevelSettings;
 		}
 		fBuilder.mazeParent = GameObject.Find ("Maze");
 		fBuilder.mazeWallPrefab = mazeWallPrefab;
@@ -42,14 +42,12 @@ public class UIController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (AllLevels.Get ().levelSettings != null && level <= AllLevels.Get ().levelSettings.Length) {
-			LevelSettings lSet = AllLevels.Get ().levelSettings [level - 1];
-			AllLevels.Get ().currentLevelSettings = lSet;
-			m_textLevel.text = lSet.level.ToString ();
-			m_textName.text = lSet.name;
-			m_textDescription.text = lSet.levelDescription;
-			m_textWord.text = AllLevels.Get ().GetCellDescription (lSet.prefabs).worldName;
-			m_textHits.text = string.Format ("{0}x{1}x{2} Score: {3} Time: {4}", lSet.mazeWidth, lSet.mazeDepth, lSet.mazeHeight, lSet.scoreForExit, lSet.maxTime);
+		if (settings != null) {
+			m_textLevel.text = settings.level.ToString ();
+			m_textName.text = settings.name;
+			m_textDescription.text = settings.levelDescription;
+			m_textWord.text = AllLevels.Get ().GetCellDescription (settings.prefabs).worldName;
+			m_textHits.text = string.Format ("{0}x{1}x{2} Score: {3} Time: {4}", settings.mazeWidth, settings.mazeDepth, settings.mazeHeight, settings.scoreForExit, settings.maxTime);
 		}
 		if (Input.GetKeyUp (KeyCode.LeftArrow)) {
 			ButtonPrevious ();
@@ -67,41 +65,41 @@ public class UIController : MonoBehaviour
 
 	public void ButtonNext ()
 	{
-		if (AllLevels.Get ().hasLevels () && level < AllLevels.Get ().levelSettings.Length) {
-			level++;
+		LevelSettings lNext = AllLevels.Get ().GetNextLevel(settings);
+		if (lNext != null) {
+			settings = lNext;
 			CreateLabyrinth ();
 		}
 	}
 
 	public void ButtonPrevious ()
 	{
-		if (AllLevels.Get ().hasLevels () && level > 1) {
-			level--;
+		LevelSettings lPrev = AllLevels.Get ().GetPreviousLevel(settings);
+		if (lPrev != null) {
+			settings = lPrev;
 			CreateLabyrinth ();
 		}
 	}
 
 	public void ButtonPlay ()
 	{
+		AllLevels.Get ().currentLevelSettings = settings;
 		AllLevels.Get ().StartLevel ();
-		//SceneManager.LoadScene ("Main", LoadSceneMode.Single);
 	}
 
 	public void ButtonBack ()
 	{
 		AllLevels.Get ().StartNewGame ();
-		//SceneManager.LoadScene ("Start", LoadSceneMode.Single);
 	}
 
 	public void ButtonProfile ()
 	{
 		AllLevels.Get ().StartProfile ();
-		//SceneManager.LoadScene ("PlayerProfile", LoadSceneMode.Single);
 	}
 
 	void CreateLabyrinth ()
 	{
-		fBuilder.settings = AllLevels.Get ().levelSettings [level - 1];
+		fBuilder.settings = settings;
 		fBuilder.mazeParent.transform.localPosition = new Vector3 (
 			-fBuilder.settings.mazeWidth / 2f + 0.5f,
 			0f,

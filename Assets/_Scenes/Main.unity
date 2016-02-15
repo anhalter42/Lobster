@@ -2035,6 +2035,7 @@ MonoBehaviour:
     isProtected: 0
     levelRuntime: 0
     protectionTime: 0
+    nextLevelName: NEXT
   playerSettings:
     lives: 1
     score: 0
@@ -3071,7 +3072,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1236569426
 Transform:
   m_ObjectHideFlags: 0
@@ -5163,7 +5164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 186784, guid: 2d8b82f9d65d441f3904e2cf48fda6dc, type: 2}
-  defaultLevel: 0
+  defaultLevel: 4
 --- !u!4 &1839330017
 Transform:
   m_ObjectHideFlags: 0

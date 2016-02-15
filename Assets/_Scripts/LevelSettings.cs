@@ -121,12 +121,14 @@ public class LevelSettings
 	public string levelDescription = string.Empty;
 	public string startupText = null;
 	public string deathLevel;
+	public bool isVisible = true;
 	public int mazeWidth = 5;
 	public int mazeHeight = 1;
 	public int mazeDepth = 5;
 	public int breakWalls = 0;
 	public int maxTime = 0;
-	public int lives = 1; // only for level mode
+	public int lives = 1;
+	// only for level mode
 	// in seconds, 0 means endless
 	public int scoreForExit = 20;
 	// 20 points to open the exit
@@ -156,6 +158,62 @@ public class LevelSettings
 	public string[] cellDescs = { };
 	public Exit[] exits = { };
 
+	public LevelSettings ()
+	{
+	}
+
+	public LevelSettings (LevelSettings aSrc)
+	{
+		prefabs = aSrc.prefabs;
+		level = aSrc.level;
+		levelName = aSrc.levelName;
+		name = aSrc.name;
+		m_worldName = aSrc.m_worldName;
+		levelDescription = aSrc.levelDescription;
+		startupText = aSrc.startupText;
+		deathLevel = aSrc.deathLevel;
+		isVisible = aSrc.isVisible;
+		mazeWidth = aSrc.mazeWidth;
+		mazeHeight = aSrc.mazeHeight;
+		mazeDepth = aSrc.mazeDepth;
+		breakWalls = aSrc.breakWalls;
+		maxTime = aSrc.maxTime;
+		lives = aSrc.lives;
+		scoreForExit = aSrc.scoreForExit;
+		scoreBonusFactor = aSrc.scoreBonusFactor;
+		scoreTimeBonusFactor = aSrc.scoreTimeBonusFactor;
+		playerStart = aSrc.playerStart;
+		exitPos = aSrc.exitPos;
+		playerProtectionTime = aSrc.playerProtectionTime;
+		ambientLight = aSrc.ambientLight;
+		ambientLightColor = aSrc.ambientLightColor;
+		ambientMode = aSrc.ambientMode;
+		dayLight = aSrc.dayLight;
+		dayLightColor = aSrc.dayLightColor;
+		groundColor = aSrc.groundColor;
+		groundTexture = aSrc.groundTexture;
+		audioBackgroundPause = aSrc.audioBackgroundPause;
+		audioBackgroundMusic = aSrc.audioBackgroundMusic;
+		audioBackgroundLevelEnd = aSrc.audioBackgroundLevelEnd;
+		audioBackgroundLevelStart = aSrc.audioBackgroundLevelStart;
+		audioBackgroundLevelExitOpen = aSrc.audioBackgroundLevelExitOpen;
+
+		System.Array.Copy (aSrc.directCells, directCells, aSrc.directCells.Length);
+		System.Array.Copy (aSrc.directPrefabs, directPrefabs, aSrc.directPrefabs.Length);
+		System.Array.Copy (aSrc.cellDescOverrides, cellDescOverrides, aSrc.cellDescOverrides.Length);
+		System.Array.Copy (aSrc.cellDescs, cellDescs, aSrc.cellDescs.Length);
+		System.Array.Copy (aSrc.exits, exits, aSrc.exits.Length);
+	}
+
+	public static bool ReadBool (ref bool aValue, string aLine, string aName)
+	{
+		if (aLine.StartsWith (aName)) {
+			aValue = bool.Parse (aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1]);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public static bool ReadInt (ref int aValue, string aLine, string aName)
 	{
@@ -375,6 +433,7 @@ public class LevelSettings
 		if (!ReadLevelName (ref deathLevel, aLine, "deathLevel"))
 		if (!ReadString (ref m_worldName, aLine, "world"))
 		if (!ReadString (ref startupText, aLine, "startupText"))
+		if (!ReadBool (ref isVisible, aLine, "isVisible"))
 		if (!ReadFloat (ref playerProtectionTime, aLine, "playerProtectionTime"))
 		if (!ReadAudioClip (ref audioBackgroundMusic, aLine, "audioBackgroundMusic", null))
 		if (!ReadAudioClip (ref audioBackgroundPause, aLine, "audioBackgroundPause", null))

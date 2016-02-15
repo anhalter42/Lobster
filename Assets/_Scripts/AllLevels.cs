@@ -317,6 +317,24 @@ public class AllLevels : MonoBehaviour
 		}
 	}
 
+	public LevelSettings GetNextLevel(LevelSettings aSettings)
+	{
+		LevelSettings lSettings = aSettings;
+		while (lSettings != null && lSettings.level < levelSettings.Length && (!lSettings.isVisible || lSettings == aSettings)) {
+			lSettings = levelSettings[lSettings.level];
+		}
+		return lSettings;
+	}
+
+	public LevelSettings GetPreviousLevel(LevelSettings aSettings)
+	{
+		LevelSettings lSettings = aSettings;
+		while (lSettings != null && lSettings.level > 1 && (!lSettings.isVisible || lSettings == aSettings)) {
+			lSettings = levelSettings[lSettings.level - 2];
+		}
+		return lSettings;
+	}
+
 	public void StartLevel ()
 	{
 		audioGlobal.Stop ();

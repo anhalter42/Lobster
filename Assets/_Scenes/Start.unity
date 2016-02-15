@@ -328,16 +328,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 1958077766}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnLeft: {fileID: 642899655}
+    m_SelectOnRight: {fileID: 1857809722}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.99421906, g: 1, b: 0.5808823, a: 1}
+    m_PressedColor: {r: 0.053549763, g: 0.7058823, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1508,16 +1508,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 1958077766}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 210220260}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.99421906, g: 1, b: 0.5808823, a: 1}
+    m_PressedColor: {r: 0.053549763, g: 0.7058823, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1631,9 +1631,9 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_SelectOnUp: {fileID: 521487288}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnDown: {fileID: 1958077766}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 1857809722}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.77576065, g: 0.75735295, b: 1, a: 1}
@@ -2596,7 +2596,7 @@ MonoBehaviour:
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 658845906}
     m_SelectOnLeft: {fileID: 521487288}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 1857809722}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
@@ -3731,6 +3731,7 @@ MonoBehaviour:
     levelDescription: 
     startupText: 
     deathLevel: 
+    isVisible: 1
     mazeWidth: 5
     mazeHeight: 1
     mazeDepth: 5
@@ -4640,10 +4641,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 4
-    m_SelectOnUp: {fileID: 521487288}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 658845906}
+    m_SelectOnDown: {fileID: 642899655}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 1857809722}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.77576065, g: 0.75735295, b: 1, a: 1}

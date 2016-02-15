@@ -195,13 +195,13 @@ leftProps		Prop_Torch_R-;10
 leftProps		Pitfall_Axe_R-;10
 leftProps		CellSeat_R-;5
 leftProps		Chain_A_R-;10
-leftProps		FireBreather_R-;5
+;leftProps		FireBreather_R-;5
 rightProps		Arch_R+;10;false
 rightProps		Prop_Torch_R+;10
 rightProps		Pitfall_Axe_R+;10
 rightProps		CellSeat_R+;5
 rightProps		Chain_A_R+;10
-rightProps		FireBreather_R+;5
+;rightProps		FireBreather_R+;5
 forwardProps	WallBarrel_B+;5;false
 ;forwardProps	ArchDoor_B+;10;false
 forwardProps	ArchDoorHinge_B+;10;false
@@ -224,7 +224,7 @@ backwardProps	CellSeat_B-;5
 backwardProps	Prop_Torch_B-;10
 backwardProps	Pitfall_Axe_B-;10
 backwardProps	Chain_A_B-;10
-backwardProps	FireBreather_B-;5
+;backwardProps	FireBreather_B-;5
 exit			ExitCylinder
 wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
