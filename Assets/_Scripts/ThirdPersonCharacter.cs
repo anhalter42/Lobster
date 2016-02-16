@@ -85,6 +85,11 @@ namespace MAHN42
 			m_death = aDeath;
 		}
 
+		public bool GetDeath()
+		{
+			return m_death;
+		}
+
 		public void Move (Vector3 move, bool crouch, bool jump)
 		{
 			if (!m_Animator)

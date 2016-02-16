@@ -30,11 +30,11 @@ public class LevelController : MonoBehaviour
 		public float protectionTime = 0f;
 		public string nextLevelName = "NEXT";
 
-		public PlayerLevelSettings()
+		public PlayerLevelSettings ()
 		{
 		}
 
-		public PlayerLevelSettings(PlayerLevelSettings aSrc)
+		public PlayerLevelSettings (PlayerLevelSettings aSrc)
 		{
 			lives = aSrc.lives;
 			score = aSrc.score;
@@ -71,7 +71,7 @@ public class LevelController : MonoBehaviour
 			settings = aController.settings;
 			prefabs = aController.prefabs;
 			builder = aController.builder;
-			playerLevelSettings = new PlayerLevelSettings(aController.playerLevelSettings);
+			playerLevelSettings = new PlayerLevelSettings (aController.playerLevelSettings);
 			mazeParent = aController.m_MainMazeParent;
 			playerPos = aController.player.transform.position;
 		}
@@ -186,6 +186,7 @@ public class LevelController : MonoBehaviour
 
 	public bool isRunning = false;
 	public bool isPause = false;
+	public bool isDeath { get { return player.GetComponent<MAHN42.ThirdPersonCharacter> ().GetDeath (); } set { player.GetComponent<MAHN42.ThirdPersonCharacter> ().SetDeath (value); } }
 
 	public Vector3 m_CameraOffsetForward = new Vector3 (0f, 2.5f, -1.2f);
 	public Vector3 m_CameraOffsetFocus = new Vector3 (0, 1.5f, -0.5f);
@@ -629,10 +630,10 @@ public class LevelController : MonoBehaviour
 
 	public void TakeDamage (float aDamage)
 	{
-		if (!playerLevelSettings.isProtected) {
-			playerLevelSettings.health -= aDamage;
+		if (isRunning && !isPause && !playerLevelSettings.isProtected && !isDeath) {
+			playerLevelSettings.health = Mathf.Max (playerLevelSettings.health - aDamage, 0f);
 			PlayDamageAudio (aDamage, player.transform.position);
-			if (playerLevelSettings.health < 0) {
+			if (playerLevelSettings.health <= 0) {
 				PlayerDied ();
 			}
 		}
@@ -640,7 +641,7 @@ public class LevelController : MonoBehaviour
 
 	public void TakeDamage (DamageData aDamage)
 	{
-		TakeDamage(aDamage.Damage);
+		TakeDamage (aDamage.Damage);
 	}
 
 	public void PlayerAwake ()
@@ -652,23 +653,19 @@ public class LevelController : MonoBehaviour
 
 	public void PlayerDied ()
 	{
-		if (playerLevelSettings.lives > 1) {
-			player.GetComponent<MAHN42.ThirdPersonCharacter> ().SetDeath (true);
-			playerLevelSettings.lives--;
+		if (!isDeath) {
+			isDeath = true;
 			if (prefabs.audioLiveLost) {
 				PlayAudioEffect (prefabs.audioLiveLost);
 			} else {
 				Debug.Log ("No audio for live lost!");
 			}
-			Invoke ("PlayerAwake", 4f);
-		} else {
-			player.GetComponent<MAHN42.ThirdPersonCharacter> ().SetDeath (true);
-			if (prefabs.audioLiveLost) {
-				PlayAudioEffect (prefabs.audioLiveLost);
+			if (playerLevelSettings.lives > 1) {
+				playerLevelSettings.lives--;
+				Invoke ("PlayerAwake", 4f);
 			} else {
-				Debug.Log ("No audio for live lost!");
+				Invoke ("PlayerInDeathMode", 4f);
 			}
-			Invoke("PlayerInDeathMode", 4f);
 		}
 	}
 
@@ -793,17 +790,17 @@ public class LevelController : MonoBehaviour
 	public void StartNextLevel ()
 	{
 		if (levelStack.Count == 0) {
-			AllLevels.Get ().NextLevel ( playerLevelSettings.nextLevelName );
+			AllLevels.Get ().NextLevel (playerLevelSettings.nextLevelName);
 		} else {
 			m_panelLevelFinished.gameObject.SetActive (false);
 			m_MainMazeParent.SetActive (false);
-			Destroy(m_MainMazeParent);
+			Destroy (m_MainMazeParent);
 			levelStack.Pop ().Restore (this);
 			m_MainMazeParent.SetActive (true);
 			isRunning = true;
 			SetupScene ();
-			ResumeLevel();
-			PlayerAwake();
+			ResumeLevel ();
+			PlayerAwake ();
 		}
 	}
 
