@@ -6,10 +6,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>MAHN42</RootNamespace>
-    <ProjectGuid>{CC1487AE-DDCA-1BE7-127F-6504AF36A286}</ProjectGuid>
+    <ProjectGuid>{FF2A1B9B-0D6C-0726-040D-60D70921FA9A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-Editor-firstpass</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -45,83 +45,84 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\AudioOnMove.cs" />
-     <Compile Include="Assets\GemExample\Scripts\DemoTimeOfDay.cs" />
-     <Compile Include="Assets\GemExample\Scripts\Orbit.cs" />
-     <Compile Include="Assets\Lava_Flowing_Shader\Scripts\ScrollingUVs_Layers.cs" />
-     <Compile Include="Assets\Mixamo\Magic Pack\Demo\CameraScroll.cs" />
-     <Compile Include="Assets\_Scripts\Activator.cs" />
-     <Compile Include="Assets\_Scripts\AllLevels.cs" />
-     <Compile Include="Assets\_Scripts\Camera\DungeonCamera.cs" />
-     <Compile Include="Assets\_Scripts\CellDirectionObjects.cs" />
-     <Compile Include="Assets\_Scripts\ChooseLevel\ChooseLevelMazeBuilder.cs" />
-     <Compile Include="Assets\_Scripts\ChooseLevel\UIController.cs" />
-     <Compile Include="Assets\_Scripts\ChooseStory\UIChooseStoryController.cs" />
-     <Compile Include="Assets\_Scripts\DamageData.cs" />
-     <Compile Include="Assets\_Scripts\DestroyAfter.cs" />
-     <Compile Include="Assets\_Scripts\GhostMeshParticle.cs" />
-     <Compile Include="Assets\_Scripts\HighScore\UIHighScoreController.cs" />
-     <Compile Include="Assets\_Scripts\Inventory.cs" />
-     <Compile Include="Assets\_Scripts\LevelController.cs" />
-     <Compile Include="Assets\_Scripts\LevelSettings.cs" />
-     <Compile Include="Assets\_Scripts\Localization.cs" />
-     <Compile Include="Assets\_Scripts\LocalizationData.cs" />
-     <Compile Include="Assets\_Scripts\Maze.cs" />
-     <Compile Include="Assets\_Scripts\MazeBuilder.cs" />
-     <Compile Include="Assets\_Scripts\MazeCellComponent.cs" />
-     <Compile Include="Assets\_Scripts\MazeMarker.cs" />
-     <Compile Include="Assets\_Scripts\MiniMap.cs" />
-     <Compile Include="Assets\_Scripts\MultiActivator.cs" />
-     <Compile Include="Assets\_Scripts\PauseAnimatorOnCollision.cs" />
-     <Compile Include="Assets\_Scripts\Pickup.cs" />
-     <Compile Include="Assets\_Scripts\PickupData.cs" />
-     <Compile Include="Assets\_Scripts\PlayerDamage.cs" />
-     <Compile Include="Assets\_Scripts\PlayerInventory.cs" />
-     <Compile Include="Assets\_Scripts\PlayerProfile\UIPlayerProfileController.cs" />
-     <Compile Include="Assets\_Scripts\PlayersData.cs" />
-     <Compile Include="Assets\_Scripts\PrefabConditions.cs" />
-     <Compile Include="Assets\_Scripts\PrefabModifier.cs" />
-     <Compile Include="Assets\_Scripts\PrefabVariation.cs" />
-     <Compile Include="Assets\_Scripts\PrefabWallConditions.cs" />
-     <Compile Include="Assets\_Scripts\RandomPosAround.cs" />
-     <Compile Include="Assets\_Scripts\RotationY.cs" />
-     <Compile Include="Assets\_Scripts\Spider2Controller.cs" />
-     <Compile Include="Assets\_Scripts\Start\UIStartController.cs" />
-     <Compile Include="Assets\_Scripts\StayOnTarget.cs" />
-     <Compile Include="Assets\_Scripts\Story.cs" />
-     <Compile Include="Assets\_Scripts\TextureUtils.cs" />
-     <Compile Include="Assets\_Scripts\ThirdPersonCharacter.cs" />
-     <Compile Include="Assets\_Scripts\ThirdPersonUserControl.cs" />
-     <Compile Include="Assets\_Scripts\UI.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\DepthOfField\Editor\DepthOfFieldEditor.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\ScreenSpaceReflection\Editor\ScreenSpaceReflectionEditor.cs" />
+     <Compile Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\Editor\TonemappingColorGradingEditor.cs" />
      <None Include="Assets\Resources\Stories.txt" />
      <None Include="Assets\CactusPack\Shaders\VertexBlend.shader" />
      <None Include="Assets\Resources\Levels.German.txt" />
      <None Include="Assets\Resources\Levels.txt" />
      <None Include="Assets\Resources\Text.English.txt" />
      <None Include="Assets\Lava_Flowing_Shader\Shaders\Unlit_Lava_Simple.shader" />
+     <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\ScreenSpaceReflection\Shaders\ScreenSpaceReflection.shader" />
      <None Include="Assets\Gem\Shaders\Ghost.shader" />
      <None Include="Assets\CactusPack\Readme.txt" />
+     <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\DepthOfField\Shaders\DepthOfField.shader" />
+     <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\ScreenSpaceReflection\Shaders\ScreenSpaceRaytrace.cginc" />
      <None Include="Assets\Lava_Flowing_Shader\Shaders\Unlit_Lava_Distort.shader" />
+     <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\Shaders\TonemappingColorGradingHistogram.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
+     <None Include="Assets\Standard Assets\Effects\CinematicEffects(ALPHA)\AntiAliasing\Shaders\SMAA.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
      <None Include="Assets\Lava_Flowing_Shader\ReadMe.txt" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
      <None Include="Assets\Resources\Levels.English.txt" />
+     <None Include="Assets\Standard Assets\Effects\CinematicEffects(ALPHA)\AntiAliasing\Shaders\SMAA.cginc" />
      <None Include="Assets\Stonewall\readme.txt" />
+     <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\Shaders\TonemappingColorGrading.shader" />
      <None Include="Assets\CactusPack\Shaders\Basic_Rimlight.shader" />
      <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
+     <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\DepthOfField\Shaders\MedianFilter.shader" />
      <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
+     <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\DepthOfField\Shaders\BokehSplatting.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
      <None Include="Assets\Gem\Shaders\Gem.shader" />
      <None Include="Assets\Resources\Text.German.txt" />
+     <None Include="Assets\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\Shaders\Histogram.compute" />
      <None Include="Assets\Resources\Inventory.txt" />
      <None Include="Assets\Resources\CellDescs.txt" />
+ <Reference Include="UnityEditor.Advertisements">
+ <HintPath>/Volumes/Daten/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
+ </Reference>
+ <Reference Include="nunit.framework">
+ <HintPath>/Volumes/Daten/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/EditorTestsRunner/Editor/nunit.framework.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.EditorTestsRunner">
+ <HintPath>/Volumes/Daten/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/EditorTestsRunner/Editor/UnityEditor.EditorTestsRunner.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Volumes/Daten/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>/Volumes/Daten/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Volumes/Daten/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Networking">
+ <HintPath>/Volumes/Daten/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.TreeEditor">
+ <HintPath>/Volumes/Daten/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Graphs">
+ <HintPath>/Volumes/Daten/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.Graphs.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Android.Extensions">
+ <HintPath>/Volumes/Daten/Applications/Unity/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.iOS.Extensions">
+ <HintPath>/Volumes/Daten/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WebGL.Extensions">
+ <HintPath>/Volumes/Daten/Applications/Unity/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+ <HintPath>/Volumes/Daten/Applications/Unity/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.OSXStandalone.Extensions">
+ <HintPath>/Volumes/Daten/Applications/Unity/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
