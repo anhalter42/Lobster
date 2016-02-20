@@ -212,6 +212,7 @@ public class LevelController : MonoBehaviour
 
 	GameObject m_playerProtectionEffect;
 	public GameObject m_MainMazeParent;
+	public Transform m_InventoryParent;
 
 	// Use this for initialization
 	void Awake ()
@@ -276,17 +277,19 @@ public class LevelController : MonoBehaviour
 			m_textLFTimeBonus = GameObject.Find ("TextLFTimeBonus").GetComponent<Text> ();
 		if (!m_textFPS)
 			m_textFPS = GameObject.Find ("TextFPS").GetComponent<Text> ();
+		if (!m_InventoryParent)
+			m_InventoryParent = GameObject.Find ("Inventory").transform;
 		if (!m_audioSourceBackground)
 			m_audioSourceBackground = GameObject.Find ("AudioSourceBackground").GetComponent<AudioSource> ();
 		if (!m_audioSourceEffects)
 			m_audioSourceEffects = GameObject.Find ("AudioSourceEffects").GetComponent<AudioSource> ();
 	}
 
-	public void Start()
+	public void Start ()
 	{
-		ChangeEffectVolume(AllLevels.Get().options.EffectVolume);
-		ChangeMusicVolume(AllLevels.Get().options.MusicVolume);
-		SetShowFPS(AllLevels.Get().options.ShowFPS);
+		ChangeEffectVolume (AllLevels.Get ().options.EffectVolume);
+		ChangeMusicVolume (AllLevels.Get ().options.MusicVolume);
+		SetShowFPS (AllLevels.Get ().options.ShowFPS);
 		m_panelStart.gameObject.SetActive (false);
 		m_panelPause.gameObject.SetActive (false);
 		m_panelLevelFinished.gameObject.SetActive (false);
@@ -566,6 +569,25 @@ public class LevelController : MonoBehaviour
 		return lAudio;
 	}
 
+	public void UpdateInventoryUI()
+	{
+		int lPlaceIndex = 1;
+		foreach (PlayerInventory.InventoryItem lItem in playerInventory.m_Items) {
+			GameObject lPrefab = AllLevels.Get().inventory.Get(lItem.type).Prefab;
+			if (lItem.isVisibleInUI && lPrefab != null) {
+				Transform lPlace = m_InventoryParent.FindChild("Place"+lPlaceIndex.ToString());
+				if (lPlace) {
+					for(int i=0;i<lPlace.childCount;i++) {
+						Destroy(lPlace.GetChild(i).gameObject);
+					}
+					GameObject lInv = Instantiate(lPrefab) as GameObject;
+					lInv.transform.SetParent(lPlace, false);
+				}
+				lPlaceIndex++;
+			}
+		}
+	}
+
 	public void AddInventoryItem (PlayerInventory.InventoryItem aItem)
 	{
 		playerInventory.AddItem (aItem);
@@ -573,6 +595,7 @@ public class LevelController : MonoBehaviour
 		if (lAudio) {
 			PlayAudioEffect (lAudio);
 		}
+		UpdateInventoryUI();
 	}
 
 	public void AddInventoryItems (PlayerInventory.InventoryItem[] aItems)
@@ -859,29 +882,29 @@ public class LevelController : MonoBehaviour
 		m_panelToast.gameObject.SetActive (false);
 	}
 
-	public void ChangeEffectVolume(float aValue)
+	public void ChangeEffectVolume (float aValue)
 	{
-		AllLevels.Get().options.EffectVolume = aValue;
-		AllLevels.Get().options.Save();
+		AllLevels.Get ().options.EffectVolume = aValue;
+		AllLevels.Get ().options.Save ();
 		m_audioSourceEffects.volume = aValue;
 	}
 
-	public void ChangeMusicVolume(float aValue)
+	public void ChangeMusicVolume (float aValue)
 	{
-		AllLevels.Get().options.MusicVolume = aValue;
-		AllLevels.Get().options.Save();
+		AllLevels.Get ().options.MusicVolume = aValue;
+		AllLevels.Get ().options.Save ();
 		m_audioSourceBackground.volume = aValue;
 	}
 
-	public void SetShowFPS(bool aShow)
+	public void SetShowFPS (bool aShow)
 	{
-		AllLevels.Get().options.ShowFPS = aShow;
-		AllLevels.Get().options.Save();
-		m_textFPS.gameObject.SetActive(aShow);
+		AllLevels.Get ().options.ShowFPS = aShow;
+		AllLevels.Get ().options.Save ();
+		m_textFPS.gameObject.SetActive (aShow);
 	}
 
-	public bool GetShowFPS()
+	public bool GetShowFPS ()
 	{
-		return AllLevels.Get().options.ShowFPS;
+		return AllLevels.Get ().options.ShowFPS;
 	}
 }

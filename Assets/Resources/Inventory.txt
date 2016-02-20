@@ -1,2 +1,2 @@
 // Inventar
-GreenKey	true;Level;;key1;key4;key2
+GreenKey	true;Level;GreenKey;key1;key4;key2
