@@ -6,6 +6,28 @@ using System.IO;
 
 public class AllLevels : MonoBehaviour
 {
+	[System.Serializable]
+	public class GameOptions
+	{
+		public float EffectVolume = 0.5f;
+		public float MusicVolume = 0.25f;
+		public bool ShowFPS = true;
+
+		public void Load()
+		{
+			EffectVolume = PlayerPrefs.GetFloat("EffectVolume", EffectVolume);
+			MusicVolume = PlayerPrefs.GetFloat("MusicVolume", MusicVolume);
+			ShowFPS = PlayerPrefs.GetInt("ShowFPS", ShowFPS ? 1 : 0) == 1;
+		}
+
+		public void Save()
+		{
+			PlayerPrefs.SetFloat("EffectVolume", EffectVolume);
+			PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
+			PlayerPrefs.SetInt("ShowFPS", ShowFPS ? 1 : 0);
+			PlayerPrefs.Save();
+		}
+	}
 	public string Version = "0.3";
 
 	public SystemLanguage language;
@@ -27,6 +49,8 @@ public class AllLevels : MonoBehaviour
 	public Inventory inventory = new Inventory ();
 
 	public Localization local = new Localization ();
+
+	public GameOptions options = new GameOptions();
 
 	string[] m_worlds = null;
 
@@ -111,6 +135,7 @@ public class AllLevels : MonoBehaviour
 	// Use this for initialization
 	void Awake ()
 	{
+		options.Load();
 		language = (SystemLanguage)System.Enum.Parse (typeof(SystemLanguage), PlayerPrefs.GetString ("Language", Application.systemLanguage.ToString ()), true);
 		GameObject lObj = GameObject.Find ("Version") as GameObject;
 		if (lObj) {
@@ -418,6 +443,7 @@ public class AllLevels : MonoBehaviour
 
 	public void SaveData ()
 	{
+		options.Save();
 		BinaryFormatter lBf = new BinaryFormatter ();
 		FileStream lFile = File.Create (Path.Combine (Application.persistentDataPath, "data.dat"));
 		lBf.Serialize (lFile, data);

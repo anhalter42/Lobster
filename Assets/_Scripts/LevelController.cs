@@ -155,6 +155,8 @@ public class LevelController : MonoBehaviour
 	public Text m_textToastTitle;
 	public Text m_textToastText;
 
+	public Text m_textFPS;
+
 	public AudioSource m_audioSourceBackground;
 	public AudioSource m_audioSourceEffects;
 
@@ -182,10 +184,11 @@ public class LevelController : MonoBehaviour
 		}
 	}
 
-	public float effectVolume = 0.5f;
+	//public float effectVolume { get { return AllLevels.Get ().options.EffectVolume; } set { AllLevels.Get ().options.EffectVolume = value; } }
 
 	public bool isRunning = false;
 	public bool isPause = false;
+
 	public bool isDeath { get { return player.GetComponent<MAHN42.ThirdPersonCharacter> ().GetDeath (); } set { player.GetComponent<MAHN42.ThirdPersonCharacter> ().SetDeath (value); } }
 
 	public Vector3 m_CameraOffsetForward = new Vector3 (0f, 2.5f, -1.2f);
@@ -271,10 +274,19 @@ public class LevelController : MonoBehaviour
 			m_textLFScoreBonus = GameObject.Find ("TextLFScoreBonus").GetComponent<Text> ();
 		if (!m_textLFTimeBonus)
 			m_textLFTimeBonus = GameObject.Find ("TextLFTimeBonus").GetComponent<Text> ();
+		if (!m_textFPS)
+			m_textFPS = GameObject.Find ("TextFPS").GetComponent<Text> ();
 		if (!m_audioSourceBackground)
 			m_audioSourceBackground = GameObject.Find ("AudioSourceBackground").GetComponent<AudioSource> ();
 		if (!m_audioSourceEffects)
 			m_audioSourceEffects = GameObject.Find ("AudioSourceEffects").GetComponent<AudioSource> ();
+	}
+
+	public void Start()
+	{
+		ChangeEffectVolume(AllLevels.Get().options.EffectVolume);
+		ChangeMusicVolume(AllLevels.Get().options.MusicVolume);
+		SetShowFPS(AllLevels.Get().options.ShowFPS);
 		m_panelStart.gameObject.SetActive (false);
 		m_panelPause.gameObject.SetActive (false);
 		m_panelLevelFinished.gameObject.SetActive (false);
@@ -484,7 +496,6 @@ public class LevelController : MonoBehaviour
 			if (prefabs.audioScoreReached) {
 				PlayAudioEffect (prefabs.audioScoreReached);
 				PlayOnBackground (audioBackgroundLevelMusic);
-				//AudioSource.PlayClipAtPoint (prefabs.audioScoreReached, player.transform.position, effectVolume);
 			} else {
 				Debug.Log ("No audio for score reached!");
 			}
@@ -846,5 +857,31 @@ public class LevelController : MonoBehaviour
 	public void CloseToast ()
 	{
 		m_panelToast.gameObject.SetActive (false);
+	}
+
+	public void ChangeEffectVolume(float aValue)
+	{
+		AllLevels.Get().options.EffectVolume = aValue;
+		AllLevels.Get().options.Save();
+		m_audioSourceEffects.volume = aValue;
+	}
+
+	public void ChangeMusicVolume(float aValue)
+	{
+		AllLevels.Get().options.MusicVolume = aValue;
+		AllLevels.Get().options.Save();
+		m_audioSourceBackground.volume = aValue;
+	}
+
+	public void SetShowFPS(bool aShow)
+	{
+		AllLevels.Get().options.ShowFPS = aShow;
+		AllLevels.Get().options.Save();
+		m_textFPS.gameObject.SetActive(aShow);
+	}
+
+	public bool GetShowFPS()
+	{
+		return AllLevels.Get().options.ShowFPS;
 	}
 }

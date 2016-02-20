@@ -926,8 +926,8 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: 0}
-  m_SizeDelta: {x: 90, y: 60}
+  m_AnchoredPosition: {x: 115, y: 0}
+  m_SizeDelta: {x: 120, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &808201371
 MonoBehaviour:
@@ -1108,8 +1108,8 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: 0}
-  m_SizeDelta: {x: 90, y: 60}
+  m_AnchoredPosition: {x: -115, y: 0}
+  m_SizeDelta: {x: 120, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &970061986
 MonoBehaviour:
@@ -1680,8 +1680,47 @@ MonoBehaviour:
   m_textDescription: {fileID: 0}
   m_textHits: {fileID: 0}
   m_textWord: {fileID: 0}
-  level: 1
   mazeWallPrefab: {fileID: 175488, guid: e323546ffa6ba4c6ca346a9702bbe737, type: 2}
+  settings:
+    prefabs: Simple
+    level: 1
+    levelName: NO LEVELS
+    name: 
+    levelDescription: 
+    startupText: 
+    deathLevel: 
+    isVisible: 1
+    mazeWidth: 5
+    mazeHeight: 1
+    mazeDepth: 5
+    breakWalls: 0
+    maxTime: 0
+    lives: 1
+    scoreForExit: 20
+    scoreBonusFactor: 2
+    scoreTimeBonusFactor: 5
+    playerStart:
+      x: 0
+      y: 0
+      z: 0
+    exitPos:
+      x: 0
+      y: 0
+      z: 0
+    playerProtectionTime: 10
+    ambientLight: 0.75
+    ambientLightColor: {r: 0, g: 0, b: 0, a: 1}
+    ambientMode: 0
+    dayLight: 0.75
+    dayLightColor: {r: 1, g: 1, b: 1, a: 1}
+    groundColor: {r: 1, g: 1, b: 1, a: 1}
+    groundTexture: {fileID: 0}
+    audioBackgroundPause: {fileID: 0}
+    audioBackgroundMusic: {fileID: 0}
+    audioBackgroundLevelEnd: {fileID: 0}
+    audioBackgroundLevelStart: {fileID: 0}
+    audioBackgroundLevelExitOpen: {fileID: 0}
+    cellDescs: []
 --- !u!4 &1406439296
 Transform:
   m_ObjectHideFlags: 0

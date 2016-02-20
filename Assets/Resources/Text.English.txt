@@ -36,3 +36,4 @@ LevelEndTime=Time: {0}
 LevelEndTimeBonus=Time Bonus: {0}
 GameOver=Game Over
 GreenKey=Green Key
+Effects=Effects

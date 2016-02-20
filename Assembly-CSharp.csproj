@@ -45,13 +45,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\AudioOnMove.cs" />
      <Compile Include="Assets\GemExample\Scripts\DemoTimeOfDay.cs" />
      <Compile Include="Assets\GemExample\Scripts\Orbit.cs" />
      <Compile Include="Assets\Lava_Flowing_Shader\Scripts\ScrollingUVs_Layers.cs" />
      <Compile Include="Assets\Mixamo\Magic Pack\Demo\CameraScroll.cs" />
      <Compile Include="Assets\_Scripts\Activator.cs" />
      <Compile Include="Assets\_Scripts\AllLevels.cs" />
+     <Compile Include="Assets\_Scripts\AudioOnMove.cs" />
      <Compile Include="Assets\_Scripts\Camera\DungeonCamera.cs" />
      <Compile Include="Assets\_Scripts\CellDirectionObjects.cs" />
      <Compile Include="Assets\_Scripts\ChooseLevel\ChooseLevelMazeBuilder.cs" />

@@ -11,6 +11,7 @@ public class Inventory
 		Story
 	}
 
+	//<string:Name>  <bool:sichtbar in UI>;<mode_enum:story|level|global>;<prefab>;<audio_get>;<audio_use>;<audio_drop>
 	[System.Serializable]
 	public class Item
 	{
@@ -34,7 +35,7 @@ public class Inventory
 					VisibleInUI = bool.Parse (lValues [0]);
 				}
 				if (lValues.Length > 1) {
-					Mode = (ItemMode)System.Enum.Parse (typeof(ItemMode), lValues [1]);
+					Mode = (ItemMode)System.Enum.Parse (typeof(ItemMode), lValues [1], true);
 				}
 				if (lValues.Length > 2) {
 					if (!string.IsNullOrEmpty (lValues [2])) {

@@ -54,6 +54,12 @@ public class UIPlayerProfileController : MonoBehaviour
 	public void ButtonBack ()
 	{
 		AllLevels.Get ().StartNewGame ();
-		//SceneManager.LoadScene("Start", LoadSceneMode.Single);
+	}
+
+	public void InputChanged ()
+	{
+		player.age = int.Parse (m_IFAge.text);
+		player.name = m_IFName.text;
+		AllLevels.Get ().SetPlayerName (player.name);
 	}
 }
