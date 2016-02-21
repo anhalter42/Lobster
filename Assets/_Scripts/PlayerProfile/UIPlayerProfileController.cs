@@ -35,7 +35,7 @@ public class UIPlayerProfileController : MonoBehaviour
 			lLine.GetComponent<RectTransform> ().localPosition = lPos;
 			lPos.y -= lLine.GetComponent<RectTransform> ().rect.height;
 			lLine.SetActive (true);
-			lLine.transform.SetParent (m_SVScores.content.gameObject.transform);
+			lLine.transform.SetParent (m_SVScores.content.gameObject.transform, false);
 			lLine.transform.FindChild ("TextWorld").GetComponent<Text> ().text = lL.world;
 			lLine.transform.FindChild ("TextLevel").GetComponent<Text> ().text = lL.level.ToString ();
 			lLine.transform.FindChild ("TextLevelName").GetComponent<Text> ().text = lL.levelName;
