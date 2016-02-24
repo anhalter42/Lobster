@@ -315,6 +315,7 @@ public class CellDescription : CellDirectionObjects
 	public AudioClip audioBackgroundLevelEnd;
 	public AudioClip audioBackgroundLevelStart;
 	public AudioClip audioBackgroundLevelExitOpen;
+	public Vector3 prefabSize = new Vector3 (1f, 1f, 1f);
 
 	public AudioItem[] audioItems = { };
 	protected System.Collections.Generic.Dictionary<string, AudioItem> fAudioItems;
@@ -412,7 +413,7 @@ public class CellDescription : CellDirectionObjects
 			return aSrc;
 		}
 	}
-
+	/*
 	public static AudioClip ReadAudioClip (string aLine, AudioClip aSrc, string aName, string aFolder)
 	{
 		if (aLine.StartsWith (aName + "\t")) {
@@ -440,13 +441,33 @@ public class CellDescription : CellDirectionObjects
 			return aSrc;
 		}
 	}
+	*/
 
 	public override void ReadLine (string aLine, string aFolder)
 	{
 		base.ReadLine (aLine, aFolder);
-		worldName = ReadString (aLine, aFolder, "world", aFolder);
+		//worldName = ReadString (aLine, aFolder, "world", aFolder);
 		audioScore = ReadAudioScore (aLine, audioScore, "audioScore", aFolder);
 		audioItems = ReadAudioItem (aLine, audioItems, "audioItem", aFolder);
+		if (!LevelSettings.ReadString(ref worldName, aLine, "world"))
+		if (!LevelSettings.ReadVector3(ref prefabSize, aLine, "prefabSize"))
+		if (!LevelSettings.ReadAudioClip(ref audioLiveLost,aLine,"audioLiveLost", aFolder))
+		if (!LevelSettings.ReadAudioClip(ref audioLiveAdded,aLine,"audioLiveAdded", aFolder))
+		if (!LevelSettings.ReadAudioClip(ref audioDamageSmall,aLine,"audioDamageSmall", aFolder))
+		if (!LevelSettings.ReadAudioClip(ref audioDamageMedium,aLine,"audioDamageMedium", aFolder))
+		if (!LevelSettings.ReadAudioClip(ref audioDamageBig,aLine,"audioDamageBig", aFolder))
+		if (!LevelSettings.ReadAudioClip(ref audioScoreReached,aLine,"audioScoreReached", aFolder))
+		if (!LevelSettings.ReadAudioClip(ref audioGameOver,aLine,"audioGameOver", aFolder))
+		if (!LevelSettings.ReadAudioClip(ref audioHealthSmall,aLine,"audioHealthSmall", aFolder))
+		if (!LevelSettings.ReadAudioClip(ref audioHealthMedium,aLine,"audioHealthMedium", aFolder))
+		if (!LevelSettings.ReadAudioClip(ref audioHealthBig,aLine,"audioHealthBig", aFolder))
+		if (!LevelSettings.ReadAudioClip(ref audioBackgroundPause,aLine,"audioBackgroundPause", aFolder))
+		if (!LevelSettings.ReadAudioClip(ref audioBackgroundMusic,aLine,"audioBackgroundMusic", aFolder))
+		if (!LevelSettings.ReadAudioClip(ref audioBackgroundLevelEnd,aLine,"audioBackgroundLevelEnd", aFolder))
+		if (!LevelSettings.ReadAudioClip(ref audioBackgroundLevelStart,aLine,"audioBackgroundLevelStart", aFolder))
+		if (!LevelSettings.ReadAudioClip(ref audioBackgroundLevelExitOpen,aLine,"audioBackgroundLevelExitOpen", aFolder))
+			;
+			/*
 		audioLiveLost = ReadAudioClip (aLine, audioLiveLost, "audioLiveLost", aFolder);
 		audioLiveAdded = ReadAudioClip (aLine, audioLiveAdded, "audioLiveAdded", aFolder);
 		audioDamageSmall = ReadAudioClip (aLine, audioDamageSmall, "audioDamageSmall", aFolder);
@@ -462,6 +483,7 @@ public class CellDescription : CellDirectionObjects
 		audioBackgroundLevelEnd = ReadAudioClip (aLine, audioBackgroundLevelEnd, "audioBackgroundLevelEnd", aFolder);
 		audioBackgroundLevelStart = ReadAudioClip (aLine, audioBackgroundMusic, "audioBackgroundLevelStart", aFolder);
 		audioBackgroundLevelExitOpen = ReadAudioClip (aLine, audioBackgroundLevelEnd, "audioBackgroundLevelExitOpen", aFolder);
+		*/
 	}
 
 	public void FinishedReading ()

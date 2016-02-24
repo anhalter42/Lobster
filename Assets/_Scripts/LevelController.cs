@@ -420,7 +420,11 @@ public class LevelController : MonoBehaviour
 	protected void CreateLabyrinth ()
 	{
 		builder = new MazeBuilder ();
-		builder.positionScale = m_MazeCellSize;
+		if (m_MazeCellSize.x == 1 && m_MazeCellSize.y == 1 && m_MazeCellSize.z == 1) {
+			builder.positionScale = prefabs.prefabSize;
+		} else {
+			builder.positionScale = m_MazeCellSize;
+		}
 		builder.settings = settings;
 		builder.prefabs = prefabs;
 		builder.CreateLabyrinth (m_MainMazeParent.transform);

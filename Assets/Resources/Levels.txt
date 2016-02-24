@@ -58,6 +58,17 @@ ambientLight	0.2
 ambientLightColor	200,150,50
 deathLevel	Tutorial.Death 1
 
+#Tutorial 5
+world	Tutorial
+prefabs	Simple2x2
+startupText	Etwas größere Räume
+mazeWidth	5
+mazeHeight	1
+mazeDepth	5
+breakWalls	2
+scoreForExit	20
+deathLevel	Tutorial.Death 1
+
 #Death 1
 world	Tutorial
 isVisible	false

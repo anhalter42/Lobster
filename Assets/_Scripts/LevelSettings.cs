@@ -318,6 +318,22 @@ public class LevelSettings
 		}
 	}
 
+	public static bool ReadVector3 (ref Vector3 aValue, string aLine, string aName = null)
+	{
+		if (aName == null || aLine.StartsWith (aName)) {
+			string lV = aName == null ? aLine : aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1];
+			string[] lVs = lV.Split (new string[] { "," }, System.StringSplitOptions.RemoveEmptyEntries);
+			if (lVs.Length == 2) {
+				aValue = new Vector3 (float.Parse (lVs [0]), 0, float.Parse (lVs [1]));
+			} else if (lVs.Length == 3) {
+				aValue = new Vector3 (float.Parse (lVs [0]), float.Parse (lVs [1]), float.Parse (lVs [2]));
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public static bool ReadAmbientMode (ref UnityEngine.Rendering.AmbientMode aValue, string aLine, string aName)
 	{
 		if (aLine.StartsWith (aName)) {

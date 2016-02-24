@@ -241,3 +241,29 @@ audioBackgroundPause	Background_New_Day_is_born
 audioBackgroundMusic	Background_War_And_Hope
 audioBackgroundLevelEnd	Background_The_gates_No_Choir
 ;audioItem	GreenKey;key1;key4;key2
+
+#Simple2x2
+Package=Dungeon2x2
+prefabSize		2,1,2
+top				Ceiling
+bottom			Floor
+left			Wall_R-
+right			Wall_R+
+forward			Wall_B+
+backward		Wall_B-
+score			GemScore1;0;false;1;0
+exit			ExitCylinder
+wayPoints		WayPoint_R-;100;true;3
+wayPoints		WayPoint_R+;100;true;2
+wayPoints		WayPoint_B+;100;true;4
+wayPoints		WayPoint_B-;100;true;5
+audioScore		coins1;1
+audioScore		coins2;2
+audioScore		coins3;5
+audioScore		coins4;5
+audioScore		coins6;10
+audioScore		coins8;20
+audioScoreReached	completed1
+audioBackgroundPause	Background_New_Day_is_born
+audioBackgroundMusic	Background_War_And_Hope_perc
+audioBackgroundLevelEnd	Background_The_gates_No_Choir
