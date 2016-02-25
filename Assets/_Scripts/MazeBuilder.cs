@@ -269,7 +269,7 @@ public class MazeBuilder
 		int lIndex = 0;
 		foreach (LevelSettings.Exit lE in settings.exits) {
 			exits [lIndex] = CreateExit (lE.pos, lE.prefab, lE.levelName);
-			exits [lIndex].SetActive (false);
+			exits [lIndex].SetActive (settings.scoreForExit == 0);
 			MultiActivator lMA = exits [lIndex].GetComponent<MultiActivator> ();
 			if (!lMA) {
 				lMA = exits [lIndex].AddComponent<MultiActivator> ();
@@ -278,7 +278,7 @@ public class MazeBuilder
 			lIndex++;
 		}
 		exits [lIndex] = CreateExit (exitPoint);
-		exits [lIndex].SetActive (false);
+		exits [lIndex].SetActive (settings.scoreForExit == 0);
 		exitPoint = exits [lIndex].transform.parent.GetComponent<MazeCellComponent> ().cell.pos;
 	}
 

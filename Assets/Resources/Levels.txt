@@ -62,11 +62,12 @@ deathLevel	Tutorial.Death 1
 world	Tutorial
 prefabs	Simple2x2
 startupText	Etwas größere Räume
-mazeWidth	5
+mazeWidth	10
 mazeHeight	1
-mazeDepth	5
+mazeDepth	10
 breakWalls	2
-scoreForExit	20
+scoreForExit	0
+maxTime	120
 deathLevel	Tutorial.Death 1
 
 #Death 1

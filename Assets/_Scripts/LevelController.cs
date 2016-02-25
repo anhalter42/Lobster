@@ -310,6 +310,9 @@ public class LevelController : MonoBehaviour
 			if (!isPause) {
 				if (settings.maxTime > 0) {
 					playerLevelSettings.time = Mathf.Max (settings.maxTime - (playerLevelSettings.resumeTime + (Time.realtimeSinceStartup - playerLevelSettings.startTime)), 0f);
+					if (playerLevelSettings.time <= 0) {
+						TakeDamage (Time.deltaTime * 200f); //TODO Faktor für Rest Stärke Aufwertung wenn Zeit abgelaufen
+					}
 				} else {
 					playerLevelSettings.time = playerLevelSettings.resumeTime + (Time.realtimeSinceStartup - playerLevelSettings.startTime);
 				}
@@ -318,7 +321,7 @@ public class LevelController : MonoBehaviour
 		}
 		playerLevelSettings.levelRuntime = playerLevelSettings.resumeTime + (Time.realtimeSinceStartup - playerLevelSettings.startTime);
 		m_textLives.text = string.Format (GetLocalText ("HUDLives"), playerLevelSettings.lives);
-		m_textHealth.text = string.Format (GetLocalText ("HUDHealth"), playerLevelSettings.health);
+		m_textHealth.text = string.Format (GetLocalText ("HUDHealth"), Mathf.RoundToInt(playerLevelSettings.health));
 		m_textInventory.text = playerInventory.forDisplay ();
 		CheckLOD ();
 		if (isRunning) {
@@ -498,7 +501,7 @@ public class LevelController : MonoBehaviour
 	{
 		playerLevelSettings.score += aScore;
 		PlayScoreAudio (aScore, player.transform.position);
-		if (!playerLevelSettings.scoreReached && playerLevelSettings.score >= settings.scoreForExit) {
+		if (!playerLevelSettings.scoreReached && settings.scoreForExit > 0 && playerLevelSettings.score >= settings.scoreForExit) {
 			playerLevelSettings.scoreReached = true;
 			if (prefabs.audioScoreReached) {
 				PlayAudioEffect (prefabs.audioScoreReached);
@@ -573,19 +576,19 @@ public class LevelController : MonoBehaviour
 		return lAudio;
 	}
 
-	public void UpdateInventoryUI()
+	public void UpdateInventoryUI ()
 	{
 		int lPlaceIndex = 1;
 		foreach (PlayerInventory.InventoryItem lItem in playerInventory.m_Items) {
-			GameObject lPrefab = AllLevels.Get().inventory.Get(lItem.type).Prefab;
+			GameObject lPrefab = AllLevels.Get ().inventory.Get (lItem.type).Prefab;
 			if (lItem.isVisibleInUI && lPrefab != null) {
-				Transform lPlace = m_InventoryParent.FindChild("Place"+lPlaceIndex.ToString());
+				Transform lPlace = m_InventoryParent.FindChild ("Place" + lPlaceIndex.ToString ());
 				if (lPlace) {
-					for(int i=0;i<lPlace.childCount;i++) {
-						Destroy(lPlace.GetChild(i).gameObject);
+					for (int i = 0; i < lPlace.childCount; i++) {
+						Destroy (lPlace.GetChild (i).gameObject);
 					}
-					GameObject lInv = Instantiate(lPrefab) as GameObject;
-					lInv.transform.SetParent(lPlace, false);
+					GameObject lInv = Instantiate (lPrefab) as GameObject;
+					lInv.transform.SetParent (lPlace, false);
 				}
 				lPlaceIndex++;
 			}
@@ -599,7 +602,7 @@ public class LevelController : MonoBehaviour
 		if (lAudio) {
 			PlayAudioEffect (lAudio);
 		}
-		UpdateInventoryUI();
+		UpdateInventoryUI ();
 	}
 
 	public void AddInventoryItems (PlayerInventory.InventoryItem[] aItems)
@@ -783,8 +786,8 @@ public class LevelController : MonoBehaviour
 		if (playerLevelSettings.score > settings.scoreForExit) {
 			playerLevelSettings.scoreBonus = Mathf.RoundToInt ((playerLevelSettings.score - settings.scoreForExit) * settings.scoreBonusFactor);
 		}
-		if (settings.maxTime > 0 && playerLevelSettings.time > settings.maxTime) {
-			playerLevelSettings.timeBonus = settings.maxTime - playerLevelSettings.time;
+		if (settings.maxTime > 0 && playerLevelSettings.time > 0) {
+			playerLevelSettings.timeBonus = playerLevelSettings.time;
 			playerLevelSettings.scoreTimeBonus = Mathf.RoundToInt (playerLevelSettings.timeBonus * settings.scoreTimeBonusFactor);
 			m_textLFTimeBonus.gameObject.SetActive (true);
 		} else {
