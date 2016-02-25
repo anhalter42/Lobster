@@ -321,7 +321,7 @@ public class LevelController : MonoBehaviour
 		}
 		playerLevelSettings.levelRuntime = playerLevelSettings.resumeTime + (Time.realtimeSinceStartup - playerLevelSettings.startTime);
 		m_textLives.text = string.Format (GetLocalText ("HUDLives"), playerLevelSettings.lives);
-		m_textHealth.text = string.Format (GetLocalText ("HUDHealth"), Mathf.RoundToInt(playerLevelSettings.health));
+		m_textHealth.text = string.Format (GetLocalText ("HUDHealth"), Mathf.RoundToInt (playerLevelSettings.health));
 		m_textInventory.text = playerInventory.forDisplay ();
 		CheckLOD ();
 		if (isRunning) {
@@ -436,12 +436,11 @@ public class LevelController : MonoBehaviour
 		if (player) {
 			Destroy (player);
 		}
-		Vector3 lPos;
-		if (!Maze.Point.IsNullOrEmpty (settings.playerStart)) {
-			lPos = new Vector3 (settings.playerStart.x, settings.playerStart.y, settings.playerStart.z);
-		} else {
-			lPos = new Vector3 (builder.Maze.width / 2, builder.Maze.height / 2, builder.Maze.depth / 2);
+		Maze.Point lPStart = settings.playerStart;
+		if (Maze.Point.IsNullOrEmpty (settings.playerStart)) {
+			lPStart = new Maze.Point (settings.mazeWidth / 2, settings.mazeHeight / 2, settings.mazeDepth / 2);
 		}
+		Vector3 lPos = builder.GetVectorFromMazePoint (lPStart);
 		player = Instantiate (playerPrefab, mazeParent.TransformPoint (lPos), Quaternion.identity) as GameObject;
 	}
 

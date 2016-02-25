@@ -321,12 +321,13 @@ public class MazeBuilder
 		}
 	}
 
+	public Vector3 GetVectorFromMazePoint (Maze.Point aPoint)
+	{
+		return new Vector3 (aPoint.x * positionScale.x, aPoint.y * positionScale.y, aPoint.z * positionScale.z);
+	}
+
 	public Maze.Point GetMazePointFromLocal (Vector3 aPos)
 	{
-//		return new Maze.Point (
-//			(int)(aPos.x / positionScale.x + positionScale.x / 2f),
-//			(int)(aPos.y / positionScale.y + positionScale.y / 2f),
-//			(int)(aPos.z / positionScale.z + positionScale.z / 2f));
 		return new Maze.Point (
 			(int)(aPos.x / positionScale.x + 0.5f),
 			(int)(aPos.y / positionScale.y + 0.5f),
