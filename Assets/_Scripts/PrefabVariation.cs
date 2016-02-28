@@ -100,7 +100,9 @@ public class PrefabVariation : MonoBehaviour
 			while (i < lCount) {
 				int j = Random.Range (0, behaviours.Length);
 				if (behaviours [j].enabled != aState) {
-					behaviours [j].enabled = aState;
+					if (Random.Range (0, 100) <= probability) {
+						behaviours [j].enabled = aState;
+					}
 					i++;
 				} else {
 					x++;
@@ -115,15 +117,9 @@ public class PrefabVariation : MonoBehaviour
 			while (i < lCount) {
 				int j = Random.Range (0, objects.Length);
 				if (objects [j].activeSelf != aState) {
-					objects [j].SetActive (aState);
-					/*
-					if (aState) {
-						PrefabModifier[] lMods = objects [j].GetComponentsInChildren<PrefabModifier> ();
-						foreach (PrefabModifier lMod in lMods) {
-							lMod.ModifyPrefab (lMod.gameObject);
-						}
+					if (Random.Range (0, 100) <= probability) {
+						objects [j].SetActive (aState);
 					}
-					*/
 					i++;
 				} else {
 					x++;
