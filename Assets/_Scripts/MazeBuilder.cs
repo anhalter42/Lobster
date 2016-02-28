@@ -358,6 +358,10 @@ public class MazeBuilder
 	{
 		PrefabConditions lCond = aPrefab.GetComponent<PrefabConditions> ();
 		if (lCond) {
+			if (AllLevels.Get().currentPlayer.age < lCond.minAge
+				&& AllLevels.Get().currentPlayer.age > lCond.maxAge) {
+				return null;
+			}
 			MazeCellComponent lCell = aParent.GetComponent<MazeCellComponent> ();
 			if (lCell) {
 				if (lCell.ContainsSomeTags (lCond.forbiddenTags)) {
@@ -375,18 +379,6 @@ public class MazeBuilder
 		GameObject lObj = GameObject.Instantiate (aPrefab, aPos, aRotation) as GameObject;
 		lObj.transform.SetParent (aParent, false);
 		lObj.name = aName;
-		/*
-		PrefabModifier[] lMods = lObj.GetComponentsInChildren<PrefabModifier> ();
-		foreach (PrefabModifier lMod in lMods) {
-			lMod.ModifyPrefab (lMod.gameObject);
-		}
-		*/
-		/*
-		AudioSource[] lASs = lObj.GetComponentsInChildren<AudioSource> ();
-		foreach (AudioSource lAS in lASs) {
-			lAS.volume = AllLevels.Get ().levelController.effectVolume;
-		}
-		*/
 		return lObj;
 	}
 }

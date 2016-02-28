@@ -295,6 +295,7 @@ public class LevelController : MonoBehaviour
 		m_panelLevelFinished.gameObject.SetActive (false);
 		m_panelToast.gameObject.SetActive (false);
 		CreateMainMazeParent ("Main");
+		InitUIInventory ();
 	}
 
 	public string GetLocalText (string aKey)
@@ -575,20 +576,73 @@ public class LevelController : MonoBehaviour
 		return lAudio;
 	}
 
-	public void UpdateInventoryUI ()
+	[System.Serializable]
+	public class UIInventory
+	{
+		public Text count;
+		public Transform parent;
+		public Light light;
+		public Canvas canvas;
+		public GameObject currentItem;
+
+		public UIInventory (Transform aParent)
+		{
+			parent = aParent;
+			currentItem = null;
+			canvas = parent.FindChild ("Canvas").GetComponent<Canvas> ();
+			count = canvas.transform.FindChild ("TextCount").GetComponent<Text> ();
+			light = parent.FindChild ("Light").GetComponent<Light> ();
+		}
+
+		public void Clear ()
+		{
+			if (currentItem) {
+				Destroy (currentItem);
+			}
+			count.text = string.Empty;
+			light.enabled = false;
+		}
+
+		public void SetItem (PlayerInventory.InventoryItem aItem)
+		{
+			Clear ();
+			if (aItem != null) {
+				GameObject lPrefab = AllLevels.Get ().inventory.Get (aItem.type).Prefab;
+				if (lPrefab) {
+					currentItem = Instantiate (lPrefab) as GameObject;
+					currentItem.transform.SetParent (parent, false);
+				}
+				if (aItem.count > 1) {
+					count.text = aItem.count.ToString ();
+				}
+				light.enabled = true;
+			}
+		}
+	}
+
+	public UIInventory[] UIInventoryItems = { };
+
+	public void InitUIInventory ()
 	{
 		int lPlaceIndex = 1;
+		do {
+			Transform lPlace = m_InventoryParent.FindChild ("Place" + lPlaceIndex.ToString ());
+			if (lPlace == null) {
+				break;
+			}
+			System.Array.Resize<UIInventory> (ref UIInventoryItems, UIInventoryItems.Length + 1);
+			UIInventoryItems [lPlaceIndex - 1] = new UIInventory (lPlace);
+			UIInventoryItems [lPlaceIndex - 1].Clear ();
+			lPlaceIndex++;
+		} while(true);
+	}
+
+	public void UpdateInventoryUI ()
+	{
+		int lPlaceIndex = 0;
 		foreach (PlayerInventory.InventoryItem lItem in playerInventory.m_Items) {
-			GameObject lPrefab = AllLevels.Get ().inventory.Get (lItem.type).Prefab;
-			if (lItem.isVisibleInUI && lPrefab != null) {
-				Transform lPlace = m_InventoryParent.FindChild ("Place" + lPlaceIndex.ToString ());
-				if (lPlace) {
-					for (int i = 0; i < lPlace.childCount; i++) {
-						Destroy (lPlace.GetChild (i).gameObject);
-					}
-					GameObject lInv = Instantiate (lPrefab) as GameObject;
-					lInv.transform.SetParent (lPlace, false);
-				}
+			if (lItem.isVisibleInUI) {
+				UIInventoryItems [lPlaceIndex].SetItem (lItem);
 				lPlaceIndex++;
 			}
 		}
@@ -618,6 +672,7 @@ public class LevelController : MonoBehaviour
 		if (lAudio) {
 			PlayAudioEffect (lAudio);
 		}
+		UpdateInventoryUI ();
 	}
 
 	public void SubInventoryItems (PlayerInventory.InventoryItem[] aItems)
