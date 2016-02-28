@@ -7,7 +7,13 @@ public class PlayerDamage : MonoBehaviour
 	{
 		DamageData lDamage = aOther.GetComponent<DamageData> ();
 		if (lDamage && lDamage.enabled) {
-			AllLevels.Get ().levelController.TakeDamage (lDamage);
+			if (lDamage.minVelocity == 0f
+			    || (aOther.attachedRigidbody != null && aOther.attachedRigidbody.velocity.magnitude >= lDamage.minVelocity)) {
+				if (lDamage.onlyOneTime) {
+					lDamage.enabled = false;
+				}
+				AllLevels.Get ().levelController.TakeDamage (lDamage);
+			}
 		}
 	}
 }
