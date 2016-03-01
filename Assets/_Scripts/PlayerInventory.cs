@@ -12,7 +12,12 @@ public class PlayerInventory : MonoBehaviour
 
 		public string name { get { return AllLevels.Get ().local.GetText (type); } }
 
-		public bool isVisibleInUI { get { return AllLevels.Get ().inventory.Get (type).VisibleInUI; } }
+		public bool isVisibleInUI {
+			get {
+				Inventory.Item lItem = AllLevels.Get ().inventory.Get (type);
+				return lItem == null ? false : lItem.VisibleInUI;
+			}
+		}
 
 		public InventoryItem ()
 		{
@@ -56,11 +61,13 @@ public class PlayerInventory : MonoBehaviour
 				return lItem.count;
 			}
 		}
-		InventoryItem[] lNewItems = new InventoryItem[m_Items.Length + 1];
+		//InventoryItem[] lNewItems = new InventoryItem[m_Items.Length + 1];
 		InventoryItem lNew = new InventoryItem (aItem.type, aItem.count);
-		System.Array.Copy (m_Items, lNewItems, 0);
-		lNewItems [lNewItems.Length - 1] = lNew;
-		m_Items = lNewItems;
+		System.Array.Resize<InventoryItem>(ref m_Items, m_Items.Length + 1);
+		m_Items [m_Items.Length - 1] = lNew;
+		//System.Array.Copy (m_Items, lNewItems, 0);
+		//lNewItems [lNewItems.Length - 1] = lNew;
+		//m_Items = lNewItems;
 		return aItem.count;
 	}
 

@@ -1,2 +1,4 @@
 // Inventar
 GreenKey	true;Level;GreenKey;key1;key4;key2
+RedKey		true;Level;RedKey;key1;key4;key2
+GoldKey		true;Level;GoldKey;key1;key4;key2

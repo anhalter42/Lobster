@@ -36,4 +36,6 @@ LevelEndTime=Zeit: {0}
 LevelEndTimeBonus=Zeit Bonus: {0}
 GameOver=Verloren
 GreenKey=Grüner Schlüssel
+RedKey=Roter Schlüssel
+GoldKey=Goldener Schlüssel
 Effects=Effekte
