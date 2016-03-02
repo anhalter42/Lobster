@@ -1,3 +1,48 @@
+#Unterwelt 1.0
+//Gefangen in der Unterwelt - Der erste Schritt
+prefabs	DungeonHD
+mazeWidth	20
+mazeHeight	1
+mazeDepth	20
+breakWalls	30
+scoreForExit	100
+dayLight	0.1
+dayLightColor	221,153,109
+groundColor	0,0,0
+ambientLightColor	221,153,109
+ambientMode	flat
+ambientLight	0.2
+
+#Unterwelt 1.1
+//Gefangen in der Unterwelt - Nicht aufgeben
+prefabs	DungeonHD
+mazeWidth	20
+mazeHeight	1
+mazeDepth	20
+breakWalls	60
+scoreForExit	150
+dayLight	0.2
+dayLightColor	221,153,109
+groundColor	10,10,10
+ambientLightColor	221,153,109
+ambientMode	Flat
+ambientLight	0.1
+
+#Unterwelt 1.2
+//Gefangen in der Unterwelt - Der dunkle Weg
+prefabs	DungeonHD
+mazeWidth	8
+mazeHeight	1
+mazeDepth	22
+breakWalls	5
+scoreForExit	40
+dayLight	0.4
+dayLightColor	221,153,109
+groundColor	10,10,10
+ambientLightColor	221,153,109
+ambientMode	Flat
+ambientLight	0.2
+
 #Tutorial 1
 world	Tutorial
 prefabs	SimpleCactusRocks
@@ -11,8 +56,8 @@ groundColor	251,255,0
 groundTexture	Sand_Tiling
 cellDescs	bottom	Cactus/CFloor_Grass
 cellDescs	bottom	Cactus/CFloor_Sand;0
-directCell	3,0,3;Left,Forward,Right;true
-directPrefab	Dungeon/ChestGreen_B+;3,0,3
+directCell	3,0,3;Left,Forward,Right,Backward;true
+directPrefab	ChestGreen_B+;3,0,3
 deathLevel	Tutorial.Death 1
 
 #Tutorial 2
@@ -39,8 +84,8 @@ ambientMode	Flat
 ambientLight	0.3
 ambientLightColor	200,150,50
 playerStart	0,0,0
-directCell	3,0,3;Left,Forward,Right;true
-directPrefab	Dungeon/ChestGreen_B+;3,0,3
+directCell	3,0,3;Left,Forward,Right,Backward;true
+directPrefab	ChestGreen_B+;3,0,3
 deathLevel	Tutorial.Death 1
 
 #Tutorial 4
@@ -61,7 +106,7 @@ deathLevel	Tutorial.Death 1
 #Tutorial 5
 world	Tutorial
 prefabs	Simple2x2
-startupText	Etwas grÃ¶ÃŸere RÃ¤ume
+startupText	Etwas größere Räume
 mazeWidth	10
 mazeHeight	1
 mazeDepth	10
