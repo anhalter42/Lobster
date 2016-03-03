@@ -351,7 +351,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0816225, y: -0.394, z: -0.009315105}
+  m_ConnectedAnchor: {x: 0.0816225, y: -0.09900001, z: -0.009315105}
   m_UseSpring: 1
   m_Spring:
     spring: 8
@@ -833,7 +833,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &508728847
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -844,7 +844,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: db1f1fddb07604b929e64393f1bca81e, type: 2}
+  - {fileID: 2100000, guid: 6731f37db1a944f2b98fa8bef921401b, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1384,7 +1384,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 832389402}
   m_LocalRotation: {x: 0, y: -0.7660445, z: 0, w: 0.64278764}
-  m_LocalPosition: {x: 0.286, y: 0, z: 0.387}
+  m_LocalPosition: {x: 0.286, y: -0.295, z: 0.387}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1291645785}
@@ -3351,6 +3351,10 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 4300000, guid: 61a610889e3144746a1cfe3d3f7bd20e, type: 2}
+    - target: {fileID: 183048, guid: 1002e0a7b07f24d43bd0e72571bd0d3a, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1002e0a7b07f24d43bd0e72571bd0d3a, type: 2}
   m_IsPrefabParent: 0

@@ -7260,7 +7260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 186784, guid: 2d8b82f9d65d441f3904e2cf48fda6dc, type: 2}
-  defaultLevel: 4
+  defaultLevel: 0
 --- !u!4 &1839330017
 Transform:
   m_ObjectHideFlags: 0

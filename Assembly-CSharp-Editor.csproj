@@ -52,7 +52,7 @@
      <None Include="Assets\Resources\Levels.txt" />
      <None Include="Assets\Resources\Text.English.txt" />
      <None Include="Assets\Zusatz\Lava_Flowing_Shader\Shaders\Unlit_Lava_Simple.shader" />
-     <None Include="Assets\Zusatz\Gem\Shaders\Ghost.shader" />
+     <None Include="Assets\Shaders\Ghost.shader" />
      <None Include="Assets\Zusatz\CactusPack\Readme.txt" />
      <None Include="Assets\Zusatz\Lava_Flowing_Shader\Shaders\Unlit_Lava_Distort.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
@@ -65,7 +65,7 @@
      <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
      <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
-     <None Include="Assets\Zusatz\Gem\Shaders\Gem.shader" />
+     <None Include="Assets\Shaders\Gem.shader" />
      <None Include="Assets\Resources\Text.German.txt" />
      <None Include="Assets\Resources\Inventory.txt" />
      <None Include="Assets\Resources\CellDescs.txt" />
