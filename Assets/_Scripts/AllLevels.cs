@@ -13,21 +13,22 @@ public class AllLevels : MonoBehaviour
 		public float MusicVolume = 0.25f;
 		public bool ShowFPS = true;
 
-		public void Load()
+		public void Load ()
 		{
-			EffectVolume = PlayerPrefs.GetFloat("EffectVolume", EffectVolume);
-			MusicVolume = PlayerPrefs.GetFloat("MusicVolume", MusicVolume);
-			ShowFPS = PlayerPrefs.GetInt("ShowFPS", ShowFPS ? 1 : 0) == 1;
+			EffectVolume = PlayerPrefs.GetFloat ("EffectVolume", EffectVolume);
+			MusicVolume = PlayerPrefs.GetFloat ("MusicVolume", MusicVolume);
+			ShowFPS = PlayerPrefs.GetInt ("ShowFPS", ShowFPS ? 1 : 0) == 1;
 		}
 
-		public void Save()
+		public void Save ()
 		{
-			PlayerPrefs.SetFloat("EffectVolume", EffectVolume);
-			PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
-			PlayerPrefs.SetInt("ShowFPS", ShowFPS ? 1 : 0);
-			PlayerPrefs.Save();
+			PlayerPrefs.SetFloat ("EffectVolume", EffectVolume);
+			PlayerPrefs.SetFloat ("MusicVolume", MusicVolume);
+			PlayerPrefs.SetInt ("ShowFPS", ShowFPS ? 1 : 0);
+			PlayerPrefs.Save ();
 		}
 	}
+
 	public string Version = "0.3";
 
 	public SystemLanguage language;
@@ -50,7 +51,7 @@ public class AllLevels : MonoBehaviour
 
 	public Localization local = new Localization ();
 
-	public GameOptions options = new GameOptions();
+	public GameOptions options = new GameOptions ();
 
 	string[] m_worlds = null;
 
@@ -135,7 +136,7 @@ public class AllLevels : MonoBehaviour
 	// Use this for initialization
 	void Awake ()
 	{
-		options.Load();
+		options.Load ();
 		language = (SystemLanguage)System.Enum.Parse (typeof(SystemLanguage), PlayerPrefs.GetString ("Language", Application.systemLanguage.ToString ()), true);
 		GameObject lObj = GameObject.Find ("Version") as GameObject;
 		if (lObj) {
@@ -342,20 +343,20 @@ public class AllLevels : MonoBehaviour
 		}
 	}
 
-	public LevelSettings GetNextLevel(LevelSettings aSettings)
+	public LevelSettings GetNextLevel (LevelSettings aSettings)
 	{
 		LevelSettings lSettings = aSettings;
 		while (lSettings != null && lSettings.level < levelSettings.Length && (!lSettings.isVisible || lSettings == aSettings)) {
-			lSettings = levelSettings[lSettings.level];
+			lSettings = levelSettings [lSettings.level];
 		}
 		return lSettings;
 	}
 
-	public LevelSettings GetPreviousLevel(LevelSettings aSettings)
+	public LevelSettings GetPreviousLevel (LevelSettings aSettings)
 	{
 		LevelSettings lSettings = aSettings;
 		while (lSettings != null && lSettings.level > 1 && (!lSettings.isVisible || lSettings == aSettings)) {
-			lSettings = levelSettings[lSettings.level - 2];
+			lSettings = levelSettings [lSettings.level - 2];
 		}
 		return lSettings;
 	}
@@ -405,6 +406,27 @@ public class AllLevels : MonoBehaviour
 	{
 		T lObj = null;
 		if (!string.IsNullOrEmpty (aSubFolder)) {
+			lObj = Resources.Load<T> (aSubFolder + "/" + aMainFolder + "/" + aName);
+		}
+		int lSlash = aName.IndexOf ("/");
+		if (lSlash > 0) {
+			string lSubFolder = aName.Substring (0, lSlash);
+			string lName = aName.Substring (lSlash + 1);
+			lObj = Resources.Load<T> (lSubFolder + "/" + aMainFolder + "/" + lName);
+		}
+		if (lObj == null) {
+			lObj = Resources.Load<T> (aMainFolder + "/" + aName);
+		}
+		if (lObj == null) {
+			lObj = Resources.Load<T> (aName);
+		}
+		if (lObj == null) {
+			Debug.Log (string.Format ("Could not find {0} '{1}' (Folder '{2}')!", aMainFolder, aName, aSubFolder));
+		}
+		return lObj;
+		/*
+		T lObj = null;
+		if (!string.IsNullOrEmpty (aSubFolder)) {
 			lObj = Resources.Load<T> (aMainFolder + "/" + aSubFolder + "/" + aName);
 		}
 		if (lObj == null) {
@@ -417,6 +439,7 @@ public class AllLevels : MonoBehaviour
 			Debug.Log (string.Format ("Could not find {0} '{1}' (Folder '{2}')!", aMainFolder, aName, aSubFolder));
 		}
 		return lObj;
+		*/
 	}
 
 	public Player GetPlayer (string aName, bool aCreate = false)
@@ -443,7 +466,7 @@ public class AllLevels : MonoBehaviour
 
 	public void SaveData ()
 	{
-		options.Save();
+		options.Save ();
 		BinaryFormatter lBf = new BinaryFormatter ();
 		FileStream lFile = File.Create (Path.Combine (Application.persistentDataPath, "data.dat"));
 		lBf.Serialize (lFile, data);

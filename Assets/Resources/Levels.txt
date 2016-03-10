@@ -53,11 +53,11 @@ mazeDepth	5
 breakWalls	0
 scoreForExit	20
 groundColor	251,255,0
-groundTexture	Sand_Tiling
+groundTexture	Cactus/Sand_Tiling
 cellDescs	bottom	Cactus/CFloor_Grass
 cellDescs	bottom	Cactus/CFloor_Sand;0
 directCell	3,0,3;Left,Forward,Right,Backward;true
-directPrefab	ChestGreen_B+;3,0,3
+directPrefab	Dungeon/ChestGreen_B+;3,0,3
 deathLevel	Tutorial.Death 1
 
 #Tutorial 2
@@ -85,7 +85,7 @@ ambientLight	0.3
 ambientLightColor	200,150,50
 playerStart	0,0,0
 directCell	3,0,3;Left,Forward,Right,Backward;true
-directPrefab	ChestGreen_B+;3,0,3
+directPrefab	Dungeon/ChestGreen_B+;3,0,3
 deathLevel	Tutorial.Death 1
 
 #Tutorial 4
