@@ -7,7 +7,7 @@ namespace MAHN42
     [RequireComponent(typeof (ThirdPersonCharacter))]
     public class ThirdPersonUserControl : MonoBehaviour
     {
-		[SerializeField] bool m_MAHN42 = true;
+//		[SerializeField] bool m_MAHN42 = true;
         private ThirdPersonCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
         private Transform m_Cam;                  // A reference to the main camera in the scenes transform
         private Vector3 m_CamForward;             // The current forward direction of the camera

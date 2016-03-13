@@ -7,7 +7,7 @@ namespace MAHN42
 	[RequireComponent (typeof(Animator))]
 	public class ThirdPersonCharacter : MonoBehaviour
 	{
-		[SerializeField] bool m_MAHN42 = true;
+		//[SerializeField] bool m_MAHN42 = true;
 		[SerializeField] float m_MovingTurnSpeed = 360;
 		[SerializeField] float m_StationaryTurnSpeed = 180;
 		[SerializeField] float m_JumpPower = 2f;
@@ -43,7 +43,7 @@ namespace MAHN42
 		//Vector3 m_CapsuleCenter;
 		CapsuleCollider m_Capsule;
 		BoxCollider m_Box;
-		bool m_Crouching;
+		bool m_Crouching = false;
 		bool m_death = false;
 
 

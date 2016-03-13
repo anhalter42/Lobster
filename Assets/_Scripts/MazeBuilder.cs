@@ -174,12 +174,17 @@ public class MazeBuilder
 					lCellComp.cell = lCell;
 					lCellObj.transform.SetParent (lLevelParent.transform, false);
 					lCellObj.transform.localPosition = lPos;
+					bool lWallSet = false;
 					for (int lDir = 0; lDir < 6; lDir++) {
 						if (!Maze.get (x, y, z).links [lDir].broken) {
 							lCellComp.SetTag (GetWallTag (lDir));
+							lWallSet = true;
 						} else {
 							lCellComp.SetTag ("No" + GetWallTag (lDir));
 						}
+					}
+					if (lWallSet) {
+						lCellComp.SetTag ("Wall");
 					}
 				}
 			}
@@ -356,13 +361,13 @@ public class MazeBuilder
 
 	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName, Vector3 aPos, Quaternion aRotation, ArrayList aForLater = null)
 	{
+		MazeCellComponent lCell = aParent.GetComponent<MazeCellComponent> ();
 		PrefabConditions lCond = aPrefab.GetComponent<PrefabConditions> ();
 		if (lCond) {
-			if (AllLevels.Get().currentPlayer.age < lCond.minAge
-				&& AllLevels.Get().currentPlayer.age > lCond.maxAge) {
+			if (AllLevels.Get ().currentPlayer.age < lCond.minAge
+			    && AllLevels.Get ().currentPlayer.age > lCond.maxAge) {
 				return null;
 			}
-			MazeCellComponent lCell = aParent.GetComponent<MazeCellComponent> ();
 			if (lCell) {
 				if (lCell.ContainsSomeTags (lCond.forbiddenTags)) {
 					return null;
@@ -379,6 +384,32 @@ public class MazeBuilder
 		GameObject lObj = GameObject.Instantiate (aPrefab, aPos, aRotation) as GameObject;
 		lObj.transform.SetParent (aParent, false);
 		lObj.name = aName;
+		if (lCell) {
+			RunPrefabModifier (lObj);
+			if (lCond && lCond.checkMeshBounds != MazeCellComponent.MeshCheckBoundsMode.NoCheck) {
+				if (lCell.IntersectsWithBounds (lObj, lCond.checkMeshBounds)) {
+					GameObject.DestroyImmediate (lObj);
+					return null;
+				}
+			}
+			lCell.PrefabInserted (lObj);
+		}
 		return lObj;
+	}
+
+	public void RunPrefabModifier (GameObject aObj)
+	{
+		PrefabVariation[] lVars = aObj.GetComponentsInChildren<PrefabVariation> ();
+		foreach (PrefabVariation lVar in lVars) {
+			if (!lVar.isModified) {
+				lVar.ModifyIt ();
+			}
+		}
+		PrefabModifier[] lMods = aObj.GetComponentsInChildren<PrefabModifier> ();
+		foreach (PrefabModifier lMod in lMods) {
+			if (!lMod.isModified) {
+				lMod.ModifyIt ();
+			}
+		}
 	}
 }

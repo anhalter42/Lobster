@@ -11,14 +11,21 @@ public class PrefabModifier : MonoBehaviour
 	public Vector3 minRotation = Vector3.zero;
 	public Vector3 maxRotation = Vector3.zero;
 
+	public bool isModified { get { return modified; } }
+
 	bool modified = false;
 
 	public void Start ()
 	{
 		if (!modified) {
-			modified = true;
-			ModifyPrefab (gameObject);
+			ModifyIt();
 		}
+	}
+
+	public void ModifyIt()
+	{
+		modified = true;
+		ModifyPrefab (gameObject);
 	}
 
 	public void ModifyPrefab (GameObject aPrefab)

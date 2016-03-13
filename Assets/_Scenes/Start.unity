@@ -3765,6 +3765,10 @@ MonoBehaviour:
     cellDescs: []
   levelSettings: []
   stories: []
+  options:
+    EffectVolume: 0.5
+    MusicVolume: 0.25
+    ShowFPS: 1
   playerPrefab: {fileID: 0}
   audioGlobal: {fileID: 0}
 --- !u!1 &1643815967

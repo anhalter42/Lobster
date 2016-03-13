@@ -1,14 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PrefabConditions : MonoBehaviour {
-
-	public enum MeshCheckBoundsMode {
-		NoCheck,
-		CheckComplete,
-		CheckWithoutWalls
-	}
-
+public class PrefabConditions : MonoBehaviour
+{
 	public string[] ownTags;
 	public string[] mustHaveTags;
 	public string[] forbiddenTags;
@@ -16,6 +10,5 @@ public class PrefabConditions : MonoBehaviour {
 	public int minAge = 0;
 	public int maxAge = 999;
 
-	public MeshCheckBoundsMode checkMeshBounds = MeshCheckBoundsMode.NoCheck;
-
+	public MazeCellComponent.MeshCheckBoundsMode checkMeshBounds = MazeCellComponent.MeshCheckBoundsMode.NoCheck;
 }

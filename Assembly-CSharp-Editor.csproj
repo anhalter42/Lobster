@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
+     <Compile Include="Assets\Editor\MazeCellComponentEditor.cs" />
      <None Include="Assets\Resources\Stories.txt" />
      <None Include="Assets\Zusatz\CactusPack\Shaders\VertexBlend.shader" />
      <None Include="Assets\Resources\Levels.German.txt" />

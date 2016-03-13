@@ -23,12 +23,19 @@ public class PrefabVariation : MonoBehaviour
 
 	bool modified = false;
 
+	public bool isModified { get { return modified; } }
+
 	public void Start ()
 	{
 		if (!modified) {
-			modified = true;
-			ModifyPrefab ();
+			ModifyIt ();
 		}
+	}
+
+	public void ModifyIt ()
+	{
+		modified = true;
+		ModifyPrefab ();
 	}
 
 	public void ModifyPrefab ()
