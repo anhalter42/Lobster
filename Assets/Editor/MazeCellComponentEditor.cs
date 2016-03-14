@@ -9,7 +9,7 @@ public class MazeCellComponentEditor : Editor
 	public override void OnInspectorGUI ()
 	{
 		MazeCellComponent lCell = (MazeCellComponent)target;
-		MazeCellComponent.GizmosOptions lOpt = lCell.getGizmosOptions ();
+		MazeCellComponent.GizmosOptions lOpt = MazeCellComponent.getGizmosOptions ();
 		EditorGUILayout.LabelField ("Maze Cell Component", "For Debugging");
 		lOpt.drawCellCube = EditorGUILayout.Toggle ("Show Cell Cube", lOpt.drawCellCube);
 		lOpt.drawBounds = EditorGUILayout.Toggle ("Show Bounds", lOpt.drawBounds);
@@ -21,6 +21,6 @@ public class MazeCellComponentEditor : Editor
 
 		// Show default inspector property editor
 		DrawDefaultInspector ();
-		lCell.setGizmosOptions (lOpt);
+		MazeCellComponent.setGizmosOptions (lOpt);
 	}
 }

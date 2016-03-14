@@ -23,6 +23,7 @@ public class MazeCellComponent : MonoBehaviour
 	public class PrefabBound
 	{
 		public GameObject prefab;
+		public GameObject target;
 		public Bounds bounds;
 	}
 
@@ -112,6 +113,7 @@ public class MazeCellComponent : MonoBehaviour
 			if (lMesh != null) {
 				PrefabBound lBound = new PrefabBound ();
 				lBound.prefab = aPrefab;
+				lBound.target = aT.gameObject;
 				lBound.bounds.extents = aT.TransformVector (lMesh.bounds.extents);
 				lBound.bounds.center = aT.position + aT.TransformVector (lMesh.bounds.center);
 				aBounds.Add (lBound);
@@ -139,14 +141,14 @@ public class MazeCellComponent : MonoBehaviour
 		}
 	}
 
-	protected GizmosOptions fGizmosOptions;
+	protected static GizmosOptions fGizmosOptions;
 
-	public GizmosOptions getGizmosOptions ()
+	public static GizmosOptions getGizmosOptions ()
 	{
 		return fGizmosOptions;
 	}
 
-	public void setGizmosOptions (GizmosOptions aOptions)
+	public static void setGizmosOptions (GizmosOptions aOptions)
 	{
 		fGizmosOptions = aOptions;
 	}
@@ -169,32 +171,36 @@ public class MazeCellComponent : MonoBehaviour
 		return false;
 	}
 
-	public bool IntersectsWithBounds (GameObject aPrefab, MeshCheckBoundsMode aMode)
+	public List<PrefabBound> GetIntersectsWithBounds (GameObject aPrefab, MeshCheckBoundsMode aMode)
 	{
+		List<PrefabBound> lIntersects = new List<PrefabBound>();
 		List<PrefabBound> lBounds = GetTransformBounds (aPrefab);
 		foreach (PrefabBound lBound in lBounds) {
 			foreach (PrefabBound lCBound in bounds) {
 				if (lCBound.prefab != aPrefab
 				    && (aMode == MeshCheckBoundsMode.CheckComplete || (aMode == MeshCheckBoundsMode.CheckWithoutWalls && !IsWall (lCBound.prefab)))
 				    && lCBound.bounds.Intersects (lBound.bounds)) {
-					return true;
+					lIntersects.Add(lCBound);
 				}
 			}
 		}
-		return false;
+		return lIntersects;
 	}
 
-	public void OnDrawGizmosSelected ()
+	public bool IntersectsWithBounds (GameObject aPrefab, MeshCheckBoundsMode aMode)
+	{
+		return GetIntersectsWithBounds(aPrefab, aMode).Count  > 0;
+	}
+
+	public void OnDrawGizmos()
 	{
 		List<GameObject> lIntersects = new List<GameObject> ();
-		if (fGizmosOptions.drawCellCube) {
-			Gizmos.color = new Color (1f, 1f, 1f, 0.25f);
-			Gizmos.DrawCube (transform.position, new Vector3 (1f, 1f, 1f));
-		}
 		if (fGizmosOptions.checkIntersection) {
 			for (int lI = 0; lI < transform.childCount; lI++) {
-				if (IntersectsWithBounds (transform.GetChild (lI).gameObject, MeshCheckBoundsMode.CheckWithoutWalls)) {
-					lIntersects.Add (transform.GetChild (lI).gameObject);
+				GameObject lPrefab = transform.GetChild (lI).gameObject;
+				List<PrefabBound> lPBounds = GetIntersectsWithBounds(lPrefab, MeshCheckBoundsMode.CheckWithoutWalls);
+				if (lPBounds.Count > 0) {
+					lIntersects.Add (lPrefab);
 				}
 			}
 		}
@@ -209,6 +215,37 @@ public class MazeCellComponent : MonoBehaviour
 				Gizmos.DrawWireCube (lB.bounds.center, lB.bounds.size);
 			}
 		}
+	}
+
+	public void OnDrawGizmosSelected ()
+	{
+		//List<GameObject> lIntersects = new List<GameObject> ();
+		if (fGizmosOptions.drawCellCube) {
+			Gizmos.color = new Color (1f, 1f, 1f, 0.25f);
+			Gizmos.DrawCube (transform.position, new Vector3 (1f, 1f, 1f));
+		}
+		/*
+		if (fGizmosOptions.checkIntersection) {
+			for (int lI = 0; lI < transform.childCount; lI++) {
+				GameObject lPrefab = transform.GetChild (lI).gameObject;
+				List<PrefabBound> lPBounds = GetIntersectsWithBounds(lPrefab, MeshCheckBoundsMode.CheckWithoutWalls);
+				if (lPBounds.Count > 0) {
+					lIntersects.Add (lPrefab);
+				}
+			}
+		}
+		if (fGizmosOptions.drawBounds) {
+			foreach (PrefabBound lB in bounds) {
+				bool lWrong = lIntersects.Contains (lB.prefab);
+				if (!fGizmosOptions.drawBoundsWired) {
+					Gizmos.color = lWrong ? new Color (1f, 0.1f, 0.1f, 0.5f) : new Color (1f, 0.75f, 0.5f, 0.5f);
+					Gizmos.DrawCube (lB.bounds.center, lB.bounds.size);
+				}
+				Gizmos.color = lWrong ? new Color (1f, 0.1f, 0.1f, 1f) : new Color (1f, 0.75f, 0.5f, 1f);
+				Gizmos.DrawWireCube (lB.bounds.center, lB.bounds.size);
+			}
+		}
+		*/
 	}
 
 }
