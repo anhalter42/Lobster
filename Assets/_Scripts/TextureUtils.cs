@@ -54,12 +54,65 @@ public class TextureUtils
 		tex.SetPixel (x1, y1, col);
 	}
 
+	public static void DrawRect (Texture2D aTexture, int x, int y, int w, int h, Color aColor)
+	{
+		for (int ly = y; ly < y + h; ly++) {
+			DrawLine (aTexture, x, ly, x + w, ly, aColor);
+		}
+	}
+
 	public static void DrawMaze (Texture2D aTexture, Maze aMaze, int w, Color aColor)
 	{
 		for (int x = 0; x < aMaze.width; x++) {
 			for (int z = 0; z < aMaze.depth; z++) {
+				Maze.Cell lCell = aMaze.get (x, 0, z);
+				Color lCellColor = Color.white;
+				if (lCell.playerHasVisited) {
+					lCellColor = Color.gray;
+				}
+				DrawRect (aTexture, x * w, z * w, w, w, lCellColor);
+				MapModifier[] lMods = lCell.gameObject.GetComponentsInChildren<MapModifier>(false);
+				foreach(MapModifier lMod in lMods) {
+					int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+					int d = (w - 1) / 2;
+					switch (lMod.direction) {
+					case Maze.Direction.Left:
+						x1 = d + x * w - d;
+						x2 = x1;
+						y1 = d + z * w - d;
+						y2 = d + z * w + d + 1;
+						DrawLine (aTexture, x1, y1, x2, y2, lMod.color);
+						break;
+					case Maze.Direction.Right:
+						x1 = d + x * w + d;
+						x2 = x1;
+						y1 = d + z * w - d;
+						y2 = d + z * w + d + 1;
+						DrawLine (aTexture, x1, y1, x2, y2, lMod.color);
+						break;
+					case Maze.Direction.Forward:
+						x1 = d + x * w - d;
+						x2 = d + x * w + d + 1;
+						y1 = d + z * w + d;
+						y2 = y1;
+						DrawLine (aTexture, x1, y1, x2, y2, lMod.color);
+						break;
+					case Maze.Direction.Backward:
+						x1 = d + x * w - d;
+						x2 = d + x * w + d + 1;
+						y1 = d + z * w - d;
+						y2 = y1;
+						DrawLine (aTexture, x1, y1, x2, y2, lMod.color);
+						break;
+					case Maze.Direction.Top:
+					case Maze.Direction.Bottom:
+					case Maze.Direction.No:
+						DrawRect (aTexture, x * w, z * w, w, w, lMod.color);
+						break;
+					}
+				}
 				for (int lDir = 2; lDir < 6; lDir++) {
-					if (!aMaze.get (x, 0, z).links [lDir].broken) {
+					if (!lCell.links [lDir].broken) {
 						int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
 						int d = (w - 1) / 2;
 						switch (lDir) {

@@ -274,6 +274,7 @@ GameObject:
   - 82: {fileID: 8250516}
   - 114: {fileID: 11422318}
   - 114: {fileID: 11475186}
+  - 114: {fileID: 11489800}
   m_Layer: 0
   m_Name: ChestGreen_B+
   m_TagString: Untagged
@@ -1068,6 +1069,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupParticle: {fileID: 0}
   pickupAudio: {fileID: 0}
+--- !u!114 &11489800
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6dd03da3057454698f4057c05ef6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: -1
+  color: {r: 0.9862069, g: 1, b: 0, a: 1}
 --- !u!135 &13552574
 SphereCollider:
   m_ObjectHideFlags: 1

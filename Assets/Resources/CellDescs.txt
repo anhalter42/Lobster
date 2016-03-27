@@ -272,9 +272,9 @@ leftProps		HD_Dungeon/Prop_Crates3_R-;3
 leftProps		Barrel2_R-;2
 rightProps		CellSeat_R+;5
 rightProps		HD_Dungeon/Wall_Door_R+;5;false
-rightProps		HD_Dungeon/Wall_A2_Break_R+;20;false
+;rightProps		HD_Dungeon/Wall_A2_Break_R+;20;false
 ;rightProps		HD_Dungeon/Wall_A1_Break_R+;20;false
-forwardProps	HD_Dungeon/Wall_A2_Break_B+;20;false
+;forwardProps	HD_Dungeon/Wall_A2_Break_B+;20;false
 ;forwardProps	HD_Dungeon/Wall_A1_Break_B+;20;false
 forwardProps	HD_Dungeon/Wall_Door_B+;5;false
 forwardProps	HD_Dungeon/Prop_Torch2_B+;70;true
@@ -284,7 +284,7 @@ forwardProps	HD_Dungeon/ChestGreen2_B+;2
 forwardProps	Pitfall_Axe_B+;15
 forwardProps	Bucket_B+;3
 props			HD_Dungeon/Pillar_A;10;false
-props			HD_Dungeon/Pilar_Breake_A;10;false
+;props			HD_Dungeon/Pilar_Breake_A;10;false
 backwardProps	Chain_A_B-;5
 score			GemScore1;0;false;1;0
 exit			ExitCylinder

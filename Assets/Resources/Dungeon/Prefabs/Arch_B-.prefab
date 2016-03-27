@@ -27,6 +27,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 418626}
   - 114: {fileID: 11407412}
+  - 114: {fileID: 11482450}
   m_Layer: 0
   m_Name: Arch_B-
   m_TagString: Untagged
@@ -124,6 +125,19 @@ MonoBehaviour:
   minAge: 0
   maxAge: 999
   checkMeshBounds: 0
+--- !u!114 &11482450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6dd03da3057454698f4057c05ef6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  color: {r: 0.52205884, g: 0.6242393, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

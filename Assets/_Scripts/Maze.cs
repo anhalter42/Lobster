@@ -132,6 +132,18 @@ public class Maze
 	public const int DirectionLeft = 3;
 	public const int DirectionForward = 4;
 	public const int DirectionBackward = 5;
+
+	public enum Direction
+	{
+		No = -1,
+		Top = DirectionTop,
+		Bottom = DirectionBottom,
+		Right = DirectionRight,
+		Left = DirectionLeft,
+		Forward = DirectionForward,
+		Backward = DirectionBackward
+	}
+
 	protected int[] fDx = new int[6];
 	protected int[] fDy = new int[6];
 	protected int[] fDz = new int[6];

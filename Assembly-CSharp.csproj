@@ -64,6 +64,7 @@
      <Compile Include="Assets\_Scripts\LevelSettings.cs" />
      <Compile Include="Assets\_Scripts\Localization.cs" />
      <Compile Include="Assets\_Scripts\LocalizationData.cs" />
+     <Compile Include="Assets\_Scripts\MapModifier.cs" />
      <Compile Include="Assets\_Scripts\Maze.cs" />
      <Compile Include="Assets\_Scripts\MazeBuilder.cs" />
      <Compile Include="Assets\_Scripts\MazeCellComponent.cs" />

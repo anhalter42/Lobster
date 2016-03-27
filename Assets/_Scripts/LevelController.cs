@@ -136,6 +136,8 @@ public class LevelController : MonoBehaviour
 	public RectTransform m_panelPause;
 	public RectTransform m_panelLevelFinished;
 	public RectTransform m_panelStart;
+	public RectTransform m_panelMiniMap;
+	public RawImage m_imageMiniMap;
 	public Text m_textDescription;
 	public Text m_textName;
 	public Text m_textLevel;
@@ -239,6 +241,10 @@ public class LevelController : MonoBehaviour
 			m_panelPause = GameObject.Find ("PanelPause").GetComponent<RectTransform> ();
 		if (!m_panelLevelFinished)
 			m_panelLevelFinished = GameObject.Find ("PanelLevelFinished").GetComponent<RectTransform> ();
+		if (!m_panelMiniMap)
+			m_panelMiniMap = GameObject.Find ("PanelMiniMap").GetComponent<RectTransform> ();
+		if (!m_imageMiniMap)
+			m_imageMiniMap = GameObject.Find ("ImageMiniMap").GetComponent<RawImage> ();
 		if (!m_panelStart)
 			m_panelStart = GameObject.Find ("PanelStart").GetComponent<RectTransform> ();
 		// Start Panel
@@ -443,6 +449,17 @@ public class LevelController : MonoBehaviour
 		}
 		Vector3 lPos = builder.GetVectorFromMazePoint (lPStart);
 		player = Instantiate (playerPrefab, mazeParent.TransformPoint (lPos), Quaternion.identity) as GameObject;
+		CreateMazeMapTexture();
+	}
+
+	public Texture2D mazeMapTexture;
+
+	protected void CreateMazeMapTexture()
+	{
+		int w = 11;
+		mazeMapTexture = new Texture2D (builder.Maze.width * w, builder.Maze.depth * w);
+		TextureUtils.DrawMaze (mazeMapTexture, builder.Maze, w, Color.black);
+		mazeMapTexture.Apply (false);
 	}
 
 	public void PlayOnBackground (AudioClip aClip)

@@ -13,6 +13,8 @@ GameObject:
   - 82: {fileID: 8206134}
   - 114: {fileID: 11438580}
   - 114: {fileID: 11425054}
+  - 114: {fileID: 11427532}
+  - 114: {fileID: 11442628}
   m_Layer: 0
   m_Name: ExitCylinder
   m_TagString: Untagged
@@ -353,6 +355,40 @@ MonoBehaviour:
     triggerCount: 0
   controlledMethods: []
   inventoryItems: []
+--- !u!114 &11427532
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f29085e6b6c4fddbfc2b474eb81998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlledObjects:
+  - when: 0
+    action: 0
+    gameObject: {fileID: 196796}
+    delay: 0
+    tags:
+    - Player
+    isRepeatable: 0
+    isDone: 0
+    triggerCount: 0
+  controlledBehaviors:
+  - when: 0
+    action: 0
+    behaviour: {fileID: 8206134}
+    delay: 0
+    argument: 
+    tags:
+    - Player
+    isRepeatable: 0
+    isDone: 0
+    triggerCount: 0
+  controlledMethods: []
+  inventoryItems: []
 --- !u!114 &11438580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -387,6 +423,19 @@ MonoBehaviour:
     triggerCount: 0
   controlledMethods: []
   inventoryItems: []
+--- !u!114 &11442628
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6dd03da3057454698f4057c05ef6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: -1
+  color: {r: 0.02890463, g: 0.83823526, b: 0, a: 0}
 --- !u!114 &11461210
 MonoBehaviour:
   m_ObjectHideFlags: 1
