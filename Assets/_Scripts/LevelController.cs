@@ -985,4 +985,14 @@ public class LevelController : MonoBehaviour
 	{
 		return AllLevels.Get ().options.ShowFPS;
 	}
+
+	public bool GetShowMiniMap()
+	{
+		return m_panelMiniMap.gameObject.activeSelf;
+	}
+
+	public void SetShowMiniMap(bool aShow)
+	{
+		m_panelMiniMap.gameObject.SetActive(aShow);
+	}
 }

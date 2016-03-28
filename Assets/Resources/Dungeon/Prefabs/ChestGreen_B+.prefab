@@ -1080,8 +1080,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df6dd03da3057454698f4057c05ef6b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 1
   direction: -1
   color: {r: 0.9862069, g: 1, b: 0, a: 1}
+  texture: {fileID: 2800000, guid: ce285cc68ff7d4c0895985b43491494e, type: 3}
+  ShowIfPlayerVisited: 1
 --- !u!135 &13552574
 SphereCollider:
   m_ObjectHideFlags: 1

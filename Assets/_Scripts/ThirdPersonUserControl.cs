@@ -96,6 +96,9 @@ namespace MAHN42
 			if (Input.GetKeyUp(KeyCode.F)) {
 				AllLevels.Get().levelController.SetShowFPS(!AllLevels.Get().levelController.GetShowFPS());
 			}
+			if (Input.GetKeyUp(KeyCode.M)) {
+				AllLevels.Get().levelController.SetShowMiniMap(!AllLevels.Get().levelController.GetShowMiniMap());
+			}
 #endif
 
             // pass all parameters to the character control script

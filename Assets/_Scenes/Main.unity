@@ -7544,6 +7544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Range: 3
+  CellWidth: 17
 --- !u!1 &1884161894
 GameObject:
   m_ObjectHideFlags: 0
