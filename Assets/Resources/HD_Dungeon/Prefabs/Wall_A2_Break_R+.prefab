@@ -76,6 +76,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 416444}
+  - 114: {fileID: 11408430}
   m_Layer: 0
   m_Name: Wall_A2_Break_R+
   m_TagString: Untagged
@@ -1989,6 +1990,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0059114243, y: 0.05741114, z: 0.058379643}
   m_Center: {x: -0.0001846668, y: 0.00031705477, z: -0.00014555316}
+--- !u!114 &11408430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08cfd747f07184eb3b14002535b1d80f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownTags:
+  - Right
+  mustHaveTags:
+  - NoRight
+  forbiddenTags:
+  - Right
+  minAge: 0
+  maxAge: 999
+  checkMeshBounds: 0
 --- !u!114 &11475926
 MonoBehaviour:
   m_ObjectHideFlags: 1
