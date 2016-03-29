@@ -8,6 +8,14 @@ using System.Collections;
 
 public class Maze
 {
+	public class MazeEventArgs : System.EventArgs
+	{
+		public Cell cell;
+		public Link link;
+	}
+
+	public delegate void ChangedEventHandler (Maze aMaze, MazeEventArgs aMazeEvent);
+
 	[System.Serializable]
 	public class Point
 	{
@@ -48,7 +56,7 @@ public class Maze
 			return System.String.Format ("({0},{1},{2})", x, y, z);
 		}
 
-		public static bool IsNullOrEmpty(Point aP)
+		public static bool IsNullOrEmpty (Point aP)
 		{
 			return aP == null || (aP.x == -1 && aP.y == -1 && aP.z == -1);
 		}
@@ -80,9 +88,49 @@ public class Maze
 	{
 		public Cell a;
 		public Cell b;
-		public bool breakable = true;
-		public bool broken = false;
-		public bool isBorder = false;
+
+		public Cell cell { get { return a != null ? a : b; } }
+
+		protected bool fBreakable = true;
+
+		public bool breakable {
+			get { return fBreakable; }
+			set {
+				if (fBreakable != value) {
+					fBreakable = value;
+					cell.maze.OnChanged (new MazeEventArgs () { link = this });
+				}
+			}
+		}
+
+		protected bool fBroken = false;
+
+		public bool broken {
+			get{ return fBroken; }
+			set {
+				if (fBroken != value) {
+					fBroken = value;
+					cell.maze.OnChanged (new MazeEventArgs () { link = this });
+				}
+			}
+		}
+
+		protected bool fIsBorder = false;
+
+		public bool isBorder {
+			get{ return fIsBorder; }
+			set {
+				if (fIsBorder != value) {
+					fIsBorder = value;
+					cell.maze.OnChanged (new MazeEventArgs (){ link = this });
+				}
+			}
+		}
+
+		public Link(Cell aCell)
+		{
+			a = aCell;
+		}
 
 		public Cell to (Cell aFrom)
 		{
@@ -98,6 +146,7 @@ public class Maze
 
 	public class Cell
 	{
+		public Maze maze;
 		public Link[] links = new Link[6];
 		public Point pos = new Point ();
 
@@ -107,15 +156,47 @@ public class Maze
 
 		public int z { get { return pos.z; } }
 
-		public bool visited = false;
-		public GameObject gameObject;
-		public bool playerHasVisited = false;
+		protected bool fVisited = false;
 
-		public Cell (int aX, int aY, int aZ)
+		public bool visited {
+			get { return fVisited; }
+			set {
+				if (fVisited != value) {
+					fVisited = value;
+					maze.OnChanged (new MazeEventArgs () { cell = this });
+				}
+			}
+		}
+
+		public GameObject gameObject;
+
+		protected bool fPlayerHasVisited = false;
+
+		public bool playerHasVisited {
+			get { return fPlayerHasVisited; }
+			set {
+				if (fPlayerHasVisited != value) {
+					fPlayerHasVisited = value;
+					maze.OnChanged (new MazeEventArgs () { cell = this });
+				}
+			}
+		}
+
+		public Cell (Maze aMaze, int aX, int aY, int aZ)
 		{
+			maze = aMaze;
 			pos.x = aX;
 			pos.y = aY;
 			pos.z = aZ;
+		}
+	}
+
+	public event ChangedEventHandler Changed;
+
+	public void OnChanged (MazeEventArgs aArgs)
+	{
+		if (Changed != null) {
+			Changed (this, aArgs);
 		}
 	}
 
@@ -212,53 +293,53 @@ public class Maze
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				for (int z = 0; z < depth; z++) {
-					Cell lCell = new Cell (x, y, z);
+					Cell lCell = new Cell (this, x, y, z);
 					if (y == (height - 1)) {
-						Link lLink = new Link ();
+						Link lLink = new Link (lCell);
 						lLink.breakable = false;
 						lLink.broken = false;
 						lLink.isBorder = true;
-						lLink.a = lCell;
+						//lLink.a = lCell;
 						lCell.links [0] = lLink;
 					}
 					if (y == 0) {
-						Link lLink = new Link ();
+						Link lLink = new Link (lCell);
 						lLink.breakable = false;
 						lLink.broken = false;
 						lLink.isBorder = true;
-						lLink.a = lCell;
+						//lLink.a = lCell;
 						lCell.links [1] = lLink;
 					}
 					if (x == (width - 1)) {
-						Link lLink = new Link ();
+						Link lLink = new Link (lCell);
 						lLink.breakable = false;
 						lLink.broken = false;
 						lLink.isBorder = true;
-						lLink.a = lCell;
+						//lLink.a = lCell;
 						lCell.links [2] = lLink;
 					}
 					if (x == 0) {
-						Link lLink = new Link ();
+						Link lLink = new Link (lCell);
 						lLink.breakable = false;
 						lLink.broken = false;
 						lLink.isBorder = true;
-						lLink.a = lCell;
+						//lLink.a = lCell;
 						lCell.links [3] = lLink;
 					}
 					if (z == (depth - 1)) {
-						Link lLink = new Link ();
+						Link lLink = new Link (lCell);
 						lLink.breakable = false;
 						lLink.broken = false;
 						lLink.isBorder = true;
-						lLink.a = lCell;
+						//lLink.a = lCell;
 						lCell.links [4] = lLink;
 					}
 					if (z == 0) {
-						Link lLink = new Link ();
+						Link lLink = new Link (lCell);
 						lLink.breakable = false;
 						lLink.broken = false;
 						lLink.isBorder = true;
-						lLink.a = lCell;
+						//lLink.a = lCell;
 						lCell.links [5] = lLink;
 					}
 					cells [x + width * y + (width * height) * z] = lCell;
@@ -280,8 +361,8 @@ public class Maze
 								lCell.links [d] = lLink;
 								lLink.b = lCell;
 							} else {
-								lLink = new Link ();
-								lLink.a = lCell;
+								lLink = new Link (lCell);
+								//lLink.a = lCell;
 								lLink.b = lNeighbor;
 								lCell.links [d] = lLink;
 								lNeighbor.links [dd] = lLink;
@@ -319,16 +400,19 @@ public class Maze
 		return Random.Range (0, aMax); // aMax will never returned
 	}
 
-	protected class BuildStep 
+	protected class BuildStep
 	{
 		public Cell lCurrent = null;
-		public Stack lStack = new Stack (); //Cell
+		//Cells
+		public Stack lStack = new Stack ();
 		public int lVisitedCells = 1;
 		public int lTotalCells;
-		public ArrayList lNeighbors = new ArrayList (); //Link
-		public ArrayList lNeighborXZs = new ArrayList (); //Link
+		//Links
+		public ArrayList lNeighbors = new ArrayList ();
+		//Links
+		public ArrayList lNeighborXZs = new ArrayList ();
 
-		public BuildStep(int width, int height, int depth)
+		public BuildStep (int width, int height, int depth)
 		{
 			lTotalCells = width * height * depth;
 		}
@@ -336,10 +420,10 @@ public class Maze
 
 	protected BuildStep fStep = null;
 
-	protected bool doBuildStep()
+	protected bool doBuildStep ()
 	{
 		if (fStep == null) {
-			fStep = new BuildStep(width, height, depth);
+			fStep = new BuildStep (width, height, depth);
 			while (fStep.lCurrent == null || fStep.lCurrent.visited) {
 				fStep.lCurrent = get (Random.Range (0, width), Random.Range (0, height), Random.Range (0, depth));
 			}
@@ -407,7 +491,8 @@ public class Maze
             */
 		//Random lRnd = new Random();
 
-		while (doBuildStep());
+		while (doBuildStep ())
+			;
 
 		/*
 		Cell lCurrent = null; //get (width / 2, height / 2, depth / 2); // first from center
@@ -523,7 +608,7 @@ public class Maze
 			for (int lDir = 0; lDir < 6; lDir++) {
 				if (aCurrent.links [lDir].broken) {
 					Cell lNext = aCurrent.links [lDir].to (aCurrent);
-					if (lNext.visited && lNext != ((WayPoint)aStack.Peek()).cell) {
+					if (lNext.visited && lNext != ((WayPoint)aStack.Peek ()).cell) {
 						aCurrent.visited = false;
 						return false;
 					}

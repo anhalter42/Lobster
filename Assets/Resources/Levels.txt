@@ -106,7 +106,7 @@ deathLevel	Tutorial.Death 1
 #Tutorial 5
 world	Tutorial
 prefabs	Simple2x2
-startupText	Etwas größere Räume
+startupText	Etwas gr??ere R?ume
 mazeWidth	10
 mazeHeight	1
 mazeDepth	10

@@ -283,8 +283,10 @@ public class MazeBuilder
 			lIndex++;
 		}
 		exits [lIndex] = CreateExit (exitPoint);
-		exits [lIndex].SetActive (settings.scoreForExit == 0);
-		exitPoint = exits [lIndex].transform.parent.GetComponent<MazeCellComponent> ().cell.pos;
+		if (exits [lIndex]) {
+			exits [lIndex].SetActive (settings.scoreForExit == 0);
+			exitPoint = exits [lIndex].transform.parent.GetComponent<MazeCellComponent> ().cell.pos;
+		}
 	}
 
 
@@ -308,15 +310,20 @@ public class MazeBuilder
 				Random.Range (0, Maze.depth));
 		}
 		GameObject lPrefab = aPrefab != null ? aPrefab : prefabs.GetOne (prefabs.exit);
-		GameObject lExit = CreateGameObject (lPrefab, Maze.get (lP).gameObject.transform, "Exit");
-		MultiActivator lMA = lExit.GetComponent<MultiActivator> ();
-		if (!lMA) {
-			lMA = lExit.AddComponent<MultiActivator> ();
+		if (lPrefab) {
+			GameObject lExit = CreateGameObject (lPrefab, Maze.get (lP).gameObject.transform, "Exit");
+			MultiActivator lMA = lExit.GetComponent<MultiActivator> ();
+			if (!lMA) {
+				lMA = lExit.AddComponent<MultiActivator> ();
+			}
+			System.Array.Resize<MultiActivator.ControlledMethod> (ref lMA.controlledMethods, lMA.controlledMethods.Length + 1);
+			lMA.controlledMethods [lMA.controlledMethods.Length - 1] = new MultiActivator.ControlledMethod ()
+				{ isRepeatable = false, method = string.Format ("Exit;", aLevelName) };
+			return lExit;
+		} else {
+			Debug.Log ("There is no EXIT Prefab defined!");
+			return null;
 		}
-		System.Array.Resize<MultiActivator.ControlledMethod> (ref lMA.controlledMethods, lMA.controlledMethods.Length + 1);
-		lMA.controlledMethods [lMA.controlledMethods.Length - 1] = new MultiActivator.ControlledMethod ()
-		{ isRepeatable = false, method = string.Format ("Exit;", aLevelName) };
-		return lExit;
 	}
 
 	public void ActivateExits ()
@@ -347,6 +354,13 @@ public class MazeBuilder
 	public Maze.Point GetPlayerMazePoint ()
 	{
 		return GetMazePoint (AllLevels.Get ().player.transform.position);
+	}
+
+	public Vector3 GetPlayerMazePointV ()
+	{
+		Maze.Point lP = GetMazePoint (AllLevels.Get ().player.transform.position);
+		Vector3 lV = AllLevels.Get ().player.transform.position - GetVectorFromMazePoint(lP);
+		return new Vector3(lP.x + lV.x / positionScale.x, lP.y + lV.y / positionScale.y, lP.z + lV.z / positionScale.z);
 	}
 
 	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName, ArrayList aForLater = null)

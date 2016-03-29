@@ -69,6 +69,8 @@ public class TextureUtils
 				Color lCellColor = Color.white;
 				if (lCell.playerHasVisited) {
 					lCellColor = Color.gray;
+				} else if (lCell.visited) {
+					lCellColor = new Color (0.8f, 0.8f, 1f);
 				}
 				DrawRect (aTexture, x * w, z * w, w, w, lCellColor);
 				if (lCell.gameObject) {

@@ -117,7 +117,11 @@ public class LevelController : MonoBehaviour
 	public PlayerInventory playerInventory {
 		get {
 			if (!m_playerInventory) {
-				m_playerInventory = player.GetComponent<PlayerInventory> ();
+				if (player) {
+					m_playerInventory = player.GetComponent<PlayerInventory> ();
+				} else {
+					return null;
+				}
 			}
 			return m_playerInventory;
 		}
@@ -329,7 +333,9 @@ public class LevelController : MonoBehaviour
 		playerLevelSettings.levelRuntime = playerLevelSettings.resumeTime + (Time.realtimeSinceStartup - playerLevelSettings.startTime);
 		m_textLives.text = string.Format (GetLocalText ("HUDLives"), playerLevelSettings.lives);
 		m_textHealth.text = string.Format (GetLocalText ("HUDHealth"), Mathf.RoundToInt (playerLevelSettings.health));
-		m_textInventory.text = playerInventory.forDisplay ();
+		if (playerInventory) {
+			m_textInventory.text = playerInventory.forDisplay ();
+		}
 		CheckLOD ();
 		if (isRunning) {
 			if (Input.GetKeyUp (KeyCode.Escape)) {
@@ -449,12 +455,12 @@ public class LevelController : MonoBehaviour
 		}
 		Vector3 lPos = builder.GetVectorFromMazePoint (lPStart);
 		player = Instantiate (playerPrefab, mazeParent.TransformPoint (lPos), Quaternion.identity) as GameObject;
-		CreateMazeMapTexture();
+		CreateMazeMapTexture ();
 	}
 
 	public Texture2D mazeMapTexture;
 
-	protected void CreateMazeMapTexture()
+	protected void CreateMazeMapTexture ()
 	{
 		int w = 11;
 		mazeMapTexture = new Texture2D (builder.Maze.width * w, builder.Maze.depth * w);
@@ -986,13 +992,13 @@ public class LevelController : MonoBehaviour
 		return AllLevels.Get ().options.ShowFPS;
 	}
 
-	public bool GetShowMiniMap()
+	public bool GetShowMiniMap ()
 	{
 		return m_panelMiniMap.gameObject.activeSelf;
 	}
 
-	public void SetShowMiniMap(bool aShow)
+	public void SetShowMiniMap (bool aShow)
 	{
-		m_panelMiniMap.gameObject.SetActive(aShow);
+		m_panelMiniMap.gameObject.SetActive (aShow);
 	}
 }

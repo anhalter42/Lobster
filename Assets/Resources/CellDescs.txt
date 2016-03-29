@@ -251,6 +251,7 @@ left			Wall_R-
 right			Wall_R+
 forward			Wall_B+
 backward		Wall_B-
+exit			Exit
 
 #DungeonHD
 Package=Dungeon
