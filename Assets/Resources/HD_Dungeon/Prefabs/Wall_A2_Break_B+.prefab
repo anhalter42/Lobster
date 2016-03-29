@@ -25,6 +25,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 494972}
+  - 114: {fileID: 11498906}
   m_Layer: 0
   m_Name: Wall_A2_Break_B+
   m_TagString: Untagged
@@ -2034,6 +2035,26 @@ MonoBehaviour:
   - {fileID: 130778}
   - {fileID: 187288}
   - {fileID: 180242}
+--- !u!114 &11498906
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08cfd747f07184eb3b14002535b1d80f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownTags:
+  - forward
+  mustHaveTags:
+  - NoForward
+  forbiddenTags:
+  - forward
+  minAge: 0
+  maxAge: 999
+  checkMeshBounds: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
