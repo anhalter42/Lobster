@@ -10,9 +10,6 @@ public class MiniMap : MonoBehaviour
 	Texture2D m_texture;
 	RawImage m_Image;
 
-	Maze.Point m_lastPoint = null;
-	Maze.Point m_CurrentPoint = null;
-	int m_SameCount = 0;
 	int m_cellWidth;
 
 	// Use this for initialization
@@ -35,8 +32,16 @@ public class MiniMap : MonoBehaviour
 
 	protected void OnMazeChanged (Maze aMaze, Maze.MazeEventArgs aArgs)
 	{
-		//TODO only draw partial cell/link
-		TextureUtils.DrawMaze (m_texture, controller.builder.Maze, m_cellWidth, Color.black);
+		if (aArgs.cell != null) {
+			TextureUtils.DrawMazeCell (m_texture, aArgs.cell, m_cellWidth, Color.black);
+		} else if (aArgs.link != null) {
+			if (aArgs.link.a != null) {
+				TextureUtils.DrawMazeCell (m_texture, aArgs.link.a, m_cellWidth, Color.black);
+			}
+			if (aArgs.link.b != null) {
+				TextureUtils.DrawMazeCell (m_texture, aArgs.link.b, m_cellWidth, Color.black);
+			}
+		}
 		m_texture.Apply ();
 	}
 	
@@ -44,30 +49,17 @@ public class MiniMap : MonoBehaviour
 	void LateUpdate ()
 	{
 		if (controller) {
-			m_CurrentPoint = controller.builder.GetPlayerMazePoint ();
-			//if (m_CurrentPoint != m_lastPoint || m_SameCount < 3) {
-				if (m_cellWidth != CellWidth) {
-					CreateTexture ();
-				}
-				if (m_CurrentPoint == m_lastPoint) {
-					m_SameCount++;
-				} else {
-					m_SameCount = 0;
-				}
+			if (m_cellWidth != CellWidth) {
+				CreateTexture ();
+			}
 			Vector3 lPos = controller.builder.GetPlayerMazePointV ();
-				int rw = Range * 2 + 1;
-				m_lastPoint = m_CurrentPoint;
-				float w = m_cellWidth;
-				//TextureUtils.DrawMaze (m_texture, controller.builder.Maze, m_cellWidth, Color.black);
-				//m_texture.Apply ();
-				float lW = w / ((float)m_texture.width);
-				float lH = w / ((float)m_texture.height);
-				//int lX = Mathf.Min (Mathf.Max (0, m_CurrentPoint.x - Range), controller.builder.Maze.width - rw);
-				//int lY = Mathf.Min (Mathf.Max (0, m_CurrentPoint.z - Range), controller.builder.Maze.depth - rw);
+			int rw = Range * 2 + 1;
+			float w = m_cellWidth;
+			float lW = w / ((float)m_texture.width);
+			float lH = w / ((float)m_texture.height);
 			float lX = Mathf.Min (Mathf.Max (0f, lPos.x - Range), (float)controller.builder.Maze.width - rw);
 			float lY = Mathf.Min (Mathf.Max (0f, lPos.z - Range), (float)controller.builder.Maze.depth - rw);
-				m_Image.uvRect = new Rect (lX * lW, lY * lH, rw * lW, rw * lH);
-			//}
+			m_Image.uvRect = new Rect (lX * lW, lY * lH, rw * lW, rw * lH);
 		}
 	}
 

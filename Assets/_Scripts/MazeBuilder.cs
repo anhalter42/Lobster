@@ -226,16 +226,20 @@ public class MazeBuilder
 								}
 								if (!lSkipWall) {
 									lCellComp.walls [lDir] = CreateGameObject (GetOneWall (lDir), lCellObj.transform, "Wall_" + lDir.ToString ());
-									PrefabWallConditions lWC = lCellComp.walls [lDir].GetComponent<PrefabWallConditions> ();
-									if (lWC != null) {
-										if (lWC.deleteOpositeWall) {
-											if (!lCell.links [lDir].isBorder
-											    && lCell.links [lDir].to (lCell).gameObject
-											    && lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)]) {
-												GameObject.Destroy (lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)]);
-												lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)] = null;
+									if (lCellComp.walls [lDir]) {
+										PrefabWallConditions lWC = lCellComp.walls [lDir].GetComponent<PrefabWallConditions> ();
+										if (lWC != null) {
+											if (lWC.deleteOpositeWall) {
+												if (!lCell.links [lDir].isBorder
+												   && lCell.links [lDir].to (lCell).gameObject
+												   && lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)]) {
+													GameObject.Destroy (lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)]);
+													lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)] = null;
+												}
 											}
 										}
+									} else {
+										Debug.Log(string.Format("Wall for direction {0} not found or has conditions!",GetWallTag(lDir)));
 									}
 								}
 							}
@@ -359,8 +363,8 @@ public class MazeBuilder
 	public Vector3 GetPlayerMazePointV ()
 	{
 		Maze.Point lP = GetMazePoint (AllLevels.Get ().player.transform.position);
-		Vector3 lV = AllLevels.Get ().player.transform.position - GetVectorFromMazePoint(lP);
-		return new Vector3(lP.x + lV.x / positionScale.x, lP.y + lV.y / positionScale.y, lP.z + lV.z / positionScale.z);
+		Vector3 lV = AllLevels.Get ().player.transform.position - GetVectorFromMazePoint (lP);
+		return new Vector3 (lP.x + lV.x / positionScale.x, lP.y + lV.y / positionScale.y, lP.z + lV.z / positionScale.z);
 	}
 
 	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName, ArrayList aForLater = null)
