@@ -258,7 +258,8 @@ Package=Dungeon
 top				Ceiling
 bottom			HD_Dungeon/Floor_B
 left			Wall_R-
-right			Wall_R+
+;right			Wall_R+
+right			HD_Dungeon/Wall_A2_Break_R+
 forward			Wall_B+
 backward		Wall_B-
 bottomProps		Barrel;2
@@ -293,7 +294,7 @@ wayPoints		WayPoint_R-;100;true;3
 wayPoints		WayPoint_R+;100;true;2
 wayPoints		WayPoint_B+;100;true;4
 wayPoints		WayPoint_B-;100;true;5
-audioScore		HD_Dungeon/HD_Score1;1
+audioScore		HD_Dungeon/HD_Score;1
 audioLiveLost	HD_Dungeon/HD_Dead
 audioDamageSmall	HD_Dungeon/HD_male_Hit1
 audioDamageMedium	HD_Dungeon/HD_male_Hit2
