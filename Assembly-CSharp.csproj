@@ -69,6 +69,7 @@
      <Compile Include="Assets\_Scripts\MazeBuilder.cs" />
      <Compile Include="Assets\_Scripts\MazeCellComponent.cs" />
      <Compile Include="Assets\_Scripts\MazeMarker.cs" />
+     <Compile Include="Assets\_Scripts\MazeTest\MazeTestUIController.cs" />
      <Compile Include="Assets\_Scripts\MiniMap.cs" />
      <Compile Include="Assets\_Scripts\MultiActivator.cs" />
      <Compile Include="Assets\_Scripts\PauseAnimatorOnCollision.cs" />

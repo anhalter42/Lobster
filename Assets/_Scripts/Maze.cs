@@ -420,6 +420,11 @@ public class Maze
 
 	protected BuildStep fStep = null;
 
+	public Cell getCurrentBuildCell()
+	{
+		return fStep == null ? null : fStep.lCurrent;
+	}
+
 	protected bool doBuildStep ()
 	{
 		if (fStep == null) {
@@ -465,6 +470,11 @@ public class Maze
 			}
 		}
 		return fStep.lVisitedCells < fStep.lTotalCells;
+	}
+
+	public bool buildNextStep()
+	{
+		return doBuildStep();
 	}
 
 	public void build ()

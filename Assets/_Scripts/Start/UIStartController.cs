@@ -228,4 +228,9 @@ public class UIStartController : MonoBehaviour
 		SystemLanguage lLanguage = (SystemLanguage)System.Enum.Parse (typeof(SystemLanguage), m_DropdownLanguage.options [m_DropdownLanguage.value].text);
 		AllLevels.Get ().SetLanguage (lLanguage);
 	}
+
+	public void ButtonAbout()
+	{
+		AllLevels.Get().StartAbout();
+	}
 }

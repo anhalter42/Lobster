@@ -402,6 +402,13 @@ public class AllLevels : MonoBehaviour
 		SceneManager.LoadScene ("Highscore", LoadSceneMode.Single);
 	}
 
+	public void StartAbout()
+	{
+		if (!audioGlobal.isPlaying)
+			audioGlobal.Play ();
+		SceneManager.LoadScene ("MazeTest", LoadSceneMode.Single);
+	}
+
 	public static T LoadResource<T> (string aName, string aMainFolder, string aSubFolder = null) where T : UnityEngine.Object
 	{
 		T lObj = null;
