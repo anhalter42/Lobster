@@ -12,7 +12,6 @@ public class MazeTestUIController : MonoBehaviour
 	Slider m_SliderBreakWalls;
 	Slider m_SliderCellWidth;
 	Slider m_SliderSpeed;
-	Toggle m_ToggleImmediate;
 	RawImage m_ImageMaze;
 
 	Maze m_Maze = null;
@@ -20,12 +19,11 @@ public class MazeTestUIController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		m_ToggleImmediate = GameObject.Find ("ToggleImmediate").GetComponent<Toggle> ();
 		m_SliderWidth = GameObject.Find ("SliderWidth").GetComponent<Slider> ();
 		m_SliderHeight = GameObject.Find ("SliderHeight").GetComponent<Slider> ();
 		m_SliderBreakWalls = GameObject.Find ("SliderBreakWalls").GetComponent<Slider> ();
 		m_SliderCellWidth = GameObject.Find ("SliderCellWidth").GetComponent<Slider> ();
-		m_SliderCellWidth.value = CellWidth;
+		m_SliderCellWidth.value = Mathf.RoundToInt ((CellWidth - 1) / 2);
 		m_SliderSpeed = GameObject.Find ("SliderSpeed").GetComponent<Slider> ();
 		m_ImageMaze = GameObject.Find ("ImageMaze").GetComponent<RawImage> ();
 		GenerateLabyrinth ();
@@ -42,7 +40,7 @@ public class MazeTestUIController : MonoBehaviour
 	public void UpdateTexture ()
 	{
 		if (m_Maze != null) {
-			CellWidth = Mathf.RoundToInt (m_SliderCellWidth.value);
+			CellWidth = Mathf.RoundToInt (m_SliderCellWidth.value) * 2 + 1;
 			Texture2D lTex = new Texture2D (m_Maze.width * CellWidth, m_Maze.depth * CellWidth);
 			TextureUtils.DrawMaze (lTex, m_Maze, CellWidth, Color.black);
 			lTex.Apply ();
@@ -59,13 +57,14 @@ public class MazeTestUIController : MonoBehaviour
 		}
 		m_Maze = new Maze (Mathf.RoundToInt (m_SliderWidth.value), 1, Mathf.RoundToInt (m_SliderHeight.value));
 		m_Maze.chanceForBreakWalls = Mathf.RoundToInt (m_SliderBreakWalls.value);
-		if (m_ToggleImmediate.isOn) {
+		if (m_SliderSpeed.value <= 0) {
 			m_Maze.build ();
+			UpdateTexture ();
 		} else {
+			UpdateTexture ();
+			m_Maze.Changed += OnMazeChanged;
 			StartCoroutine ("MazeStepBuild");
 		}
-		m_Maze.Changed += OnMazeChanged;
-		UpdateTexture ();
 	}
 
 	Maze.Cell fBuildCell = null;
@@ -85,11 +84,17 @@ public class MazeTestUIController : MonoBehaviour
 		((Texture2D)m_ImageMaze.texture).Apply ();
 	}
 
-	protected void DrawCurrentMazeCell ()
+	protected void UnDrawCurrentMazeCell ()
 	{
 		if (fBuildCell != null) {
 			TextureUtils.DrawMazeCell ((Texture2D)m_ImageMaze.texture, fBuildCell, CellWidth, Color.black);
+			fBuildCell = null;
 		}
+	}
+
+	protected void DrawCurrentMazeCell ()
+	{
+		UnDrawCurrentMazeCell ();
 		fBuildCell = m_Maze.getCurrentBuildCell ();
 		if (fBuildCell != null) {
 			TextureUtils.DrawRect ((Texture2D)m_ImageMaze.texture, fBuildCell.x * CellWidth + CellWidth / 3, fBuildCell.z * CellWidth + CellWidth / 3, CellWidth / 3, CellWidth / 3, Color.red);
@@ -104,6 +109,7 @@ public class MazeTestUIController : MonoBehaviour
 				DrawCurrentMazeCell ();
 				yield return new WaitForSeconds (m_SliderSpeed.value);
 			}
+			UnDrawCurrentMazeCell ();
 		}
 	}
 }

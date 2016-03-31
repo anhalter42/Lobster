@@ -57,7 +57,7 @@ public class TextureUtils
 	public static void DrawRect (Texture2D aTexture, int x, int y, int w, int h, Color aColor)
 	{
 		for (int ly = y; ly < y + h; ly++) {
-			DrawLine (aTexture, x, ly, x + w, ly, aColor);
+			DrawLine (aTexture, x, ly, x + w - 1, ly, aColor);
 		}
 	}
 
@@ -94,26 +94,26 @@ public class TextureUtils
 							x1 = d + x * w - d;
 							x2 = x1;
 							y1 = d + z * w - d;
-							y2 = d + z * w + d + 1;
+							y2 = d + z * w + d;// + 1;
 							DrawLine (aTexture, x1, y1, x2, y2, lMod.color);
 							break;
 						case Maze.Direction.Right:
 							x1 = d + x * w + d;
 							x2 = x1;
 							y1 = d + z * w - d;
-							y2 = d + z * w + d + 1;
+							y2 = d + z * w + d;// + 1;
 							DrawLine (aTexture, x1, y1, x2, y2, lMod.color);
 							break;
 						case Maze.Direction.Forward:
 							x1 = d + x * w - d;
-							x2 = d + x * w + d + 1;
+							x2 = d + x * w + d;// + 1;
 							y1 = d + z * w + d;
 							y2 = y1;
 							DrawLine (aTexture, x1, y1, x2, y2, lMod.color);
 							break;
 						case Maze.Direction.Backward:
 							x1 = d + x * w - d;
-							x2 = d + x * w + d + 1;
+							x2 = d + x * w + d;// + 1;
 							y1 = d + z * w - d;
 							y2 = y1;
 							DrawLine (aTexture, x1, y1, x2, y2, lMod.color);
@@ -146,23 +146,23 @@ public class TextureUtils
 					x1 = d + x * w - d;
 					x2 = x1;
 					y1 = d + z * w - d;
-					y2 = d + z * w + d + 1;
+					y2 = d + z * w + d;// + 1;
 					break;
 				case Maze.DirectionRight:
 					x1 = d + x * w + d;
 					x2 = x1;
 					y1 = d + z * w - d;
-					y2 = d + z * w + d + 1;
+					y2 = d + z * w + d;// + 1;
 					break;
 				case Maze.DirectionForward:
 					x1 = d + x * w - d;
-					x2 = d + x * w + d + 1;
+					x2 = d + x * w + d;// + 1;
 					y1 = d + z * w + d;
 					y2 = y1;
 					break;
 				case Maze.DirectionBackward:
 					x1 = d + x * w - d;
-					x2 = d + x * w + d + 1;
+					x2 = d + x * w + d;// + 1;
 					y1 = d + z * w - d;
 					y2 = y1;
 					break;

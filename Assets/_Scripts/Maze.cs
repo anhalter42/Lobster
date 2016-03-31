@@ -14,7 +14,7 @@ public class Maze
 		public Link link;
 	}
 
-	public delegate void ChangedEventHandler (Maze aMaze, MazeEventArgs aMazeEvent);
+	public delegate void ChangedEventHandler (Maze aMaze,MazeEventArgs aMazeEvent);
 
 	[System.Serializable]
 	public class Point
@@ -127,7 +127,7 @@ public class Maze
 			}
 		}
 
-		public Link(Cell aCell)
+		public Link (Cell aCell)
 		{
 			a = aCell;
 		}
@@ -411,16 +411,24 @@ public class Maze
 		public ArrayList lNeighbors = new ArrayList ();
 		//Links
 		public ArrayList lNeighborXZs = new ArrayList ();
+		public int x = 0;
+		public int y = 0;
+		public int z = 0;
+
+		public int w, h, d;
 
 		public BuildStep (int width, int height, int depth)
 		{
+			w = width;
+			h = height;
+			d = depth;
 			lTotalCells = width * height * depth;
 		}
 	}
 
 	protected BuildStep fStep = null;
 
-	public Cell getCurrentBuildCell()
+	public Cell getCurrentBuildCell ()
 	{
 		return fStep == null ? null : fStep.lCurrent;
 	}
@@ -433,48 +441,86 @@ public class Maze
 				fStep.lCurrent = get (Random.Range (0, width), Random.Range (0, height), Random.Range (0, depth));
 			}
 		}
-		fStep.lCurrent.visited = true;
-		fStep.lNeighbors.Clear ();
-		fStep.lNeighborXZs.Clear ();
-		for (int d = 0; d < 6; d++) {
-			Link lNeighbor = fStep.lCurrent.links [d];
-			if (lNeighbor.breakable && !lNeighbor.to (fStep.lCurrent).visited) {
-				fStep.lNeighbors.Add (lNeighbor);
-				if (d > 1) {
-					fStep.lNeighborXZs.Add (lNeighbor);
-				}
-			}
-		}
-		if (!(fStep.lNeighbors.Count == 0)) {
-			Link lLink;
-			if (chanceForUpDown >= 100) {
-				lLink = fStep.lNeighbors [nextRandomInt (fStep.lNeighbors.Count)] as Link;
-			} else {
-				if ((fStep.lNeighborXZs.Count == 0) || (nextRandomInt (200) < chanceForUpDown)) {
-					lLink = fStep.lNeighbors [(nextRandomInt (Mathf.Min (1, fStep.lNeighbors.Count)))] as Link;
-				} else {
-					lLink = fStep.lNeighborXZs [(nextRandomInt (fStep.lNeighborXZs.Count))] as Link;
-				}
-			}
-			Cell lNext = lLink.to (fStep.lCurrent);
-			lLink.broken = true;
-			fStep.lStack.Push (fStep.lCurrent);
-			fStep.lCurrent = lNext;
+		if (fStep.lVisitedCells < fStep.lTotalCells) {
 			fStep.lCurrent.visited = true;
-			fStep.lVisitedCells++;
-		} else {
-			if (fStep.lStack.Count == 0) {
-				return false;
+			fStep.lNeighbors.Clear ();
+			fStep.lNeighborXZs.Clear ();
+			for (int d = 0; d < 6; d++) {
+				Link lNeighbor = fStep.lCurrent.links [d];
+				if (lNeighbor.breakable && !lNeighbor.to (fStep.lCurrent).visited) {
+					fStep.lNeighbors.Add (lNeighbor);
+					if (d > 1) {
+						fStep.lNeighborXZs.Add (lNeighbor);
+					}
+				}
+			}
+			if (!(fStep.lNeighbors.Count == 0)) {
+				Link lLink;
+				if (chanceForUpDown >= 100) {
+					lLink = fStep.lNeighbors [nextRandomInt (fStep.lNeighbors.Count)] as Link;
+				} else {
+					if ((fStep.lNeighborXZs.Count == 0) || (nextRandomInt (200) < chanceForUpDown)) {
+						lLink = fStep.lNeighbors [(nextRandomInt (Mathf.Min (1, fStep.lNeighbors.Count)))] as Link;
+					} else {
+						lLink = fStep.lNeighborXZs [(nextRandomInt (fStep.lNeighborXZs.Count))] as Link;
+					}
+				}
+				Cell lNext = lLink.to (fStep.lCurrent);
+				lLink.broken = true;
+				fStep.lStack.Push (fStep.lCurrent);
+				fStep.lCurrent = lNext;
+				fStep.lCurrent.visited = true;
+				fStep.lVisitedCells++;
 			} else {
-				fStep.lCurrent = fStep.lStack.Pop () as Cell;
+				if (fStep.lStack.Count == 0) {
+					fStep.lVisitedCells = fStep.lTotalCells; // exit
+				} else {
+					fStep.lCurrent = fStep.lStack.Pop () as Cell;
+				}
+			}
+			return chanceForBreakWalls > 0 || fStep.lVisitedCells < fStep.lTotalCells;
+		} else { //if (fStep.lVisitedCells >= fStep.lTotalCells) {
+			/* break more walls to create cycles */
+			if (chanceForBreakWalls > 0) {
+				fStep.lCurrent = get (fStep.x, fStep.y, fStep.z);
+				int lBrokenCount = 0;
+				for (int d = 0; d < 6; d++) {
+					if (fStep.lCurrent.links [d].broken) {
+						lBrokenCount++;
+					}
+				}
+				if (lBrokenCount < 3) {
+					for (int d = 0; d < 6; d++) {
+						if (!fStep.lCurrent.links [d].broken && fStep.lCurrent.links [d].breakable) {
+							if (nextRandomInt (100) <= chanceForBreakWalls) {
+								fStep.lCurrent.links [d].broken = true;
+							}
+						}
+					}
+				}
+				fStep.x++;
+				if (fStep.x >= fStep.w) {
+					fStep.x = 0;
+					fStep.z++;
+					if (fStep.z >= fStep.d) {
+						fStep.z = 0;
+						fStep.y++;
+						if (fStep.y >= fStep.h) {
+							ClearVisited ();
+							return false;
+						}
+					}
+				}
+				return true;
+			} else {
+				return false;
 			}
 		}
-		return fStep.lVisitedCells < fStep.lTotalCells;
 	}
 
-	public bool buildNextStep()
+	public bool buildNextStep ()
 	{
-		return doBuildStep();
+		return doBuildStep ();
 	}
 
 	public void build ()
@@ -558,6 +604,7 @@ public class Maze
 		}
 		*/
 		/* break more walls to create cycles */
+		/*
 		if (chanceForBreakWalls > 0) {
 			for (int x = 0; x < width; x++) {
 				for (int z = 0; z < depth; z++) {
@@ -583,6 +630,7 @@ public class Maze
 			}
 		}
 		ClearVisited ();
+		*/
 	}
 
 	public void ClearVisited ()
