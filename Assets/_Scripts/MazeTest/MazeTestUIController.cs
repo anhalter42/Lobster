@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class MazeTestUIController : MonoBehaviour
@@ -41,7 +42,7 @@ public class MazeTestUIController : MonoBehaviour
 	{
 		if (m_Maze != null) {
 			CellWidth = Mathf.RoundToInt (m_SliderCellWidth.value) * 2 + 1;
-			Texture2D lTex = new Texture2D (m_Maze.width * CellWidth, m_Maze.depth * CellWidth);
+			Texture2D lTex = new Texture2D (m_Maze.width * CellWidth, m_Maze.depth * CellWidth, TextureFormat.ARGB32, false);
 			TextureUtils.DrawMaze (lTex, m_Maze, CellWidth, Color.black);
 			lTex.Apply ();
 			m_ImageMaze.texture = lTex;
@@ -111,5 +112,34 @@ public class MazeTestUIController : MonoBehaviour
 			}
 			UnDrawCurrentMazeCell ();
 		}
+	}
+
+	bool usePos1 = true;
+	Vector2 pos1;
+	Vector2 pos2;
+	int lx, ly;
+
+	public void OnPointerClick (BaseEventData aData) //PointerEventData aEventData)
+	{
+		PointerEventData aEventData = (PointerEventData)aData;
+		//if (usePos1) {
+		if (RectTransformUtility.ScreenPointToLocalPointInRectangle (m_ImageMaze.rectTransform, aEventData.pressPosition, aEventData.pressEventCamera, out pos1)) {
+			usePos1 = false;
+			pos1 -= m_ImageMaze.rectTransform.rect.min;
+			int x = Mathf.RoundToInt (pos1.x);
+			int y = Mathf.RoundToInt (pos1.y);
+			TextureUtils.DrawLine ((Texture2D)m_ImageMaze.texture, lx, ly, x, y, Color.green);
+			lx = x;
+			ly = y;
+			Debug.Log (string.Format ("({0},{1})", x, y));
+			//((Texture2D)m_ImageMaze.texture).SetPixel (x, y, Color.green);
+			((Texture2D)m_ImageMaze.texture).Apply ();
+		}
+//		} else {
+//			if (RectTransformUtility.ScreenPointToLocalPointInRectangle (m_ImageMaze.rectTransform, aEventData.pressPosition, aEventData.pressEventCamera, out pos2)) {
+//				usePos1 = true;
+//				pos2 -= m_ImageMaze.rectTransform.rect.min;
+//			}
+//		}
 	}
 }
