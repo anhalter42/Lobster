@@ -93,6 +93,27 @@ public class MazeCellComponent : MonoBehaviour
 		#endif
 	}
 
+	public bool CheckPrefabConditions (GameObject aPrefab, ArrayList aForLater = null)
+	{
+		PrefabConditions lCond = aPrefab.GetComponent<PrefabConditions> ();
+		if (lCond) {
+			if (AllLevels.Get ().currentPlayer.age < lCond.minAge
+			    && AllLevels.Get ().currentPlayer.age > lCond.maxAge) {
+				return false;
+			}
+			if (ContainsSomeTags (lCond.forbiddenTags)) {
+				return false;
+			}
+			if (!ContainsAllTags (lCond.mustHaveTags)) {
+				if (aForLater != null) {
+					aForLater.Add (aPrefab);
+				}
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public PrefabBound[] bounds = { };
 
 	protected void _GetTransformBounds (List<PrefabBound> aBounds, GameObject aPrefab, Transform aT)
@@ -173,14 +194,14 @@ public class MazeCellComponent : MonoBehaviour
 
 	public List<PrefabBound> GetIntersectsWithBounds (GameObject aPrefab, MeshCheckBoundsMode aMode)
 	{
-		List<PrefabBound> lIntersects = new List<PrefabBound>();
+		List<PrefabBound> lIntersects = new List<PrefabBound> ();
 		List<PrefabBound> lBounds = GetTransformBounds (aPrefab);
 		foreach (PrefabBound lBound in lBounds) {
 			foreach (PrefabBound lCBound in bounds) {
 				if (lCBound.prefab != aPrefab
 				    && (aMode == MeshCheckBoundsMode.CheckComplete || (aMode == MeshCheckBoundsMode.CheckWithoutWalls && !IsWall (lCBound.prefab)))
 				    && lCBound.bounds.Intersects (lBound.bounds)) {
-					lIntersects.Add(lCBound);
+					lIntersects.Add (lCBound);
 				}
 			}
 		}
@@ -189,16 +210,16 @@ public class MazeCellComponent : MonoBehaviour
 
 	public bool IntersectsWithBounds (GameObject aPrefab, MeshCheckBoundsMode aMode)
 	{
-		return GetIntersectsWithBounds(aPrefab, aMode).Count  > 0;
+		return GetIntersectsWithBounds (aPrefab, aMode).Count > 0;
 	}
 
-	public void OnDrawGizmos()
+	public void OnDrawGizmos ()
 	{
 		List<GameObject> lIntersects = new List<GameObject> ();
 		if (fGizmosOptions.checkIntersection) {
 			for (int lI = 0; lI < transform.childCount; lI++) {
 				GameObject lPrefab = transform.GetChild (lI).gameObject;
-				List<PrefabBound> lPBounds = GetIntersectsWithBounds(lPrefab, MeshCheckBoundsMode.CheckWithoutWalls);
+				List<PrefabBound> lPBounds = GetIntersectsWithBounds (lPrefab, MeshCheckBoundsMode.CheckWithoutWalls);
 				if (lPBounds.Count > 0) {
 					lIntersects.Add (lPrefab);
 				}

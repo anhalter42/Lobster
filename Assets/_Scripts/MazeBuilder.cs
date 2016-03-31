@@ -25,21 +25,21 @@ public class MazeBuilder
 		Maze.build ();
 	}
 
-	protected GameObject GetOneWall (int aDir)
+	protected GameObject GetOneWall (int aDir, MazeCellComponent aCellComp)
 	{
 		switch (aDir) {
 		case Maze.DirectionTop:
-			return prefabs.GetOne (prefabs.top);
+			return prefabs.GetOne (prefabs.top, aCellComp);
 		case Maze.DirectionBottom:
-			return prefabs.GetOne (prefabs.bottom);
+			return prefabs.GetOne (prefabs.bottom, aCellComp);
 		case Maze.DirectionLeft:
-			return prefabs.GetOne (prefabs.left);
+			return prefabs.GetOne (prefabs.left, aCellComp);
 		case Maze.DirectionRight:
-			return prefabs.GetOne (prefabs.right);
+			return prefabs.GetOne (prefabs.right, aCellComp);
 		case Maze.DirectionForward:
-			return prefabs.GetOne (prefabs.forward);
+			return prefabs.GetOne (prefabs.forward, aCellComp);
 		case Maze.DirectionBackward:
-			return prefabs.GetOne (prefabs.backward);
+			return prefabs.GetOne (prefabs.backward, aCellComp);
 		default:
 			return null;
 		}
@@ -132,7 +132,7 @@ public class MazeBuilder
 	{
 		ArrayList lForLater = new ArrayList ();
 		ArrayList lForLater2 = new ArrayList ();
-		GameObject[] lObjs = prefabs.GetSome (aObjs, aWithWall);
+		GameObject[] lObjs = prefabs.GetSome (aObjs, aWithWall, aParent.GetComponent<MazeCellComponent> ());
 		int i;
 		for (i = 0; i < lObjs.Length; i++) {
 			CreateGameObject (lObjs [i], aParent, aNamePrefix + i.ToString (), lForLater);
@@ -225,21 +225,21 @@ public class MazeBuilder
 									}
 								}
 								if (!lSkipWall) {
-									lCellComp.walls [lDir] = CreateGameObject (GetOneWall (lDir), lCellObj.transform, "Wall_" + lDir.ToString ());
+									lCellComp.walls [lDir] = CreateGameObject (GetOneWall (lDir, lCellComp), lCellObj.transform, "Wall_" + lDir.ToString ());
 									if (lCellComp.walls [lDir]) {
 										PrefabWallConditions lWC = lCellComp.walls [lDir].GetComponent<PrefabWallConditions> ();
 										if (lWC != null) {
 											if (lWC.deleteOpositeWall) {
 												if (!lCell.links [lDir].isBorder
-												   && lCell.links [lDir].to (lCell).gameObject
-												   && lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)]) {
+												    && lCell.links [lDir].to (lCell).gameObject
+												    && lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)]) {
 													GameObject.Destroy (lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)]);
 													lCell.links [lDir].to (lCell).gameObject.GetComponent<MazeCellComponent> ().walls [Maze.getReverseDirection (lDir)] = null;
 												}
 											}
 										}
 									} else {
-										Debug.Log(string.Format("Wall for direction {0} not found or has conditions!",GetWallTag(lDir)));
+										Debug.Log (string.Format ("Wall for direction {0} not found or has conditions!", GetWallTag (lDir)));
 									}
 								}
 							}
@@ -313,9 +313,10 @@ public class MazeBuilder
 				Random.Range (0, Maze.height),
 				Random.Range (0, Maze.depth));
 		}
-		GameObject lPrefab = aPrefab != null ? aPrefab : prefabs.GetOne (prefabs.exit);
+		Transform lParent = Maze.get (lP).gameObject.transform;
+		GameObject lPrefab = aPrefab != null ? aPrefab : prefabs.GetOne (prefabs.exit, lParent.GetComponent<MazeCellComponent> ());
 		if (lPrefab) {
-			GameObject lExit = CreateGameObject (lPrefab, Maze.get (lP).gameObject.transform, "Exit");
+			GameObject lExit = CreateGameObject (lPrefab, lParent, "Exit");
 			MultiActivator lMA = lExit.GetComponent<MultiActivator> ();
 			if (!lMA) {
 				lMA = lExit.AddComponent<MultiActivator> ();
@@ -377,10 +378,39 @@ public class MazeBuilder
 		return CreateGameObject (aPrefab, aParent, aName, aPos, Quaternion.identity, aForLater);
 	}
 
+	/*
+	public static bool CheckPrefabConditions (GameObject aPrefab, MazeCellComponent aCellComp, ArrayList aForLater = null)
+	{
+		PrefabConditions lCond = aPrefab.GetComponent<PrefabConditions> ();
+		if (lCond) {
+			if (AllLevels.Get ().currentPlayer.age < lCond.minAge
+			    && AllLevels.Get ().currentPlayer.age > lCond.maxAge) {
+				return false;
+			}
+			if (aCellComp) {
+				if (aCellComp.ContainsSomeTags (lCond.forbiddenTags)) {
+					return false;
+				}
+				if (!aCellComp.ContainsAllTags (lCond.mustHaveTags)) {
+					if (aForLater != null) {
+						aForLater.Add (aPrefab);
+					}
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	*/
+
 	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName, Vector3 aPos, Quaternion aRotation, ArrayList aForLater = null)
 	{
 		MazeCellComponent lCell = aParent.GetComponent<MazeCellComponent> ();
+		if (lCell != null && !lCell.CheckPrefabConditions (aPrefab, aForLater)) {
+			return null;
+		}
 		PrefabConditions lCond = aPrefab.GetComponent<PrefabConditions> ();
+		/*
 		if (lCond) {
 			if (AllLevels.Get ().currentPlayer.age < lCond.minAge
 			    && AllLevels.Get ().currentPlayer.age > lCond.maxAge) {
@@ -396,9 +426,9 @@ public class MazeBuilder
 					}
 					return null;
 				}
-				lCell.SetTags (lCond.ownTags);
 			}
 		}
+		*/
 		GameObject lObj = GameObject.Instantiate (aPrefab, aPos, aRotation) as GameObject;
 		lObj.transform.SetParent (aParent, false);
 		lObj.name = aName;
@@ -409,6 +439,9 @@ public class MazeBuilder
 					GameObject.DestroyImmediate (lObj);
 					return null;
 				}
+			}
+			if (lCond) {
+				lCell.SetTags (lCond.ownTags);
 			}
 			lCell.PrefabInserted (lObj);
 		}

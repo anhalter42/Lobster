@@ -143,14 +143,15 @@ public class CellDirectionObjects
 		return lNew;
 	}
 
-	public GameObject[] GetSome (GameObjectChance[] aObjects, bool aWithWall = true, GameObject[] aDefault = null)
+	public GameObject[] GetSome (GameObjectChance[] aObjects, bool aWithWall = true, MazeCellComponent aCellComp = null, GameObject[] aDefault = null)
 	{
 		ArrayList lList = new ArrayList ();
 		if (aObjects != null && aObjects.Length > 0) {
 			Array.Sort (aObjects, new GameObjectChanceComparer ());
 			for (int i = 0; i < aObjects.Length; i++) {
 				if ((aObjects [i].wallNeeded == aWithWall)
-				    && UnityEngine.Random.Range (0, 100) <= aObjects [i].chance) {
+				    && UnityEngine.Random.Range (0, 100) <= aObjects [i].chance
+					&& (aCellComp == null || aCellComp.CheckPrefabConditions(aObjects [i].prefab) )) {
 					lList.Add (aObjects [i].prefab);
 				}
 			}
@@ -163,12 +164,12 @@ public class CellDirectionObjects
 		return lList.ToArray (typeof(GameObject)) as GameObject[];
 	}
 
-	public GameObject GetOne (GameObjectChance[] aObjects, GameObject aDefault = null)
+	public GameObject GetOne (GameObjectChance[] aObjects, MazeCellComponent aCellComp = null, GameObject aDefault = null)
 	{
 		if (aObjects != null && aObjects.Length > 0) {
 			Array.Sort (aObjects, new GameObjectChanceComparer ());
 			for (int i = 0; i < aObjects.Length; i++) {
-				if (UnityEngine.Random.Range (0, 100) <= aObjects [i].chance) {
+				if (UnityEngine.Random.Range (0, 100) <= aObjects [i].chance && (aCellComp == null || aCellComp.CheckPrefabConditions(aObjects [i].prefab) )) {
 					return aObjects [i].prefab;
 				}
 			}
