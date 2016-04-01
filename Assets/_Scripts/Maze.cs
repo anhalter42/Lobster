@@ -182,6 +182,18 @@ public class Maze
 			}
 		}
 
+		protected bool fFailVisited = false;
+
+		public bool failVisited {
+			get { return fFailVisited; }
+			set {
+				if (fFailVisited != value) {
+					fFailVisited = value;
+					maze.OnChanged (new MazeEventArgs () { cell = this });
+				}
+			}
+		}
+
 		public Cell (Maze aMaze, int aX, int aY, int aZ)
 		{
 			maze = aMaze;
@@ -478,7 +490,11 @@ public class Maze
 					fStep.lCurrent = fStep.lStack.Pop () as Cell;
 				}
 			}
-			return chanceForBreakWalls > 0 || fStep.lVisitedCells < fStep.lTotalCells;
+			bool lNotReady = chanceForBreakWalls > 0 || fStep.lVisitedCells < fStep.lTotalCells;
+			if (!lNotReady) {
+				ClearVisited();
+			}
+			return lNotReady;
 		} else { //if (fStep.lVisitedCells >= fStep.lTotalCells) {
 			/* break more walls to create cycles */
 			if (chanceForBreakWalls > 0) {
@@ -513,6 +529,7 @@ public class Maze
 				}
 				return true;
 			} else {
+				ClearVisited ();
 				return false;
 			}
 		}
@@ -549,88 +566,6 @@ public class Maze
 
 		while (doBuildStep ())
 			;
-
-		/*
-		Cell lCurrent = null; //get (width / 2, height / 2, depth / 2); // first from center
-		while (lCurrent == null || lCurrent.visited) {
-			lCurrent = get (Random.Range (0, width), Random.Range (0, height), Random.Range (0, depth));
-		}
-		//Stack<Cell> lStack = new Stack<Cell>();
-		Stack lStack = new Stack (); //Cell
-		int lVisitedCells = 1;
-		int lTotalCells = width * height * depth;
-		//ArrayList<Link> lNeighbors = new ArrayList<Link>();
-		//ArrayList<Link> lNeighborXZs = new ArrayList<Link>();
-		ArrayList lNeighbors = new ArrayList (); //Link
-		ArrayList lNeighborXZs = new ArrayList (); //Link
-		lCurrent.visited = true;
-		while (lVisitedCells < lTotalCells) {
-			lNeighbors.Clear ();
-			lNeighborXZs.Clear ();
-			for (int d = 0; d < 6; d++) {
-				Link lNeighbor = lCurrent.links [d];
-				;
-				if (lNeighbor.breakable && !lNeighbor.to (lCurrent).visited) {
-					lNeighbors.Add (lNeighbor);
-					if (d > 1) {
-						lNeighborXZs.Add (lNeighbor);
-					}
-				}
-			}
-			if (!(lNeighbors.Count == 0)) {
-				Link lLink;
-				if (chanceForUpDown >= 100) {
-					lLink = lNeighbors [nextRandomInt (lNeighbors.Count)] as Link;
-				} else {
-					if ((lNeighborXZs.Count == 0) || (nextRandomInt (200) < chanceForUpDown)) {
-						lLink = lNeighbors [(nextRandomInt (Mathf.Min (1, lNeighbors.Count)))] as Link;
-					} else {
-						lLink = lNeighborXZs [(nextRandomInt (lNeighborXZs.Count))] as Link;
-					}
-				}
-				Cell lNext = lLink.to (lCurrent);
-				lLink.broken = true;
-				lStack.Push (lCurrent);
-				lCurrent = lNext;
-				lCurrent.visited = true;
-				lVisitedCells++;
-			} else {
-				if (lStack.Count == 0) {
-					break;
-				} else {
-					lCurrent = lStack.Pop () as Cell;
-				}
-			}
-		}
-		*/
-		/* break more walls to create cycles */
-		/*
-		if (chanceForBreakWalls > 0) {
-			for (int x = 0; x < width; x++) {
-				for (int z = 0; z < depth; z++) {
-					for (int y = 0; y < height; y++) {
-						Cell lCell = get (x, y, z);
-						int lBrokenCount = 0;
-						for (int d = 0; d < 6; d++) {
-							if (lCell.links [d].broken) {
-								lBrokenCount++;
-							}
-						}
-						if (lBrokenCount < 3) {
-							for (int d = 0; d < 6; d++) {
-								if (!lCell.links [d].broken && lCell.links [d].breakable) {
-									if (nextRandomInt (100) <= chanceForBreakWalls) {
-										lCell.links [d].broken = true;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		ClearVisited ();
-		*/
 	}
 
 	public void ClearVisited ()
@@ -663,15 +598,18 @@ public class Maze
 		if (aCurrent != aTarget) {
 			// waren wir schon in einer nachbar zelle?
 			// --> dann war das ein Umweg
+			/*
 			for (int lDir = 0; lDir < 6; lDir++) {
 				if (aCurrent.links [lDir].broken) {
 					Cell lNext = aCurrent.links [lDir].to (aCurrent);
 					if (lNext.visited && lNext != ((WayPoint)aStack.Peek ()).cell) {
 						aCurrent.visited = false;
+						aCurrent.failVisited = true;
 						return false;
 					}
 				}
 			}
+			*/
 			for (int lDir = 0; lDir < 6; lDir++) {
 				if (aCurrent.links [lDir].broken) {
 					Cell lNext = aCurrent.links [lDir].to (aCurrent);
@@ -679,6 +617,7 @@ public class Maze
 						aStack.Push (new WayPoint (aCurrent, lDir));
 						lFound = CheckWay (lNext, aTarget, aStack);
 						if (!lFound) {
+							lNext.failVisited = true;
 							aStack.Pop ();
 						} else {
 							return true;
@@ -686,6 +625,7 @@ public class Maze
 					}
 				}
 			}
+			aCurrent.failVisited = true;
 			return false;
 		} else {
 			return true;

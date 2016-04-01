@@ -14,6 +14,8 @@ public class MazeTestUIController : MonoBehaviour
 	Slider m_SliderCellWidth;
 	Slider m_SliderSpeed;
 	RawImage m_ImageMaze;
+	Text m_TextInfo1;
+	Text m_TextInfo2;
 
 	Maze m_Maze = null;
 
@@ -27,6 +29,8 @@ public class MazeTestUIController : MonoBehaviour
 		m_SliderCellWidth.value = Mathf.RoundToInt ((CellWidth - 1) / 2);
 		m_SliderSpeed = GameObject.Find ("SliderSpeed").GetComponent<Slider> ();
 		m_ImageMaze = GameObject.Find ("ImageMaze").GetComponent<RawImage> ();
+		m_TextInfo1 = GameObject.Find ("TextInfo1").GetComponent<Text> ();
+		m_TextInfo2 = GameObject.Find ("TextInfo2").GetComponent<Text> ();
 		GenerateLabyrinth ();
 	}
 	
@@ -59,6 +63,8 @@ public class MazeTestUIController : MonoBehaviour
 		fBuildCell = null;
 		m_Maze = new Maze (Mathf.RoundToInt (m_SliderWidth.value), 1, Mathf.RoundToInt (m_SliderHeight.value));
 		m_Maze.chanceForBreakWalls = Mathf.RoundToInt (m_SliderBreakWalls.value);
+		m_TextInfo1.text = string.Format ("({0},{1}) bw={2}", m_Maze.width, m_Maze.depth, m_Maze.chanceForBreakWalls);
+		m_TextInfo2.text = string.Empty;
 		if (m_SliderSpeed.value <= 0) {
 			m_Maze.build ();
 			UpdateTexture ();
@@ -112,6 +118,7 @@ public class MazeTestUIController : MonoBehaviour
 				yield return new WaitForSeconds (m_SliderSpeed.value);
 			}
 			UnDrawCurrentMazeCell ();
+			UpdateTexture ();
 		}
 	}
 
@@ -125,7 +132,7 @@ public class MazeTestUIController : MonoBehaviour
 		PointerEventData aEventData = (PointerEventData)aData;
 		if (RectTransformUtility.ScreenPointToLocalPointInRectangle (m_ImageMaze.rectTransform, aEventData.pressPosition, aEventData.pressEventCamera, out lPos)) {
 			if (usePos1) {
-				m_Maze.ClearVisited();
+				m_Maze.ClearVisited ();
 			}
 			lPos -= m_ImageMaze.rectTransform.rect.min;
 			int x = Mathf.RoundToInt (lPos.x);
@@ -133,7 +140,7 @@ public class MazeTestUIController : MonoBehaviour
 			//TextureUtils.DrawLine ((Texture2D)m_ImageMaze.texture, lx, ly, x, y, Color.green);
 			int mx = x / CellWidth;
 			int my = y / CellWidth;
-			Debug.Log (string.Format ("({0},{1}) -> ({2},{3})", x, y, mx, my));
+			//Debug.Log (string.Format ("({0},{1}) -> ({2},{3})", x, y, mx, my));
 			Maze.Cell lCell = m_Maze.get (mx, 0, my);
 			if (lCell != null) {
 				lCell.playerHasVisited = true;
@@ -145,15 +152,17 @@ public class MazeTestUIController : MonoBehaviour
 				}
 				usePos1 = !usePos1;
 				if (usePos1) {
-					Maze.WayPoint[] lWayPoints = m_Maze.FindWay(pos1,pos2);
-					foreach(Maze.WayPoint lWP in lWayPoints) {
+					Maze.WayPoint[] lWayPoints = m_Maze.FindWay (pos1, pos2);
+					foreach (Maze.WayPoint lWP in lWayPoints) {
 						lWP.cell.playerHasVisited = true;
 						TextureUtils.DrawMazeCell ((Texture2D)m_ImageMaze.texture, lWP.cell, CellWidth, Color.black);
 					}
+					m_TextInfo2.text = string.Format ("length={0}", lWayPoints.Length);
 				}
 			}
 			//((Texture2D)m_ImageMaze.texture).SetPixel (x, y, Color.green);
-			((Texture2D)m_ImageMaze.texture).Apply ();
+			//((Texture2D)m_ImageMaze.texture).Apply ();
+			UpdateTexture();
 		}
 	}
 }
