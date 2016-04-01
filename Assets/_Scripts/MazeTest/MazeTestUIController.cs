@@ -56,6 +56,7 @@ public class MazeTestUIController : MonoBehaviour
 		if (m_Maze != null) {
 			m_Maze.Changed -= OnMazeChanged;
 		}
+		fBuildCell = null;
 		m_Maze = new Maze (Mathf.RoundToInt (m_SliderWidth.value), 1, Mathf.RoundToInt (m_SliderHeight.value));
 		m_Maze.chanceForBreakWalls = Mathf.RoundToInt (m_SliderBreakWalls.value);
 		if (m_SliderSpeed.value <= 0) {
@@ -115,31 +116,44 @@ public class MazeTestUIController : MonoBehaviour
 	}
 
 	bool usePos1 = true;
-	Vector2 pos1;
-	Vector2 pos2;
-	int lx, ly;
+	Maze.Point pos1;
+	Maze.Point pos2;
 
 	public void OnPointerClick (BaseEventData aData) //PointerEventData aEventData)
 	{
+		Vector2 lPos;
 		PointerEventData aEventData = (PointerEventData)aData;
-		//if (usePos1) {
-		if (RectTransformUtility.ScreenPointToLocalPointInRectangle (m_ImageMaze.rectTransform, aEventData.pressPosition, aEventData.pressEventCamera, out pos1)) {
-			usePos1 = false;
-			pos1 -= m_ImageMaze.rectTransform.rect.min;
-			int x = Mathf.RoundToInt (pos1.x);
-			int y = Mathf.RoundToInt (pos1.y);
-			TextureUtils.DrawLine ((Texture2D)m_ImageMaze.texture, lx, ly, x, y, Color.green);
-			lx = x;
-			ly = y;
-			Debug.Log (string.Format ("({0},{1})", x, y));
+		if (RectTransformUtility.ScreenPointToLocalPointInRectangle (m_ImageMaze.rectTransform, aEventData.pressPosition, aEventData.pressEventCamera, out lPos)) {
+			if (usePos1) {
+				m_Maze.ClearVisited();
+			}
+			lPos -= m_ImageMaze.rectTransform.rect.min;
+			int x = Mathf.RoundToInt (lPos.x);
+			int y = Mathf.RoundToInt (lPos.y);
+			//TextureUtils.DrawLine ((Texture2D)m_ImageMaze.texture, lx, ly, x, y, Color.green);
+			int mx = x / CellWidth;
+			int my = y / CellWidth;
+			Debug.Log (string.Format ("({0},{1}) -> ({2},{3})", x, y, mx, my));
+			Maze.Cell lCell = m_Maze.get (mx, 0, my);
+			if (lCell != null) {
+				lCell.playerHasVisited = true;
+				TextureUtils.DrawMazeCell ((Texture2D)m_ImageMaze.texture, lCell, CellWidth, Color.black);
+				if (usePos1) {
+					pos1 = new Maze.Point (mx, 0, my);
+				} else {
+					pos2 = new Maze.Point (mx, 0, my);
+				}
+				usePos1 = !usePos1;
+				if (usePos1) {
+					Maze.WayPoint[] lWayPoints = m_Maze.FindWay(pos1,pos2);
+					foreach(Maze.WayPoint lWP in lWayPoints) {
+						lWP.cell.playerHasVisited = true;
+						TextureUtils.DrawMazeCell ((Texture2D)m_ImageMaze.texture, lWP.cell, CellWidth, Color.black);
+					}
+				}
+			}
 			//((Texture2D)m_ImageMaze.texture).SetPixel (x, y, Color.green);
 			((Texture2D)m_ImageMaze.texture).Apply ();
 		}
-//		} else {
-//			if (RectTransformUtility.ScreenPointToLocalPointInRectangle (m_ImageMaze.rectTransform, aEventData.pressPosition, aEventData.pressEventCamera, out pos2)) {
-//				usePos1 = true;
-//				pos2 -= m_ImageMaze.rectTransform.rect.min;
-//			}
-//		}
 	}
 }
