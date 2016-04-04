@@ -711,12 +711,8 @@ public class Maze
 				lCurrent = lCurrent.parent;
 			}
 			WayPoint[] lResult = new WayPoint[lNodes.Count];
-			int lI = 0;
-			lCurrent = start;
-			foreach (Node lNode in lNodes) {
-				lResult [lI] = new WayPoint (lNode.cell, lCurrent.cell.getDirectionTo (lNode.cell));
-				lI++;
-				lCurrent = lNode;
+			for (int lI = 0; lI < lNodes.Count; lI++) {
+				lResult [lI] = new WayPoint (lNodes [lI].cell, (lI + 1) < lNodes.Count ? lNodes [lI].cell.getDirectionTo (lNodes [lI + 1].cell) : DirectionBottom);
 			}
 			return lResult;
 		}
