@@ -296,7 +296,7 @@ public class MazeBuilder
 
 	public void ActivateWayPoints (Maze.Point aFrom, Maze.Point aTo)
 	{
-		Maze.WayPoint[] lWay = Maze.FindWay (aFrom, aTo);
+		Maze.WayPoint[] lWay = Maze.FindShortestWay (aFrom, aTo);
 		for (int i = 0; i < lWay.Length; i++) {
 			Maze.WayPoint lP = lWay [i];
 			CreateGameObject (prefabs.GetOneForScore (prefabs.wayPoints, lP.direction), lWay [i].cell.gameObject.transform, "Way_" + i.ToString ());

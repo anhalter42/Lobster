@@ -152,7 +152,7 @@ public class MazeTestUIController : MonoBehaviour
 				}
 				usePos1 = !usePos1;
 				if (usePos1) {
-					Maze.WayPoint[] lWayPoints = m_Maze.FindWay (pos1, pos2);
+					Maze.WayPoint[] lWayPoints = m_Maze.FindShortestWay (pos1, pos2); //m_Maze.FindWay (pos1, pos2);
 					foreach (Maze.WayPoint lWP in lWayPoints) {
 						lWP.cell.playerHasVisited = true;
 						TextureUtils.DrawMazeCell ((Texture2D)m_ImageMaze.texture, lWP.cell, CellWidth, Color.black);

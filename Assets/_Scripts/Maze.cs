@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /**
  *
@@ -200,6 +201,18 @@ public class Maze
 			pos.x = aX;
 			pos.y = aY;
 			pos.z = aZ;
+		}
+
+		public int getDirectionTo (Cell aNeighbor)
+		{
+			int lDir = 0;
+			foreach (Link lL in links) {
+				if (lL.to (this) == aNeighbor) {
+					return lDir;
+				}
+				lDir++;
+			}
+			return -1;
 		}
 	}
 
@@ -492,7 +505,7 @@ public class Maze
 			}
 			bool lNotReady = chanceForBreakWalls > 0 || fStep.lVisitedCells < fStep.lTotalCells;
 			if (!lNotReady) {
-				ClearVisited();
+				ClearVisited ();
 			}
 			return lNotReady;
 		} else { //if (fStep.lVisitedCells >= fStep.lTotalCells) {
@@ -591,6 +604,124 @@ public class Maze
 		}
 	}
 
+
+	public class PriorityQueue<TKey, TElement>
+	{
+		private SortedDictionary<TKey, Queue<TElement>> dictionary = new SortedDictionary<TKey, Queue<TElement>> ();
+
+
+		public PriorityQueue ()
+		{
+		}
+
+		public void Enqueue (TKey key, TElement item)
+		{
+			Queue<TElement> queue;
+			if (!dictionary.TryGetValue (key, out queue)) {
+				queue = new Queue<TElement> ();
+				dictionary.Add (key, queue);
+			}
+
+			queue.Enqueue (item);
+		}
+
+		public bool isEmpty {
+			get { return dictionary.Count == 0; }
+		}
+
+		public TElement Dequeue ()
+		{
+			foreach (TKey key in dictionary.Keys) {
+				var queue = dictionary [key];
+				var output = queue.Dequeue ();
+				if (queue.Count == 0)
+					dictionary.Remove (key);
+
+				return output;
+			}
+			throw new UnityException ("No items to Dequeue:");
+		}
+	}
+
+	public class Node
+	{
+		public Cell cell = null;
+		public Node parent = null;
+		public bool inTree = false;
+		public float distance = float.MaxValue;
+
+		public Node (Cell aCell)
+		{
+			cell = aCell;
+		}
+	}
+
+	public class SearchWay
+	{
+		public Node[,,] data;
+		public Node start;
+		public Maze maze;
+
+		public SearchWay (Maze aMaze)
+		{
+			maze = aMaze;
+			data = new Node[maze.width, maze.height, maze.depth];
+			for (int x = 0; x < maze.width; x++) {
+				for (int y = 0; y < maze.height; y++) {
+					for (int z = 0; z < maze.depth; z++) {
+						data [x, y, z] = new Node (maze.get (x, y, z));
+					}
+				}
+			}
+		}
+
+		public void computePaths (Point aStart)
+		{
+			PriorityQueue<float, Node> lPQ = new PriorityQueue<float, Node> ();
+			Node lCurrent = data [aStart.x, aStart.y, aStart.z];
+			start = lCurrent;
+			lCurrent.distance = 0f;
+			lPQ.Enqueue (0f, lCurrent);
+			while (!lPQ.isEmpty) {
+				lCurrent = lPQ.Dequeue ();
+				if (!lCurrent.inTree) {
+					lCurrent.inTree = true;
+					for (int d = 0; d < 6; d++) {
+						if (lCurrent.cell.links [d].broken) {
+							float lD = lCurrent.distance + 1;
+							Cell lCN = lCurrent.cell.links [d].to (lCurrent.cell);
+							Node lNext = data [lCN.x, lCN.y, lCN.z];
+							if (lD < lNext.distance) {
+								lNext.distance = lD;
+								lNext.parent = lCurrent;
+								lPQ.Enqueue (lD, lNext);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		public WayPoint[] getShortestWay (Point aEnd)
+		{
+			List<Node> lNodes = new List<Node> ();
+			Node lCurrent = data [aEnd.x, aEnd.y, aEnd.z];
+			while (lCurrent != null && lCurrent.inTree) {
+				lNodes.Insert (0, lCurrent);
+				lCurrent = lCurrent.parent;
+			}
+			WayPoint[] lResult = new WayPoint[lNodes.Count];
+			int lI = 0;
+			lCurrent = start;
+			foreach (Node lNode in lNodes) {
+				lResult [lI] = new WayPoint (lNode.cell, lCurrent.cell.getDirectionTo (lNode.cell));
+				lI++;
+				lCurrent = lNode;
+			}
+			return lResult;
+		}
+	}
+
 	protected bool CheckWay (Cell aCurrent, Cell aTarget, Stack aStack)
 	{
 		bool lFound = false;
@@ -645,5 +776,12 @@ public class Maze
 			lResult [lResult.Length - i - 1] = lStack.Pop () as WayPoint;
 		}
 		return lResult;
+	}
+
+	public WayPoint[] FindShortestWay (Point aFrom, Point aTo)
+	{
+		SearchWay lS = new SearchWay (this);
+		lS.computePaths (aFrom);
+		return lS.getShortestWay (aTo);
 	}
 }
