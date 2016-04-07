@@ -211,7 +211,7 @@ public class MazeBuilder
 					MazeCellComponent lCellComp = lCellObj.GetComponent<MazeCellComponent> ();
 					for (int lD = 0; lD < 6; lD++) {
 						int lDir = lDirs [lD];
-						if (!Maze.get (x, y, z).links [lDir].broken) {
+						if (!lCell.links [lDir].broken) {
 							if (lDir > 0 || y != (Maze.height - 1)) { // oberstes Dach weglassen
 								bool lSkipWall = false;
 								if (!lCell.links [lDir].isBorder
@@ -378,31 +378,6 @@ public class MazeBuilder
 		return CreateGameObject (aPrefab, aParent, aName, aPos, Quaternion.identity, aForLater);
 	}
 
-	/*
-	public static bool CheckPrefabConditions (GameObject aPrefab, MazeCellComponent aCellComp, ArrayList aForLater = null)
-	{
-		PrefabConditions lCond = aPrefab.GetComponent<PrefabConditions> ();
-		if (lCond) {
-			if (AllLevels.Get ().currentPlayer.age < lCond.minAge
-			    && AllLevels.Get ().currentPlayer.age > lCond.maxAge) {
-				return false;
-			}
-			if (aCellComp) {
-				if (aCellComp.ContainsSomeTags (lCond.forbiddenTags)) {
-					return false;
-				}
-				if (!aCellComp.ContainsAllTags (lCond.mustHaveTags)) {
-					if (aForLater != null) {
-						aForLater.Add (aPrefab);
-					}
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-	*/
-
 	public GameObject CreateGameObject (GameObject aPrefab, Transform aParent, string aName, Vector3 aPos, Quaternion aRotation, ArrayList aForLater = null)
 	{
 		MazeCellComponent lCell = aParent.GetComponent<MazeCellComponent> ();
@@ -410,25 +385,6 @@ public class MazeBuilder
 			return null;
 		}
 		PrefabConditions lCond = aPrefab.GetComponent<PrefabConditions> ();
-		/*
-		if (lCond) {
-			if (AllLevels.Get ().currentPlayer.age < lCond.minAge
-			    && AllLevels.Get ().currentPlayer.age > lCond.maxAge) {
-				return null;
-			}
-			if (lCell) {
-				if (lCell.ContainsSomeTags (lCond.forbiddenTags)) {
-					return null;
-				}
-				if (!lCell.ContainsAllTags (lCond.mustHaveTags)) {
-					if (aForLater != null) {
-						aForLater.Add (aPrefab);
-					}
-					return null;
-				}
-			}
-		}
-		*/
 		GameObject lObj = GameObject.Instantiate (aPrefab, aPos, aRotation) as GameObject;
 		lObj.transform.SetParent (aParent, false);
 		lObj.name = aName;
