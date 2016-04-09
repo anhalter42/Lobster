@@ -255,11 +255,14 @@ public class MazeBuilder
 						lDirs [i] = lDirs [i + 1];
 					}
 					lDirs [lDirs.Length - 1] = lSwap;
-
-					GameObject lscore1Prefab = prefabs.GetOneForScore (prefabs.score, 1);
-					if (lscore1Prefab) {
-						GameObject lScore = CreateGameObject (lscore1Prefab, lCellObj.transform, "Score_1");
-						lScore.GetComponent<PickupData> ().score = 1;
+					foreach (LevelSettings.CellScore lCS in settings.cellScores) {
+						if (Random.Range (0, 100) <= lCS.probability) {
+							GameObject lscore1Prefab = prefabs.GetOneForScore (prefabs.score, lCS.score);
+							if (lscore1Prefab) {
+								GameObject lScore = CreateGameObject (lscore1Prefab, lCellObj.transform, "Score_1");
+								lScore.GetComponent<PickupData> ().score = 1;
+							}
+						}
 					}
 					DropSome ("Prop_", lCellObj.transform, prefabs.props, false, lForLater);
 				}

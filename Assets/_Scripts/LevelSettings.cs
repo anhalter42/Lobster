@@ -66,6 +66,24 @@ public class LevelSettings
 		}
 	}
 
+	public class CellScore
+	{
+		public int score = 1;
+		public int probability = 100;
+
+		public bool ReadLine (string aLine)
+		{
+			string[] lVs = aLine.Split (new char[] { ';' });
+			if (lVs.Length > 0) {
+				score = int.Parse (lVs [0]);
+			}
+			if (lVs.Length > 1) {
+				probability = int.Parse (lVs [1]);
+			}
+			return true;
+		}
+	}
+
 	//<levelName>|NEXT;[<point>];[<item1>[:<item1_count>],...];[<prefab>]
 	public class Exit
 	{
@@ -157,6 +175,7 @@ public class LevelSettings
 	public CellDescOverride[] cellDescOverrides = { };
 	public string[] cellDescs = { };
 	public Exit[] exits = { };
+	public CellScore[] cellScores = { };
 
 	public LevelSettings ()
 	{
@@ -203,6 +222,7 @@ public class LevelSettings
 		System.Array.Copy (aSrc.cellDescOverrides, cellDescOverrides, aSrc.cellDescOverrides.Length);
 		System.Array.Copy (aSrc.cellDescs, cellDescs, aSrc.cellDescs.Length);
 		System.Array.Copy (aSrc.exits, exits, aSrc.exits.Length);
+		System.Array.Copy (aSrc.cellScores, cellScores, aSrc.cellScores.Length);
 	}
 
 	public static bool ReadBool (ref bool aValue, string aLine, string aName)
@@ -350,6 +370,26 @@ public class LevelSettings
 		}
 	}
 
+	public static bool ReadCellScores (ref CellScore[] aValue, string aLine, string aName)
+	{
+		if (aLine.StartsWith (aName)) {
+			string lV = aLine.Split (new string[] { "\t" }, System.StringSplitOptions.RemoveEmptyEntries) [1];
+			if (!string.IsNullOrEmpty (lV)) {
+				CellScore lC = new CellScore ();
+				if (lC.ReadLine (lV)) {
+					System.Array.Resize<CellScore> (ref aValue, aValue.Length + 1);
+					aValue [aValue.Length - 1] = lC;
+				}
+				return true;
+			} else {
+				Debug.Log ("No cellscore given!");
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+
 	public bool ReadPrefabSet (ref PrefabSet[] aValue, string aLine, string aName)
 	{
 		if (aLine.StartsWith (aName)) {
@@ -478,6 +518,7 @@ public class LevelSettings
 		if (!ReadFloat (ref dayLight, aLine, "dayLight"))
 		if (!ReadFloat (ref scoreBonusFactor, aLine, "scoreBonusFactor"))
 		if (!ReadFloat (ref scoreTimeBonusFactor, aLine, "scoreTimeBonusFactor"))
+		if (!ReadCellScores (ref cellScores, aLine, "cellScore"))
 		if (!ReadInt (ref scoreForExit, aLine, "scoreForExit")) {
 			if (aLine.StartsWith ("//")) {
 				if (string.IsNullOrEmpty (levelDescription)) {
