@@ -257,10 +257,10 @@ public class MazeBuilder
 					lDirs [lDirs.Length - 1] = lSwap;
 					foreach (LevelSettings.CellScore lCS in settings.cellScores) {
 						if (Random.Range (0, 100) <= lCS.probability) {
-							GameObject lscore1Prefab = prefabs.GetOneForScore (prefabs.score, lCS.score);
-							if (lscore1Prefab) {
-								GameObject lScore = CreateGameObject (lscore1Prefab, lCellObj.transform, "Score_1");
-								lScore.GetComponent<PickupData> ().score = 1;
+							GameObject lscorePrefab = prefabs.GetOneForScore (prefabs.score, lCS.score);
+							if (lscorePrefab) {
+								GameObject lScore = CreateGameObject (lscorePrefab, lCellObj.transform, "Score_" + lCS.score.ToString());
+								lScore.GetComponent<PickupData> ().score = lCS.score;
 							}
 						}
 					}
