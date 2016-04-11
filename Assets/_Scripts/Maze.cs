@@ -604,60 +604,21 @@ public class Maze
 		}
 	}
 
-
-	public class PriorityQueue<TKey, TElement>
-	{
-		private SortedDictionary<TKey, Queue<TElement>> dictionary = new SortedDictionary<TKey, Queue<TElement>> ();
-
-
-		public PriorityQueue ()
-		{
-		}
-
-		public void Enqueue (TKey key, TElement item)
-		{
-			Queue<TElement> queue;
-			if (!dictionary.TryGetValue (key, out queue)) {
-				queue = new Queue<TElement> ();
-				dictionary.Add (key, queue);
-			}
-
-			queue.Enqueue (item);
-		}
-
-		public bool isEmpty {
-			get { return dictionary.Count == 0; }
-		}
-
-		public TElement Dequeue ()
-		{
-			foreach (TKey key in dictionary.Keys) {
-				var queue = dictionary [key];
-				var output = queue.Dequeue ();
-				if (queue.Count == 0)
-					dictionary.Remove (key);
-
-				return output;
-			}
-			throw new UnityException ("No items to Dequeue:");
-		}
-	}
-
-	public class Node
-	{
-		public Cell cell = null;
-		public Node parent = null;
-		public bool inTree = false;
-		public float distance = float.MaxValue;
-
-		public Node (Cell aCell)
-		{
-			cell = aCell;
-		}
-	}
-
 	public class SearchWay
 	{
+		public class Node
+		{
+			public Cell cell = null;
+			public Node parent = null;
+			public bool inTree = false;
+			public float distance = float.MaxValue;
+
+			public Node (Cell aCell)
+			{
+				cell = aCell;
+			}
+		}
+
 		public Node[,,] data;
 		public Node start;
 		public Maze maze;
@@ -718,6 +679,14 @@ public class Maze
 		}
 	}
 
+	public WayPoint[] FindShortestWay (Point aFrom, Point aTo)
+	{
+		SearchWay lS = new SearchWay (this);
+		lS.computePaths (aFrom);
+		return lS.getShortestWay (aTo);
+	}
+
+	/*
 	protected bool CheckWay (Cell aCurrent, Cell aTarget, Stack aStack)
 	{
 		bool lFound = false;
@@ -725,7 +694,6 @@ public class Maze
 		if (aCurrent != aTarget) {
 			// waren wir schon in einer nachbar zelle?
 			// --> dann war das ein Umweg
-			/*
 			for (int lDir = 0; lDir < 6; lDir++) {
 				if (aCurrent.links [lDir].broken) {
 					Cell lNext = aCurrent.links [lDir].to (aCurrent);
@@ -736,7 +704,6 @@ public class Maze
 					}
 				}
 			}
-			*/
 			for (int lDir = 0; lDir < 6; lDir++) {
 				if (aCurrent.links [lDir].broken) {
 					Cell lNext = aCurrent.links [lDir].to (aCurrent);
@@ -773,11 +740,6 @@ public class Maze
 		}
 		return lResult;
 	}
+	*/
 
-	public WayPoint[] FindShortestWay (Point aFrom, Point aTo)
-	{
-		SearchWay lS = new SearchWay (this);
-		lS.computePaths (aFrom);
-		return lS.getShortestWay (aTo);
-	}
 }

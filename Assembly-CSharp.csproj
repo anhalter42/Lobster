@@ -83,6 +83,7 @@
      <Compile Include="Assets\_Scripts\PrefabModifier.cs" />
      <Compile Include="Assets\_Scripts\PrefabVariation.cs" />
      <Compile Include="Assets\_Scripts\PrefabWallConditions.cs" />
+     <Compile Include="Assets\_Scripts\PriorityQueue.cs" />
      <Compile Include="Assets\_Scripts\RandomPosAround.cs" />
      <Compile Include="Assets\_Scripts\RotationY.cs" />
      <Compile Include="Assets\_Scripts\Spider2Controller.cs" />
