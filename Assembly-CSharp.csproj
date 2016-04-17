@@ -90,6 +90,7 @@
      <Compile Include="Assets\_Scripts\Start\UIStartController.cs" />
      <Compile Include="Assets\_Scripts\StayOnTarget.cs" />
      <Compile Include="Assets\_Scripts\Story.cs" />
+     <Compile Include="Assets\_Scripts\Test.cs" />
      <Compile Include="Assets\_Scripts\TextureUtils.cs" />
      <Compile Include="Assets\_Scripts\ThirdPersonCharacter.cs" />
      <Compile Include="Assets\_Scripts\ThirdPersonUserControl.cs" />

@@ -677,6 +677,22 @@ public class Maze
 			}
 			return lResult;
 		}
+
+		public Point[] getPosWithDistance (float aMin, float aMax)
+		{
+			List<Point> lList = new List<Point> ();
+			for (int x = 0; x < maze.width; x++) {
+				for (int y = 0; y < maze.height; y++) {
+					for (int z = 0; z < maze.depth; z++) {
+						Node lNode = data [x, y, z];
+						if (lNode.distance >= aMin && lNode.distance <= aMax) {
+							lList.Add (new Point (x, y, z));
+						}
+					}
+				}
+			}
+			return lList.ToArray ();
+		}
 	}
 
 	public WayPoint[] FindShortestWay (Point aFrom, Point aTo)
@@ -684,6 +700,13 @@ public class Maze
 		SearchWay lS = new SearchWay (this);
 		lS.computePaths (aFrom);
 		return lS.getShortestWay (aTo);
+	}
+
+	public Point[] FindPosWithDistance (Point aFrom, float aMin, float aMax)
+	{
+		SearchWay lS = new SearchWay (this);
+		lS.computePaths (aFrom);
+		return lS.getPosWithDistance (aMin, aMax);
 	}
 
 	/*
