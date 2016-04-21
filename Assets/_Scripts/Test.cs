@@ -5,9 +5,14 @@ using System.IO;
 
 public class Test : MonoBehaviour
 {
+	public int textureWidth = 64;
+	public int textureHeight = 64;
+
 	RenderTexture texture;
 	Camera renderCamera;
 	RawImage rawImage;
+
+	public string prefabsPath = "Prefabs";
 
 	// Use this for initialization
 	void Start ()
@@ -19,9 +24,9 @@ public class Test : MonoBehaviour
 		print ("Materials " + Resources.FindObjectsOfTypeAll (typeof(Material)).Length);
 		print ("GameObjects " + Resources.FindObjectsOfTypeAll (typeof(GameObject)).Length);
 		print ("Components " + Resources.FindObjectsOfTypeAll (typeof(Component)).Length);
-		rawImage = GameObject.Find("RawImage").GetComponent<RawImage>();
-		texture = new RenderTexture (512, 512, 24);
-		renderCamera = GameObject.Find("RenderCamera").GetComponent<Camera>();
+		rawImage = GameObject.Find ("RawImage").GetComponent<RawImage> ();
+		texture = new RenderTexture (textureWidth, textureHeight, 24);
+		renderCamera = GameObject.Find ("RenderCamera").GetComponent<Camera> ();
 		renderCamera.targetTexture = texture;
 	}
 	
@@ -33,29 +38,38 @@ public class Test : MonoBehaviour
 
 	public void Generate ()
 	{
-		StartCoroutine("DoGenerate");
+		prefabsPath = "Prefabs";
+		StartCoroutine ("DoGenerate");
+	}
+
+	public void GenerateDungeon ()
+	{
+		prefabsPath = "Dungeon/Prefabs";
+		StartCoroutine ("DoGenerate");
 	}
 
 	public IEnumerator DoGenerate ()
 	{
 		Transform lParent = GameObject.Find ("Cell").transform;
-		GameObject[] lGOs = Resources.LoadAll<GameObject> ("Prefabs");
+		GameObject[] lGOs = Resources.LoadAll<GameObject> (prefabsPath);
 		foreach (GameObject lGO in lGOs) {
 			print (lGO.name);
 			GameObject lO = Instantiate (lGO);
 			lO.transform.SetParent (lParent, false);
-			renderCamera.Render();
+			renderCamera.Render ();
 			RenderTexture.active = texture;
-			Texture2D lSprite = new Texture2D(texture.width,texture.height, TextureFormat.RGB24, false);
-			lSprite.ReadPixels(new Rect(0, 0, lSprite.width, lSprite.height), 0, 0);
-			lSprite.Apply();
+			Texture2D lSprite = new Texture2D (texture.width, texture.height, TextureFormat.ARGB32, false);
+			lSprite.ReadPixels (new Rect (0, 0, lSprite.width, lSprite.height), 0, 0);
+			lSprite.Apply ();
 			rawImage.texture = lSprite;
 			//UnityEditor.AssetDatabase.AddObjectToAsset(lSprite,lGO.name);
-			string lPath = Path.Combine(Application.temporaryCachePath, lGO.name + ".png");
-			print(lPath);
-			File.WriteAllBytes(lPath, lSprite.EncodeToPNG());
-			Destroy(lO);
-			yield return new WaitForSeconds(1.0f);
+			string lPath = Path.Combine (Application.temporaryCachePath, prefabsPath.Replace("Prefabs","Sprites"));
+			Directory.CreateDirectory(lPath);
+			lPath = Path.Combine (Application.temporaryCachePath, Path.Combine (prefabsPath.Replace("Prefabs","Sprites"), lGO.name + ".png"));
+			print (lPath);
+			File.WriteAllBytes (lPath, lSprite.EncodeToPNG ());
+			Destroy (lO);
+			yield return new WaitForSeconds (1.0f);
 		}
 	}
 }
